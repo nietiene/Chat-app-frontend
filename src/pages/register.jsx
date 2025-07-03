@@ -12,7 +12,14 @@ export default function Register() {
       setForm({...from, [e.target.name] : [e.target.value] });
     }
 
-    const handleSubmit = async (e) {
-        
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await api.post('/api/auth/register', form);
+            alert('Registered Successfully');
+            navigate('/');
+        } catch(err) {
+            setError(err.response?.data?.message || "Error in registration")
+        }
     }
 }
