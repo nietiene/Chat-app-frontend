@@ -69,7 +69,32 @@ export default function Chat() {
 
     return (
         <div>
-            
+            <h2>Private chat</h2>
+
+            <div>
+                <div>
+                    <h3>Online users</h3>
+                    <ul>
+                        {users.map(user => (
+                            <li key={user}>
+                                <button onClick={() => {
+                                    setSelectedUser();
+                                    setMessage([]);
+                                }}>{user}</button>
+                            </li>
+                        )) }
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Chat with: {selectedUser || '----'}</h3>
+                    <div>
+                        {message.map((m, i) => {
+                            <div></div>
+                        })}
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
