@@ -34,6 +34,13 @@ export default function Chat() {
 
         socket.on('userList', (userList) => {
             setUsers(userList.filter(u => u !== myUsername));
-        })
+        });
+
+        return () => {
+            socket.off('privateMessage');
+            socket.off('userList');
+            socket.off('typing');
+            socket.off('stopTyping');
+        }
     })
 }
