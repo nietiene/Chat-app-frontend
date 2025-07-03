@@ -15,6 +15,22 @@ export default function Login() {
             const res = await api.post('/api/auth/login', { phone, password });
             alert(res.data.message);
             navigate('/dashboard');
+        } catch(err) {
+            setError(err.response?.data?.message || 'Login Failed');
         }
     }
+
+
+    return (
+        <div>
+            <h2>Login</h2>
+            {error && <p>{error}</p>}
+            
+            <form onSubmit={handleSubmit}>
+                <input type="text" name="phone" placeholder="Phone" value={phone} required/> <br />
+                <input type="password" name="password" placeholder="Passowrd" value={password} required/> <br />
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    )
 }
