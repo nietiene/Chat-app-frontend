@@ -23,7 +23,12 @@ export default function Dashboard() {
 
     return (
         <div>
-            
+            <h3>Welcome {user.name} 👋</h3>
+
+            <div>
+                <p><strong>Phone:</strong> {user.phone}</p>
+                <p><strong>Role:</strong> {user.role}</p>
+            </div>
         </div>
     )
 }
