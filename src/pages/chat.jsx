@@ -57,4 +57,19 @@ export default function Chat() {
         setMessage('');
         socket.emit("stopTyping", { to, selectedUser });
     }
+
+    const handleTyping = () => {
+        socket.emit('typing', { to: selectedUser });
+        clearTimeout(window.typingTimeout);
+        window.typingTimeout =  setTimeout(() => {
+            socket.emit('stopTyping', { to: selectedUser });
+        }, 1000);
+    };
+
+
+    return (
+        <div>
+            
+        </div>
+    )
 }
