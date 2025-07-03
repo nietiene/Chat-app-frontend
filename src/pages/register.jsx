@@ -4,12 +4,12 @@ import api from "../api";
 
 
 export default function Register() {
-    const [from, setForm] = useState({name: '', phone: '', password: ''});
+    const [form, setForm] = useState({name: '', phone: '', password: ''});
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-      setForm({...from, [e.target.name] : [e.target.value] });
+      setForm({...form, [e.target.name]: e.target.value});
     }
 
     const handleSubmit = async (e) => {
@@ -33,28 +33,27 @@ export default function Register() {
                 type="text" 
                 name="name" 
                 placeholder="Full name"
-                value={form.name}
                 onChange={handleChange}
                 required
-                />     
+                />  <br />
 
                <input 
                 type="phone" 
                 name="phone" 
                 placeholder="Phone Number"
-                value={form.phone}
                 onChange={handleChange}
                 required
-                />    
+                /> <br />    
 
                <input 
                 type="password" 
                 name="password" 
                 placeholder="Password"
-                value={form.password}
                 onChange={handleChange}
                 required
-                />                
+                /> <br />   
+
+                <button type="submit">Create Account</button>             
             </form>
         </div>
     )
