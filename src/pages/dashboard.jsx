@@ -29,6 +29,13 @@ export default function Dashboard() {
                 <p><strong>Phone:</strong> {user.phone}</p>
                 <p><strong>Role:</strong> {user.role}</p>
             </div>
+
+            <div>
+                <button onClick={() => navigate('/chat')}>Start chat</button>
+                {['director', 'dos', 'patron', 'matron'].includes(user.role) && (
+                    <button onClick={() => navigate('/post')}>Make post</button>
+                )}
+            </div>
         </div>
     )
 }
