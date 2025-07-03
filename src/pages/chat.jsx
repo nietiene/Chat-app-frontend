@@ -42,5 +42,19 @@ export default function Chat() {
             socket.off('typing');
             socket.off('stopTyping');
         }
-    })
+    }, [myUsername]);
+
+    const snedMessage = () => {
+        if (!selectedUser || !message.trim()) return;
+
+        socket.emit('privateMessage', {
+            to: selectedUser,
+            from: myUsername,
+            message
+        });
+
+        setMessage(prev => [...prev, { sender: 'You', message}]);
+        setMessage('');
+        socket.emit("stopTyping", { to, selectedUser });
+    }
 }
