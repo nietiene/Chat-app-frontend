@@ -44,7 +44,7 @@ export default function Chat() {
         }
     }, [myUsername]);
 
-    const snedMessage = () => {
+    const sendMessage = () => {
         if (!selectedUser || !message.trim()) return;
 
         socket.emit('privateMessage', {
@@ -90,9 +90,26 @@ export default function Chat() {
                     <h3>Chat with: {selectedUser || '----'}</h3>
                     <div>
                         {message.map((m, i) => {
-                            <div></div>
+                            <div key={i}>
+                              <strong>{m.sender}:</strong>{m.message}
+                            </div>
                         })}
+
+                        {typing && <p>Typing...</p>}
                     </div>
+
+                    {selectedUser && (
+                        <div>
+                            <input 
+                              type="text" 
+                              onChange={(e) => setMessage(e.target.value)}
+                              onInput={handleTyping}
+                              placeholder="Type your message"
+                              />
+
+                              <button onClick={sendMessage}>Send</button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
