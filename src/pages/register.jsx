@@ -22,4 +22,40 @@ export default function Register() {
             setError(err.response?.data?.message || "Error in registration")
         }
     }
+
+    return (
+        <div>
+            <h2>Create free account</h2>
+            {error && <p>{error}</p>}
+
+            <form onSubmit={handleSubmit}>
+               <input 
+                type="text" 
+                name="name" 
+                placeholder="Full name"
+                value={form.name}
+                onChange={handleChange}
+                required
+                />     
+
+               <input 
+                type="phone" 
+                name="phone" 
+                placeholder="Phone Number"
+                value={form.phone}
+                onChange={handleChange}
+                required
+                />    
+
+               <input 
+                type="password" 
+                name="password" 
+                placeholder="Password"
+                value={form.password}
+                onChange={handleChange}
+                required
+                />                
+            </form>
+        </div>
+    )
 }
