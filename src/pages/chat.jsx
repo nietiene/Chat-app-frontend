@@ -20,6 +20,7 @@ export default function Chat() {
         api.get('/api/auth/profile')
         .then((res) => {
             setMyUsername(res.data.name);
+            socket.emit('login', res.data.name);
         })
     })
 }
