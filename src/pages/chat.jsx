@@ -21,6 +21,8 @@ export default function Chat() {
         .then((res) => {
             setMyUsername(res.data.name);
             socket.emit('login', res.data.name);
+        }).catch((err) => {
+            navigate('/');
         })
     })
 }
