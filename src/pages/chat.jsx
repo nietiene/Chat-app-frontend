@@ -23,6 +23,17 @@ export default function Chat() {
             socket.emit('login', res.data.name);
         }).catch((err) => {
             navigate('/');
+        });
+
+        socket.on('privateMessage', ({ from, message }) => {
+            setMessages(prev => [...prev, { sender: from, message}]);
+        });
+
+        socket.on('typing', () => setTyping(true));
+        socket.on("stopTyping", () => setTyping(false));
+
+        socket.on('userList', (userList) => {
+            setUsers(userList.filter(u => u !== myUsername));
         })
     })
 }
