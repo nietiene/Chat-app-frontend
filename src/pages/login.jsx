@@ -29,7 +29,7 @@ export default function Login() {
             <form onSubmit={handleSubmit}>
                 <input type="text" name="phone" placeholder="Phone" value={phone} required
                 onChange={(e) => setPhone(e.target.value)}/> <br />
-                <input type="password" name="password" placeholder="Passowrd" value={password} required
+                <input type="password" name="password" placeholder="Password" value={password} required
                 onChange={(e) => setPassword(e.target.value)}/> <br />
                 <button type="submit">Login</button>
             </form>
