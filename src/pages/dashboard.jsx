@@ -45,7 +45,9 @@ export default function Dashboard() {
              <aside className="w-64 bg-gray-100 p-4 border-r shadowsm">
                 <h2 className="text-lg font-bold mb-4">Profile</h2>
                 <div className="space-y-1 text-sm">
-    
+                  <p><strong>Name:</strong> {user.name} </p>
+                  <p><strong>Phone:</strong> {user.phone} </p>
+                  <p><strong>Role:</strong> {user.role} </p>
                 </div>
              </aside>
          </div>
