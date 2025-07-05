@@ -74,7 +74,14 @@ export default function Dashboard() {
                 <h2 className="text-lg font-bold mb-4">All Users</h2>
                 <ul className="space-y-2">
                     {allUsers.map((u) => (
-                        <li></li>
+                        <li key={u.phone}>
+                            <button
+                               onClick={() => navigate(`/chat?user=${u.name}`)}
+                               className="w-full text-left p-2 bg-white hover:bg-blue-100 rounded"
+                            >
+                                <strong>{u.name}</strong> <br />
+                            </button>
+                        </li>
                     ))}
                 </ul>
              </aside>
