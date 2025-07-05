@@ -53,9 +53,9 @@ export default function Chat() {
             message
         });
 
-        setMessage(prev => [...prev, { sender: 'You', message}]);
+        setMessages(prev => [...prev, { sender: 'You', message}]);
         setMessage('');
-        socket.emit("stopTyping", { to, selectedUser });
+        socket.emit("stopTyping", { to: selectedUser });
     }
 
     const handleTyping = () => {
@@ -78,8 +78,8 @@ export default function Chat() {
                         {users.map(user => (
                             <li key={user}>
                                 <button onClick={() => {
-                                    setSelectedUser();
-                                    setMessage([]);
+                                    setSelectedUser(user);
+                                    setMessages([]);
                                 }}>{user}</button>
                             </li>
                         )) }
@@ -89,11 +89,11 @@ export default function Chat() {
                 <div>
                     <h3>Chat with: {selectedUser || '----'}</h3>
                     <div>
-                        {message.map((m, i) => {
+                        {messages.map((m, i) => (
                             <div key={i}>
                               <strong>{m.sender}:</strong>{m.message}
                             </div>
-                        })}
+                        ))}
 
                         {typing && <p>Typing...</p>}
                     </div>
