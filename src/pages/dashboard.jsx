@@ -57,6 +57,10 @@ export default function Dashboard() {
                       </button>
                 )}
              </aside>
+
+             <main className="flex-1 gap-6 bg-white">
+                <h2></h2>
+             </main>
          </div>
         </div>
     )
