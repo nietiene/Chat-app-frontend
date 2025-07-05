@@ -100,9 +100,9 @@ export default function Chat() {
                 <li key={user}>
                     <button
                        onClick={() => {
+                        console.log("Selected user:", user);
                         setSelectedUser(user);
                         setMessages([]);
-                        console.log("Selected user:", user);
                        }}
                        className={`flex items-center gap-3 w-full p-2 rounded-lg hover:bg-blue-100 transition
                                    ${user === selectedUser ? "bg-blue-300 font-semibold text-blue-700" : "text-gray-700"}`}
