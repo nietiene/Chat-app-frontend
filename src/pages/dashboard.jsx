@@ -22,17 +22,14 @@ export default function Dashboard() {
     if (!user) return <p>Loading.....</p>
 
     return (
-        <div>
-   
-
-            <div>
-               <nav>
+        <div className="min-h-screen flex flex-col">
+               <nav className="flex justify-between">
                 <Link>Home</Link>
                 <Link>Messages</Link>
                 <Link>Notification</Link>
                </nav>
             <button> {user.name}</button>
-            </div>
+
 
 <main>
        
