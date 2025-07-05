@@ -2,7 +2,7 @@ import api from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import  { FaHome, FaEnvelope, FaBell, FaUser } from "react-icons/fa";
+import  { FaHome, FaEnvelope, FaBell, FaUserCircle } from "react-icons/fa";
 
 export default function Dashboard() {
     const [user, setUser] = useState("");
@@ -37,13 +37,9 @@ export default function Dashboard() {
                 </div>
                 
                 <button className="bg-white text-blue-700 px-3 py-2 rounded-xl font-semibold flex flex-col items-center">
-                    <img src="https://ui-avatars.com/api/?name=User" alt="User Avatar" 
-                          className="w-10 h-10 rounded-full mb-1"/>
+                    <FaUserCircle className="text-3xl mb-1"/>
                 </button>
                </nav>
-
-            <button> {user.name}</button>
-
 
 <main>
        
