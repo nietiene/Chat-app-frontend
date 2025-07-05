@@ -44,6 +44,7 @@ export default function Dashboard() {
                 </button>
                </nav>
 
+{/* Left side profile */}
           <div className="flex flex-1">
              <aside className="w-64 bg-gray-100 p-4 border-r shadowsm">
                 <h2 className="text-lg font-bold mb-4">Profile</h2>
@@ -68,6 +69,10 @@ export default function Dashboard() {
                      <p><strong>Director</strong> School meeting this friday at 4PM.</p>
                 </div>
              </main>
+
+             <aside className="w-64 bg-gray-50 p-4 border-1 shadow-sm">
+                <h2 className=""></h2>
+             </aside>
          </div>
         </div>
     )
