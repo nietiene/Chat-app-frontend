@@ -71,7 +71,12 @@ export default function Dashboard() {
              </main>
 
              <aside className="w-64 bg-gray-50 p-4 border-1 shadow-sm">
-                <h2 className=""></h2>
+                <h2 className="text-lg font-bold mb-4">All Users</h2>
+                <ul className="space-y-2">
+                    {allUsers.map((u) => (
+                        <li></li>
+                    ))}
+                </ul>
              </aside>
          </div>
         </div>
