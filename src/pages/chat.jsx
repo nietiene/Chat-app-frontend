@@ -149,8 +149,11 @@ export default function Chat() {
                     )
                 })}
 
-                
+                <p className="text-sm italic text-gray-400">Typing...</p>
                </div>
+
+               {/* Input area */}
+               
            </main>
          </div>
       </div>
