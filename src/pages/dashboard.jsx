@@ -59,7 +59,11 @@ export default function Dashboard() {
              </aside>
 
              <main className="flex-1 gap-6 bg-white">
-                <h2></h2>
+                <h2 className="text-xl font-bold mb-4">Post Feed</h2>
+
+                <div className="p-4 border rounded shadow">
+                     <p></p>
+                </div>
              </main>
          </div>
         </div>
