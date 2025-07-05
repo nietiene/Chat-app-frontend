@@ -32,7 +32,7 @@ export default function Chat() {
         .then((res) => {
             setMyUsername(res.data.name);
             socket.emit('login', res.data.name);
-        }).catch((err) => {
+        }).catch(() => {
             navigate('/');
         });
 
@@ -157,14 +157,14 @@ export default function Chat() {
                </div>
 
                {/* Input area */}
-               {selectedUser !== "" && (
-                <div className="p-4 border-t flex gap-2">
+               {selectedUser && (
+                <div className="p-4 border-t flex gap-2 bg-white">
                     <input 
                        type="text"
                        value={message}
                        onChange={(e) => setMessage(e.target.value)}
                        onInput={handleTyping}
-                       placeholder="Type your message"
+                       placeholder={`Message ${selectedUser}`}
                        className="flex-1 border rounded px-3 py-2"
                     />
 
