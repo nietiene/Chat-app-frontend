@@ -41,15 +41,6 @@ export default function Dashboard() {
                 </button>
                </nav>
 
-<main>
-       
-</main>
-            <div>
-                {/* <button onClick={() => navigate('/chat')}>Start chat</button> */}
-                {['director', 'dos', 'patron', 'matron'].includes(user.role) && (
-                    <button onClick={() => navigate('/post')}>Make post</button>
-                )}
-            </div>
         </div>
     )
 }
