@@ -28,6 +28,9 @@ export default function Chat() {
     }, [location.search]);
 
     useEffect(() => {
+        if (!selectedUser || !myUsername) return;
+    })
+    useEffect(() => {
         api.get('/api/auth/profile')
         .then((res) => {
             setMyUsername(res.data.name);
