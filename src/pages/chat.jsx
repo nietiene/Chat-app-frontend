@@ -90,7 +90,9 @@ export default function Chat() {
           {/* left sidebar */}
            <aside className="w-64 border-r border-gray-300 bg-gray-50 p-4 flex flex-col">
               <div className="mb-6 text-center">
-                <div className="mx-auto  w-16 h-16 rounded-full bg-blue-400 flex items-center justify-center text-white text-2xl"></div>
+                <div className="mx-auto  w-16 h-16 rounded-full bg-blue-400 flex items-center justify-center text-white text-2xl">
+                    {myUsername?.charAt(0).toUpperCase()}
+                </div>
               </div>
  
            </aside>
