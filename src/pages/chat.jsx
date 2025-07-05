@@ -132,6 +132,17 @@ export default function Chat() {
                         {selectedUser ? "No message yet." : "Select a user to chat."}
                     </p>
                 )}
+
+                {message.map((m, i) => {
+                    const isMe = m.sender === "You";
+
+                    return (
+                        <div key={i} className={`max-w-xs px-4 py-2 rounded-lg break-words ${
+                            isMe ? "bg-blue-500 text-white self-end ml-auto"
+                                 : "bg-gray-200 text-gray-900 self-start"
+                        }`}></div>
+                    )
+                })}
                </div>
            </main>
          </div>
