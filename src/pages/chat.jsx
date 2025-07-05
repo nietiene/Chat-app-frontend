@@ -163,7 +163,9 @@ export default function Chat() {
                        placeholder="Type your message"
                        className="flex-1 border rounded px-3 py-2"
                     />
-                    
+
+                    <button
+                       className="bg-blue-600 text-white px-4 rounded hover:bg-blue-700"></button>
                 </div>
 
                )}
