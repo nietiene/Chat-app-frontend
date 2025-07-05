@@ -153,7 +153,20 @@ export default function Chat() {
                </div>
 
                {/* Input area */}
-               
+               {selectedUser && (
+                <div className="p-4 border-t flex gap-2">
+                    <input 
+                       type="text"
+                       value={message}
+                       onChange={(e) => setMessage(e.target.value)}
+                       onInput={handleTyping}
+                       placeholder="Type your message"
+                       className="flex-1 border rounded px-3 py-2"
+                    />
+                    
+                </div>
+
+               )}
            </main>
          </div>
       </div>
