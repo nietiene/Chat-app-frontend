@@ -85,18 +85,27 @@ export default function Chat() {
 
             <div className="flex flex-1 overflow-hidden">
                 <aside className="w-64 border-r border-gray-300 bg-gray-50 p-4 flex flex-col">
-                    <h3>Online users</h3>
-                    <ul>
+                    <h3 className="font-bold mb-3">Online users</h3>
+                    <ul className="flex-1 overflow-y-auto">
                         {users.map(user => (
                             <li key={user}>
-                                <button onClick={() => {
+                                <button
+                                   onClick={() => {
                                     setSelectedUser(user);
                                     setMessages([]);
-                                }}>{user}</button>
+                                   }}
+                                     className={`block w-full text-left p-2 rounded hover:bg-blue-100 transition
+                                             ${
+                                                user === selectedUser 
+                                                ? "bg-blue-300 font-semibold text-blue-500"
+                                                : "text-gray-700"
+                                             }`}
+                                             >
+                                                {user}
+                                </button>
                             </li>
                         )) }
                     </ul>
-
                 </aside>
 
                 <div>
