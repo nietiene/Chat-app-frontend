@@ -112,7 +112,11 @@ export default function Chat() {
 
                             <div className="flex flex-col items-start text-left">
                                 <span className="text-sm font-bold">{user}</span>
+                                <span className="text-xs text-gray-500 truncate w-36">
+                                    {lastMessage[user] || "No message yet."}
+                                </span>
                             </div>
+
                         </button>
                 </li>
             ))}
