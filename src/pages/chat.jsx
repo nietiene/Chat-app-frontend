@@ -102,7 +102,8 @@ export default function Chat() {
                         setSelectedUser(user);
                         setMessages([]);
                        }}
-                       className={`flex items-center gap-3 w-full`}></button>
+                       className={`flex items-center gap-3 w-full p-2 rounded-lg hover:bg-blue-100 transition
+                                   ${user === selectedUser ? "bg-blue-300 font-semibold text-blue-700" : "text-gray-700"}`}></button>
                 </li>
             ))}
          </ul>
