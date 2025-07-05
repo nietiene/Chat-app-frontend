@@ -14,6 +14,7 @@ export default function Chat() {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [typing, setTyping] = useState(false);
+    const [lastMessage, setLastMessage] = useState({});
     const navigate = useNavigate();
     const location = useLocation();
 
