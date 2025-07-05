@@ -126,6 +126,9 @@ export default function Chat() {
            {/* Right  chat panel */}
            <main className="flex-1 flex flex-col bg-white">
                {/* Message history */}
+               <div className=" flex-1 overflow-y-auto p-6 space-y-4" style={{ backgroundColor: "#f9f9f9"}}>
+                {}
+               </div>
            </main>
          </div>
       </div>
