@@ -150,7 +150,9 @@ export default function Chat() {
                     )
                 })}
 
+         {typing && (
                 <p className="text-sm italic text-gray-400">Typing...</p>
+         )}
                </div>
 
                {/* Input area */}
