@@ -81,79 +81,21 @@ export default function Chat() {
 
 
     return (
-        <div className="min-h-screen flex-col">
-            <header className="bg-blue-600 text-white p-4 font-semibold tex-xl">
-                  <h2>Private chat {selectedUser && `with ${selectedUser}`}</h2>
-            </header>
+      <div className="min-h-screen flex flex-col">
+         <header className="bg-blue-600 text-white p-4 font-semibold text-xl">
+             <h2>Private Chat {selectedUser && `With ${selectedUser}`}</h2>
+         </header>
 
-            <div className="flex flex-1 overflow-hidden">
-                <aside className="w-64 border-r border-gray-300 bg-gray-50 p-4 flex flex-col">
-                    <h3 className="font-bold mb-3">Online users</h3>
-                    <ul className="flex-1 overflow-y-auto">
-                        {users.map(user => (
-                            <li key={user}>
-                                <button
-                                   onClick={() => {
-                                    setSelectedUser(user);
-                                    setMessages([]);
-                                   }}
-                                     className={`block w-full text-left p-2 rounded hover:bg-blue-100 transition
-                                             ${
-                                                user === selectedUser 
-                                                ? "bg-blue-300 font-semibold text-blue-500"
-                                                : "text-gray-700"
-                                             }`}
-                                             >
-                                                {user}
-                                </button>
-                            </li>
-                        )) }
-                    </ul>
-                </aside>
-
-              <main className="flex-1 flex flex-col bg-white">
-                <div
-                   className="flex-1 overflow-y-auto p-6 space-y-4"
-                   id="chat-box"
-                   style={{ backgroundColor: "#f9f9f9"}}>
-
-                    {messages.length === 0 && (
-                        <p className="text-center text-gray-500 mt-20">
-                            {selectedUser ? "No message yet." : "Select user to chat"}
-                        </p>
-                    )}
-                        {messages.map((m, i) => {
-                          const isMe = m.sender = "You";
-
-                          return (
-                              <div key={i}
-                              className={`max-w-xs px-4 py-2 rounded-lg break-words
-                              ${isMe} ? "bg-blue-500 text-white self-end" : "bg-gray-500 text-gray-900 self-start"`}
-                              >
-                                {!isMe && (
-                                  <div className="text-xs font-semibold mb-1">{m.sender}</div>
-                                )}
-                                {m.message}
-                            </div>
-                         )})}
-
-                        {typing && <p>Typing...</p>}
-
-                    {selectedUser && (
-                        <div>
-                            <input 
-                              type="text" 
-                              onChange={(e) => setMessage(e.target.value)}
-                              onInput={handleTyping}
-                              placeholder="Type your message"
-                              />
-
-                              <button onClick={sendMessage}>Send</button>
-                        </div>
-                    )}
-                </div>
-               </main>
-            </div>
-        </div>
+         <div className="flex flex-1 overflow-hidden">
+          {/* left sidebar */}
+           <aside className="w-64 border-r border-gray-300 bg-gray-50 p-4 flex flex-col">
+              <div className="mb-6 text-center">
+                <div className="mx-auto  w-16 h-16 rounded-full bg-blue-400 flex items-center justify-center text-white text-2xl"></div>
+              </div>
+ 
+           </aside>
+         </div>
+      </div>
+    
     )
 }
