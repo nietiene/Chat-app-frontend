@@ -25,7 +25,7 @@ export default function Dashboard() {
     if (!user) return <p className="text-center mt-10">Loading.....</p>
 
     return (
-      <div>
+      <div className="min-h-screen flex flex-col">
 {/* Left side profile */}
           <div className="flex flex-1">
              <aside className="w-64 bg-gray-100 p-4 border-r shadowsm">
