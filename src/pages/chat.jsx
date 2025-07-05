@@ -122,6 +122,11 @@ export default function Chat() {
             ))}
          </ul>
            </aside>
+
+           {/* Right  chat panel */}
+           <main className="flex-1 flex flex-col bg-white">
+               {/* Message history */}
+           </main>
          </div>
       </div>
     
