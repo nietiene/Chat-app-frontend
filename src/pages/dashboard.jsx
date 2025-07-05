@@ -24,9 +24,14 @@ export default function Dashboard() {
     return (
         <div className="min-h-screen flex flex-col">
                <nav className="flex justify-between items-center bg-blue-700 text-white px-6 py-3 shadow">
-                <Link>Home</Link>
-                <Link>Messages</Link>
-                <Link>Notification</Link>
+                <div className="flex gap-6 items-center">
+                    <Link className="flex items-center gap-1 hover:underline">
+                         <FaHome/> Home
+                    </Link>
+                    <Link>Messages</Link>
+                    <Link>Notification</Link>
+                </div>
+
                </nav>
             <button> {user.name}</button>
 
