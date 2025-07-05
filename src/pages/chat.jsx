@@ -1,7 +1,7 @@
 import React from "react";
 import io from "socket.io-client"
 import api from "../api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -15,7 +15,17 @@ export default function Chat() {
     const [messages, setMessages] = useState([]);
     const [typing, setTyping] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const userFromQuery = params.get("user");
+
+        if (userFromQuery) {
+            setSelectedUser(userFromQuery);
+        }
+    }, [location.search]);
+    
     useEffect(() => {
         api.get('/api/auth/profile')
         .then((res) => {
