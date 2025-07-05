@@ -23,7 +23,7 @@ export default function Dashboard() {
 
     return (
         <div className="min-h-screen flex flex-col">
-               <nav className="flex justify-between">
+               <nav className="flex justify-between items-center bg-blue-700 text-white px-6 py-3 shadow">
                 <Link>Home</Link>
                 <Link>Messages</Link>
                 <Link>Notification</Link>
