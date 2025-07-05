@@ -80,6 +80,7 @@ export default function Dashboard() {
                                className="w-full text-left p-2 bg-white hover:bg-blue-100 rounded"
                             >
                                 <strong>{u.name}</strong> <br />
+                                <span className="text-xs text-gray-600">{u.role}</span>
                             </button>
                         </li>
                     ))}
