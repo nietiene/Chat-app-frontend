@@ -38,6 +38,7 @@ export default function Chat() {
 
         socket.on('privateMessage', ({ from, message }) => {
             setMessages(prev => [...prev, { sender: from, message}]);
+            setLastMessage(prev => ({...prev, [from]: message}))
         });
 
         socket.on('typing', () => setTyping(true));
@@ -64,7 +65,8 @@ export default function Chat() {
             message
         });
 
-        setMessages(prev => [...prev, { sender: 'You', message}]);
+        setMessages(prev => [...prev, { sender: 'You', message }]);
+        setLastMessage(prev => ({...prev, [selectedUser]: message }))
         setMessage('');
         socket.emit("stopTyping", { to: selectedUser });
     }
