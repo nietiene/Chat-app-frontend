@@ -29,7 +29,8 @@ export default function Chat() {
 
     useEffect(() => {
         if (!selectedUser || !myUsername) return;
-
+        
+        setMessages([]);
         api.get(`/api/messages/${myUsername}/${selectedUser}`)
         .then(res => {
             const msg = res.data.map(msg => ({
@@ -42,7 +43,7 @@ export default function Chat() {
             console.error("Failed to fetch messages:", err);
         })
     }, [selectedUser, myUsername])
-    
+
     useEffect(() => {
         api.get('/api/auth/profile')
         .then((res) => {
