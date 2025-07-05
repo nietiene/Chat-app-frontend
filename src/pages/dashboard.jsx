@@ -50,7 +50,12 @@ export default function Dashboard() {
                   <p><strong>Role:</strong> {user.role} </p>
                 </div>
 
-                {['director', 'dos', 'patron', 'matron', 'dod', ]}
+                {['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
+                    <button
+                      className="mt-6 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 ">
+                        Make Post
+                      </button>
+                )}
              </aside>
          </div>
         </div>
