@@ -2,6 +2,7 @@ import api from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import  { FaHome, FaEnvelope, FaBell, FaUserCircle } from "react-icons/fa";
 
 export default function Dashboard() {
     const [user, setUser] = useState("");
