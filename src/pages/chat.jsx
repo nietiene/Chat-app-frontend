@@ -25,7 +25,7 @@ export default function Chat() {
             setSelectedUser(userFromQuery);
         }
     }, [location.search]);
-    
+
     useEffect(() => {
         api.get('/api/auth/profile')
         .then((res) => {
@@ -78,8 +78,10 @@ export default function Chat() {
 
 
     return (
-        <div>
-            <h2>Private chat</h2>
+        <div className="min-h-screen flex-col">
+            <header>
+                  <h2>Private chat</h2>
+            </header>
 
             <div>
                 <div>
