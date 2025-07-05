@@ -165,7 +165,11 @@ export default function Chat() {
                     />
 
                     <button
-                       className="bg-blue-600 text-white px-4 rounded hover:bg-blue-700"></button>
+                       className="bg-blue-600 text-white px-4 rounded hover:bg-blue-700"
+                       onClick={sendMessage}
+                    >
+                        Send
+                    </button>
                 </div>
 
                )}
