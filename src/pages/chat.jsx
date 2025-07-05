@@ -45,7 +45,8 @@ export default function Chat() {
         socket.on("stopTyping", () => setTyping(false));
 
         socket.on('userList', (userList) => {
-            setUsers(userList.filter(u => u !== myUsername));
+           const allUsers = Array.from(new Set([...userList, selectedUser])).filter(Boolean);
+           setUsers(allUsers.filter(u => u !== myUsername));
         });
 
         return () => {
