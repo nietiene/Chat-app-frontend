@@ -35,8 +35,12 @@ export default function Dashboard() {
                         <FaBell/> Notification
                     </Link>
                 </div>
-
+                
+                <button className="bg-white text-blue-700 px-3 py-1 rounded-full font-semibold">
+                    {user.name}
+                </button>
                </nav>
+
             <button> {user.name}</button>
 
 
