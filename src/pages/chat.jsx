@@ -125,8 +125,12 @@ export default function Chat() {
                           return (
                               <div key={i}
                               className={`max-w-xs px-4 py-2 rounded-lg break-words
-                              ${isMe} ? "bg-blue-500 text-white self-end" : "bg-gray-500 "`}>
-                                    <strong>{m.sender}:</strong>{m.message}
+                              ${isMe} ? "bg-blue-500 text-white self-end" : "bg-gray-500 text-gray-900 self-start"`}
+                              >
+                                {!isMe && (
+                                  <div className="text-xs font-semibold mb-1">{m.sender}</div>
+                                )}
+                                {m.message}
                             </div>
                          )})}
 
