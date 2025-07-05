@@ -31,13 +31,14 @@ export default function Dashboard() {
                 <Link>Messages</Link>
                 <Link>Notification</Link>
                </nav>
+            <button> {user.name}</button>
             </div>
 
 <main>
-             <button>Welcome {user.name} 👋</button>
+       
 </main>
             <div>
-                <button onClick={() => navigate('/chat')}>Start chat</button>
+                {/* <button onClick={() => navigate('/chat')}>Start chat</button> */}
                 {['director', 'dos', 'patron', 'matron'].includes(user.role) && (
                     <button onClick={() => navigate('/post')}>Make post</button>
                 )}
