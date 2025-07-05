@@ -79,12 +79,12 @@ export default function Chat() {
 
     return (
         <div className="min-h-screen flex-col">
-            <header>
-                  <h2>Private chat</h2>
+            <header className="bg-blue-600 text-white p-4 font-semibold tex-xl">
+                  <h2>Private chat {selectedUser && `with ${selectedUser}`}</h2>
             </header>
 
-            <div>
-                <div>
+            <div className="flex flex-1 overflow-hidden">
+                <aside className="w-64 border-r border-gray-300 bg-gray-50 p-4 flex flex-col">
                     <h3>Online users</h3>
                     <ul>
                         {users.map(user => (
@@ -96,7 +96,8 @@ export default function Chat() {
                             </li>
                         )) }
                     </ul>
-                </div>
+
+                </aside>
 
                 <div>
                     <h3>Chat with: {selectedUser || '----'}</h3>
