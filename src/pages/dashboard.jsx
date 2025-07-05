@@ -39,8 +39,6 @@ export default function Dashboard() {
                 <button className="bg-white text-blue-700 px-3 py-2 rounded-xl font-semibold flex flex-col items-center">
                     <img src="https://ui-avatars.com/api/?name=User" alt="User Avatar" 
                           className="w-10 h-10 rounded-full mb-1"/>
-
-                    <span>{user.name}</span>
                 </button>
                </nav>
 
