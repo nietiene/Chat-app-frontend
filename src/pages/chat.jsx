@@ -97,7 +97,12 @@ export default function Chat() {
          <ul className="flex-1 overflow-y-auto space-y-2">
             {users.map((user) => (
                 <li key={user}>
-                      
+                    <button
+                       onClick={() => {
+                        setSelectedUser(user);
+                        setMessages([]);
+                       }}
+                       className={`flex items-center gap-3 w-full`}></button>
                 </li>
             ))}
          </ul>
