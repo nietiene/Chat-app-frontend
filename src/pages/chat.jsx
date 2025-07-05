@@ -29,7 +29,20 @@ export default function Chat() {
 
     useEffect(() => {
         if (!selectedUser || !myUsername) return;
-    })
+
+        api.get(`/api/messages/${myUsername}/${selectedUser}`)
+        .then(res => {
+            const msg = res.data.map(msg => ({
+                sender: msg.sender_id === myUsername ? "You" : msg.sender_id,
+                message: msg.content
+            }))
+
+            setMessages(msg);
+        }).catch(err => {
+            console.error("Failed to fetch messages:", err);
+        })
+    }, [selectedUser, myUsername])
+    
     useEffect(() => {
         api.get('/api/auth/profile')
         .then((res) => {
