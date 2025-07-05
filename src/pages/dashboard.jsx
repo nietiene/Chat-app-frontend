@@ -28,8 +28,12 @@ export default function Dashboard() {
                     <Link className="flex items-center gap-1 hover:underline">
                          <FaHome/> Home
                     </Link>
-                    <Link className="flex items-center gap-1 hover:underline">Messages</Link>
-                    <Link>Notification</Link>
+                    <Link className="flex items-center gap-1 hover:underline">
+                          <FaEnvelope/> Messages
+                    </Link>
+                    <Link className="flex items-center gap-1 hover:underline">
+                        <FaBell/> Notification
+                    </Link>
                 </div>
 
                </nav>
