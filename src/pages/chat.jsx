@@ -108,18 +108,29 @@ export default function Chat() {
                     </ul>
                 </aside>
 
-              <main>
-                <div>
-                    <h3>Chat with: {selectedUser || '----'}</h3>
-                    <div>
-                        {messages.map((m, i) => (
-                            <div key={i}>
-                              <strong>{m.sender}:</strong>{m.message}
+              <main className="flex-1 flex flex-col bg-white">
+                <div
+                   className="flex-1 overflow-y-auto p-6 space-y-4"
+                   id="chat-box"
+                   style={{ backgroundColor: "#f9f9f9"}}>
+
+                    {messages.length === 0 && (
+                        <p className="text-center text-gray-500 mt-20">
+                            {selectedUser ? "No message yet." : "Select user to chat"}
+                        </p>
+                    )}
+                        {messages.map((m, i) => {
+                          const isMe = m.sender = "You";
+
+                          return (
+                              <div key={i}
+                              className={`max-w-xs px-4 py-2 rounded-lg break-words
+                              ${isMe} ? "bg-blue-500 text-white self-end" : "bg-gray-500 "`}>
+                                    <strong>{m.sender}:</strong>{m.message}
                             </div>
-                        ))}
+                         )})}
 
                         {typing && <p>Typing...</p>}
-                    </div>
 
                     {selectedUser && (
                         <div>
