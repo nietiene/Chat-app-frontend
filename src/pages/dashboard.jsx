@@ -49,6 +49,8 @@ export default function Dashboard() {
                   <p><strong>Phone:</strong> {user.phone} </p>
                   <p><strong>Role:</strong> {user.role} </p>
                 </div>
+
+                {['director', 'dos', 'patron', 'matron', 'dod', ]}
              </aside>
          </div>
         </div>
