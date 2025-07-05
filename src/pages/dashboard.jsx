@@ -36,7 +36,7 @@ export default function Dashboard() {
                     </Link>
                 </div>
                 
-                <button className="bg-white text-blue-700 px-3 py-1 rounded-full font-semibold">
+                <button className="bg-white text-blue-700 px-3 py-2 rounded-xl font-semibold flex flex-col items-center">
                     {user.name}
                 </button>
                </nav>
