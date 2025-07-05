@@ -108,6 +108,7 @@ export default function Chat() {
                     </ul>
                 </aside>
 
+              <main>
                 <div>
                     <h3>Chat with: {selectedUser || '----'}</h3>
                     <div>
@@ -133,6 +134,7 @@ export default function Chat() {
                         </div>
                     )}
                 </div>
+               </main>
             </div>
         </div>
     )
