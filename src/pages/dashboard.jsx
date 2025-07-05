@@ -28,7 +28,7 @@ export default function Dashboard() {
                     <Link className="flex items-center gap-1 hover:underline">
                          <FaHome/> Home
                     </Link>
-                    <Link>Messages</Link>
+                    <Link className="flex items-center gap-1 hover:underline">Messages</Link>
                     <Link>Notification</Link>
                 </div>
 
