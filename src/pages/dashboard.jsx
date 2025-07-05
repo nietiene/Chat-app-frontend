@@ -62,7 +62,7 @@ export default function Dashboard() {
                 <h2 className="text-xl font-bold mb-4">Post Feed</h2>
 
                 <div className="p-4 border rounded shadow">
-                     <p></p>
+                     <p><strong>Director</strong> School meeting this friday at 4PM.</p>
                 </div>
              </main>
          </div>
