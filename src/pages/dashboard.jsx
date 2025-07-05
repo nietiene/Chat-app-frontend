@@ -41,6 +41,14 @@ export default function Dashboard() {
                 </button>
                </nav>
 
+          <div className="flex flex-1">
+             <aside className="w-64 bg-gray-100 p-4 border-r shadowsm">
+                <h2 className="text-lg font-bold mb-4">Profile</h2>
+                <div className="space-y-1 text-sm">
+    
+                </div>
+             </aside>
+         </div>
         </div>
     )
 }
