@@ -45,8 +45,14 @@ export default function Chat() {
         socket.on("stopTyping", () => setTyping(false));
 
         socket.on('userList', (userList) => {
-           const allUsers = Array.from(new Set([...userList, selectedUser])).filter(Boolean);
-           setUsers(allUsers.filter(u => u !== myUsername));
+            let allUsers = [...selectedUser];
+
+            if (selectedUser && !allUsers.includes(selectedUser)) {
+                allUsers.push(selectedUser)
+            }
+
+            const filtredUsers = allUsers.filter(u => u != myUsername);
+            setUsers(filtredUsers);
         });
 
         return () => {
@@ -55,7 +61,7 @@ export default function Chat() {
             socket.off('typing');
             socket.off('stopTyping');
         }
-    }, [myUsername]);
+    }, [myUsername, selectedUser]);
 
     const sendMessage = () => {
         if (!selectedUser || !message.trim()) return;
@@ -80,6 +86,13 @@ export default function Chat() {
         }, 1000);
     };
 
+    useEffect(() => {
+        console.log("Selected user:", selectedUser);
+    }, [selectedUser]);
+
+    useEffect(() => {
+        console.log("Current user list", users);
+    }, [users]);
 
     return (
       <div className="min-h-screen flex flex-col">
