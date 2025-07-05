@@ -82,10 +82,6 @@ export default function Chat() {
 
     return (
       <div className="min-h-screen flex flex-col">
-         <header className="bg-blue-600 text-white p-4 font-semibold text-xl">
-             <h2>Private Chat {selectedUser && `With ${selectedUser}`}</h2>
-         </header>
-
          <div className="flex flex-1 overflow-hidden">
           {/* left sidebar */}
            <aside className="w-64 border-r border-gray-300 bg-gray-50 p-4 flex flex-col">
@@ -93,8 +89,18 @@ export default function Chat() {
                 <div className="mx-auto  w-16 h-16 rounded-full bg-blue-400 flex items-center justify-center text-white text-2xl">
                     {myUsername?.charAt(0).toUpperCase()}
                 </div>
+                <div className="mt-2 text-sm font-semibold">{myUsername}</div>
               </div>
  
+ {/* Online users */}
+         <h3 className="font-bold mb-2">Online users</h3>
+         <ul className="flex-1 overflow-y-auto space-y-2">
+            {users.map((user) => (
+                <li key={user}>
+                      
+                </li>
+            ))}
+         </ul>
            </aside>
          </div>
       </div>
