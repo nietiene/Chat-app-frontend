@@ -127,7 +127,11 @@ export default function Chat() {
            <main className="flex-1 flex flex-col bg-white">
                {/* Message history */}
                <div className=" flex-1 overflow-y-auto p-6 space-y-4" style={{ backgroundColor: "#f9f9f9"}}>
-                {}
+                {message.length === 0 (
+                    <p className="text-center text-gray-500 mt-20">
+                        {selectedUser ? "No message yet." : "Select a user to chat."}
+                    </p>
+                )}
                </div>
            </main>
          </div>
