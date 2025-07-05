@@ -1,6 +1,6 @@
 import React from "react";
 import api from "../api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -23,13 +23,19 @@ export default function Dashboard() {
 
     return (
         <div>
-            <h3>Welcome {user.name} 👋</h3>
+   
 
             <div>
-                <p><strong>Phone:</strong> {user.phone}</p>
-                <p><strong>Role:</strong> {user.role}</p>
+               <nav>
+                <Link>Home</Link>
+                <Link>Messages</Link>
+                <Link>Notification</Link>
+               </nav>
             </div>
 
+<main>
+             <button>Welcome {user.name} 👋</button>
+</main>
             <div>
                 <button onClick={() => navigate('/chat')}>Start chat</button>
                 {['director', 'dos', 'patron', 'matron'].includes(user.role) && (
