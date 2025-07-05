@@ -77,10 +77,14 @@ export default function Dashboard() {
                         <li key={u.phone}>
                             <button
                                onClick={() => navigate(`/chat?user=${u.name}`)}
-                               className="w-full text-left p-2 bg-white hover:bg-blue-100 rounded"
+                               className="w-full  p-2 bg-white hover:bg-blue-100 rounded flex justify-between items-center text-left"
                             >
-                                <strong>{u.name}</strong> <br />
-                                <span className="text-xs text-gray-600">{u.role}</span>
+                                <div>
+                                    <strong>{u.name}</strong> <br />
+                                    <span className="text-xs text-gray-600">{u.role}</span>
+                                </div>
+                                 <FaUserCircle className="text-2xl text-blue-500"/>
+
                             </button>
                         </li>
                     ))}
