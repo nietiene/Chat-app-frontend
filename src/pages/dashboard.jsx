@@ -13,15 +13,16 @@ export default function Dashboard() {
         api.get('/api/auth/profile')
         .then((res) => {
             setUser(res.data);
-            return('/api/users');
+            return api.get('/api/users');
         })
-        .catch((err) => {
+        .then((res) => setAllUsers(res.data))
+        .catch(() => {
             alert("Please login first");
             navigate('/');
         })
     }, []);
 
-    if (!user) return <p>Loading.....</p>
+    if (!user) return <p className="text-center mt-10">Loading.....</p>
 
     return (
         <div className="min-h-screen flex flex-col">
