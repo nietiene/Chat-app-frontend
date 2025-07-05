@@ -103,7 +103,13 @@ export default function Chat() {
                         setMessages([]);
                        }}
                        className={`flex items-center gap-3 w-full p-2 rounded-lg hover:bg-blue-100 transition
-                                   ${user === selectedUser ? "bg-blue-300 font-semibold text-blue-700" : "text-gray-700"}`}></button>
+                                   ${user === selectedUser ? "bg-blue-300 font-semibold text-blue-700" : "text-gray-700"}`}
+                        >
+                            {/* Avatar */}
+                            <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center text-lg">
+                                
+                            </div>
+                        </button>
                 </li>
             ))}
          </ul>
