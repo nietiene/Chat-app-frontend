@@ -140,9 +140,16 @@ export default function Chat() {
                         <div key={i} className={`max-w-xs px-4 py-2 rounded-lg break-words ${
                             isMe ? "bg-blue-500 text-white self-end ml-auto"
                                  : "bg-gray-200 text-gray-900 self-start"
-                        }`}></div>
+                        }`}>
+                            {!isMe && (
+                                <div className="text-xs font-semibold mb-1">{m.sender}</div>
+                            )}
+                            {m.message}
+                        </div>
                     )
                 })}
+
+                
                </div>
            </main>
          </div>
