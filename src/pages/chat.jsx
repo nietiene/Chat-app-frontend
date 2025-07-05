@@ -45,13 +45,8 @@ export default function Chat() {
         socket.on("stopTyping", () => setTyping(false));
 
         socket.on('userList', (userList) => {
-            let allUsers = [...userList];
 
-            if (selectedUser && !allUsers.includes(selectedUser)) {
-                allUsers.push(selectedUser)
-            }
-
-            const filtredUsers = allUsers.filter(u => u != myUsername);
+            const filtredUsers = userList.filter(u => u != myUsername);
             setUsers(filtredUsers);
         });
 
