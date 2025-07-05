@@ -23,6 +23,8 @@ export default function Layout () {
                     <FaUserCircle className="text-3xl mb-1"/>
                 </button>
                </nav>
+
+               <Outlet/>
     </div>
     )
 }
