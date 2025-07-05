@@ -6,12 +6,14 @@ import  { FaHome, FaEnvelope, FaBell, FaUserCircle } from "react-icons/fa";
 
 export default function Dashboard() {
     const [user, setUser] = useState("");
+    const [allUsers, setAllUsers] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         api.get('/api/auth/profile')
         .then((res) => {
             setUser(res.data);
+            return('/api/users');
         })
         .catch((err) => {
             alert("Please login first");
