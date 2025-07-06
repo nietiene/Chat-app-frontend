@@ -13,6 +13,7 @@ export default function Chat() {
     const [selectedUser, setSelectedUser] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
+    const [userMap, setUserMap] = useState([]) // to store user ids
     const [typing, setTyping] = useState(false);
     const [lastMessage, setLastMessage] = useState({});
     const navigate = useNavigate();
