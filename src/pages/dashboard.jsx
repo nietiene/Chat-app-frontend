@@ -57,7 +57,7 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen flex overflow-hidden">
 {/* Left side profile */}
-             <aside className="w-64 bg-gray-100 p-4 border-r shadow-sm overflow-y-auto fixed top-17 left-0 h-full z-10">
+             <aside className="w-64 bg-gray-100 p-4 border-r shadow-sm overflow-y-auto fixed top-16 left-0 h-full z-10">
                 <h2 className="text-lg font-bold mb-4">Profile</h2>
                 <div className="space-y-1 text-sm">
                   <p><strong>Name:</strong> {user.name} </p>
@@ -101,13 +101,14 @@ export default function Dashboard() {
           <main className="flex-1 ml-64 overflow-y-auto p-6 bg-white h-screen">
               <h2 className="text-xl font-bold mb-4">Posts</h2>
               {post.map((post) => {
-              console.log("Post image filename:", post.image);
+                console.log("Created at:", post.created_at);
               return (
+                
                   <div key={post.post_id} className="p-4 border rounded shadow mb-4 bg-gray-50">
-                      <div className="flex items-center gap-2 mb-2">
+                      <div className="flex items-center gap-2 mb-2 border border-red-500">
                          <FaUserCircle className="text-xl text-blue-500" />
                          <span className="font-semibold">{post.name} ({post.role})</span>
-                         <span className="text-xs text-gray-500 ml-auto">
+                         <span className="text-xs text-gray-500 ml-auto bg-yellow-100 rounded">
                               {new Date(post.created_at).toLocaleString()}
                          </span>
                  </div>
@@ -124,7 +125,7 @@ export default function Dashboard() {
      })}
   </main>
 
-             <aside className="w-64 bg-gray-50 p-4 border-1 shadow-sm overflow-y-auto fixed top-17 right-0 h-full z-10">
+             <aside className="w-64 bg-gray-50 p-4 border-1 shadow-sm overflow-y-auto fixed top-16 right-0 h-full z-10">
                 <h2 className="text-lg font-bold mb-4">All Users</h2>
                 <ul className="space-y-2">
                     {allUsers.map((u) => (
