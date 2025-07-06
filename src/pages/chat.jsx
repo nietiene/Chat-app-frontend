@@ -80,7 +80,7 @@ export default function Chat() {
                 }
             })
       setUserMap(map);
-      setUsers(nameList)
+      setUsers(nameList);
         });
 
         return () => {
@@ -94,20 +94,22 @@ export default function Chat() {
     const sendMessage = () => {
         if (!selectedUser || !message.trim()) return;
 
+        const receiverId = userMap[selectedUser];
         socket.emit('privateMessage', {
+            
             to: selectedUser,
-            from: myUsername,
+            from: myId,
             message
         });
 
         setMessages(prev => [...prev, { sender: 'You', message }]);
         setLastMessage(prev => ({...prev, [selectedUser]: message }))
         setMessage('');
-        socket.emit("stopTyping", { to: selectedUser });
+        socket.emit("stopTyping", { to: receiverId });
     }
 
     const handleTyping = () => {
-        socket.emit('typing', { to: selectedUser });
+        socket.emit('typing', { to: userMap[selectedUser] });
         clearTimeout(window.typingTimeout);
         window.typingTimeout =  setTimeout(() => {
             socket.emit('stopTyping', { to: selectedUser });
