@@ -47,8 +47,12 @@ export default function Chat() {
     useEffect(() => {
         api.get('/api/auth/profile')
         .then((res) => {
+            console.log("Profile info:", res.data);
             setMyUsername(res.data.name);
-            socket.emit('login', res.data.name);
+            socket.emit('login', {
+                name: res.data.name,
+                id: res.data.user_id
+        });
         }).catch(() => {
             navigate('/');
         });
