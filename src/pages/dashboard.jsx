@@ -21,9 +21,7 @@ export default function Dashboard() {
         if (image) formData.append("image", image);
 
         try {
-            await api.post("/api/posts", formData, {
-                headers: { "Content-type" : "multipart/form-data"}
-            });
+            await api.post("/api/posts", formData);
             setContent("");
             setImage(null);
             fetchPosts()
@@ -71,7 +69,7 @@ export default function Dashboard() {
                     <form
                       className="mt-4 flex flex-col gap-2"
                       onSubmit={handlePostSubmit}
-                      encType="multpart/form-data"
+                      encType="multipart/form-data"
                     >
 
                    <textarea 
