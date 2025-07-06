@@ -68,7 +68,7 @@ export default function Dashboard() {
 
                 {['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
                     <form
-                      className="mt-4 flex flex-col gap-2"
+                      className="mt-4 p-4 flex flex-col gap-4 bg-white shadow-md border"
                       onSubmit={handlePostSubmit}
                       encType="multipart/form-data"
                     >
@@ -76,7 +76,7 @@ export default function Dashboard() {
                    <textarea 
                      value={content}
                      onChange={(e) => setContent(e.target.value)}
-                     placeholder="Write something..."
+                     placeholder="Post something..."
                      className="border p-2 rounded"
                     ></textarea>
                     <input type="file" 
