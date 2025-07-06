@@ -22,6 +22,7 @@ export default function Dashboard() {
 
         try {
             await api.post("/api/posts", formData);
+            
             setContent("");
             setImage(null);
             fetchPosts()
@@ -89,28 +90,31 @@ export default function Dashboard() {
                 )}
              </aside>
 
-             <main className="flex-1 gap-6 bg-white">
-                <h2 className="text-xl font-bold mb-4">Post Feed</h2>
-               {post.map((post) => (
-                    <div key={post.post_id} className="p-4 border rounded shadow">
-                     <div className="flex items-center gap-2 mb-2">
-                                <FaUserCircle className="text-xl text-blue-500" />
-                                <span className="font-semibold">{post.name} ({post.role})</span>
-                                <span className="text-xs text-gray-500 ml-auto">
-                                    {new Date(post.created_at).toLocaleString()}
-                                </span>
-                     </div>
-                     {post.content && <p className="mb-2">{post.content}</p>}
-                     {post.image && (
-                        <img
-                          src={`http://localhost:4000/uploads/${post.image}`}
-                          alt="Post"
-                          className="max-w-full h-auto rounded"/>
-                     )}
-                   </div>
-               ))}
-
-             </main>
+          <main className="flex-1 gap-6 bg-white">
+              <h2 className="text-xl font-bold mb-4">Post Feed</h2>
+              {post.map((post) => {
+              console.log("Post image filename:", post.image);
+              return (
+                  <div key={post.post_id} className="p-4 border rounded shadow">
+                      <div className="flex items-center gap-2 mb-2">
+                         <FaUserCircle className="text-xl text-blue-500" />
+                         <span className="font-semibold">{post.name} ({post.role})</span>
+                         <span className="text-xs text-gray-500 ml-auto">
+                              {new Date(post.created_at).toLocaleString()}
+                         </span>
+                 </div>
+               {post.content && <p className="mb-2">{post.content}</p>}
+               {post.image && (
+               <img
+                 src={`http://localhost:4000/uploads/${post.image}`}
+                 alt="Post"
+                 className="max-w-full h-auto rounded"
+            />
+         )}
+        </div>
+      );
+     })}
+  </main>
 
              <aside className="w-64 bg-gray-50 p-4 border-1 shadow-sm">
                 <h2 className="text-lg font-bold mb-4">All Users</h2>
