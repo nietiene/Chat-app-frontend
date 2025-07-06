@@ -96,7 +96,11 @@ export default function Dashboard() {
                {post.map((post) => (
                     <div key={post.post_id} className="p-4 border rounded shadow">
                      <div className="flex items-center gap-2 mb-2">
-                                <FaUserCircle className="text-xl text-blue-500"/>
+                                <FaUserCircle className="text-xl text-blue-500" />
+                                <span className="font-semibold">{post.name} ({post.role})</span>
+                                <span className="text-xs text-gray-500 ml-auto">
+                                    {new Date(post.created_at).toLocaleString()}
+                                </span>
                      </div>
                    </div>
                ))}
