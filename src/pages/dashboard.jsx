@@ -93,10 +93,14 @@ export default function Dashboard() {
 
              <main className="flex-1 gap-6 bg-white">
                 <h2 className="text-xl font-bold mb-4">Post Feed</h2>
+               {post.map((post) => (
+                    <div key={post.post_id} className="p-4 border rounded shadow">
+                     <div className="flex items-center gap-2 mb-2">
+                                <FaUserCircle className="text-xl text-blue-500"/>
+                     </div>
+                   </div>
+               ))}
 
-                <div className="p-4 border rounded shadow">
-                     <p><strong>Director</strong> School meeting this friday at 4PM.</p>
-                </div>
              </main>
 
              <aside className="w-64 bg-gray-50 p-4 border-1 shadow-sm">
