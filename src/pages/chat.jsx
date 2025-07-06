@@ -69,10 +69,18 @@ export default function Chat() {
         socket.on('typing', () => setTyping(true));
         socket.on("stopTyping", () => setTyping(false));
 
-        socket.on('userList', (userList) => {
+        socket.on('userList', (list) => {
 
-            const filtredUsers = userList.filter(u => u != myUsername);
-            setUsers(filtredUsers);
+            const map = {};
+            const nameList = [];
+            list.forEach(user => {
+                if (user.name !== myUsername) {
+                    map[user.name] = user.id;
+                    nameList.push(user.name);
+                }
+            })
+      setUserMap(map);
+      setUsers(nameList)
         });
 
         return () => {
