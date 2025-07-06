@@ -73,12 +73,15 @@ export default function Dashboard() {
                       encType="multipart/form-data"
                     >
 
+                   <label className="text-sm font-semibold text-gray-700"></label>
                    <textarea 
                      value={content}
                      onChange={(e) => setContent(e.target.value)}
                      placeholder="Post something..."
-                     className="border p-2 rounded"
+                     className="border border-gray-300 p-3 rounded-md resize-none min-h-[100px] focus:outline-none focus:ring-2 focus:ring-green-400"
                     ></textarea>
+
+                    <label className="text-sm font-semibold text-gray-700 block mb-1"></label>
                     <input type="file" 
                        onChange={(e) => setImage(e.target.files[0])}/>
                     <button
