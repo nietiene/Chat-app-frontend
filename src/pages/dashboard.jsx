@@ -102,6 +102,13 @@ export default function Dashboard() {
                                     {new Date(post.created_at).toLocaleString()}
                                 </span>
                      </div>
+                     {post.content && <p className="mb-2">{post.content}</p>}
+                     {post.image && (
+                        <img
+                          src={`http://localhost:3000/uploads/${post.image}`}
+                          alt="Post"
+                          className="max-w-full h-auto rounded"/>
+                     )}
                    </div>
                ))}
 
