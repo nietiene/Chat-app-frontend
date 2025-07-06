@@ -7,8 +7,30 @@ import  { FaHome, FaEnvelope, FaBell, FaUserCircle } from "react-icons/fa";
 export default function Dashboard() {
     const [user, setUser] = useState("");
     const [allUsers, setAllUsers] = useState([]);
+    const [content, setContent] = useState("");
+    const [image, setImage] = useState(null);
+    const [post, setPost] = useState([]);
+
     const navigate = useNavigate();
 
+    const handlePostSubmit = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("content", content);
+        if (image) formData.append("image", image);
+
+        try {
+            await api.post("/api/posts", formData, {
+                headers: { "Content-type" : "multpart/from-data"}
+            });
+            setContent("");
+            setImage(null);
+            fetchPosts()
+        } catch (err) {
+            alert("Post failed.");
+        }
+    }
     useEffect(() => {
         api.get('/api/auth/profile')
         .then((res) => {
@@ -43,10 +65,17 @@ export default function Dashboard() {
                       encType="multpart/form-data"
                     >
 
-                   <textarea ></textarea>
+                   <textarea 
+                     value={content}
+                     onChange={(e) => setContent(e.target.value)}
+                     placeholder="Write something..."
+                     className="border p-2 rounded"
+                    ></textarea>
+                    <input type="file" 
+                       onChange={(e) => setImage(e.target.files[0])}/>
                     <button
                       className="mt-6 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 ">
-                        Make Post
+                         Post
                       </button>
                     </form>
 
