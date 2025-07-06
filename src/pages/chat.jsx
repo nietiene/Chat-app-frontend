@@ -41,17 +41,20 @@ export default function Chat() {
             }))
 
             setMessages(msg);
-        }).catch(err => {
+        })
+        .catch(err => {
             console.error("Failed to fetch messages:", err);
         })
-    }, [selectedUser, myUsername])
+    }, [selectedUser, myId, userMap]);
 
     useEffect(() => {
         api.get('/api/auth/profile')
         .then((res) => {
             setMyUsername(res.data.name);
+            setMyId(res.data.user_id);
             socket.emit('login', res.data.name);
-        }).catch(() => {
+        })
+        .catch(() => {
             navigate('/');
         });
 
