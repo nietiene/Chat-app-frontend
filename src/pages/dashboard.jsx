@@ -22,7 +22,7 @@ export default function Dashboard() {
 
         try {
             await api.post("/api/posts", formData, {
-                headers: { "Content-type" : "multpart/from-data"}
+                headers: { "Content-type" : "multipart/form-data"}
             });
             setContent("");
             setImage(null);
@@ -39,7 +39,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         fetchPosts();
-    })
+    }, []);
     useEffect(() => {
         api.get('/api/auth/profile')
         .then((res) => {
