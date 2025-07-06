@@ -33,10 +33,10 @@ export default function Chat() {
         if (!selectedUser || !myId || !userMap[selectedUser]) return;
         
         setMessages([]);
-        api.get(`/api/messages/${myId}/${userMap[]}`)
+        api.get(`/api/messages/${myId}/${userMap[selectedUser]}`)
         .then(res => {
             const msg = res.data.map(msg => ({
-                sender: msg.sender_id === myUsername ? "You" : msg.sender_id,
+                sender: msg.sender_id === myId ? "You" : selectedUser,
                 message: msg.content
             }))
 
