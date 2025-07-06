@@ -108,7 +108,7 @@ export default function Dashboard() {
                <img
                  src={`http://localhost:4000/uploads/${post.image}`}
                  alt="Post"
-                 className="max-w-full h-auto rounded"
+                 className="w-64 h-auto rounded shadow-md object-cover"
             />
          )}
         </div>
