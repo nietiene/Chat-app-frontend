@@ -10,6 +10,7 @@ const socket = io("http://localhost:4000", {withCredentials: true})
 export default function Chat() {
     const [myUsername, setMyUsername] = useState("");
     const [users, setUsers] = useState([]);
+    const [myId, setMyId] = useState(null);
     const [selectedUser, setSelectedUser] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
@@ -29,10 +30,10 @@ export default function Chat() {
     }, [location.search]);
 
     useEffect(() => {
-        if (!selectedUser || !myUsername) return;
+        if (!selectedUser || !myId || !userMap[selectedUser]) return;
         
         setMessages([]);
-        api.get(`/api/messages/${myUsername}/${selectedUser}`)
+        api.get(`/api/messages/${myId}/${userMap[]}`)
         .then(res => {
             const msg = res.data.map(msg => ({
                 sender: msg.sender_id === myUsername ? "You" : msg.sender_id,
