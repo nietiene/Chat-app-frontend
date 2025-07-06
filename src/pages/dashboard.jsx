@@ -57,7 +57,7 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen flex overflow-hidden">
 {/* Left side profile */}
-             <aside className="w-64 bg-gray-100 p-4 border-r shadow-sm overflow-y-auto fixed top-0 left-0 h-full z-10">
+             <aside className="w-64 bg-gray-100 p-4 border-r shadow-sm overflow-y-auto fixed top-17 left-0 h-full z-10">
                 <h2 className="text-lg font-bold mb-4">Profile</h2>
                 <div className="space-y-1 text-sm">
                   <p><strong>Name:</strong> {user.name} </p>
@@ -124,7 +124,7 @@ export default function Dashboard() {
      })}
   </main>
 
-             <aside className="w-64 bg-gray-50 p-4 border-1 shadow-sm overflow-y-auto fixed top-0 right-0 h-full z-10">
+             <aside className="w-64 bg-gray-50 p-4 border-1 shadow-sm overflow-y-auto fixed top-17 right-0 h-full z-10">
                 <h2 className="text-lg font-bold mb-4">All Users</h2>
                 <ul className="space-y-2">
                     {allUsers.map((u) => (
