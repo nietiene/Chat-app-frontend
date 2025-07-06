@@ -73,7 +73,7 @@ export default function Dashboard() {
                       encType="multipart/form-data"
                     >
 
-                   <label className="text-sm font-semibold text-gray-700"></label>
+                   <label className="text-sm font-semibold text-gray-700">Write a post:</label>
                    <textarea 
                      value={content}
                      onChange={(e) => setContent(e.target.value)}
@@ -81,9 +81,15 @@ export default function Dashboard() {
                      className="border border-gray-300 p-3 rounded-md resize-none min-h-[100px] focus:outline-none focus:ring-2 focus:ring-green-400"
                     ></textarea>
 
-                    <label className="text-sm font-semibold text-gray-700 block mb-1"></label>
+                    <label className="text-sm font-semibold text-gray-700 block mb-1">Upload image (optianal):</label>
                     <input type="file" 
-                       onChange={(e) => setImage(e.target.files[0])}/>
+                       onChange={(e) => setImage(e.target.files[0])}
+                       className="block w-full text-sm text-gray-600
+                                  file:mr-4 file:py-2 file::px-4
+                                  file:rounded file:border-0
+                                  file:text-sm file:semibold
+                                  file:bg-green-200 file:text-green-700
+                                  hover:file:bg-gray-200"/>
                     <button
                       className="mt-6 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 ">
                          Post
