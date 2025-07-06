@@ -10,11 +10,9 @@ const socket = io("http://localhost:4000", {withCredentials: true})
 export default function Chat() {
     const [myUsername, setMyUsername] = useState("");
     const [users, setUsers] = useState([]);
-    const [myId, setMyId] = useState(null);
     const [selectedUser, setSelectedUser] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const [userMap, setUserMap] = useState([]) // to store user ids
     const [typing, setTyping] = useState(false);
     const [lastMessage, setLastMessage] = useState({});
     const navigate = useNavigate();
@@ -30,57 +28,43 @@ export default function Chat() {
     }, [location.search]);
 
     useEffect(() => {
-        if (!selectedUser || !myId || !userMap[selectedUser]) return;
+        if (!selectedUser || !myUsername) return;
         
         setMessages([]);
-        api.get(`/api/messages/${myId}/${userMap[selectedUser]}`)
+        api.get(`/api/messages/${myUsername}/${selectedUser}`)
         .then(res => {
             const msg = res.data.map(msg => ({
-                sender: msg.sender_id === myId ? "You" : selectedUser,
+                sender: msg.sender_id === myUsername ? "You" : msg.sender_id,
                 message: msg.content
             }))
 
             setMessages(msg);
-        })
-        .catch(err => {
+        }).catch(err => {
             console.error("Failed to fetch messages:", err);
         })
-    }, [selectedUser, myId, userMap]);
+    }, [selectedUser, myUsername])
 
     useEffect(() => {
         api.get('/api/auth/profile')
         .then((res) => {
             setMyUsername(res.data.name);
-            setMyId(res.data.user_id);
             socket.emit('login', res.data.name);
-        })
-        .catch(() => {
+        }).catch(() => {
             navigate('/');
         });
 
         socket.on('privateMessage', ({ from, message }) => {
-            const senderName = Object.keys(userMap).find(name => userMap(name) === from);
-            setMessages(prev => [...prev, { sender: senderName || from, message}]);
-            if (senderName) {
-                  setLastMessage(prev => ({...prev, [from]: message}))
-            }
+            setMessages(prev => [...prev, { sender: from, message}]);
+            setLastMessage(prev => ({...prev, [from]: message}))
         });
 
         socket.on('typing', () => setTyping(true));
         socket.on("stopTyping", () => setTyping(false));
 
-        socket.on('userList', (list) => {
+        socket.on('userList', (userList) => {
 
-            const map = {};
-            const nameList = [];
-            list.forEach(user => {
-                if (user.name !== myUsername) {
-                    map[user.name] = user.id;
-                    nameList.push(user.name);
-                }
-            })
-      setUserMap(map);
-      setUsers(nameList);
+            const filtredUsers = userList.filter(u => u != myUsername);
+            setUsers(filtredUsers);
         });
 
         return () => {
@@ -94,22 +78,20 @@ export default function Chat() {
     const sendMessage = () => {
         if (!selectedUser || !message.trim()) return;
 
-        const receiverId = userMap[selectedUser];
         socket.emit('privateMessage', {
-            
             to: selectedUser,
-            from: myId,
+            from: myUsername,
             message
         });
 
         setMessages(prev => [...prev, { sender: 'You', message }]);
         setLastMessage(prev => ({...prev, [selectedUser]: message }))
         setMessage('');
-        socket.emit("stopTyping", { to: receiverId });
+        socket.emit("stopTyping", { to: selectedUser });
     }
 
     const handleTyping = () => {
-        socket.emit('typing', { to: userMap[selectedUser] });
+        socket.emit('typing', { to: selectedUser });
         clearTimeout(window.typingTimeout);
         window.typingTimeout =  setTimeout(() => {
             socket.emit('stopTyping', { to: selectedUser });
