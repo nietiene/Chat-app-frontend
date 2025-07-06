@@ -90,12 +90,12 @@ export default function Dashboard() {
                 )}
              </aside>
 
-          <main className="flex-1 gap-6 bg-white">
-              <h2 className="text-xl font-bold mb-4">Post Feed</h2>
+          <main className="flex-1 gap-6 bg-white p-4">
+              <h2 className="text-xl font-bold mb-4">Posts</h2>
               {post.map((post) => {
               console.log("Post image filename:", post.image);
               return (
-                  <div key={post.post_id} className="p-4 border rounded shadow">
+                  <div key={post.post_id} className="p-4 border rounded shadow mb-4 bg-gray-50">
                       <div className="flex items-center gap-2 mb-2">
                          <FaUserCircle className="text-xl text-blue-500" />
                          <span className="font-semibold">{post.name} ({post.role})</span>
