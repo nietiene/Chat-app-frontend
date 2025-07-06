@@ -55,9 +55,8 @@ export default function Dashboard() {
     if (!user) return <p className="text-center mt-10">Loading.....</p>
 
     return (
-      <div className="min-h-screen flex">
+      <div className="min-h-screen flex overflow-hidden">
 {/* Left side profile */}
-          <div className="flex flex-1">
              <aside className="w-64 bg-gray-100 p-4 border-r shadow-sm overflow-y-auto fixed top-0 left-0 h-full z-10">
                 <h2 className="text-lg font-bold mb-4">Profile</h2>
                 <div className="space-y-1 text-sm">
@@ -99,7 +98,7 @@ export default function Dashboard() {
                 )}
              </aside>
 
-          <main className="flex-1 mr-64 overflow-y-auto p-6 bg-white h-screen">
+          <main className="flex-1 ml-64 overflow-y-auto p-6 bg-white h-screen">
               <h2 className="text-xl font-bold mb-4">Posts</h2>
               {post.map((post) => {
               console.log("Post image filename:", post.image);
@@ -146,6 +145,5 @@ export default function Dashboard() {
                 </ul>
              </aside>
          </div>
-        </div>
     )
 }
