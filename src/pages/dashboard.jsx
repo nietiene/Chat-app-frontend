@@ -37,10 +37,19 @@ export default function Dashboard() {
                 </div>
 
                 {['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
+                    <form
+                      className="mt-4 flex flex-col gap-2"
+                      onSubmit={handlePostSubmit}
+                      encType="multpart/form-data"
+                    >
+
+                   <textarea ></textarea>
                     <button
                       className="mt-6 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 ">
                         Make Post
                       </button>
+                    </form>
+
                 )}
              </aside>
 
