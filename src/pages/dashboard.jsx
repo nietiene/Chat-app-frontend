@@ -77,7 +77,7 @@ export default function Dashboard() {
                      value={content}
                      onChange={(e) => setContent(e.target.value)}
                      placeholder="Post something..."
-                     className="border border-gray-300 p-3 rounded-md resize-none min-h-[100px] focus:outline-none focus:ring-2 focus:ring-green-400"
+                     className="border border-gray-300 p-3 rounded-md resize-none min-h-[100px] focus:outline-none focus:ring-2 focus:ring-blue-400"
                     ></textarea>
 
                     <label className="text-sm font-semibold text-gray-700 block mb-1">Upload image (optianal):</label>
@@ -87,10 +87,10 @@ export default function Dashboard() {
                                   file:mr-4 file:py-2 file::px-4
                                   file:rounded file:border-0
                                   file:text-sm file:semibold
-                                  file:bg-green-200 file:text-green-700
+                                  file:bg-blue-200 file:text-blue-700
                                   hover:file:bg-gray-200"/>
                     <button
-                      className="mt-6 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 ">
+                      className="mt-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 ">
                          Post
                       </button>
                     </form>
