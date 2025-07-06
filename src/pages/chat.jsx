@@ -59,8 +59,11 @@ export default function Chat() {
         });
 
         socket.on('privateMessage', ({ from, message }) => {
-            setMessages(prev => [...prev, { sender: from, message}]);
-            setLastMessage(prev => ({...prev, [from]: message}))
+            const senderName = Object.keys(userMap).find(name => userMap(name) === from);
+            setMessages(prev => [...prev, { sender: senderName || from, message}]);
+            if (senderName) {
+                  setLastMessage(prev => ({...prev, [from]: message}))
+            }
         });
 
         socket.on('typing', () => setTyping(true));
