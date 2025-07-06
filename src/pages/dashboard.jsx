@@ -31,6 +31,15 @@ export default function Dashboard() {
             alert("Post failed.");
         }
     }
+
+    const fetchPosts = async () => {
+        const res = await api.get("/api/posts");
+        setPost(res.data);
+    };
+
+    useEffect(() => {
+        fetchPosts();
+    })
     useEffect(() => {
         api.get('/api/auth/profile')
         .then((res) => {
