@@ -72,13 +72,16 @@ export default function Chat() {
 
         })
 
-        socket.on('typing', () => setTyping(true));
-        socket.on("stopTyping", () => setTyping(false));
+        socket.on('typing', (username) => {
+            if (username === selectedUser) setTyping(true);
+         });
+
+        socket.on("stopTyping", (username) => {
+            if (username === selectedUser) setTyping(false);
+       });
 
         socket.on('userList', (userList) => {
-
-            const filtredUsers = userList.filter(u => u != myUsername);
-            setUsers(filtredUsers);
+           setUsers(userList.filter(u => u !== myUsername))
         });
 
         return () => {
@@ -87,7 +90,7 @@ export default function Chat() {
             socket.off('typing');
             socket.off('stopTyping');
         }
-    }, [myUsername, selectedUser]);
+    }, [myUsername, selectedUser, navigate]);
 
     const sendMessage = () => {
         if (!selectedUser || !message.trim()) return;
