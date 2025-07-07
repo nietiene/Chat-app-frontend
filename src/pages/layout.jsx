@@ -1,15 +1,28 @@
-import React from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import  { FaHome, FaEnvelope, FaBell, FaUserCircle } from "react-icons/fa";
-
+import api from "../api";
+import { useEffect, useState } from "react";
 
 export default function Layout () {
 
         const [showUserMenu, setShowUserMenu] = useState(false);
         const [profileImage, setProfileImage] = useState(null);
         const [selectedFile, setSelectedFile] = useState(null);
+        const [user, setUser] = useState(null);
        const navigate = useNavigate();
-       
+
+       useEffect(() => {
+        api.get("/api/auth/profile")
+        .then((res) => {
+            setUser(res.data);
+            if (res.data.profile_image) {
+                setProfileImage(`http://localhost:4000/uploads/${res.data.profile_image}`)
+            }
+        }).catch(() => {
+            navigate("/");
+        })
+       }, []);
+
         const handleFileChange = (e) => {
             if (e.target.files && e.target.files[0]) {
                 setProfileImage(URL.createObjectURL(e.target.files[0]));
