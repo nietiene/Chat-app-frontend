@@ -39,18 +39,22 @@ export default function Layout () {
             formData.append("profile_image", selectedFile);
 
             try {
-                await api.post("/api/users/change-profile-photo", formData, {
+                 const uploadRes = await api.post("/api/users/change-profile-photo", formData, {
                     headers: {  "Content-Type": "multipart/form-data" },
                     withCredentials: true
                 });
 
                 alert("Profile photo updated");
 
-                const profileRes = await api.get('/api/auth/profile');
-                setUser(profileRes.data);
+                if (uploadRes.data.profile_image) {
+                    setProfileImage(`http://localhost:4000/uploads/${uploadRes.data.filename}`)
+                } else {
+                    const profileRes = await api.get("/api/auth/profile");
+                    setUser(profileRes.data);
 
-                if (profileRes.data.profile_image) {
-                    setProfileImage(`http://localhost:4000/uploads/${profileRes.data.profile_image}`)
+                    if (profileRes.data.profile_image) {
+                        setProfileImage(`http://localhost:4000/uploads/${profileRes.data.profile_image}`);
+                    }
                 }
                 setShowUserMenu(false);
             } catch (error) {
