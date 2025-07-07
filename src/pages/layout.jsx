@@ -106,20 +106,29 @@ export default function Layout () {
 
                {showUserMenu && (
                 <div className="absolute top-16 right-2 bg-white border border-gray-200 rounded-lg shadow-xl p-5 w-72 z-50">
-                    <h3 className="font-bold mb-2">{user.name}</h3>
-                    <p><strong>Phone:</strong>{user.phone}</p>
-                    <p><strong>Role:</strong>{user.role}</p>
-
-                    <form onSubmit={handleProfilePhotoChange} className="mt-3">
-                        <label className="block mb-1 font-semibold">Change Profile photo</label>
+                    <div className="mt-2">
+                       <h3 className="font-bold text-gray-800 text-lg mb-2">{user.name}</h3>
+                 
+                       <p className="text-gray-700 mb-1"><span className="font-semibold text-gray-800">Phone: </span>{user.phone}</p>
+                       <p className="text-gray-700"><span className="font-semibold text-gray-800">Role: </span>{user.role}</p>
+                    </div>
+                    <form onSubmit={handleProfilePhotoChange} className="mt-4">
+                        <label className="block text-sm mb-2 font-medium text-gray-700 ">Change Profile photo</label>
                         <input type="file"
                            accept="image/*"
                            onChange={handleFileChange}
-                           className="mb-2"
+                           className="block w-full text-sm text-gray-600
+                                      file:mr-4 file:py-2 file:px:4
+                                      file:rounded-md file:border-0
+                                      file:text-sm file:font-semibold
+                                      file:bg-gray-100 file:text-gray-700
+                                      file:hover:bg-gray-200 cursor-pointer mb-4"
                         />
 
+                   <div className="space-y-3">
                         <button type="submit"
-                            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
+                            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700
+                                        transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-sm font-semibold">
                                 Upload
                             </button>
                          <button
@@ -127,7 +136,9 @@ export default function Layout () {
                            className="mt-4 w-full bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700"
                         >
                             Logout
-                        </button>   
+                        </button>  
+                   </div>
+ 
                     </form>
                 </div>
                )}
