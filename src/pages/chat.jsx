@@ -53,10 +53,20 @@ export default function Chat() {
             navigate('/');
         });
 
-        socket.on('privateMessage', ({ from, message }) => {
-            setMessages(prev => [...prev, { sender: from, message}]);
-            setLastMessage(prev => ({...prev, [from]: message}))
-        });
+        useEffect(() => {
+           socket.on('privateMessage', ({ from, message }) => {
+            if (from === selectedUser) {
+               setMessages(prev => [...prev, { sender: from, message}]);
+            }
+
+              setLastMessage(prev => ({...prev, [from]: message}))
+
+              return () => {
+                socket.off('privateMessage')
+              }
+        }, [selectedUser]);
+
+        })
 
         socket.on('typing', () => setTyping(true));
         socket.on("stopTyping", () => setTyping(false));
