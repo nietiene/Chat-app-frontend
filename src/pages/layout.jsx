@@ -14,6 +14,7 @@ export default function Layout () {
        useEffect(() => {
         api.get("/api/auth/profile")
         .then((res) => {
+            console.log("Profile", res.data);
             setUser(res.data);
             if (res.data.profile_image) {
                 setProfileImage(`http://localhost:4000/uploads/${res.data.profile_image}`)
@@ -39,26 +40,21 @@ export default function Layout () {
             formData.append("profile_image", selectedFile);
 
             try {
-                 const uploadRes = await api.post("/api/users/change-profile-photo", formData, {
+                 await api.post("/api/users/change-profile-photo", formData, {
                     headers: {  "Content-Type": "multipart/form-data" },
                     withCredentials: true
                 });
-
                 alert("Profile photo updated");
 
-                if (uploadRes.data.filename) {
-                    setProfileImage(`http://localhost:4000/uploads/${uploadRes.data.filename}`)
-                    setSelectedFile(null);
-                } else {
-                    
                     const profileRes = await api.get("/api/auth/profile");
                     setUser(profileRes.data);
 
                     if (profileRes.data.profile_image) {
                         setProfileImage(`http://localhost:4000/uploads/${profileRes.data.profile_image}`);
                     }
-                }
+                setSelectedFile(null);
                 setShowUserMenu(false);
+                alert("Photo changed successfully");
             } catch (error) {
                 console.error(error);
                 alert("Upload failed");
