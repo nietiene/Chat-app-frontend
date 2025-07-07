@@ -25,7 +25,7 @@ export default function Chat() {
                 setMyName(res.data.name);
                 socket.emit('login', res.data.name);
             } catch (error) {
-                navigate('/login');
+                navigate('/');
             }
         };
         fetchProfile();
