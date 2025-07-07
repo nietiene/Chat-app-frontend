@@ -120,20 +120,20 @@ export default function Chat() {
 return (
     <div className="flex h-screen bg-gray-100">
 
-<div className="w-1/4 bg-white border-r border-gray-200 flex flex-col h-screen overflow-y-auto">
-    {/* Profile header - Sticky */}
-    <div className="p-4 border-b border-gray-200 bg-blue-50 sticky top-0 z-10">
-        <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white text-xl font-bold shadow-md">
-                {myName.charAt(0).toUpperCase()}
+        <div className="w-1/4 bg-white border-r border-gray-200 flex flex-col">
+  
+            <div className="p-4 border-b border-gray-200 bg-blue-50">
+                <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white text-xl font-bold shadow-md">
+                        {myName.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                        <h2 className="font-bold text-lg text-gray-800">{myName}</h2>
+                        <p className="text-xs text-blue-600">Online</p>
+                    </div>
+                </div>
             </div>
-            <div>
-                <h2 className="font-bold text-lg text-gray-800">{myName}</h2>
-                <p className="text-xs text-blue-600">Online</p>
-            </div>
-        </div>
-    </div>
-
+            
             {/* Contacts list - Better spacing and visual cues */}
             <div className="flex-1 overflow-y-auto">
                 <h3 className="px-4 py-3 text-sm font-semibold text-gray-500 bg-gray-50">
