@@ -1,132 +1,102 @@
-import React from "react";
-import io from "socket.io-client";
-import api from "../api";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from 'react';
+import io from 'socket.io-client';
+import { useNavigate } from 'react-router-dom';
+import api from '../api';
 
-const socket = io("http://localhost:4000", { withCredentials: true });
+const socket = io('http://localhost:4000', { withCredentials: true });
 
 export default function Chat() {
-    const [myUsername, setMyUsername] = useState("");
+    const [myName, setMyName] = useState('');
     const [allUsers, setAllUsers] = useState([]);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [typing, setTyping] = useState(false);
-    const [lastMessages, setLastMessages] = useState({});
+    const [unreadCounts, setUnreadCounts] = useState({});
+    const messagesEndRef = useRef(null);
     const navigate = useNavigate();
-    const location = useLocation();
 
-    // Debug effects
+    // Fetch current user profile
     useEffect(() => {
-        console.log("Current messages:", messages);
-    }, [messages]);
-
-    useEffect(() => {
-        console.log("Selected user:", selectedUser);
-    }, [selectedUser]);
+        const fetchProfile = async () => {
+            try {
+                const res = await api.get('/api/auth/profile');
+                setMyName(res.data.name);
+                socket.emit('login', res.data.name);
+            } catch (error) {
+                navigate('/login');
+            }
+        };
+        fetchProfile();
+    }, [navigate]);
 
     // Fetch all users
     useEffect(() => {
-        if (!myUsername) return;
+        if (!myName) return;
 
-        api.get('/api/users')
-            .then(res => {
-                const otherUsers = res.data.filter(u => u.name !== myUsername);
+        const fetchUsers = async () => {
+            try {
+                const res = await api.get('/api/users');
+                const otherUsers = res.data.filter(u => u.name !== myName);
                 setAllUsers(otherUsers);
                 
-                const initialLastMessages = {};
-                otherUsers.forEach(user => {
-                    initialLastMessages[user.name] = "No messages yet";
-                });
-                setLastMessages(initialLastMessages);
-                
-                otherUsers.forEach(user => {
-                    fetchLastMessage(myUsername, user.name);
-                });
-            })
-            .catch(err => {
-                console.error("Failed to fetch users:", err);
-            });
-    }, [myUsername]);
-
-    // Fetch last message between users
-    const fetchLastMessage = (user1, user2) => {
-        api.get(`/api/messages/${user1}/${user2}`)
-            .then(res => {
-                if (res.data.length > 0) {
-                    const lastMsg = res.data[res.data.length - 1];
-                    const messageText = lastMsg.sender_id === myUsername 
-                        ? `You: ${lastMsg.content}` 
-                        : `${lastMsg.sender_id}: ${lastMsg.content}`;
-                    
-                    setLastMessages(prev => ({
-                        ...prev,
-                        [user2]: messageText
-                    }));
+                // Fetch unread counts for each user
+                const counts = {};
+                for (const user of otherUsers) {
+                    const res = await api.get(`/api/messages/unread/${user.name}`);
+                    counts[user.name] = res.data.count;
                 }
-            })
-            .catch(err => {
-                console.error(`Failed to fetch messages with ${user2}:`, err);
-            });
-    };
+                setUnreadCounts(counts);
+            } catch (error) {
+                console.error('Failed to fetch users:', error);
+            }
+        };
+        fetchUsers();
+    }, [myName]);
 
-    // Handle URL query param for user
+    // Fetch messages when selected user changes
     useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const userFromQuery = params.get("user");
-        if (userFromQuery) {
-            setSelectedUser(userFromQuery);
-        }
-    }, [location.search]);
+        if (!selectedUser || !myName) return;
 
-    // Load messages when selected user changes
+        const fetchMessages = async () => {
+            try {
+                const res = await api.get(`/api/messages/${myName}/${selectedUser}`);
+                setMessages(res.data);
+                
+                // Mark messages as read
+                await api.get(`/api/messages/${selectedUser}/${myName}/read`);
+                setUnreadCounts(prev => ({ ...prev, [selectedUser]: 0 }));
+            } catch (error) {
+                console.error('Failed to fetch messages:', error);
+            }
+        };
+        fetchMessages();
+    }, [selectedUser, myName]);
+
+    // Socket.IO event handlers
     useEffect(() => {
-        if (!selectedUser || !myUsername) return;
-        
-        console.log(`Fetching messages between ${myUsername} and ${selectedUser}`);
-        
-        api.get(`/api/messages/${myUsername}/${selectedUser}`)
-            .then(res => {
-                console.log("Messages response:", res.data);
-                const msg = res.data.map(msg => ({
-                    sender: msg.sender_id === myUsername ? "You" : msg.sender_id,
-                    message: msg.content,
-                    timestamp: msg.created_at
+        socket.on('privateMessage', ({ from, message, timestamp }) => {
+            if (from === selectedUser) {
+                setMessages(prev => [...prev, { 
+                    sender_id: from, 
+                    content: message,
+                    created_at: timestamp 
+                }]);
+            } else {
+                setUnreadCounts(prev => ({
+                    ...prev,
+                    [from]: (prev[from] || 0) + 1
                 }));
-                setMessages(msg);
-            })
-            .catch(err => {
-                console.error("Failed to fetch messages:", err);
-            });
-    }, [selectedUser, myUsername]);
+            }
+        });
 
-    // Initialize socket and user profile
-    useEffect(() => {
-        api.get('/api/auth/profile')
-            .then((res) => {
-                setMyUsername(res.data.name);
-                socket.emit('login', res.data.name);
-            })
-            .catch(() => {
-                navigate('/');
-            });
-
-        socket.on('privateMessage', ({ from, message }) => {
-            setMessages(prev => [...prev, { sender: from, message }]);
-            setLastMessages(prev => ({
-                ...prev,
-                [from]: `${from}: ${message}`
-            }));
+        socket.on('userList', (onlineUsers) => {
+            setOnlineUsers(onlineUsers);
         });
 
         socket.on('typing', () => setTyping(true));
-        socket.on("stopTyping", () => setTyping(false));
-
-        socket.on('userList', (userList) => {
-            setOnlineUsers(userList);
-        });
+        socket.on('stopTyping', () => setTyping(false));
 
         return () => {
             socket.off('privateMessage');
@@ -134,134 +104,178 @@ export default function Chat() {
             socket.off('typing');
             socket.off('stopTyping');
         };
-    }, [myUsername, navigate]);
+    }, [selectedUser]);
 
-    const sendMessage = () => {
+    // Auto-scroll to bottom of messages
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
+
+    const sendMessage = async () => {
         if (!selectedUser || !message.trim()) return;
 
-        socket.emit('privateMessage', {
-            to: selectedUser,
-            from: myUsername,
-            message
-        });
+        try {
+            socket.emit('privateMessage', {
+                to: selectedUser,
+                from: myName,
+                message
+            });
 
-        setMessages(prev => [...prev, { sender: 'You', message }]);
-        setLastMessages(prev => ({
-            ...prev,
-            [selectedUser]: `You: ${message}`
-        }));
-        setMessage('');
-        socket.emit("stopTyping", { to: selectedUser });
+            // Optimistic update
+            setMessages(prev => [...prev, { 
+                sender_id: myName, 
+                content: message,
+                created_at: new Date().toISOString() 
+            }]);
+            
+            setMessage('');
+        } catch (error) {
+            console.error('Failed to send message:', error);
+        }
     };
 
     const handleTyping = () => {
+        if (!selectedUser) return;
         socket.emit('typing', { to: selectedUser });
-        clearTimeout(window.typingTimeout);
-        window.typingTimeout = setTimeout(() => {
-            socket.emit('stopTyping', { to: selectedUser });
-        }, 1000);
+        setTimeout(() => socket.emit('stopTyping', { to: selectedUser }), 1000);
     };
 
     return (
-        <div className="min-h-screen flex flex-col">
-            <div className="flex flex-1 overflow-hidden">
-                {/* Left sidebar - User list */}
-                <aside className="w-64 border-r border-gray-300 bg-gray-50 p-4 flex flex-col">
-                    <div className="mb-6 text-center">
-                        <div className="mx-auto w-16 h-16 rounded-full bg-blue-400 flex items-center justify-center text-white text-2xl">
-                            {myUsername?.charAt(0).toUpperCase()}
+        <div className="flex h-screen bg-gray-100">
+            {/* Sidebar */}
+            <div className="w-1/4 bg-white border-r border-gray-200">
+                <div className="p-4 border-b border-gray-200">
+                    <div className="flex items-center">
+                        <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                            {myName.charAt(0).toUpperCase()}
                         </div>
-                        <div className="mt-2 text-sm font-semibold">{myUsername}</div>
+                        <div className="ml-3 font-semibold">{myName}</div>
                     </div>
+                </div>
+                
+                <div className="overflow-y-auto h-full">
+                    {allUsers.map(user => (
+                        <div 
+                            key={user.name}
+                            className={`p-4 border-b border-gray-200 flex items-center cursor-pointer hover:bg-gray-50 ${
+                                selectedUser === user.name ? 'bg-blue-50' : ''
+                            }`}
+                            onClick={() => setSelectedUser(user.name)}
+                        >
+                            <div className="relative">
+                                <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold">
+                                    {user.name.charAt(0).toUpperCase()}
+                                </div>
+                                {onlineUsers.includes(user.name) && (
+                                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                                )}
+                            </div>
+                            <div className="ml-3 flex-1">
+                                <div className="flex justify-between items-center">
+                                    <span className="font-semibold">{user.name}</span>
+                                    {unreadCounts[user.name] > 0 && (
+                                        <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                            {unreadCounts[user.name]}
+                                        </span>
+                                    )}
+                                </div>
+                                <p className="text-sm text-gray-500 truncate">
+                                    {messages.find(m => m.sender_id === user.name)?.content || 'No messages yet'}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
 
-                    <h3 className="font-bold mb-2">All Users</h3>
-                    <ul className="flex-1 overflow-y-auto space-y-2">
-                        {allUsers.map((user) => {
-                            const username = user.name || user.username;
-                            return (
-                                <li key={username}>
-                                    <button
-                                        onClick={() => {
-                                            console.log("Selecting user:", username);
-                                            setSelectedUser(username);
-                                        }}
-                                        className={`flex items-center gap-3 w-full p-2 rounded-lg hover:bg-blue-100 transition
-                                            ${username === selectedUser ? "bg-blue-300 font-semibold text-blue-700" : "text-gray-700"}`}
-                                    >
-                                        <div className="relative">
-                                            <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center text-lg">
-                                                {username.charAt(0).toUpperCase()}
-                                            </div>
-                                            {onlineUsers.includes(username) && (
-                                                <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
-                                            )}
-                                        </div>
+            {/* Chat area */}
+            <div className="flex-1 flex flex-col">
+                {selectedUser ? (
+                    <>
+                        {/* Chat header */}
+                        <div className="p-4 border-b border-gray-200 bg-white flex items-center">
+                            <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">
+                                {selectedUser.charAt(0).toUpperCase()}
+                            </div>
+                            <div className="ml-3">
+                                <div className="font-semibold">{selectedUser}</div>
+                                <div className="text-xs text-gray-500">
+                                    {onlineUsers.includes(selectedUser) ? 'Online' : 'Offline'}
+                                </div>
+                            </div>
+                        </div>
 
-                                        <div className="flex flex-col items-start text-left">
-                                            <span className="text-sm font-bold">{username}</span>
-                                            <span className="text-xs text-gray-500 truncate w-36">
-                                                {lastMessages[username] || "No messages yet"}
-                                            </span>
-                                        </div>
-                                    </button>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </aside>
-
-                {/* Right chat panel */}
-                <main className="flex-1 flex flex-col bg-white">
-                    {/* Message history */}
-                    <div className="flex-1 overflow-y-auto p-6 space-y-4" style={{ backgroundColor: "#f9f9f9" }}>
-                        {messages.length === 0 ? (
-                            <p className="text-center text-gray-500 mt-20">
-                                {selectedUser ? "No messages yet. Start the conversation!" : "Select a user to chat."}
-                            </p>
-                        ) : (
-                            messages.map((m, i) => {
-                                const isMe = m.sender === "You";
-                                return (
-                                    <div key={i} className={`max-w-xs px-4 py-2 rounded-lg break-words ${
-                                        isMe ? "bg-blue-500 text-white self-end ml-auto"
-                                             : "bg-gray-200 text-gray-900 self-start"
+                        {/* Messages */}
+                        <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
+                            {messages.map((msg, index) => (
+                                <div 
+                                    key={index}
+                                    className={`mb-4 flex ${
+                                        msg.sender_id === myName ? 'justify-end' : 'justify-start'
+                                    }`}
+                                >
+                                    <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                                        msg.sender_id === myName 
+                                            ? 'bg-blue-500 text-white' 
+                                            : 'bg-white text-gray-800 border border-gray-200'
                                     }`}>
-                                        {!isMe && <div className="text-xs font-semibold mb-1">{m.sender}</div>}
-                                        {m.message}
+                                        <div className="font-semibold">
+                                            {msg.sender_id === myName ? 'You' : msg.sender_id}
+                                        </div>
+                                        <p>{msg.content}</p>
                                         <div className="text-xs mt-1 opacity-70">
-                                            {m.timestamp && new Date(m.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                            {new Date(msg.created_at).toLocaleTimeString([], { 
+                                                hour: '2-digit', 
+                                                minute: '2-digit' 
+                                            })}
                                         </div>
                                     </div>
-                                );
-                            })
-                        )}
+                                </div>
+                            ))}
+                            {typing && (
+                                <div className="flex justify-start mb-4">
+                                    <div className="bg-white text-gray-800 border border-gray-200 px-4 py-2 rounded-lg">
+                                        <div className="flex space-x-1">
+                                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            <div ref={messagesEndRef} />
+                        </div>
 
-                        {typing && (
-                            <p className="text-sm italic text-gray-400">Typing...</p>
-                        )}
+                        {/* Message input */}
+                        <div className="p-4 border-t border-gray-200 bg-white">
+                            <div className="flex space-x-2">
+                                <input
+                                    type="text"
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                    onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                                    onInput={handleTyping}
+                                    placeholder="Type a message..."
+                                    className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                                <button
+                                    onClick={sendMessage}
+                                    disabled={!message.trim()}
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 disabled:bg-blue-300"
+                                >
+                                    Send
+                                </button>
+                            </div>
+                        </div>
+                    </>
+                ) : (
+                    <div className="flex-1 flex items-center justify-center bg-gray-50">
+                        <div className="text-center p-6 max-w-md">
+                            <div className="text-2xl font-bold text-gray-700 mb-2">Welcome to Chat</div>
+                            <p className="text-gray-500">Select a user to start chatting</p>
+                        </div>
                     </div>
-
-                    {/* Input area - Always render but disable if no user selected */}
-                    <div className={`p-4 border-t flex gap-2 bg-white ${!selectedUser ? 'opacity-50' : ''}`}>
-                        <input 
-                            type="text"
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            onInput={handleTyping}
-                            placeholder={selectedUser ? `Message ${selectedUser}` : "Select a user to chat"}
-                            className="flex-1 border rounded px-3 py-2"
-                            onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                            disabled={!selectedUser}
-                        />
-                        <button
-                            className="bg-blue-600 text-white px-4 rounded hover:bg-blue-700 disabled:bg-gray-400"
-                            onClick={sendMessage}
-                            disabled={!selectedUser}
-                        >
-                            Send
-                        </button>
-                    </div>
-                </main>
+                )}
             </div>
         </div>
     );
