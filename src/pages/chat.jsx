@@ -253,7 +253,7 @@ useEffect(() => {
                     </div>
 
                     {/* Input area */}
-                    {selectedUser && (
+                    {selectedUser ? (
                         <div className="p-4 border-t flex gap-2 bg-white">
                             <input 
                                 type="text"
@@ -271,6 +271,10 @@ useEffect(() => {
                             >
                                 Send
                             </button>
+                        </div>
+                    ) : (
+                        <div className="p-4 text-center text-gray-500">
+                            Select a user to start chat.
                         </div>
                     )}
                 </main>
