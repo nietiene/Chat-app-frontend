@@ -41,7 +41,6 @@ export default function Layout () {
 
             try {
                  await api.post("/api/users/change-profile-photo", formData, {
-                    headers: {  "Content-Type": "multipart/form-data" },
                     withCredentials: true
                 });
                 alert("Profile photo updated");
@@ -52,7 +51,6 @@ export default function Layout () {
                     if (profileRes.data.profile_image) {
                         setProfileImage(`http://localhost:4000/uploads/${profileRes.data.profile_image}`);
                     }
-
                    setSelectedFile(null);
                    setShowUserMenu(false);
                   alert("Photo changed successfully");
