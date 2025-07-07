@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet,Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import  { FaHome, FaEnvelope, FaBell, FaUserCircle } from "react-icons/fa";
 
 
@@ -8,7 +8,8 @@ export default function Layout () {
         const [showUserMenu, setShowUserMenu] = useState(false);
         const [profileImage, setProfileImage] = useState(null);
         const [selectedFile, setSelectedFile] = useState(null);
-    
+       const navigate = useNavigate();
+       
         const handleFileChange = (e) => {
             if (e.target.files && e.target.files[0]) {
                 setProfileImage(URL.createObjectURL(e.target.files[0]));
@@ -25,7 +26,20 @@ export default function Layout () {
             try {
                 await api.phone("/api/auth/change-profile-photo", formData, {
                     headers: { "Content-Type" : "multipart/form-data"},
-                })
+                });
+                alert("Profile photo updated");
+                setShowUserMenu(false);
+            } catch (error) {
+                alert("Upload failed");
+            }
+        }
+
+        const handleLogout = async () => {
+            try {
+                await api.post("/api/auth/logout");
+                navigate("/");
+            } catch {
+                alert("logout failed");
             }
         }
     return (
