@@ -105,7 +105,7 @@ export default function Layout () {
                </nav>
 
                {showUserMenu && (
-                <div className="absolute top-14 right-0 bg-white border rounded shadow p-4 w-64 z-50">
+                <div className="absolute top-16 right-2 bg-white border border-gray-200 rounded-lg shadow-xl p-5 w-72 z-50">
                     <h3 className="font-bold mb-2">{user.name}</h3>
                     <p><strong>Phone:</strong>{user.phone}</p>
                     <p><strong>Role:</strong>{user.role}</p>
