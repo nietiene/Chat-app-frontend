@@ -85,13 +85,19 @@ export default function Layout () {
                     </Link>
                 </div>
                 
-                <button className="bg-white text-blue-700 px-3 py-2 rounded-xl font-semibold flex flex-col items-center"
+                <button className="relative group bg-white text-blue-500 p-1 rounded-full
+                                  font-semibold flex items-center justify-center hover:ring-2 hover:ring-blue-400 transition-all duration-200"
                     onClick={() => setShowUserMenu(!showUserMenu)}
                 >
                     {profileImage ? (
-                        <img src={profileImage} 
-                        alt="Profile"
-                        className="w-12 h-12 rounded-full object-cover mb-1"/>
+                        <>
+                           <img src={profileImage} 
+                             alt="Profile"
+                             className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-md"
+                            />
+
+                        </>
+
                     ) : (
                         <FaUserCircle className="text-3xl mb-1"/>
                     )}
