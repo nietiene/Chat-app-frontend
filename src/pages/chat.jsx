@@ -92,16 +92,23 @@ export default function Chat() {
         }
     }, [myUsername, selectedUser, navigate]);
 
+    useEffect(() => {
+        messageEndRef.current?.scrollIntoView({ behavio: "smooth"})
+    }, [messages]);
+
     const sendMessage = () => {
         if (!selectedUser || !message.trim()) return;
+
+        const timestamp = new Date().toLocaleString();
 
         socket.emit('privateMessage', {
             to: selectedUser,
             from: myUsername,
-            message
+            message,
+            timestamp
         });
 
-        setMessages(prev => [...prev, { sender: 'You', message }]);
+        setMessages(prev => [...prev, { sender: 'You', message , timestamp}]);
         setLastMessage(prev => ({...prev, [selectedUser]: message }))
         setMessage('');
         socket.emit("stopTyping", { to: selectedUser });
@@ -115,13 +122,15 @@ export default function Chat() {
         }, 1000);
     };
 
-    useEffect(() => {
-        console.log("Selected user:", selectedUser);
-    }, [selectedUser]);
-
-    useEffect(() => {
-        console.log("Current user list", users);
-    }, [users]);
+    const handlePress = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    }
+        const formatTime = (timestamp) => {
+        return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    };
 
     return (
       <div className="min-h-screen flex flex-col">
@@ -144,7 +153,6 @@ export default function Chat() {
                        onClick={() => {
                         console.log("Selected user:", user);
                         setSelectedUser(user);
-                        setMessages([]);
                        }}
                        className={`flex items-center gap-3 w-full p-2 rounded-lg hover:bg-blue-100 transition
                                    ${user === selectedUser ? "bg-blue-300 font-semibold text-blue-700" : "text-gray-700"}`}
@@ -169,35 +177,19 @@ export default function Chat() {
 
            {/* Right  chat panel */}
            <main className="flex-1 flex flex-col bg-white">
-               {/* Message history */}
-               <div className=" flex-1 overflow-y-auto p-6 space-y-4" style={{ backgroundColor: "#f9f9f9"}}>
-                {messages.length === 0 && (
-                    <p className="text-center text-gray-500 mt-20">
-                        {selectedUser ? "No message yet." : "Select a user to chat."}
-                    </p>
-                )}
-
-                {messages.map((m, i) => {
-                    const isMe = m.sender === "You";
-
-                    return (
-                        <div key={i} className={`max-w-xs px-4 py-2 rounded-lg break-words ${
-                            isMe ? "bg-blue-500 text-white self-end ml-auto"
-                                 : "bg-gray-200 text-gray-900 self-start"
-                        }`}>
-                            {!isMe && (
-                                <div className="text-xs font-semibold mb-1">{m.sender}</div>
-                            )}
-                            {m.message}
+            {selectedUser && (
+                <div className="border-b p-4 bg-gray-50">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-blue-400 text-white flex items-center justify-center text-lg font-bold">
+                           {selectedUser.charAt(0).toUpperCase()}
                         </div>
-                    )
-                })}
+                    </div>
 
-         {typing && (
-                <p className="text-sm italic text-gray-400">Typing...</p>
-         )}
-               </div>
+                    <h2 className="font-bold">{selectedUser}</h2>
 
+                    {typing &&}
+                </div>
+            )}
                {/* Input area */}
                {selectedUser && (
                 <div className="p-4 border-t flex gap-2 bg-white">
