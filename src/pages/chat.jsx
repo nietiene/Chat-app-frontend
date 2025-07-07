@@ -21,14 +21,18 @@ export default function Chat() {
             try {
                 const res = await api.get('/api/auth/profile');
                 setMyName(res.data.name);
-                socket.emit('login', res.data.name);
             } catch (error) {
-                navigate('/login');
+                navigate('/');
             }
         };
         fetchProfile();
     }, [navigate]);
 
+    useEffect(() => {
+        if (myName) {
+            socket.emit("login", myName);
+        }
+    }, [myName]);
     // Fetch all users
     useEffect(() => {
         if (!myName) return;
@@ -62,13 +66,17 @@ export default function Chat() {
     // Socket.IO event handlers
     useEffect(() => {
         const handlePrivateMessage = ({ from, message, timestamp }) => {
-            if (from === selectedUser || from === 'You') {
-                setMessages(prev => [...prev, { 
-                    sender_name: from === 'You' ? myName : from,
-                    content: message,
-                    created_at: timestamp 
-                }]);
-            }
+            setMessages(prev => {
+                if (from === selectedUser) {
+                    return [...prev, {
+                        sender_name: from,
+                        content: message,
+                        created_at: timestamp
+                    }];
+                } else {
+                   return prev;
+                }
+            })
         };
 
         socket.on('privateMessage', handlePrivateMessage);
@@ -78,7 +86,7 @@ export default function Chat() {
             socket.off('privateMessage', handlePrivateMessage);
             socket.off('userList');
         };
-    }, [selectedUser, myName]);
+    }, [selectedUser]);
 
     // Auto-scroll to bottom of messages
     useEffect(() => {
