@@ -12,8 +12,6 @@ export default function Chat() {
     const [selectedUser, setSelectedUser] = useState(null);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const [typing, setTyping] = useState(false);
-    const [unreadCounts, setUnreadCounts] = useState({});
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
@@ -25,7 +23,7 @@ export default function Chat() {
                 setMyName(res.data.name);
                 socket.emit('login', res.data.name);
             } catch (error) {
-                navigate('/');
+                navigate('/login');
             }
         };
         fetchProfile();
@@ -38,16 +36,7 @@ export default function Chat() {
         const fetchUsers = async () => {
             try {
                 const res = await api.get('/api/users');
-                const otherUsers = res.data.filter(u => u.name !== myName);
-                setAllUsers(otherUsers);
-                
-                // Fetch unread counts for each user
-                const counts = {};
-                for (const user of otherUsers) {
-                    const res = await api.get(`/api/messages/unread/${user.name}`);
-                    counts[user.name] = res.data.count;
-                }
-                setUnreadCounts(counts);
+                setAllUsers(res.data.filter(u => u.name !== myName));
             } catch (error) {
                 console.error('Failed to fetch users:', error);
             }
@@ -63,10 +52,6 @@ export default function Chat() {
             try {
                 const res = await api.get(`/api/messages/${myName}/${selectedUser}`);
                 setMessages(res.data);
-                
-                // Mark messages as read
-                await api.get(`/api/messages/${selectedUser}/${myName}/read`);
-                setUnreadCounts(prev => ({ ...prev, [selectedUser]: 0 }));
             } catch (error) {
                 console.error('Failed to fetch messages:', error);
             }
@@ -76,35 +61,24 @@ export default function Chat() {
 
     // Socket.IO event handlers
     useEffect(() => {
-        socket.on('privateMessage', ({ from, message, timestamp }) => {
-            if (from === selectedUser) {
+        const handlePrivateMessage = ({ from, message, timestamp }) => {
+            if (from === selectedUser || from === 'You') {
                 setMessages(prev => [...prev, { 
-                    sender_id: from, 
+                    sender_name: from === 'You' ? myName : from,
                     content: message,
                     created_at: timestamp 
                 }]);
-            } else {
-                setUnreadCounts(prev => ({
-                    ...prev,
-                    [from]: (prev[from] || 0) + 1
-                }));
             }
-        });
+        };
 
-        socket.on('userList', (onlineUsers) => {
-            setOnlineUsers(onlineUsers);
-        });
-
-        socket.on('typing', () => setTyping(true));
-        socket.on('stopTyping', () => setTyping(false));
+        socket.on('privateMessage', handlePrivateMessage);
+        socket.on('userList', setOnlineUsers);
 
         return () => {
-            socket.off('privateMessage');
+            socket.off('privateMessage', handlePrivateMessage);
             socket.off('userList');
-            socket.off('typing');
-            socket.off('stopTyping');
         };
-    }, [selectedUser]);
+    }, [selectedUser, myName]);
 
     // Auto-scroll to bottom of messages
     useEffect(() => {
@@ -115,6 +89,14 @@ export default function Chat() {
         if (!selectedUser || !message.trim()) return;
 
         try {
+            // Save to database via API
+            await api.post('/api/messages', {
+                sender: myName,
+                receiver: selectedUser,
+                content: message
+            });
+
+            // Emit via socket
             socket.emit('privateMessage', {
                 to: selectedUser,
                 from: myName,
@@ -123,21 +105,15 @@ export default function Chat() {
 
             // Optimistic update
             setMessages(prev => [...prev, { 
-                sender_id: myName, 
+                sender_name: myName,
                 content: message,
-                created_at: new Date().toISOString() 
+                created_at: new Date().toISOString()
             }]);
             
             setMessage('');
         } catch (error) {
             console.error('Failed to send message:', error);
         }
-    };
-
-    const handleTyping = () => {
-        if (!selectedUser) return;
-        socket.emit('typing', { to: selectedUser });
-        setTimeout(() => socket.emit('stopTyping', { to: selectedUser }), 1000);
     };
 
     return (
@@ -170,18 +146,8 @@ export default function Chat() {
                                     <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                                 )}
                             </div>
-                            <div className="ml-3 flex-1">
-                                <div className="flex justify-between items-center">
-                                    <span className="font-semibold">{user.name}</span>
-                                    {unreadCounts[user.name] > 0 && (
-                                        <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                                            {unreadCounts[user.name]}
-                                        </span>
-                                    )}
-                                </div>
-                                <p className="text-sm text-gray-500 truncate">
-                                    {messages.find(m => m.sender_id === user.name)?.content || 'No messages yet'}
-                                </p>
+                            <div className="ml-3">
+                                <div className="font-semibold">{user.name}</div>
                             </div>
                         </div>
                     ))}
@@ -192,7 +158,6 @@ export default function Chat() {
             <div className="flex-1 flex flex-col">
                 {selectedUser ? (
                     <>
-                        {/* Chat header */}
                         <div className="p-4 border-b border-gray-200 bg-white flex items-center">
                             <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">
                                 {selectedUser.charAt(0).toUpperCase()}
@@ -205,48 +170,32 @@ export default function Chat() {
                             </div>
                         </div>
 
-                        {/* Messages */}
                         <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
                             {messages.map((msg, index) => (
                                 <div 
                                     key={index}
                                     className={`mb-4 flex ${
-                                        msg.sender_id === myName ? 'justify-end' : 'justify-start'
+                                        msg.sender_name === myName ? 'justify-end' : 'justify-start'
                                     }`}
                                 >
                                     <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                                        msg.sender_id === myName 
+                                        msg.sender_name === myName 
                                             ? 'bg-blue-500 text-white' 
                                             : 'bg-white text-gray-800 border border-gray-200'
                                     }`}>
                                         <div className="font-semibold">
-                                            {msg.sender_id === myName ? 'You' : msg.sender_id}
+                                            {msg.sender_name === myName ? 'You' : msg.sender_name}
                                         </div>
                                         <p>{msg.content}</p>
                                         <div className="text-xs mt-1 opacity-70">
-                                            {new Date(msg.created_at).toLocaleTimeString([], { 
-                                                hour: '2-digit', 
-                                                minute: '2-digit' 
-                                            })}
+                                            {new Date(msg.created_at).toLocaleTimeString()}
                                         </div>
                                     </div>
                                 </div>
                             ))}
-                            {typing && (
-                                <div className="flex justify-start mb-4">
-                                    <div className="bg-white text-gray-800 border border-gray-200 px-4 py-2 rounded-lg">
-                                        <div className="flex space-x-1">
-                                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
                             <div ref={messagesEndRef} />
                         </div>
 
-                        {/* Message input */}
                         <div className="p-4 border-t border-gray-200 bg-white">
                             <div className="flex space-x-2">
                                 <input
@@ -254,7 +203,6 @@ export default function Chat() {
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
                                     onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                                    onInput={handleTyping}
                                     placeholder="Type a message..."
                                     className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
