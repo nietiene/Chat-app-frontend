@@ -3,9 +3,9 @@ import io from "socket.io-client"
 import api from "../api";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-const socket = io("http://localhost:4000", {withCredentials: true})
+const socket = io("http://localhost:4000", {withCredentials: true, autoConnect: false})
 
 export default function Chat() {
     const [myUsername, setMyUsername] = useState("");
@@ -15,8 +15,16 @@ export default function Chat() {
     const [messages, setMessages] = useState([]);
     const [typing, setTyping] = useState(false);
     const [lastMessage, setLastMessage] = useState({});
+    const [Loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+
+    useEffect(() => {
+        socket.connect();
+        return () => {
+            socket.disconnect();
+        }
+    }, []);
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -30,18 +38,21 @@ export default function Chat() {
     useEffect(() => {
         if (!selectedUser || !myUsername) return;
         
+        setLoading(true);
         setMessages([]);
         api.get(`/api/messages/${myUsername}/${selectedUser}`)
         .then(res => {
             const msg = res.data.map(msg => ({
                 sender: msg.sender_id === myUsername ? "You" : msg.sender_id,
-                message: msg.content
+                message: msg.content,
+                timestamp: msg.created_at
             }))
 
             setMessages(msg);
         }).catch(err => {
             console.error("Failed to fetch messages:", err);
-        })
+            alert("Failed to load messages");
+        }).finally(() => setLoading(false)); 
     }, [selectedUser, myUsername])
 
     useEffect(() => {
@@ -53,18 +64,11 @@ export default function Chat() {
             navigate('/');
         });
 
-        useEffect(() => {
-           socket.on('privateMessage', ({ from, message }) => {
-            if (from === selectedUser) {
-               setMessages(prev => [...prev, { sender: from, message}]);
-            }
+           socket.on('privateMessage', ({ from, message, timestamp }) => {
 
+               setMessages(prev => [...prev, { sender: from, message, timestamp}]);
+            
               setLastMessage(prev => ({...prev, [from]: message}))
-
-              return () => {
-                socket.off('privateMessage')
-              }
-        }, [selectedUser]);
 
         })
 
