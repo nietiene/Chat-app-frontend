@@ -4,6 +4,11 @@ import  { FaHome, FaEnvelope, FaBell, FaUserCircle } from "react-icons/fa";
 
 
 export default function Layout () {
+
+        const [showUserMenu, setShowUserMenu] = useState(false);
+        const [profileImage, setProfileImage] = useState(null);
+        const [selectedFile, setSelectedFile] = useState(null);
+    
     return (
           <div className="min-h-screen flex flex-col">
                <nav className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center bg-blue-700 text-white px-6 py-3 shadow">
@@ -19,10 +24,22 @@ export default function Layout () {
                     </Link>
                 </div>
                 
-                <button className="bg-white text-blue-700 px-3 py-2 rounded-xl font-semibold flex flex-col items-center">
-                    <FaUserCircle className="text-3xl mb-1"/>
+                <button className="bg-white text-blue-700 px-3 py-2 rounded-xl font-semibold flex flex-col items-center"
+                    onClick={() => setShowUserMenu(!showUserMenu)}
+                >
+                    {profileImage ? (
+                        <img src={profileImage} 
+                        alt="Profile"
+                        className="w-12 h-12 rounded-full object-cover mb-1"/>
+                    ) : (
+                        <FaUserCircle className="text-3xl mb-1"/>
+                    )}
                 </button>
                </nav>
+
+               {showUserMenu && (
+                <div className="absolute top-14 right-0 bg-white border rounded"></div>
+               )}
 
             <div className="pt-20 flex-1 overflow-y-auto">
                <Outlet/>
