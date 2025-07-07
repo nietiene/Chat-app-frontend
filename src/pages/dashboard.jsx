@@ -105,13 +105,15 @@ export default function Dashboard() {
               return (
                 
                   <div key={post.post_id} className="p-4 border rounded shadow mb-4 bg-gray-50">
-                         <span className="text-xs text-gray-500 ml-auto bg-yellow-100  py-1 px-2">
-                              {new Date(post.created_at).toLocaleString()}
-                         </span>
+ 
                       <div className="flex items-center gap-2 mb-2">
                          <FaUserCircle className="text-xl text-blue-500" />
                          <span className="font-semibold">{post.name} ({post.role})</span>
+                         
                  </div>
+                 <span className="text-xs text-gray-500 ml-auto bg-yellow-100  py-1 px-2">
+                        {new Date(post.created_at).toLocaleString()}
+                  </span>
                {post.content && <p className="mb-2">{post.content}</p>}
                {post.image && (
                <img
