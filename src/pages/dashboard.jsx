@@ -42,11 +42,17 @@ export default function Dashboard() {
     useEffect(() => {
         api.get('/api/auth/profile')
         .then((res) => {
+            console.log("User profile data:", res.data);
             setUser(res.data);
             return api.get('/api/users');
         })
-        .then((res) => setAllUsers(res.data))
+        .then((res) => {
+            setAllUsers(res.data);
+            console.log("All users data:", res.data);
+
+        })
         .catch(() => {
+            console.error("Error fetching profile or users:", err);
             alert("Please login first");
             navigate('/');
         })
