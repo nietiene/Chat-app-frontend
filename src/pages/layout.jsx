@@ -46,9 +46,11 @@ export default function Layout () {
 
                 alert("Profile photo updated");
 
-                if (uploadRes.data.profile_image) {
+                if (uploadRes.data.filename) {
                     setProfileImage(`http://localhost:4000/uploads/${uploadRes.data.filename}`)
+                    setSelectedFile(null);
                 } else {
+                    
                     const profileRes = await api.get("/api/auth/profile");
                     setUser(profileRes.data);
 
