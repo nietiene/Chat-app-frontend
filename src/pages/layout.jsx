@@ -34,29 +34,29 @@ export default function Layout () {
         const handleProfilePhotoChange = async (e) => {
             e.preventDefault();
 
-            if (!selectedFile) return alert("Please select an image");
+            if (!selectedFile) {
+                 alert("Please select an image");
+                 return;
+            };
 
             const formData = new FormData();
             formData.append("profile_image", selectedFile);
 
             try {
-                 await api.post("/api/users/change-profile-photo", formData, {
-                    withCredentials: true
-                });
-                alert("Profile photo updated");
+                 const response = await api.post("/api/users/change-profile-photo", formData,{
+                    headers: { 'Content-Type': 'multipart/form-data'}
+                 }, { withCredentials: true},
+                );
 
-                    const profileRes = await api.get("/api/auth/profile");
-                    setUser(profileRes.data);
-
-                    if (profileRes.data.profile_image) {
-                        setProfileImage(`http://localhost:4000/uploads/${profileRes.data.profile_image}`);
-                    }
+                if (response.data.profile_image) {
+                    setProfileImage(`http://localhost:4000/uploads/${response.data.profile_image}`);
+                }
                    setSelectedFile(null);
                    setShowUserMenu(false);
                   alert("Photo changed successfully");
             } catch (error) {
                 console.error(error);
-                alert("Upload failed");
+                alert("Upload failed" + (error.response?.data?.error));
             }
         }
 
