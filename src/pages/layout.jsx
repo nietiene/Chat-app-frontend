@@ -44,6 +44,7 @@ export default function Layout () {
                 alert("Profile photo updated");
                 setShowUserMenu(false);
             } catch (error) {
+                console.error("Upload failed error:", error.response || error.message || error);
                 alert("Upload failed");
             }
         }
