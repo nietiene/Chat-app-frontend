@@ -37,8 +37,9 @@ export default function Layout () {
             formData.append("profile_image", selectedFile);
 
             try {
-                await api.phone("/api/auth/change-profile-photo", formData, {
+                await api.post("/api/users/change-profile-photo", formData, {
                     headers: { "Content-Type" : "multipart/form-data"},
+                    withCredentials: true
                 });
                 alert("Profile photo updated");
                 setShowUserMenu(false);
