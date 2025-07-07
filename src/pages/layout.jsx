@@ -52,9 +52,10 @@ export default function Layout () {
                     if (profileRes.data.profile_image) {
                         setProfileImage(`http://localhost:4000/uploads/${profileRes.data.profile_image}`);
                     }
-                setSelectedFile(null);
-                setShowUserMenu(false);
-                alert("Photo changed successfully");
+
+                   setSelectedFile(null);
+                   setShowUserMenu(false);
+                  alert("Photo changed successfully");
             } catch (error) {
                 console.error(error);
                 alert("Upload failed");
@@ -121,7 +122,7 @@ export default function Layout () {
                            onClick={handleLogout}
                            className="mt-4 w-full bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700"
                         >
-                            Logut
+                            Logout
                         </button>   
                     </form>
                 </div>
