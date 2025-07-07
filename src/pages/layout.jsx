@@ -9,7 +9,7 @@ export default function Layout () {
         const [profileImage, setProfileImage] = useState(null);
         const [selectedFile, setSelectedFile] = useState(null);
         const [user, setUser] = useState(null);
-       const navigate = useNavigate();
+        const navigate = useNavigate();
 
        useEffect(() => {
         api.get("/api/auth/profile")
@@ -55,6 +55,8 @@ export default function Layout () {
                 alert("logout failed");
             }
         }
+
+        if (!user) return null;
     return (
           <div className="min-h-screen flex flex-col">
                <nav className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center bg-blue-700 text-white px-6 py-3 shadow">
