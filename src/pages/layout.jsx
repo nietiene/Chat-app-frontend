@@ -38,7 +38,7 @@ export default function Layout () {
 
             try {
                 await api.post("/api/users/change-profile-photo", formData, {
-                    headers: { "Content-Type" : "multipart/form-data"},
+                    headers: {  "Content-Type": "multipart/form-data" },
                     withCredentials: true
                 });
                 alert("Profile photo updated");
