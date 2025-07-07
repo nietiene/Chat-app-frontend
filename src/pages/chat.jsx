@@ -162,6 +162,15 @@ export default function Chat() {
         }, 1000);
     };
 
+ useEffect(() => {
+  console.log("Selected user:", selectedUser);
+}, [selectedUser]);
+
+useEffect(() => {
+  console.log("All users:", allUsers);
+}, [allUsers]);
+
+
     return (
         <div className="min-h-screen flex flex-col">
             <div className="flex flex-1 overflow-hidden">
