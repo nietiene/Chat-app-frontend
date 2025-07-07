@@ -17,7 +17,16 @@ export default function Layout () {
         }
 
         const handleProfilePhotoChange = async (e) => {
-            
+            e.preventDefault();
+            if (!selectedFile) return alert("Please select an image");
+            const formData = new FormData();
+            formData.append("profile_image", selectedFile);
+
+            try {
+                await api.phone("/api/auth/change-profile-photo", formData, {
+                    headers: { "Content-Type" : "multipart/form-data"},
+                })
+            }
         }
     return (
           <div className="min-h-screen flex flex-col">
