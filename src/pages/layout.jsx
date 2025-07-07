@@ -32,7 +32,9 @@ export default function Layout () {
 
         const handleProfilePhotoChange = async (e) => {
             e.preventDefault();
+
             if (!selectedFile) return alert("Please select an image");
+
             const formData = new FormData();
             formData.append("profile_image", selectedFile);
 
@@ -41,10 +43,22 @@ export default function Layout () {
                     headers: {  "Content-Type": "multipart/form-data" },
                     withCredentials: true
                 });
+
                 alert("Profile photo updated");
+
+                if (res.data.filename) {
+                    setProfileImage(`http://localhost:4000/uploads/${res.data.filename}`);
+                } else {
+                    const profileRes = await api.get("/api/auth/profile");
+                    setUser(profileRes.data);
+
+                    if (profileImage.data.profile_image) {
+                        setProfileImage(`http://localhost:4000/uploads/${profileRes.data.profile_image}`)
+                    }
+                }
                 setShowUserMenu(false);
             } catch (error) {
-                console.error("Upload failed error:", error.response || error.message || error);
+                console.error(error);
                 alert("Upload failed");
             }
         }
