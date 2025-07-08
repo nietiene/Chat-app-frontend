@@ -207,9 +207,22 @@ return (
                                        onChange={toggleUserForGroup(user.name)}
                                       className='h-2 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded'
                                     />
+
+                                    <label htmlFor={`user-${user.name}`} className='ml-2 block text-sm text-gray-900'>{user.name}</label>
                                    </div>
                             ))}
                         </div>
+                    </div>
+
+                    <div className='flex justify-end space-x-2'>
+                        <button 
+                          onClick={setShowGroupModal(false)}
+                          className='px-4 py-2 border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50'>Cancel</button>
+
+                          <button
+                             onClick={createGroup}
+                              disabled={!groupName.trim() || selectedUserForGroup.length === 0}
+                              className='px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 disabled:bg-gray-400'>Create Group</button>
                     </div>
                 </div>
             </div>
