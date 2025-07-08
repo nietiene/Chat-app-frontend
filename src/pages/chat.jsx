@@ -23,6 +23,7 @@ export default function Chat() {
         const fetchGroups = async () => {
             try {
                 const res = await api.get('/api/groups/my');
+                console.log('Fetched groups:', res.data);
                 setGroup(res.data);
             } catch (err) {
                 console.error("Failed to fetch groups:", err);
@@ -180,7 +181,7 @@ return (
                         </div>
                         <div className='flex-1 min-w-0'>
                             <p className="text-sm font-medium text-gray-900 truncate">{group.group_name}</p>
-                            <p className="text-xs text-gray-500 truncate">Created by {group.group_by}</p>
+                            <p className="text-xs text-gray-500 truncate">Created by {group.created_by}</p>
                         </div>
                     </div>
                     
