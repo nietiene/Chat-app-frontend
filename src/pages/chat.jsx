@@ -182,7 +182,34 @@ return (
           {showGroupModal && (
             <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
                 <div className='bg-white rounded-lg p-6 w-full max-w-md'>
-                    <h2 className=''>Create New Group</h2>
+                    <h2 className='text-xl font-bold mb-4'>Create New Group</h2>
+
+                    <div className='mb-4'>
+                        <label className='block text-sm font-medium text=gray-700 mb-1'>Group Name</label>
+                        <input type="text" value={groupName}
+                            onChange={(e) => setGroupName(e.target.value)}
+                            className='w-full border broder-gray-300 rounded-md px-3 py-2 focus:outline-none
+                             focus:ring-2 focus:ring-blue-500'
+                             placeholder='Enter group name'
+                        />
+                    </div>
+
+                    <div className='mb-4'>
+                        <label className='block text-sm font-medium text-gray-700 mb-1'>Select Members</label>
+                        <div className='max-h-60 overflow-y-auto border border-gray-200 rounded-md p-2'>
+                            {allUsers.map(user => (
+                                <div key={user.name}
+                                   className='flex items-center border-gray-200 hover:bg-gray-50'>
+                                    
+                                    <input type="checkbox" 
+                                    id={`user-${user.name}`}
+                                    checked={selectedUserForGroup.includes(user.name)}
+                                    onChange={toggleUserForGroup(user.name)}
+                                    className=''/>
+                                   </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
           )}
