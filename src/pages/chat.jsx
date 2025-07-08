@@ -252,7 +252,9 @@ return (
             <div className='divide-y divide-gray-100'>
                 {groups.map(group => (
                     <div key={group.g_id}
-                        className='p-3 flex items-center space-x-3 cursor-pointer transition-colors'>
+                        className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200
+                           ${activeGroup === group.g_id ? 'bg-purple-100' : 'bg-gray-50'}`}>
+
                     </div>
                 ))}
             </div>
