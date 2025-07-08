@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
+import { type } from 'os';
 
 const socket = io('http://localhost:4000', { withCredentials: true });
 
@@ -48,7 +49,21 @@ export default function Chat() {
         }
     }, [selectedGroup]);
 
-    
+const sendGroupChatMessage = async ()  => {
+    if (!selectedGroup || !message.trim()) return;
+
+    try {
+        await api.post('/api/group-messages', {
+            g_id: selectedGroup.g_id,
+            content: message,
+            type: 'text',
+        });
+
+        socket.emit('groupMessage', {
+            
+        })
+    }
+}   
     useEffect(() => {
         if (!myName) return;
 
