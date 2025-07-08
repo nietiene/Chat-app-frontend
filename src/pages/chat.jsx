@@ -178,8 +178,11 @@ return (
                         <div  className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow">
                             {group.group_name.charAt(0).toUpperCase()}
                         </div>
+                        <div className='flex-1 min-w-0'>
+                            <p className="text-sm font-medium text-gray-900 truncate">{group.group_name}</p>
+                            <p className="text-xs text-gray-500 truncate">Created by {group.group_by}</p>
+                        </div>
                     </div>
-
                     
                 ))}
             </div>
