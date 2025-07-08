@@ -12,9 +12,26 @@ export default function Chat() {
     const [selectedUser, setSelectedUser] = useState(null);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
+    const [showGroupModal, setShowGroupModal] = useState(false);
+    const [groupName, setGroupName] = useState("");
+    const [selectedUserForGroup, setSelectedUserForGroup] = useState([];)
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
+    const createGroup = async () => {
+        if (!groupName.trim() || selectedUserForGroup.length === 0) return;
+
+        try {
+            await api.post('/api/groups', {
+                name: groupName,
+                members: [...selectedUserForGroup, myName]
+            });
+            setShowGroupModal(false);
+            setGroupName('');
+            setSelectedUserForGroup([]);
+            
+        }
+    }
     // Fetch current user profile
     useEffect(() => {
         const fetchProfile = async () => {
