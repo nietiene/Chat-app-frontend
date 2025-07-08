@@ -260,7 +260,9 @@ return (
                            }}
                     >
 
-                            <div className='w-full h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow'></div>
+                            <div className='w-full h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow'>
+                                {group.group_name.charAt(0).toUpperCase()}
+                            </div>
 
                     </div>
                 ))}
