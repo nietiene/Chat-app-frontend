@@ -13,6 +13,8 @@ export default function Chat() {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [group, setGroup] = useState([]);
+    const [selectedGroup, setSelectedGroup] = useState(null);
+    const [groupMessages, setGroupMessages] = useState([]);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
