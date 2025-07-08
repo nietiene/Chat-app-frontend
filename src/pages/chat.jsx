@@ -30,7 +30,25 @@ export default function Chat() {
                 console.error('Failed to fetch group messages:', err);
             }
         }
-    })
+
+        fetchGroupMessages();
+    }, [selectedGroup]);
+
+    useEffect(() => {
+        const handleNewGroupMessage = (msg) => {
+            if (selectedGroup && msg.g_id === selectedGroup.g_id) {
+                setGroupMessages(prev => [...prev, msg]);
+            }
+        }
+
+        socket.on('newGroupMessage', handleNewGroupMessage);
+
+        return () => {
+            socket.off('newGroupMessage', handleNewGroupMessage);
+        }
+    }, [selectedGroup]);
+
+    
     useEffect(() => {
         if (!myName) return;
 
