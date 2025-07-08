@@ -240,7 +240,7 @@ return (
                         onClick={() => {
                             setSelectedUser(null);
                             setSelectedGroup(group);
-                            setMessage([]);
+                            setMessage('');
                             setGroupMessages([]);
                         }}
                     >
@@ -294,7 +294,7 @@ return (
 
        <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
         <div className='space-y-3'>
-            {(selectedGroup ? groupMessages : message).map((msg, i) => (
+            {(selectedGroup ? groupMessages : messages).map((msg, i) => (
                 <div
                   key={i}
                   className={`flex ${msg.sender_name === myName ? 'justify-end' : 'justify-start'}`}
