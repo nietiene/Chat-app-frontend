@@ -237,7 +237,14 @@ return (
                 )}
                 {group.map(group => (
                     <div className={`p-3 flex items-center space-x-3 hover:bg-gray-100 cursor-pointer
-                                    ${selectedGroup?.g_id === g.g_id ? 'bg-blue-100' : ''}`} key={group.g_id}>
+                                    ${selectedGroup?.g_id === group.g_id ? 'bg-blue-100' : ''}`} key={group.g_id}
+                        onClick={() => {
+                            setSelectedUser(null);
+                            setSelectedGroup(group);
+                            setMessage([]);
+                            setGroupMessages([]);
+                        }}
+                    >
                         <div  className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow">
                             {group.group_name.charAt(0).toUpperCase()}
                         </div>
@@ -286,6 +293,16 @@ return (
             </div>
         </div>
 
+       <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
+        <div className='space-y-3'>
+            {(selectedGroup ? groupMessages : message).map((msg, i) => (
+                <div
+                  className=''>
+
+                </div>
+            ))}
+        </div>
+       </div>
         {/* Chat area - Enhanced messaging interface */}
         <div className="flex-1 flex flex-col bg-white">
             {selectedUser ? (
