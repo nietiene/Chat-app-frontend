@@ -320,6 +320,16 @@ return (
             ))}
 
             <div ref={messagesEndRef} />
+
+            <form 
+                onSubmit={e => {
+                    e.preventDefault();
+                    if (selectedGroup) {
+                        sendGroupChatMessage();
+                    } else {
+                        sendMessage();
+                    }
+                }}></form>
         </div>
        </div>
         {/* Chat area - Enhanced messaging interface */}
