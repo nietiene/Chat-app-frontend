@@ -74,10 +74,20 @@ export default function CreateGroup () {
                     {allUsers.filter(user => user.name !== myName)
                       .map(user => (
                         <div className="flex items-center mb-2" key={user.name}>
-                             
+                             <input type="checkbox"
+                                id={`user-${user.name}`}
+                                checked={selectedUsers.includes(user.name)}
+                                onChange={() => toggleUserSelection(user.name)}
+                                className="mr-2"
+                            />
+                            <label htmlFor={`user-${user.name}`} className="text-sm">{user.name}</label>
                         </div>
                       ))}
                 </div>
+            </div>
+
+            <div className="flex justify-end space-x-2">
+                
             </div>
         </div>
     )
