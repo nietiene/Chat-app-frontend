@@ -174,6 +174,12 @@ return (
                     <p className="text-xs text-gray-400 px-4 py-2">No groups yet</p>
                 )}
                 {group.map(group => (
+                    <div className="p-3 flex items-center space-x-3 hover:bg-gray-100 cursor-pointer" key={group.g_id}>
+                        <div  className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow">
+                            {group.group_name.charAt(0).toUpperCase()}
+                        </div>
+                    </div>
+
                     
                 ))}
             </div>
