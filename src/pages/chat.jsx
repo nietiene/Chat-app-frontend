@@ -60,8 +60,22 @@ const sendGroupChatMessage = async ()  => {
         });
 
         socket.emit('groupMessage', {
-            
-        })
+            g_id: selectedGroup.g_id,
+            content: message,
+            type: 'text',
+        });
+
+        setGroupMessages(prev => [...prev, {
+            user_id: 'me',
+            sender_name: myName,
+            content: message,
+            created_at: new Date().toISOString(),
+            type: 'text'
+        }]);
+
+        setMessage('');
+    } catch (err) {
+        console.error('Failed to send group message:', err);
     }
 }   
     useEffect(() => {
