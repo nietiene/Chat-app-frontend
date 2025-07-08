@@ -111,7 +111,6 @@ export default function Chat() {
                 message
             });
 
-            // Optimistic update
             setMessages(prev => [...prev, { 
                 sender_name: myName,
                 content: message,
@@ -123,7 +122,7 @@ export default function Chat() {
             console.error('Failed to send message:', error);
         }
     };
-// ... (keep all your existing imports and the initial code exactly the same)
+
 
 return (
     <div className="flex h-screen bg-gray-100">
@@ -141,8 +140,8 @@ return (
                     </div>
                 </div>
             </div>
-            
-            {/* Contacts list - Better spacing and visual cues */}
+
+
             <div className="flex-1 overflow-y-auto">
                 <h3 className="px-4 py-3 text-sm font-semibold text-gray-500 bg-gray-50">
                     CONTACTS
