@@ -17,6 +17,20 @@ export default function Chat() {
     const navigate = useNavigate();
 
 
+    useEffect(() => {
+        if (!myName) return;
+
+        const fetchGroups = async () => {
+            try {
+                const res = await api.get('/api/groups/my');
+                setGroup(res.data);
+            } catch (err) {
+                console.error("Failed to fetch groups:", err);
+            }
+        }
+        fetchGroups();
+
+    }, [myName]);
     // Fetch current user profile
     useEffect(() => {
         const fetchProfile = async () => {
