@@ -23,15 +23,17 @@ export default function Chat() {
     useEffect(() => {
         if (!myName) return;
 
-        const fetchGroups = async => {
+        const fetchGroups = async () => {
             try {
                 const res = await api.get('/api/groups/my');
                 setGroups(res.data);
             } catch (error) {
-                console.error
+                console.error('Failed to fetch groups', error);
             }
-        }
-    })
+        };
+        fetchGroups();
+    }, [myName]);
+
     const createGroup = async () => {
         if (!groupName.trim() || selectedUserForGroup.length === 0) return;
 
@@ -241,6 +243,20 @@ return (
                 </div>
             </div>
           )}
+
+          <div className='flex-1 overflow-y-auto'>
+            <h3 className='px-4 py-3 text-sm font-semibold text-gray-500 bg-gray-50'>
+                GROUPS
+            </h3>
+
+            <div className='divide-y divide-gray-100'>
+                {groups.map(group => (
+                    <div key={group.g_id}
+                        className='p-3 flex items-center space-x-3 cursor-pointer transition-colors'>
+                    </div>
+                ))}
+            </div>
+          </div>
             <div className="flex-1 overflow-y-auto">
                 <h3 className="px-4 py-3 text-sm font-semibold text-gray-500 bg-gray-50">
                     CONTACTS
