@@ -170,7 +170,13 @@ return (
            <div className='p-2 border-b border-gray-200'>
             <button
                onClick={() => setShowGroupModal(true)}
-               className='w-full bg-blue-500 hover:bg-green-700 text-white py-2'></button>
+               className='w-full bg-blue-500 hover:bg-green-700 text-white py-2
+                px-4 rounded-md transition-colors duration-200 flex items-center justify-center space-x-2'>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+                        </svg>
+                        <span>Create New Group</span>
+                </button>
            </div>
 
             <div className="flex-1 overflow-y-auto">
