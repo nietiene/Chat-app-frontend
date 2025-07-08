@@ -71,7 +71,12 @@ export default function CreateGroup () {
             <div className="mb-4">
                 <label className="block text-sm font-medium mb-1">Select Members</label>
                 <div className="max-h-60 overflow-y-auto border rounded p-2">
-                    
+                    {allUsers.filter(user => user.name !== myName)
+                      .map(user => (
+                        <div className="flex items-center mb-2" key={user.name}>
+                             
+                        </div>
+                      ))}
                 </div>
             </div>
         </div>
