@@ -24,7 +24,7 @@ export default function Chat() {
 
         const fetchGroupMessages = async () => {
             try {
-                const res = await api.get(`/api/group-messages/${selectedGroup.g_id}`);
+                const res = await api.get(`/api/groups/group-messages/${selectedGroup.g_id}`);
                 setGroupMessages(res.data);
             } catch (err) {
                 console.error('Failed to fetch group messages:', err);
