@@ -28,5 +28,40 @@ export default function CreateGroup () {
                  console.error('Error fetching users:', error);
             }
         }
-    })
+        fetchProfile();
+        fetchUsers();
+    }, [navigate]);
+
+    const toggleUserSelection = (username) => {
+        setSelectedUsers(prev => 
+            prev.includes(username)
+            ? prev.filter(name => name !== username)
+            : [...prev, username]
+        );
+    };
+
+    const createGroup = async () => {
+        if (!groupName.trim() || selectedUsers.length === 0) return;
+
+        try {
+            await api.post('/api/groups', {
+                name: groupName,
+                members: [...selectedUsers, myName]
+            });
+            navigate('/chat');
+        } catch (error) {
+            console.error('Group creation failed', error);
+        }
+    }
+
+    return (
+        <div className="max-w-xl mx-auto p-6 mt-10 bg-white shadow rounded">
+            <h2 className="text-2xl font-bold mb-4">Create a New Group</h2>
+
+            <div className="mb-4">
+                <label className="block text-sm font-medium mb-1">Group name</label>
+                <input type="text" name="" id="" />
+            </div>
+        </div>
+    )
 } 
