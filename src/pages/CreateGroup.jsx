@@ -4,7 +4,7 @@ import api from "../api";
 
 export default function CreateGroup () {
 
-    const [groupName, setGroupName] = useSearchParams('');
+    const [groupName, setGroupName] = useState('');
     const [allUsers, setAllUsers] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [myName, setMyName] = useState('');
