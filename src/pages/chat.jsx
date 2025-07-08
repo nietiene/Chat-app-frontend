@@ -15,9 +15,18 @@ export default function Chat() {
     const [showGroupModal, setShowGroupModal] = useState(false);
     const [groupName, setGroupName] = useState("");
     const [selectedUserForGroup, setSelectedUserForGroup] = useState([]);
+    const [groups, setGroups] = useState([]);
+    const [activeGroup, setActiveGroup] = useState(null);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (!myName) return;
+
+        const fetchGroups = async => {
+            
+        }
+    })
     const createGroup = async () => {
         if (!groupName.trim() || selectedUserForGroup.length === 0) return;
 
