@@ -87,7 +87,10 @@ export default function CreateGroup () {
             </div>
 
             <div className="flex justify-end space-x-2">
-                
+                <button
+                  onClick={() => navigate('/chat')}
+                  className="px-4 py-2 border rounded text-gray-700 hover:bg-gray-100">Cancel</button>
+                  
             </div>
         </div>
     )
