@@ -12,51 +12,10 @@ export default function Chat() {
     const [selectedUser, setSelectedUser] = useState(null);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const [showGroupModal, setShowGroupModal] = useState(false);
-    const [groupName, setGroupName] = useState("");
-    const [selectedUserForGroup, setSelectedUserForGroup] = useState([]);
-    const [groups, setGroups] = useState([]);
-    const [activeGroup, setActiveGroup] = useState(null);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!myName) return;
 
-        const fetchGroups = async () => {
-            try {
-                const res = await api.get('/api/groups/my');
-                setGroups(res.data);
-            } catch (error) {
-                console.error('Failed to fetch groups', error);
-            }
-        };
-        fetchGroups();
-    }, [myName]);
-
-    const createGroup = async () => {
-        if (!groupName.trim() || selectedUserForGroup.length === 0) return;
-
-        try {
-            await api.post('/api/groups', {
-                name: groupName,
-                members: [...selectedUserForGroup, myName]
-            });
-            setShowGroupModal(false);
-            setGroupName('');
-            setSelectedUserForGroup([]);
-        } catch (err) {
-            console.error('Failed to create group:', err)
-        }
-    }
-
-    const toggleUserForGroup = (username) => {
-        setSelectedUserForGroup(prev => {
-            prev.includes(username)
-            ? prev.filter(u => u !== username)
-            : [...prev, username]
-        })
-    }
     // Fetch current user profile
     useEffect(() => {
         const fetchProfile = async () => {
@@ -75,6 +34,7 @@ export default function Chat() {
             socket.emit("login", myName);
         }
     }, [myName]);
+
     // Fetch all users
     useEffect(() => {
         if (!myName) return;
@@ -183,99 +143,6 @@ return (
                 </div>
             </div>
 
-           <div className='p-2 border-b border-gray-200'>
-            <button
-               onClick={() => setShowGroupModal(true)}
-               className='w-full bg-blue-500 hover:bg-blue-700 text-white py-2
-                px-4 rounded-md transition-colors duration-200 flex items-center justify-center space-x-2'>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
-                        </svg>
-                        <span>Create New Group</span>
-                </button>
-           </div>
-
-          {showGroupModal && (
-            <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
-                <div className='bg-white rounded-lg p-6 w-full max-w-md'>
-                    <h2 className='text-xl font-bold mb-4'>Create New Group</h2>
-
-                    <div className='mb-4'>
-                        <label className='block text-sm font-medium text=gray-700 mb-1'>Group Name</label>
-                        <input type="text" value={groupName}
-                            onChange={(e) => setGroupName(e.target.value)}
-                            className='w-full border broder-gray-300 rounded-md px-3 py-2 focus:outline-none
-                             focus:ring-2 focus:ring-blue-500'
-                             placeholder='Enter group name'
-                        />
-                    </div>
-
-                    <div className='mb-4'>
-                        <label className='block text-sm font-medium text-gray-700 mb-1'>Select Members</label>
-                        <div className='max-h-60 overflow-y-auto border border-gray-200 rounded-md p-2'>
-                            {allUsers.map(user => (
-                                <div key={user.name}
-                                   className='flex items-center border-gray-200 hover:bg-gray-50'>
-
-                                    <input type="checkbox" 
-                                       id={`user-${user.name}`}
-                                       checked={selectedUserForGroup.includes(user.name)}
-                                       onChange={toggleUserForGroup(user.name)}
-                                      className='h-2 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded'
-                                    />
-
-                                    <label htmlFor={`user-${user.name}`} className='ml-2 block text-sm text-gray-900'>{user.name}</label>
-                                   </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className='flex justify-end space-x-2'>
-                        <button 
-                          onClick={setShowGroupModal(false)}
-                          className='px-4 py-2 border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50'>Cancel</button>
-
-                          <button
-                             onClick={createGroup}
-                              disabled={!groupName.trim() || selectedUserForGroup.length === 0}
-                              className='px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 disabled:bg-gray-400'>Create Group</button>
-                    </div>
-                </div>
-            </div>
-          )}
-
-          <div className='flex-1 overflow-y-auto'>
-            <h3 className='px-4 py-3 text-sm font-semibold text-gray-500 bg-gray-50'>
-                GROUPS
-            </h3>
-
-            <div className='divide-y divide-gray-100'>
-                {groups.map(group => (
-                    <div key={group.g_id}
-                        className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200
-                           ${activeGroup === group.g_id ? 'bg-purple-100' : 'bg-gray-50'}`}
-                           onClick={() => {
-                            setActiveGroup(group.g_id);
-                            selectedUser(null)
-                           }}
-                    >
-
-                            <div className='w-full h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow'>
-                                {group.group_name.charAt(0).toUpperCase()}
-                            </div>
-
-                    <div className='flex-1 min-w-0'>
-                        <p className='text-sm font-medium text-gray-900 truncate'>
-                            {group.group_name}
-                        </p>
-                        <p className='text-xs text-gray-500 truncate'>
-                            Created by {group.created_by}
-                        </p>
-                    </div>
-                    </div>
-                ))}
-            </div>
-          </div>
             <div className="flex-1 overflow-y-auto">
                 <h3 className="px-4 py-3 text-sm font-semibold text-gray-500 bg-gray-50">
                     CONTACTS
