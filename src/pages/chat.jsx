@@ -253,7 +253,14 @@ return (
                 {groups.map(group => (
                     <div key={group.g_id}
                         className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200
-                           ${activeGroup === group.g_id ? 'bg-purple-100' : 'bg-gray-50'}`}>
+                           ${activeGroup === group.g_id ? 'bg-purple-100' : 'bg-gray-50'}`}
+                           onClick={() => {
+                            setActiveGroup(group.g_id);
+                            selectedUser(null)
+                           }}
+                    >
+
+                            <div className='w-full h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow'></div>
 
                     </div>
                 ))}
