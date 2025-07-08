@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
-import { type } from 'os';
 
 const socket = io('http://localhost:4000', { withCredentials: true });
 
@@ -329,7 +328,19 @@ return (
                     } else {
                         sendMessage();
                     }
-                }}></form>
+                }} className='flex space-x-2'>
+                    <input type="text" 
+                       value={message}
+                       onChange={e => setMessage(e.target.value)}
+                       className="flex-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                     />
+                     <button type='submit'
+                        disabled={!message.trim()}
+                            className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 disabled:bg-gray-400 transition-colors duration-200 shadow-sm"
+                     >
+                        send
+                     </button>
+                </form>
         </div>
        </div>
         {/* Chat area - Enhanced messaging interface */}
