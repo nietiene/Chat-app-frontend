@@ -20,6 +20,18 @@ export default function Chat() {
 
 
     useEffect(() => {
+        if (!selectedGroup) return;
+
+        const fetchGroupMessages = async () => {
+            try {
+                const res = await api.get(`/api/group-messages/${selectedGroup.g_id}`);
+                setGroupMessages(res.data);
+            } catch (err) {
+                console.error('Failed to fetch group messages:', err);
+            }
+        }
+    })
+    useEffect(() => {
         if (!myName) return;
 
         const fetchGroups = async () => {
