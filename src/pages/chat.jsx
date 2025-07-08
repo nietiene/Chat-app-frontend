@@ -24,7 +24,12 @@ export default function Chat() {
         if (!myName) return;
 
         const fetchGroups = async => {
-            
+            try {
+                const res = await api.get('/api/groups/my');
+                setGroups(res.data);
+            } catch (error) {
+                console.error
+            }
         }
     })
     const createGroup = async () => {
