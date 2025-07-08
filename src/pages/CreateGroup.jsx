@@ -89,8 +89,16 @@ export default function CreateGroup () {
             <div className="flex justify-end space-x-2">
                 <button
                   onClick={() => navigate('/chat')}
-                  className="px-4 py-2 border rounded text-gray-700 hover:bg-gray-100">Cancel</button>
-                  
+                  className="px-4 py-2 border rounded text-gray-700 hover:bg-gray-100">
+                    Cancel
+            </button>
+           <button 
+              onClick={createGroup}
+              disabled={!groupName.trim() || selectedUsers.length === 0}
+               className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-400"
+            >
+                Create Group
+            </button>
             </div>
         </div>
     )
