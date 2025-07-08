@@ -297,8 +297,15 @@ return (
         <div className='space-y-3'>
             {(selectedGroup ? groupMessages : message).map((msg, i) => (
                 <div
-                  className={`flex ${msg.sender_name === myName ? 'justify-end' : 'justify-start'}`}>
-
+                  key={i}
+                  className={`flex ${msg.sender_name === myName ? 'justify-end' : 'justify-start'}`}
+                >
+                <div
+                  className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl shadow-sm ${
+                    msg.sender_name === myName
+                    ? 'bg-blue-600 text-white rounded-br-none'
+                    : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none'
+                  }`}></div>
                 </div>
             ))}
         </div>
