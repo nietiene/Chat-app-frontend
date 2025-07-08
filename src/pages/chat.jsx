@@ -305,9 +305,21 @@ return (
                     msg.sender_name === myName
                     ? 'bg-blue-600 text-white rounded-br-none'
                     : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none'
-                  }`}></div>
+                  }`}>
+                    {msg.sender_name !== myName && (
+                        <p className="text-xs font-semibold text-blue-600 mb-1">{msg.sender_name}</p>
+                    )}
+                    <p className='text-sm'>{msg.content}</p>
+                    <p className={`text-xs mt-1 ${
+                        msg.sender_name === myName ? 'text-blue-100' : 'text-gray-500'
+                    }`}>
+                        {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'})}
+                    </p>
+                  </div>
                 </div>
             ))}
+
+            <div ref={messagesEndRef} />
         </div>
        </div>
         {/* Chat area - Enhanced messaging interface */}
