@@ -145,7 +145,10 @@ return (
 
           <button
              onClick={() => navigate('/create-group')}
-             className='w-full bg-blue-500 hover:bg-blue-700 text-white'></button>
+             className='w-full bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors duration-200 flex items-center justify-center space-x-2'
+            >
+            
+            </button>
             <div className="flex-1 overflow-y-auto">
                 <h3 className="px-4 py-3 text-sm font-semibold text-gray-500 bg-gray-50">
                     CONTACTS
