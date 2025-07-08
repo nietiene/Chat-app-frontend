@@ -67,6 +67,13 @@ export default function CreateGroup () {
                    placeholder="Enter group name"
                    />
             </div>
+
+            <div className="mb-4">
+                <label className="block text-sm font-medium mb-1">Select Members</label>
+                <div className="max-h-60 overflow-y-auto border rounded p-2">
+                    
+                </div>
+            </div>
         </div>
     )
 } 
