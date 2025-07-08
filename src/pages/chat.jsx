@@ -167,6 +167,16 @@ return (
          </svg>
          <span>Create New Group</span>
             </button>
+
+            <h3 className="px-4 py-3 text-sm font-semibold text-gray-500 bg-gray-50">GROUPS</h3>
+            <div className='divide-y divide-gray-100'>
+                {group.length === 0 && (
+                    <p className="text-xs text-gray-400 px-4 py-2">No groups yet</p>
+                )}
+                {group.map(group => (
+                    
+                ))}
+            </div>
             <div className="flex-1 overflow-y-auto">
                 <h3 className="px-4 py-3 text-sm font-semibold text-gray-500 bg-gray-50">
                     CONTACTS
