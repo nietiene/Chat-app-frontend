@@ -297,7 +297,7 @@ return (
         <div className='space-y-3'>
             {(selectedGroup ? groupMessages : message).map((msg, i) => (
                 <div
-                  className=''>
+                  className={`flex ${msg.sender_name === myName ? 'justify-end' : 'justify-start'}`}>
 
                 </div>
             ))}
