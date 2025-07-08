@@ -29,8 +29,17 @@ export default function Chat() {
             setShowGroupModal(false);
             setGroupName('');
             setSelectedUserForGroup([]);
-            
+        } catch (err) {
+            console.error('Failed to create group:', err)
         }
+    }
+
+    const toggleUserForGroup = (username) => {
+        setSelectedUserForGroup(prev => {
+            prev.includes(username)
+            ? prev.filter(u => u !== username)
+            : [...prev, username]
+        })
     }
     // Fetch current user profile
     useEffect(() => {
