@@ -200,12 +200,13 @@ return (
                             {allUsers.map(user => (
                                 <div key={user.name}
                                    className='flex items-center border-gray-200 hover:bg-gray-50'>
-                                    
+
                                     <input type="checkbox" 
-                                    id={`user-${user.name}`}
-                                    checked={selectedUserForGroup.includes(user.name)}
-                                    onChange={toggleUserForGroup(user.name)}
-                                    className=''/>
+                                       id={`user-${user.name}`}
+                                       checked={selectedUserForGroup.includes(user.name)}
+                                       onChange={toggleUserForGroup(user.name)}
+                                      className='h-2 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded'
+                                    />
                                    </div>
                             ))}
                         </div>
