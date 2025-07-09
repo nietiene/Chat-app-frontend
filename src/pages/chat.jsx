@@ -287,7 +287,7 @@ export default function Chat() {
                 </div>
             </div>
 
-            <div className="flex-1 flex flex-col bg-white overflow-hidden">
+            <div className="flex-1 flex flex-col bg-white">
                 {selectedUser || selectedGroup ? (
                     <>
                         <div className="shrink-0 p-3 border-b border-gray-200 bg-white flex items-center space-x-3 shadow-sm">
