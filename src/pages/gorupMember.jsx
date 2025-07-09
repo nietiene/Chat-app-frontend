@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../api";
 
@@ -26,10 +26,6 @@ export default function GroupMember () {
             const nonMembers = userList.filter(
                 (u) => !members.find((m) => m.user_id === u.user_id)
             );
-
-            console.log("userList", userList);
-            console.log("members", members);
-            console.log("NonMembers", nonMembers);
 
             setAvailableUsers(nonMembers);
         } catch (err) {
@@ -73,7 +69,9 @@ export default function GroupMember () {
             : [...prev, userId]
         )
     }
-console.log("availableUsers", availableUsers);
+    useEffect(() => {
+      console.log("availableUsers", availableUsers);      
+    }, [availableUsers])
 
 return (
     <div
@@ -109,7 +107,6 @@ return (
                             <input type="checkbox" 
                               checked={selectedUserId.includes(user.user_id)}
                               onChange={() => handleChekBoxChange(user.user_id)} 
-                              disabled={!user.user_id}
                               className="accent-blue-600"
                             /> 
                             <span>{user.name}</span>
