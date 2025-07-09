@@ -33,7 +33,7 @@ export default function GroupMember() {
 
   const fetchCurrentUser = async () => {
     try {
-        const res = await api.get("/api/me");
+        const res = await api.get("/api/groups/me");
         setCurrentUserName(res.data.name);
     } catch (error) {
         console.error('Failed to fetch user', error);
@@ -212,7 +212,7 @@ export default function GroupMember() {
             <span className="font-medium text-gray-800">{member.name}</span>
 
 
-          {groupInfo?.created_by?.trim().toLowerCase() === currentUserName?.trim().toLowerCase() && member.name !== currentUserName && (
+          {groupInfo?.created_by?.toLowerCase() === currentUserName?.toLowerCase() && member.name !== currentUserName && (
             <button 
               onClick={() => handleRemoveMember(member.user_id)}
               className="text-sm text-red-600 hover:text-red-800"
