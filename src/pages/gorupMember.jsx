@@ -11,7 +11,7 @@ export default function GroupMember () {
 
     const [showAddForm, setShowAddForm] = useState(false);
     const [availableUsers, setAvailableUsers] = useState([]);
-    const [selectedUserId, setSelectedUserId] = useState("");
+    const [selectedUserId, setSelectedUserId] = useState([]);
 
 
     useEffect(() => {
@@ -24,9 +24,10 @@ export default function GroupMember () {
             const userList = res.data;
 
             const nonMembers = userList.filter(
-                (u) => !members.find((m) => m.sender_id === u.sender_id)
+                (u) => !members.find((m) => m.user_id === u.user_id)
             );
-
+            console.log("userList", userList);
+            console.log("members", members);
             setAvailableUsers(nonMembers);
         } catch (err) {
             console.error("Failed to laod users:", err);
@@ -56,14 +57,14 @@ export default function GroupMember () {
             }
             await fetchMembers();
             setShowAddForm(false);
-            selectedUserId("");
+            setSelectedUserId([]);
         } catch (err) {
             console.error('Failed to add ember.', err);
         }
     }
 
     const handleChekBoxChange = (userId) => {
-        selectedUserId(prev => 
+        setSelectedUserId(prev => 
             prev.includes(userId)
             ? prev.filter(id => id !== userId)
             : [...prev, userId]
