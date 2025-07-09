@@ -22,6 +22,32 @@ export default function GroupMember() {
     fetchCurrentUser();
   }, [g_id]);
 
+  const fetchGroupInfo = async () => {
+    try {
+        const res = await api.get(`/api/groups/${g_id}`);
+        setGroupInfo(res.data);
+    } catch (error) {
+        console.error("Failed to fetch group info", error);
+    }
+  }
+
+  const fetchCurrentUser = async () => {
+    try {
+        const res = await api.get("/api/me");
+        setCurrentUserName(res.data.name);
+    } catch (error) {
+        console.error('Failed to fetch user', error);
+    }
+  };
+
+  const handleRemoveMember = async (user_id) => {
+    try {
+        await api.delete(`/api/group/group_members/${g_id}/${user_id}`);
+        await fetchMembers(); // for refreshing the new group members 
+    } catch (err) {
+        console.error('Failed to remove member', err);
+    }
+  }
   const fetchMembers = async () => {
     try {
       const res = await api.get(`/api/groups/group_members/${g_id}`);
@@ -180,6 +206,16 @@ export default function GroupMember() {
               {member.name.charAt(0).toUpperCase()}
             </div>
             <span className="font-medium text-gray-800">{member.name}</span>
+
+
+          {groupInfo?.created_by === currentUserName && member.name !== currentUserName && (
+            <button 
+              onClick={() => handleRemoveMember(member.user_id)}
+              className="text-sm text-red-600 hover:text-red-800"
+            >
+                Remove
+            </button>
+          )}
           </li>
         ))}
       </ul>
