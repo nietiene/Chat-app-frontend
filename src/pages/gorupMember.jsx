@@ -205,15 +205,15 @@ export default function GroupMember() {
         {members.map((member) => (
           <li 
             key={member.user_id} 
-            className="p-4 hover:bg-gray-50 transition-colors flex items-center"
+            className="p-4 hover:bg-gray-50 transition-colors flex items-center justify-between"
           >
+            <div className="flex items-center">
             <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold mr-3">
               {member.name.charAt(0).toUpperCase()}
             </div>
             <span className="font-medium text-gray-800">{member.name}</span>
 
- 
-       <div className="flex justify-end">
+
           {groupInfo?.created_by?.toLowerCase() === currentUserName?.toLowerCase() && member.name !== currentUserName && (
             <button 
               onClick={() => handleRemoveMember(member.user_id)}
