@@ -19,7 +19,7 @@ function App() {
                <Route path="/dashboard" element={<Dashboard />} />
                <Route path="/chat" element={<Chat />}/>
                <Route path="/create-group" element={<CreateGroup />}/>
-               <Route path="/group-member/:g_id" element={<GroupMember />}/>
+               <Route path="/group-members/:g_id" element={<GroupMember />}/>
            </Route>
          </Routes>
 
