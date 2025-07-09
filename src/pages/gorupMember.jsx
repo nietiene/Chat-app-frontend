@@ -73,6 +73,7 @@ export default function GroupMember () {
             : [...prev, userId]
         )
     }
+console.log("availableUsers", availableUsers);
 
 return (
     <div
