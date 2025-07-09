@@ -46,12 +46,11 @@ export default function GroupMember() {
     }
   };
 
-  const handleCheckBoxChange = (userId) => {
-    console.log("Toggling userId:", userId);
+  const handleCheckBoxChange = (phone) => {
     setSelectedUserIds((prev) =>
-      prev.includes(userId)
-        ? prev.filter((id) => id !== userId)
-        : [...prev, userId]
+      prev.includes(phone)
+        ? prev.filter((phone) => phone !== phone)
+        : [...prev, phone]
     );
   };
 
@@ -60,8 +59,7 @@ export default function GroupMember() {
 
     try {
       for (const phone of selectedUserIds) {
-        console.log("Adding user_id:", phone); // should be a number
-        await api.post(`/api/groups/group_members/${g_id}`, { phone });
+         await api.post(`/api/groups/group_members/${g_id}`, { phone });
       }
       await fetchMembers();
       setShowAddForm(false);
@@ -71,9 +69,7 @@ export default function GroupMember() {
     }
   };
 
-  {console.log("User data structure sample:", availableUsers[0])}
-{console.log('Available users:', availableUsers)}
-{console.log('Selected IDs:', selectedUserIds)}
+
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded shadow mt-6">
