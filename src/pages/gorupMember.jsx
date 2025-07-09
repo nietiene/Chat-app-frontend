@@ -59,9 +59,9 @@ export default function GroupMember() {
     if (selectedUserIds.length === 0) return;
 
     try {
-      for (const user_id of selectedUserIds) {
-        console.log("Adding user_id:", user_id); // should be a number
-        await api.post(`/api/groups/group_members/${g_id}`, { user_id });
+      for (const phone of selectedUserIds) {
+        console.log("Adding user_id:", phone); // should be a number
+        await api.post(`/api/groups/group_members/${g_id}`, { phone });
       }
       await fetchMembers();
       setShowAddForm(false);
