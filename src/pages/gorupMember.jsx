@@ -212,7 +212,8 @@ export default function GroupMember() {
             </div>
             <span className="font-medium text-gray-800">{member.name}</span>
 
-
+ 
+       <div className="flex justify-end">
           {groupInfo?.created_by?.toLowerCase() === currentUserName?.toLowerCase() && member.name !== currentUserName && (
             <button 
               onClick={() => handleRemoveMember(member.user_id)}
@@ -221,6 +222,7 @@ export default function GroupMember() {
                 Remove
             </button>
           )}
+        </div>
           </li>
         ))}
       </ul>
