@@ -84,8 +84,9 @@ return (
          <button 
            className="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"
            onClick={() => {
-            fetchAvailableUsers();
             setShowAddForm(true);
+            fetchAvailableUsers();
+
            }}
         >
             + Add Member
