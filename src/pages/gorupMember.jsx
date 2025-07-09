@@ -74,12 +74,7 @@ export default function GroupMember() {
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded shadow-lg mt-6">
         <div className="flex items-center justify-center mb-8">
-               <button className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors" onClick={() => navigate("/chat")}>
-                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-                </svg>
-              Back to Back
-              </button>
+
               <h2 className="text-2xl font-bold text-gray-800">Group Members</h2>
         </div>
     <div className="w-5"></div>
@@ -92,7 +87,10 @@ export default function GroupMember() {
           fetchAvailableUsers();
         }}
       >
-        + Add Member
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+      </svg>
+         Add Member
       </button>
 
       {showAddForm && (
@@ -146,6 +144,12 @@ export default function GroupMember() {
           )}
         </ul>
       )}
+           <button className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors" onClick={() => navigate("/chat")}>
+                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+                </svg>
+              Back to Chat
+              </button>
     </div>
   );
 }
