@@ -122,7 +122,7 @@ export default function GroupMember() {
                     id={`user-${user.phone}`}
                     checked={selectedUserIds.includes(user.phone)}
                     onChange={() => handleCheckBoxChange(user.phone)}
-                    className="h-5 w-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                    className="h-3 w-3 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
                   />
                   <span className="ml-3 text-gray-700 font-medium">{user.name}</span>
                 </label>
