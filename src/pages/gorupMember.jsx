@@ -67,9 +67,15 @@ export default function GroupMember() {
       const res = await api.get("/api/users");
       const userList = res.data;
 
+      if (!members || members.length === 0) {
+        console.warn('No member loaded yet');
+        return;
+      }
+      const memberPhones = members.map((m) => String(m.phone));
       const nonMembers = userList.filter(
-        (u) => !members.some(m => m.phone === u.phone)
-      );
+        (user) => !memberPhones.includes(String(user.phone)));
+      
+          console.log("Available non-members:", nonMembers); // For debugging
 
       setAvailableUsers(nonMembers);
     } catch (err) {
@@ -80,7 +86,7 @@ export default function GroupMember() {
   const handleCheckBoxChange = (phone) => {
     setSelectedUserIds((prev) =>
       prev.includes(phone)
-        ? prev.filter((phone) => phone !== phone)
+        ? prev.filter((p) => p !== phone)
         : [...prev, phone]
     );
   };
@@ -124,7 +130,8 @@ export default function GroupMember() {
 
   <div className="mb-6">
     <button
-      onClick={() => {
+      onClick={async () => {
+        await fetchMembers(); // ensure meber list is up to date 
         setShowAddForm(true);
         fetchAvailableUsers();
       }}
