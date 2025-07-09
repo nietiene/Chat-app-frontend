@@ -162,8 +162,13 @@ export default function Chat() {
         };
     }, [selectedUser]);
 
+    const messagesContainerRef = useRef(null);
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+
+        const container = messagesContainerRef.current;
+        if (container) {
+            container.scrollTop = container.scrollHeight;
+        }
     }, [messages, groupMessages]);
 
     const sendMessage = async () => {
@@ -285,7 +290,7 @@ export default function Chat() {
             <div className="flex-1 flex flex-col bg-white overflow-hidden">
                 {selectedUser || selectedGroup ? (
                     <>
-                        <div className="p-3 border-b border-gray-200 bg-white flex items-center space-x-3 shadow-sm">
+                        <div className="shrink-0 p-3 border-b border-gray-200 bg-white flex items-center space-x-3 shadow-sm">
                             <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow">
                                 {(selectedUser || selectedGroup?.group_name).charAt(0).toUpperCase()}
                             </div>
@@ -315,7 +320,7 @@ export default function Chat() {
                             </div>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
+                        <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 bg-gray-50">
                             <div className="space-y-3">
                                 {(selectedGroup ? groupMessages : messages).map((msg, i) => (
                                     <div
@@ -344,7 +349,7 @@ export default function Chat() {
                             </div>
                         </div>
 
-                        <div className="p-4 border-t border-gray-200 bg-white shadow-sm">
+                        <div className="shrink-0 p-4 border-t border-gray-200 bg-white shadow-sm">
                             <form 
                                 onSubmit={(e) => {
                                     e.preventDefault();
