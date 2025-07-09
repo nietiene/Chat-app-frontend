@@ -80,12 +80,13 @@ export default function GroupMember() {
                 </svg>
               Back to Back
               </button>
-
               <h2 className="text-2xl font-bold text-gray-800">Group Members</h2>
         </div>
-    
+    <div className="w-5"></div>
+    <div className="mb-6">
+
       <button
-        className="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"
+        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors shadow-md"
         onClick={() => {
           setShowAddForm(true);
           fetchAvailableUsers();
@@ -127,6 +128,7 @@ export default function GroupMember() {
           </button>
         </div>
       )}
+    </div>
 
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-600">{error}</p>}
