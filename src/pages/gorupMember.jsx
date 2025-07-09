@@ -99,12 +99,20 @@ return (
                 <div className="space-y-2 mb-3 max-h-60 overflow-y-auto">
                     {availableUsers.map((user) => (
                         <label key={user.user_id}
-                           className="flex items-center space-y-2 text-sm"></label>
+                           className="flex items-center space-y-2 text-sm">
+                            <input type="checkbox" 
+                              checked={selectedUserId.includes(user.user_id)}
+                              onChange={() => handleChekBoxChange(user.user_id)} 
+                              className="accent-blue-600"
+                            /> <span>{user.name}</span>
+                           </label>
                     ))}
                 </div>
                )}
             <button className="bg-blue-500 text-white px-4 py-1 rounded hver:bg-blue-700"
-               onClick={handleAddMember}>
+               onClick={handleAddMember}
+               disabled={selectedUserId.length === 0}
+            >
                 Add to Group
                </button>
            </div>
