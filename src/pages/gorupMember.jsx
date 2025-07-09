@@ -98,12 +98,12 @@ return (
                ) : (
                 <div className="space-y-2 mb-3 max-h-60 overflow-y-auto">
                     {availableUsers.map((user, idx) => (
-                        <label key={user.id || idx}
+                        <label key={user.user_id || idx}
                            className="flex items-center space-x-2 text-sm"
                         >
                             <input type="checkbox" 
-                              checked={selectedUserId.includes(user.id)}
-                              onChange={() => handleChekBoxChange(user.id)} 
+                              checked={selectedUserId.includes(user.user_id)}
+                              onChange={() => handleChekBoxChange(user.user_id)} 
                               className="accent-blue-600"
                             /> 
                             <span>{user.name}</span>
