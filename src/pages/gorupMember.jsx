@@ -55,7 +55,7 @@ export default function GroupMember () {
         try {
             for (const user_id of selectedUserId) {
                   console.log("Adding user_id:", user_id);
-                  await api.post(`/api/groups/group_members/${g_id}`, { user_id: user.id });
+                  await api.post(`/api/groups/group_members/${g_id}`, { user_id });
             }
             await fetchMembers();
             setShowAddForm(false);
@@ -107,9 +107,9 @@ return (
                            className="flex items-center space-x-2 text-sm"
                         >
                             <input type="checkbox" 
-                              checked={selectedUserId.includes(user.id)}
-                              onChange={() => handleChekBoxChange(user.id)} 
-                              disabled={!user.id}
+                              checked={selectedUserId.includes(user.user_id)}
+                              onChange={() => handleChekBoxChange(user.user_id)} 
+                              disabled={!user.user_id}
                               className="accent-blue-600"
                             /> 
                             <span>{user.name}</span>
