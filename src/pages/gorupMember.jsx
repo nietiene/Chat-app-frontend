@@ -43,6 +43,14 @@ export default function GroupMember () {
             console.error('Failed to add ember.', err);
         }
     }
+
+    const handleChekBoxChange = (userId) => {
+        selectedUserId(prev => 
+            prev.includes(userId)
+            ? prev.filter(id => id !== userId)
+            : [...prev, userId]
+        )
+    }
     useEffect(() => {
         const fetchMembers = async () => {
             try {
