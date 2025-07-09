@@ -28,14 +28,31 @@ export default function GroupMember () {
             console.error("Failed to laod users:", err);
         }
     }
+        useEffect(() => {
+        const fetchMembers = async () => {
+            try {
+                const res = await api.get(`/api/groups/group_members/${g_id}`);
+                setMembers(res.data);
+                setLoading(false);
+            } catch (err) {
+                setError('Failed to load group members..');
+                setLoading(false);
+            }
+        }
+
+        fetchMembers();
+    }, [g_id]);
+
 
     const handleAddMember = async () => {
-        if (!selectedUserId) return;
+        if (selectedUserId.length === 0) return;
 
         try {
-            await api.post(`api/groups/group_members/${g_id}`, {
-                user_id: selectedUserId
+            for (const user_id of selectedUserId) {
+                  await api.post(`api/groups/group_members/${g_id}`, {
+                    user_id
             });
+            }
             await fetchMembers();
             setShowAddForm(false);
             selectedUserId("");
@@ -51,20 +68,6 @@ export default function GroupMember () {
             : [...prev, userId]
         )
     }
-    useEffect(() => {
-        const fetchMembers = async () => {
-            try {
-                const res = await api.get(`/api/groups/group_members/${g_id}`);
-                setMembers(res.data);
-                setLoading(false);
-            } catch (err) {
-                setError('Failed to load group members..');
-                setLoading(false);
-            }
-        }
-
-        fetchMembers();
-    }, [g_id]);
 
 return (
     <div
