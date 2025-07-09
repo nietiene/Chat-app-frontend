@@ -92,6 +92,10 @@ return (
                     </option>
                 ))}
             </select>
+            <button className="bg-blue-500 text-white px-4 py-1 rounded hver:bg-blue-700"
+               onClick={handleAddMember}>
+                Add to Group
+               </button>
            </div>
        )}
         {loading && <p>Loading...</p>}
