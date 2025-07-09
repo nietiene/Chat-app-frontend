@@ -24,10 +24,11 @@ export default function GroupMember () {
             const userList = res.data;
 
             const nonMembers = userList.filter(
-                (u) => !members.find((m) => m.user_id === u.user_id)
+                (u) => !members.find((m) => (m.user_id || m.sender_id === u.user_id))
             );
             console.log("userList", userList);
             console.log("members", members);
+
             setAvailableUsers(nonMembers);
         } catch (err) {
             console.error("Failed to laod users:", err);
