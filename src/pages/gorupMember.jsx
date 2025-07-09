@@ -84,8 +84,7 @@ export default function GroupMember() {
       Back to Chat
     </button>
     
-    <h2 className="text-2xl font-bold text-gray-800">Group Members</h2>
-    <div className="w-5"></div> {/* Spacer for alignment */}
+    <div className="w-5"></div> {/* Space for alignment */}
   </div>
 
   {/* Add Member Section */}
@@ -130,12 +129,7 @@ export default function GroupMember() {
             </div>
 
             <div className="flex justify-end gap-3">
-              <button
-                onClick={() => setShowAddForm(false)}
-                className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
-              >
-                Cancel
-              </button>
+    
               <button
                 onClick={handleAddMember}
                 disabled={selectedUserIds.length === 0}
@@ -145,7 +139,13 @@ export default function GroupMember() {
                     : 'bg-blue-600 hover:bg-blue-700'
                 }`}
               >
-                Add Selected
+                Add 
+              </button>
+                        <button
+                onClick={() => setShowAddForm(false)}
+                className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+              >
+                Cancel
               </button>
             </div>
           </>
@@ -156,6 +156,7 @@ export default function GroupMember() {
 
   {/* Members List */}
   <div className="space-y-4">
+        <h2 className="text-2xl font-bold text-gray-600">Group Members</h2>
     {loading ? (
       <div className="flex justify-center py-8">
         <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
@@ -176,7 +177,7 @@ export default function GroupMember() {
             className="p-4 hover:bg-gray-50 transition-colors flex items-center"
           >
             <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold mr-3">
-              {member.name.charAt(0)}
+              {member.name.charAt(0).toUpperCase()}
             </div>
             <span className="font-medium text-gray-800">{member.name}</span>
           </li>
