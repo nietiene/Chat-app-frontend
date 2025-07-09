@@ -69,6 +69,8 @@ return (
 
         <h2 className="text-xl font-bold mb-4">Group Members</h2>
 
+         <button 
+           className="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"></button>
         {loading && <p>Loading...</p>}
         {error && <p className="text-red-600">{error}</p>}
 
