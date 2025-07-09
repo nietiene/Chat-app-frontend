@@ -24,7 +24,7 @@ export default function GroupMember () {
             const userList = res.data;
 
             const nonMembers = userList.filter(
-                (u) => !members.find((m) => (m.user_id || m.sender_id === u.user_id))
+                (u) => !members.find((m) => (m.user_id === m.sender_id || m.sender_id === u.user_id))
             );
             console.log("userList", userList);
             console.log("members", members);
@@ -95,7 +95,7 @@ return (
        {showAddForm && (
            <div className="mb-4 border p-3 rounded bg-gray-50">
             <h3 className="text-sm font-semibold mb-2">Select a user to add in group</h3>
-               {selectedUserId.length === 0 ? (
+               {availableUsers.length === 0 ? (
                  <p className="text-gray-500 text-sm">No available user to add.</p>
                ) : (
                 <div className="space-y-2 mb-3 max-h-60 overflow-y-auto">
