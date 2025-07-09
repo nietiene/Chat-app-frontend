@@ -98,6 +98,10 @@ export default function GroupMember() {
   };
 
 
+  useEffect(() => {
+    console.log('Current user name:', currentUserName);
+    console.log('Group created by', groupInfo?.created_by);
+  }, [currentUserName, groupInfo]);
 
   return (<div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg mt-6">
 
@@ -208,7 +212,7 @@ export default function GroupMember() {
             <span className="font-medium text-gray-800">{member.name}</span>
 
 
-          {groupInfo?.created_by === currentUserName && member.name !== currentUserName && (
+          {groupInfo?.created_by?.trim().toLowerCase() === currentUserName?.trim().toLowerCase() && member.name !== currentUserName && (
             <button 
               onClick={() => handleRemoveMember(member.user_id)}
               className="text-sm text-red-600 hover:text-red-800"
