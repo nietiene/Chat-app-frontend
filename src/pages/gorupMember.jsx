@@ -24,7 +24,7 @@ export default function GroupMember () {
             const userList = res.data;
 
             const nonMembers = userList.filter(
-                (u) => !members.find((m) => m.sender_id === u.user_id)
+                (u) => !members.find((m) => m.user_id === u.user_id)
             );
 
             console.log("userList", userList);
@@ -103,7 +103,8 @@ return (
                 <div className="space-y-2 mb-3 max-h-60 overflow-y-auto">
                     {availableUsers.map((user) => (
                         <label key={user.user_id}
-                           className="flex items-center space-y-2 text-sm">
+                           className="flex items-center space-x-2 text-sm"
+                        >
                             <input type="checkbox" 
                               checked={selectedUserId.includes(user.user_id)}
                               onChange={() => handleChekBoxChange(user.user_id)} 
