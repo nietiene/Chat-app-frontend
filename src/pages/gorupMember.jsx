@@ -23,11 +23,13 @@ export default function GroupMember () {
             const res = await api.get("/api/users");
             const userList = res.data;
 
-            const nonMembers = userList.filter(
-                (u) => !members.find((m) => (m.user_id === m.sender_id || m.sender_id === u.user_id))
-            );
+              const nonMembers = userList.filter(
+                   (u) => !members.find((m) => m.user_id === u.user_id || m.sender_id === u.user_id)
+              );
+
             console.log("userList", userList);
             console.log("members", members);
+            console.log("NonMembers", nonMembers);
 
             setAvailableUsers(nonMembers);
         } catch (err) {
