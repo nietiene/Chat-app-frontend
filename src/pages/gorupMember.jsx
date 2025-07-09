@@ -69,9 +69,6 @@ export default function GroupMember () {
             : [...prev, userId]
         )
     }
-    useEffect(() => {
-      console.log("availableUsers", availableUsers);      
-    }, [availableUsers])
 
 return (
     <div
