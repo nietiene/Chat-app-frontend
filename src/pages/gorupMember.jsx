@@ -14,6 +14,10 @@ export default function GroupMember () {
     const [selectedUserId, setSelectedUserId] = useState("");
 
 
+    useEffect(() => {
+        fetchMembers();
+    }, [g_id]);
+
     const fetchAvailableUsers = async () => {
         try {
             const res = await api.get("/api/users");
@@ -28,7 +32,7 @@ export default function GroupMember () {
             console.error("Failed to laod users:", err);
         }
     }
-        useEffect(() => {
+
         const fetchMembers = async () => {
             try {
                 const res = await api.get(`/api/groups/group_members/${g_id}`);
@@ -39,9 +43,6 @@ export default function GroupMember () {
                 setLoading(false);
             }
         }
-
-        fetchMembers();
-    }, [g_id]);
 
 
     const handleAddMember = async () => {
@@ -92,17 +93,9 @@ return (
        {showAddForm && (
            <div className="mb-4 border p-3 rounded bg-gray-50">
             <h3 className="text-sm font-semibold mb-2">Select a user to add in group</h3>
-            <select value={selectedUserId}
-               onChange={(e) => setSelectedUserId(e.target.value)}
-               className="border p-2 rounded w-full mb-2"
-            >
-                <option disabled>Choose user</option>
-                {availableUsers.map((u) => (
-                    <option value={u.user_id} key={u.user_id}>
-                        {u.name}
-                    </option>
-                ))}
-            </select>
+               {selectedUserId.length === 0 ? (
+                
+               )}
             <button className="bg-blue-500 text-white px-4 py-1 rounded hver:bg-blue-700"
                onClick={handleAddMember}>
                 Add to Group
