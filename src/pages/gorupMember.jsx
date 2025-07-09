@@ -55,7 +55,7 @@ export default function GroupMember () {
         try {
             for (const user_id of selectedUserId) {
                   await api.post(`api/groups/group_members/${g_id}`, {
-                    user_id
+                    user_id: user_id
             });
             }
             await fetchMembers();
