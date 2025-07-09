@@ -13,9 +13,13 @@ export default function GroupMember() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [availableUsers, setAvailableUsers] = useState([]);
   const [selectedUserIds, setSelectedUserIds] = useState([]); 
+  const [groupInfo, setGroupInfo] = useState(null);
+  const [currentUserName, setCurrentUserName] = useState("");
 
   useEffect(() => {
     fetchMembers();
+    fetchGroupInfo();
+    fetchCurrentUser();
   }, [g_id]);
 
   const fetchMembers = async () => {
