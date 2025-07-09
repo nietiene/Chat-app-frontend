@@ -5,6 +5,7 @@ import Dashboard from "./pages/dashboard"
 import Chat from "./pages/chat"
 import Layout from "./pages/layout"
 import CreateGroup from "./pages/CreateGroup"
+import GroupMember from "./pages/gorupMember"
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
                <Route path="/dashboard" element={<Dashboard />} />
                <Route path="/chat" element={<Chat />}/>
                <Route path="/create-group" element={<CreateGroup />}/>
+               <Route path="/group-member/:g_id" element={<GroupMember />}/>
            </Route>
          </Routes>
 
