@@ -94,7 +94,14 @@ return (
            <div className="mb-4 border p-3 rounded bg-gray-50">
             <h3 className="text-sm font-semibold mb-2">Select a user to add in group</h3>
                {selectedUserId.length === 0 ? (
-                
+                 <p className="text-gray-500 text-sm">No available user to add.</p>
+               ) : (
+                <div className="space-y-2 mb-3 max-h-60 overflow-y-auto">
+                    {availableUsers.map((user) => (
+                        <label key={user.user_id}
+                           className="flex items-center space-y-2 text-sm"></label>
+                    ))}
+                </div>
                )}
             <button className="bg-blue-500 text-white px-4 py-1 rounded hver:bg-blue-700"
                onClick={handleAddMember}>
