@@ -28,7 +28,7 @@ return (
     <div
      className="max-wmd mx-auto p-6 bg-white rounded shadow mt-6">
         <button className="mb-4 text-blue-600 underline"
-           onClick={() => navigator('/chat')}
+           onClick={() => navigate('/chat')}
         >
          &larr; Back   
         </button>
