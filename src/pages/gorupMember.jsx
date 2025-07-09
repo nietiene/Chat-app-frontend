@@ -71,6 +71,10 @@ export default function GroupMember() {
     }
   };
 
+  {console.log("User data structure sample:", availableUsers[0])}
+{console.log('Available users:', availableUsers)}
+{console.log('Selected IDs:', selectedUserIds)}
+
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded shadow mt-6">
       <button className="mb-4 text-blue-600 underline" onClick={() => navigate("/chat")}>
@@ -98,9 +102,11 @@ export default function GroupMember() {
           ) : (
             <div className="space-y-2 mb-3 max-h-60 overflow-y-auto">
               {availableUsers.map((user) => (
+                
                 <label key={user.user_id} className="flex items-center space-x-2 text-sm">
                   <input
                     type="checkbox"
+                    id={`user=${user.user_id}`}
                     checked={selectedUserIds.includes(user.user_id)}
                     onChange={() => handleCheckBoxChange(user.user_id)}
                     className="accent-blue-600"
