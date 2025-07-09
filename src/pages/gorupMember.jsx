@@ -94,13 +94,13 @@ export default function GroupMember() {
       </button>
 
       {showAddForm && (
-        <div className="mb-4 border p-3 rounded bg-gray-50">
-          <h3 className="text-sm font-semibold mb-2">Select users to add</h3>
+        <div className="mb-4 border p-4 rounded bg-gray-50 shadow-inner">
+          <h3 className="text-lg font-semibold mb-3 text-gray-700">Select users to add</h3>
 
           {availableUsers.length === 0 ? (
-            <p className="text-gray-500 text-sm">No available users to add.</p>
+            <p className="text-gray-500 italic">No available users to add.</p>
           ) : (
-            <div className="space-y-2 mb-3 max-h-60 overflow-y-auto">
+            <div className="space-y-3 mb-4 max-h-60 overflow-y-auto pr-2">
               {availableUsers.map((user) => (
                 
                 <label key={user.phone} className="flex items-center space-x-2 text-sm">
