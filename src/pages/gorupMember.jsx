@@ -41,9 +41,11 @@ export default function GroupMember() {
   };
 
   const handleRemoveMember = async (user_id) => {
+    const confrimed = window.confirm('Are you sure you want to remove this member ?');
+    if (!confrimed) return;
     try {
-        await api.delete(`/api/groups/group_members/${g_id}/${user_id}`);
         alert('Are you sure you want to remove member ?');
+        await api.delete(`/api/groups/group_members/${g_id}/${user_id}`);
         await fetchMembers(); // for refreshing the new group members 
     } catch (err) {
         console.error('Failed to remove member', err);
@@ -203,27 +205,23 @@ export default function GroupMember() {
     ) : (
       <ul className="divide-y divide-gray-200 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
         {members.map((member) => (
-          <li 
-            key={member.user_id} 
-            className="p-4 hover:bg-gray-50 transition-colors flex items-center justify-between"
-          >
-            <div className="flex items-center">
-            <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold mr-3">
-              {member.name.charAt(0).toUpperCase()}
-            </div>
-            <span className="font-medium text-gray-800">{member.name}</span>
+<li className="p-4 hover:bg-gray-50 transition-colors flex items-center justify-between">
+  <div className="flex items-center">
+    <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold mr-3">
+      {member.name.charAt(0).toUpperCase()}
+    </div>
+    <span className="font-medium text-gray-800">{member.name}</span>
+  </div>
 
-
-          {groupInfo?.created_by?.toLowerCase() === currentUserName?.toLowerCase() && member.name !== currentUserName && (
-            <button 
-              onClick={() => handleRemoveMember(member.user_id)}
-              className="text-sm text-red-600 hover:text-red-800"
-            >
-                Remove
-            </button>
-          )}
-        </div>
-          </li>
+  {groupInfo?.created_by?.toLowerCase() === currentUserName?.toLowerCase() && member.name !== currentUserName && (
+    <button 
+      onClick={() => handleRemoveMember(member.user_id)}
+      className="text-sm text-red-600 hover:text-red-800"
+    >
+      Remove
+    </button>
+  )}
+</li>
         ))}
       </ul>
     )}
