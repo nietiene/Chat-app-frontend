@@ -66,6 +66,7 @@ export default function GroupMember () {
     }
 
     const handleChekBoxChange = (userId) => {
+        console.log("Toggling userId:", userId);
         setSelectedUserId(prev => 
             prev.includes(userId)
             ? prev.filter(id => id !== userId)
