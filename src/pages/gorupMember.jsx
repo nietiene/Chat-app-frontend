@@ -64,19 +64,20 @@ export default function GroupMember() {
 
   const fetchAvailableUsers = async () => {
     try {
-      const res = await api.get("/api/users");
-      const userList = res.data;
 
-      if (!members || members.length === 0) {
-        console.warn('No member loaded yet');
-        return;
-      }
+         const membersResponse = await api.get(`/api/groups/group_members/${g_id}`);
+         const currentMembers = membersResponse.data;
+
+         const userResponse = await api.get('/api/users');
+         const allUsers = userResponse.data;
       
-      const nonMembers = userList.filter(
-        (u) => !members.some(m => m.phone === u.phone)
-      );
-          console.log("Available non-members:", nonMembers); // For debugging
-
+         const nonMembers = allUsers.filter(
+           user => !currentMembers.some(member =>
+              member.user_id === user.user_id ||
+              member.phone === user.phone)
+        );
+    console.log("Available members:", currentMembers); // For debugging
+    console.log("Current non-member", nonMembers);
       setAvailableUsers(nonMembers);
     } catch (err) {
       console.error("Failed to load users:", err);
@@ -131,7 +132,6 @@ export default function GroupMember() {
   <div className="mb-6">
     <button
       onClick={async () => {
-        await fetchMembers(); // ensure meber list is up to date 
         setShowAddForm(true);
         fetchAvailableUsers();
       }}
