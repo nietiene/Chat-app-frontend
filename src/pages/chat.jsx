@@ -51,8 +51,7 @@ export default function Chat() {
         if (!selectedGroup || !message.trim()) return;
 
         try {
-            await api.post('/api/group-messages', {
-                g_id: selectedGroup.g_id,
+            await api.post(`/api/groups/${selectedGroup.g_id}/messages`,  {
                 content: message,
                 type: 'text',
             });
