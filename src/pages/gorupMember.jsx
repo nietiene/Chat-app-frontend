@@ -37,7 +37,7 @@ export default function GroupMember() {
       console.log("Fetched users:", userList); // ✅ Check structure
 
       const nonMembers = userList.filter(
-        (u) => !members.find((m) => m.user_id === u.user_id)
+        (u) => !members.some(m => m.phone === u.phone)
       );
 
       setAvailableUsers(nonMembers);
@@ -103,12 +103,12 @@ export default function GroupMember() {
             <div className="space-y-2 mb-3 max-h-60 overflow-y-auto">
               {availableUsers.map((user) => (
                 
-                <label key={user.user_id} className="flex items-center space-x-2 text-sm">
+                <label key={user.phone} className="flex items-center space-x-2 text-sm">
                   <input
                     type="checkbox"
-                    id={`user=${user.user_id}`}
-                    checked={selectedUserIds.includes(user.user_id)}
-                    onChange={() => handleCheckBoxChange(user.user_id)}
+                    id={`user=${user.phone}`}
+                    checked={selectedUserIds.includes(user.phone)}
+                    onChange={() => handleCheckBoxChange(user.phone)}
                     className="accent-blue-600"
                   />
                   <span>{user.name}</span>
