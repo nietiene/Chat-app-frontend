@@ -9,6 +9,40 @@ export default function GroupMember () {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [showAddForm, setShowAddForm] = useState(false);
+    const [availableUsers, setAvailableUsers] = useState([]);
+    const [selectedUserId, setSelectedUserId] = useState("");
+
+
+    const fetchAvailableUsers = async () => {
+        try {
+            const res = await api.get("/api/users");
+            const userList = res.data;
+
+            const nonMembers = userList.filter(
+                (u) => !members.find((m) => m.sender_id === u.sender_id)
+            );
+
+            setAvailableUsers(nonMembers);
+        } catch (err) {
+            console.error("Failed to laod users:", err);
+        }
+    }
+
+    const handleAddMember = async () => {
+        if (!selectedUserId) return;
+
+        try {
+            await api.post(`api/groups/group_members/${g_id}`, {
+                user_id: selectedUserId
+            });
+            await fetchMembers();
+            setShowAddForm(false);
+            selectedUserId("");
+        } catch (err) {
+            console.error('Failed to add ember.', err);
+        }
+    }
     useEffect(() => {
         const fetchMembers = async () => {
             try {
