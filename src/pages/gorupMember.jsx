@@ -102,8 +102,7 @@ export default function GroupMember() {
           ) : (
             <div className="space-y-3 mb-4 max-h-60 overflow-y-auto pr-2">
               {availableUsers.map((user) => (
-                
-                <label key={user.phone} className="flex items-center space-x-2 text-sm">
+                <label key={user.phone} className="flex items-center p-3 text-sm hover:bg-gray-100 rounded-lg cursor-pointer transition-colors">
                   <input
                     type="checkbox"
                     id={`user=${user.phone}`}
