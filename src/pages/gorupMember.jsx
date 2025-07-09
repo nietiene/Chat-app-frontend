@@ -71,10 +71,10 @@ export default function GroupMember() {
         console.warn('No member loaded yet');
         return;
       }
-      const memberPhones = members.map((m) => String(m.phone));
-      const nonMembers = userList.filter(
-        (user) => !memberPhones.includes(String(user.phone)));
       
+      const nonMembers = userList.filter(
+        (u) => !members.some(m => m.phone === u.phone)
+      );
           console.log("Available non-members:", nonMembers); // For debugging
 
       setAvailableUsers(nonMembers);
