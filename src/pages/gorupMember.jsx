@@ -12,7 +12,7 @@ export default function GroupMember() {
 
   const [showAddForm, setShowAddForm] = useState(false);
   const [availableUsers, setAvailableUsers] = useState([]);
-  const [selectedUserIds, setSelectedUserIds] = useState([]); // corrected plural name
+  const [selectedUserIds, setSelectedUserIds] = useState([]); 
 
   useEffect(() => {
     fetchMembers();
@@ -33,8 +33,6 @@ export default function GroupMember() {
     try {
       const res = await api.get("/api/users");
       const userList = res.data;
-
-      console.log("Fetched users:", userList); // ✅ Check structure
 
       const nonMembers = userList.filter(
         (u) => !members.some(m => m.phone === u.phone)
@@ -72,7 +70,7 @@ export default function GroupMember() {
 
 
   return (<div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg mt-6">
-  {/* Header with back button and title */}
+
   <div className="flex items-center justify-between mb-8">
     <button 
       onClick={() => navigate("/chat")}
@@ -87,7 +85,6 @@ export default function GroupMember() {
     <div className="w-5"></div> {/* Space for alignment */}
   </div>
 
-  {/* Add Member Section */}
   <div className="mb-6">
     <button
       onClick={() => {
@@ -154,7 +151,6 @@ export default function GroupMember() {
     )}
   </div>
 
-  {/* Members List */}
   <div className="space-y-4">
         <h2 className="text-2xl font-bold text-gray-600">Group Members</h2>
     {loading ? (
