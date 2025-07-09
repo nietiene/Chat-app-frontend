@@ -109,7 +109,8 @@ return (
                               checked={selectedUserId.includes(user.user_id)}
                               onChange={() => handleChekBoxChange(user.user_id)} 
                               className="accent-blue-600"
-                            /> <span>{user.name}</span>
+                            /> 
+                            <span>{user.name}</span>
                            </label>
                     ))}
                 </div>
