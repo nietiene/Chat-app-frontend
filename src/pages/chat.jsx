@@ -248,7 +248,7 @@ export default function Chat() {
                     ))}
                 </div>
                 <div className="flex-1 overflow-y-auto">
-                    <h3 className="px-4 py-3 text-sm font-semibold text-gray-500 bg-gray-50">
+                    <h3 className="px-4 py-3 text-sm font-semibold text-gray-500 bg-gray-50 sticky top-0 z-10">
                         CONTACTS
                     </h3>
                     <div className="divide-y divide-gray-100">
