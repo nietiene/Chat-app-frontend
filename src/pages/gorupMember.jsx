@@ -133,7 +133,7 @@ export default function GroupMember() {
     <button
       onClick={async () => {
         setShowAddForm(true);
-        fetchAvailableUsers();
+        await fetchAvailableUsers();
       }}
       className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors shadow-md"
     >
