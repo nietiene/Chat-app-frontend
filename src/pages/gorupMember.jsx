@@ -101,8 +101,8 @@ return (
                  <p className="text-gray-500 text-sm">No available user to add.</p>
                ) : (
                 <div className="space-y-2 mb-3 max-h-60 overflow-y-auto">
-                    {availableUsers.map((user) => (
-                        <label key={user.user_id}
+                    {availableUsers.map((user, idx) => (
+                        <label key={user.user_id || idx}
                            className="flex items-center space-x-2 text-sm"
                         >
                             <input type="checkbox" 
