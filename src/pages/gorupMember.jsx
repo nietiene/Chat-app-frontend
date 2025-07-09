@@ -71,90 +71,119 @@ export default function GroupMember() {
 
 
 
-  return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded shadow-lg mt-6">
+  return (<div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg mt-6">
+  {/* Header with back button and title */}
+  <div className="flex items-center justify-between mb-8">
+    <button 
+      onClick={() => navigate("/chat")}
+      className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+      </svg>
+      Back to Chat
+    </button>
+    
+    <h2 className="text-2xl font-bold text-gray-800">Group Members</h2>
+    <div className="w-5"></div> {/* Spacer for alignment */}
+  </div>
 
-    <div className="w-5"></div>
-    <div className="mb-6">
-
-      <button
-        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors shadow-md"
-        onClick={() => {
-          setShowAddForm(true);
-          fetchAvailableUsers();
-        }}
-      >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+  {/* Add Member Section */}
+  <div className="mb-6">
+    <button
+      onClick={() => {
+        setShowAddForm(true);
+        fetchAvailableUsers();
+      }}
+      className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors shadow-md"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
       </svg>
-         Add Member
-      </button>
+      Add Member
+    </button>
 
-      {showAddForm && (
-        <div className="mb-4 border p-4 rounded bg-gray-50 shadow-inner">
-          <h3 className="text-lg font-semibold mb-3 text-gray-700">Select users to add</h3>
+    {showAddForm && (
+      <div className="mt-4 p-4 border border-gray-200 rounded-lg bg-gray-50 shadow-inner">
+        <h3 className="text-lg font-semibold text-gray-700 mb-3">Select users to add</h3>
 
-          {availableUsers.length === 0 ? (
-            <p className="text-gray-500 italic">No available users to add.</p>
-          ) : (
+        {availableUsers.length === 0 ? (
+          <p className="text-gray-500 italic">No available users to add.</p>
+        ) : (
+          <>
             <div className="space-y-3 mb-4 max-h-60 overflow-y-auto pr-2">
               {availableUsers.map((user) => (
-                <label key={user.phone} className="flex items-center p-3 text-sm hover:bg-gray-100 rounded-lg cursor-pointer transition-colors">
+                <label 
+                  key={user.phone} 
+                  className="flex items-center p-3 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors"
+                >
                   <input
                     type="checkbox"
                     id={`user-${user.phone}`}
                     checked={selectedUserIds.includes(user.phone)}
                     onChange={() => handleCheckBoxChange(user.phone)}
-                    className="accent-gray-600 h-3 w-3 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                    className="h-5 w-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
                   />
                   <span className="ml-3 text-gray-700 font-medium">{user.name}</span>
                 </label>
               ))}
             </div>
-          )}
 
-          <button
-            className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-700"
-            onClick={handleAddMember}
-            disabled={selectedUserIds.length === 0}
-          >
-            Add to Group
-          </button>
-        </div>
-      )}
-    </div>
-
-      {loading && <p>Loading...</p>}
-      {error && <p className="text-red-600">{error}</p>}
-
-      {!loading && !error && (
-        <>
-            <div className="flex items-center justify-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-800">Group Members</h2>
-        </div>
-        <ul className="divide-y divide-gray-200 mt-4">
-          {members.length === 0 ? (
-            <li className="py-2 text-gray-500">No members found.</li>
-          ) : (
-            members.map((member) => (
-              <li key={member.user_id} className="py-2">
-                <span className="font-semibold">{member.name}</span>
-              </li>
-              
-            )
-            
-            )
-         
-          )}
-        </ul>
-        </>
-      )}
-           <button className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors" onClick={() => navigate("/chat")}>
-                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-                </svg>
-              Back to Chat
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setShowAddForm(false)}
+                className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+              >
+                Cancel
               </button>
-    </div>
-  );
+              <button
+                onClick={handleAddMember}
+                disabled={selectedUserIds.length === 0}
+                className={`px-4 py-2 rounded-lg text-white transition-colors ${
+                  selectedUserIds.length === 0 
+                    ? 'bg-blue-400 cursor-not-allowed' 
+                    : 'bg-blue-600 hover:bg-blue-700'
+                }`}
+              >
+                Add Selected
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    )}
+  </div>
+
+  {/* Members List */}
+  <div className="space-y-4">
+    {loading ? (
+      <div className="flex justify-center py-8">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    ) : error ? (
+      <div className="p-4 bg-red-50 text-red-700 rounded-lg border border-red-200">
+        {error}
+      </div>
+    ) : members.length === 0 ? (
+      <div className="text-center py-6 text-gray-500 italic">
+        No members in this group yet.
+      </div>
+    ) : (
+      <ul className="divide-y divide-gray-200 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+        {members.map((member) => (
+          <li 
+            key={member.user_id} 
+            className="p-4 hover:bg-gray-50 transition-colors flex items-center"
+          >
+            <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold mr-3">
+              {member.name.charAt(0)}
+            </div>
+            <span className="font-medium text-gray-800">{member.name}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</div>
+  )
 }
