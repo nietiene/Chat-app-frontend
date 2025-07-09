@@ -195,7 +195,7 @@ export default function Chat() {
     };
 
     return (
-        <div className="flex h-screen bg-gray-100">
+        <div className="flex h-screen bg-gray-100 overflow-hidden">
             <div className="w-1/4 bg-white border-r border-gray-200 flex flex-col">
                 <div className="p-4 border-b border-gray-200 bg-blue-50">
                     <div className="flex items-center space-x-3">
@@ -282,7 +282,7 @@ export default function Chat() {
                 </div>
             </div>
 
-            <div className="flex-1 flex flex-col bg-white">
+            <div className="flex-1 flex flex-col bg-white overflow-hidden">
                 {selectedUser || selectedGroup ? (
                     <>
                         <div className="p-3 border-b border-gray-200 bg-white flex items-center space-x-3 shadow-sm">
@@ -293,6 +293,14 @@ export default function Chat() {
                                 <h3 className="font-semibold text-gray-900">
                                     {selectedUser || selectedGroup?.group_name}
                                 </h3>
+                                {selectedGroup && (
+                                    <button 
+                                       className='text-xs text-blue-600 border border-blue-600 px-2 py-0.5 rounded hover:bg-blue-50'
+                                       onClick={() => navigate(`/group-members/${selectedGroup.g_id}`)}
+                                    >
+                                        View Members
+                                    </button>
+                                )}
                                 {selectedUser ? (
                                     <p className={`text-xs ${
                                         onlineUsers.includes(selectedUser) 
