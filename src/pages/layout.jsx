@@ -74,10 +74,10 @@ export default function Layout () {
           <div className="min-h-screen flex flex-col">
                <nav className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center bg-blue-700 text-white px-6 py-3 shadow">
                 <div className="flex gap-6 items-center">
-                    <Link className="flex items-center gap-1 hover:underline">
+                    <Link className="flex items-center gap-1 hover:underline" to="/dashboard">
                          <FaHome/> Home
                     </Link>
-                    <Link className="flex items-center gap-1 hover:underline">
+                    <Link className="flex items-center gap-1 hover:underline" to="/chat">
                           <FaEnvelope/> Messages
                     </Link>
                     <Link className="flex items-center gap-1 hover:underline">
