@@ -73,10 +73,7 @@ export default function GroupMember() {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded shadow-lg mt-6">
-        <div className="flex items-center justify-center mb-8">
 
-              <h2 className="text-2xl font-bold text-gray-800">Group Members</h2>
-        </div>
     <div className="w-5"></div>
     <div className="mb-6">
 
@@ -105,12 +102,12 @@ export default function GroupMember() {
                 <label key={user.phone} className="flex items-center p-3 text-sm hover:bg-gray-100 rounded-lg cursor-pointer transition-colors">
                   <input
                     type="checkbox"
-                    id={`user=${user.phone}`}
+                    id={`user-${user.phone}`}
                     checked={selectedUserIds.includes(user.phone)}
                     onChange={() => handleCheckBoxChange(user.phone)}
-                    className="accent-blue-600"
+                    className="accent-gray-600 h-3 w-3 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
                   />
-                  <span>{user.name}</span>
+                  <span className="ml-3 text-gray-700 font-medium">{user.name}</span>
                 </label>
               ))}
             </div>
@@ -131,6 +128,10 @@ export default function GroupMember() {
       {error && <p className="text-red-600">{error}</p>}
 
       {!loading && !error && (
+        <>
+            <div className="flex items-center justify-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-800">Group Members</h2>
+        </div>
         <ul className="divide-y divide-gray-200 mt-4">
           {members.length === 0 ? (
             <li className="py-2 text-gray-500">No members found.</li>
@@ -139,9 +140,14 @@ export default function GroupMember() {
               <li key={member.user_id} className="py-2">
                 <span className="font-semibold">{member.name}</span>
               </li>
-            ))
+              
+            )
+            
+            )
+         
           )}
         </ul>
+        </>
       )}
            <button className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors" onClick={() => navigate("/chat")}>
                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
