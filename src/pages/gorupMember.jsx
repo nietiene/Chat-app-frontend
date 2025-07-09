@@ -70,7 +70,30 @@ return (
         <h2 className="text-xl font-bold mb-4">Group Members</h2>
 
          <button 
-           className="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"></button>
+           className="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"
+           onClick={() => {
+            fetchAvailableUsers();
+            setShowAddForm(true);
+           }}
+        >
+            + Add Member
+       </button>
+       {showAddForm && (
+           <div className="mb-4 border p-3 rounded bg-gray-50">
+            <h3 className="text-sm font-semibold mb-2">Select a user to add in group</h3>
+            <select value={selectedUserId}
+               onChange={(e) => setSelectedUserId(e.target.value)}
+               className="border p-2 rounded w-full mb-2"
+            >
+                <option disabled>Choose user</option>
+                {availableUsers.map((u) => (
+                    <option value={u.user_id} key={u.user_id}>
+                        {u.name}
+                    </option>
+                ))}
+            </select>
+           </div>
+       )}
         {loading && <p>Loading...</p>}
         {error && <p className="text-red-600">{error}</p>}
 
