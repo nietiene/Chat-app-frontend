@@ -42,7 +42,8 @@ export default function GroupMember() {
 
   const handleRemoveMember = async (user_id) => {
     try {
-        await api.delete(`/api/group/group_members/${g_id}/${user_id}`);
+        await api.delete(`/api/groups/group_members/${g_id}/${user_id}`);
+        alert('Are you sure you want to remove member ?');
         await fetchMembers(); // for refreshing the new group members 
     } catch (err) {
         console.error('Failed to remove member', err);
