@@ -13,8 +13,30 @@ export default function GroupMember () {
         const fetchMembers = async () => {
             try {
                 const res = await api.get(`/api/groups/group_members/${g_id}`);
-                
+                setMembers(res.data);
+                setLoading(false);
+            } catch (err) {
+                setError('Failed to load group members..');
+                setLoading(false);
             }
         }
-    })
+
+        fetchMembers();
+    }, [g_id]);
 }
+
+return (
+    <div
+     className="max-wmd mx-auto p-6 bg-white rounded shadow mt-6">
+        <button className="mb-4 text-blue-600 underline"
+           onClick={() => navigator(-1)}
+        >
+         &larr; Back   
+        </button>
+
+        <h2 className="text-xl font-bold mb-4">Group Members</h2>
+
+        {Loading && <p>Loading...</p>}
+        {error && <p className="text-red-600">{error}</p>}
+     </div>
+)
