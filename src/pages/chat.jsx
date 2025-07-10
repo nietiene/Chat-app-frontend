@@ -18,6 +18,16 @@ export default function Chat() {
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
+
+    const handleDeleteGroupMessage = async (g_m_id) => {
+        const confrimDelete = window.confirm('Are you sure you want to delete this message ?');
+
+        if (!confrimDelete) return;
+
+        try {
+            await api.delete(`/api/groups/group-messages/${g_m_id}`)
+        }
+    }
     useEffect(() => {
         if (!selectedGroup) return;
 
