@@ -25,7 +25,10 @@ export default function Chat() {
         if (!confrimDelete) return;
 
         try {
-            await api.delete(`/api/groups/group-messages/${g_m_id}`)
+            await api.delete(`/api/groups/group-messages/${g_m_id}`);
+            setGroupMessages(prev => prev.filter(msg.g_m_id !== g_m_id));
+        } catch (err) {
+            console.error('Failed to delete message', err);
         }
     }
     useEffect(() => {
