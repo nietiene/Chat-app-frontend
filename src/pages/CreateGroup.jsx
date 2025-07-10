@@ -70,7 +70,7 @@ export default function CreateGroup () {
 
             <div className="mb-6">
                 <label className="block text-sm font-medium mb-2 text-gray-700">Select Members</label>
-                <div className="max-h-64 overflow-y-auto border rounded-lg p-2 border-gray-300">
+                <div className="max-h-64 overflow-y-auto border rounded-lg p-3 border-gray-300 bg-gray-50 shadow-inner">
                     {allUsers.filter(user => user.name !== myName)
                       .map(user => (
                         <div className="flex items-center mb-2" key={user.name}>
@@ -78,9 +78,9 @@ export default function CreateGroup () {
                                 id={`user-${user.name}`}
                                 checked={selectedUsers.includes(user.name)}
                                 onChange={() => toggleUserSelection(user.name)}
-                                className="mr-2"
+                                className="mr-3 h-4 w-4 text-blue-600 foucs:ring-blue-500"
                             />
-                            <label htmlFor={`user-${user.name}`} className="text-sm">{user.name}</label>
+                            <label htmlFor={`user-${user.name}`} className="text-sm hover:bg-gray-300">{user.name}</label>
                         </div>
                       ))}
                 </div>
