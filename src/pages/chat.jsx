@@ -26,7 +26,7 @@ export default function Chat() {
 
         try {
             await api.delete(`/api/groups/group-messages/${g_m_id}`);
-            setGroupMessages(prev => prev.filter(msg.g_m_id !== g_m_id));
+            setGroupMessages(prev => prev.filter(msg => msg.g_m_id !== g_m_id));
         } catch (err) {
             console.error('Failed to delete message', err);
         }
@@ -337,14 +337,14 @@ export default function Chat() {
                             <div className="space-y-3">
                                 {(selectedGroup ? groupMessages : messages).map((msg, i) => (
                                   <div
-  key={i}
-  className={`flex ${msg.sender_name === myName ? 'justify-end' : 'justify-start'}`}
->
-  <div
-    className={`group relative max-w-xs lg:max-w-md px-4 py-2 rounded-2xl shadow-sm ${
-      msg.sender_name === myName
-        ? 'bg-blue-600 text-white rounded-br-none'
-        : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none'
+                                    key={i}
+                                    className={`flex ${msg.sender_name === myName ? 'justify-end' : 'justify-start'}`}
+                                 >
+                           <div
+                             className={`group relative max-w-xs lg:max-w-md px-4 py-2 rounded-2xl shadow-sm ${
+                             msg.sender_name === myName
+                            ? 'bg-blue-600 text-white rounded-br-none'
+                           : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none'
     }`}
   >
     {/* message content */}
