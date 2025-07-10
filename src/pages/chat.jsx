@@ -355,6 +355,11 @@ export default function Chat() {
                                             }`}>
                                                 {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'})}
                                             </p>
+                                            {msg.sender_name === myName && (
+                                                <button
+                                                 onClick={() => handleDeleteGroupMessage(msg.g_m_id)}
+                                                 ></button>
+                                            )}
                                         </div>
                                     </div>
                                 ))}
