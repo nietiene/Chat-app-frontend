@@ -358,7 +358,7 @@ export default function Chat() {
                                             {msg.sender_name === myName && (
                                                 <button
                                                  onClick={() => handleDeleteGroupMessage(msg.g_m_id)}
-                                                 className='hidden group-hover:flex absolute'
+                                                 className='hidden group-hover:flex absolute top-2'
                                                  ></button>
                                             )}
                                         </div>
