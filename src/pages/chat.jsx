@@ -19,19 +19,19 @@ export default function Chat() {
     const navigate = useNavigate();
 
 
-    const handleDeleteGroupMessage = async (g_m_id) => {
-        console.log("Attempting to delete message ID:", g_m_id);
+    const handleDeleteGroupMessage = async (id) => {
+        console.log("Attempting to delete message ID:", id);
         const confrimDelete = window.confirm('Are you sure you want to delete this message ?');
 
-        if (!g_m_id) {
+        if (!id) {
             console.error("Invalid g_m_id passed to delete function");
             return;
         }
         if (!confrimDelete) return;
 
         try {
-            await api.delete(`/api/groups/group-messages/${g_m_id}`);
-            setGroupMessages(prev => prev.filter(msg => msg.id !== g_m_id));
+            await api.delete(`/api/groups/group-messages/${id}`);
+            setGroupMessages(prev => prev.filter(msg => msg.id !== id));
         } catch (err) {
             console.error('Failed to delete message', err);
         }
