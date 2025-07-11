@@ -42,8 +42,8 @@ export default function Chat() {
     }
 
 
-    const handleDeletePrivateMessage = async (id) => {
-        if (!id) {
+    const handleDeletePrivateMessage = async (m_id) => {
+        if (!m_id) {
             console.error('Invalid private message ID');
             return;
         }
@@ -53,8 +53,8 @@ export default function Chat() {
         if (!confirmDelete) return;
 
         try {
-            await api.delete(`/api/messages/${id}`);
-            setMessages(prev => prev.filter(msg => msg.id !== id));
+            await api.delete(`/api/messages/${m_id}`);
+            setMessages(prev => prev.filter(msg => msg.m_id !== m_id));
         } catch (err) {
             console.error('Failed to delete private message', {
                 error: err.response?.data,
@@ -409,7 +409,7 @@ export default function Chat() {
                                 )}
                                {selectedUser && msg.sender_name === myName && (
                                     <button
-                                      onClick={() => handleDeletePrivateMessage(msg.id)}
+                                      onClick={() => handleDeletePrivateMessage(msg.m_id)}
                                       title='Delete private message'
                                       className='absolute-top-2 -right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 transition'
                                     >
