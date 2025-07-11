@@ -20,13 +20,18 @@ export default function Chat() {
 
 
     const handleDeleteGroupMessage = async (g_m_id) => {
+        console.log("Attempting to delete message ID:", g_m_id);
         const confrimDelete = window.confirm('Are you sure you want to delete this message ?');
 
+        if (!g_m_id) {
+            console.error("Invalid g_m_id passed to delete function");
+            return;
+        }
         if (!confrimDelete) return;
 
         try {
             await api.delete(`/api/groups/group-messages/${g_m_id}`);
-            setGroupMessages(prev => prev.filter(msg => msg.g_m_id !== g_m_id));
+            setGroupMessages(prev => prev.filter(msg => msg.id !== g_m_id));
         } catch (err) {
             console.error('Failed to delete message', err);
         }
@@ -365,7 +370,7 @@ export default function Chat() {
                                {/* Delete button, visible on hover */}
                                  {msg.sender_name === myName && (
                                    <button
-                                     onClick={() => handleDeleteGroupMessage(msg.g_m_id)}
+                                     onClick={() => handleDeleteGroupMessage(msg.id)}
                                      className="hidden group-hover:flex absolute top-2 right-2 ring-2 text-red-500 hover:text-red-700 bg-white p-1 rounded-full shadow"
                                      aria-label="Delete message"
                                    >
