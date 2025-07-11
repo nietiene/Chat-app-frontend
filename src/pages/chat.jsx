@@ -18,6 +18,25 @@ export default function Chat() {
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
+    const handleNewGroupMessage = async (id) => {
+        console.log('Attempting to delete message ID:', id);
+        const confirmDelete = window.confirm('Are you sure you want to delte this message ?');
+
+        if (!id) {
+            console.error('Invalid message ID passed to delete function');
+            return;
+        }
+
+        if (!confirmDelete) return;
+
+        try {
+            await api.delete(`/api/groups/group-messages/${id}`);
+            setGroupMessages(prev => prev.filter(msg => msg.id !== id));
+        } catch (err)  {
+            console.error('Failed to delete message', err);
+        }
+        
+    }
 
     useEffect(() => {
         if (!selectedGroup) return;
