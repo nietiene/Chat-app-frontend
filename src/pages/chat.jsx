@@ -208,8 +208,11 @@ useEffect(() => {
             if (from !== selectedUser) return;
 
             const exists = prev.some(msg =>
-                
-            )
+                msg.sender_name === from &&
+                msg.content === message &&
+                msg.created_at === timestamp
+            );
+            if (exists) return prev;
           })
         };
 
