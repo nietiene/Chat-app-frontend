@@ -18,7 +18,7 @@ export default function Chat() {
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
-    const handleNewGroupMessage = async (id) => {
+    const handleDeleteMessage = async (id) => {
         console.log('Attempting to delete message ID:', id);
         const confirmDelete = window.confirm('Are you sure you want to delte this message ?');
 
@@ -372,7 +372,7 @@ export default function Chat() {
                                 {/* Add delete icon */}
                                 {selectedGroup && msg.sender_name === myName && (
                                     <button
-                                      onClick={() => handleNewGroupMessage(msg.id)}
+                                      onClick={() => handleDeleteMessage(msg.id)}
                                       title='Delete message'
                                       className='absolute -top-2 -right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 transition'
                                     >
