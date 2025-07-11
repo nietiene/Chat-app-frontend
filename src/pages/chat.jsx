@@ -24,6 +24,10 @@ export default function Chat() {
 
         try {
             await api.delete(`/api/messages/${m_id}`);
+            setMessages(prev => prev.map(msg => (
+                msg.m_id === m_id ? {...msg, is_deleted: true } : msg
+            )));
+        } catch (error) {
             
         }
     }
