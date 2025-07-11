@@ -34,11 +34,13 @@ export default function Chat() {
     }
 
     useEffect(() => {
+      const handleGroupDeleted = ({ id }) => {
         setGroupMessages(prev =>
-             prev.map(msg => 
-                msg.id === id ? {...msg, is_deleted: true } : msg
+             prev.map(prev =>
+                msg.id === id ? {...message, is_deleted: true } : msg
              )
         )
+      }
     })
     const handleDeleteGroupMessage = async (id) => {
         
