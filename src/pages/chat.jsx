@@ -18,7 +18,7 @@ export default function Chat() {
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
-    const handleDeletePrivateMessage = (m_id) => {
+    const handleDeletePrivateMessage = async (m_id) => {
         const confirmDelete = window.confirm('Are you sure');
         if (!confirmDelete) return;
 
@@ -28,7 +28,7 @@ export default function Chat() {
                 msg.m_id === m_id ? {...msg, is_deleted: true } : msg
             )));
         } catch (error) {
-            
+           console.error('Delete failed')
         }
     }
     const handleDeleteGroupMessage = async (id) => {
