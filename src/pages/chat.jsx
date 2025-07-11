@@ -34,6 +34,7 @@ export default function Chat() {
             setGroupMessages(prev => prev.filter(msg => msg.id !== id));
         } catch (err)  {
             console.error('Failed to delete message', err);
+            alert('Failed to deleted message')
         }
         
     }
