@@ -56,7 +56,11 @@ export default function Chat() {
             await api.delete(`/api/messages/${id}`);
             setMessages(prev => prev.filter(msg => msg.id !== id));
         } catch (err) {
-            console.error('Failed to delete private message');
+            console.error('Failed to delete private message', {
+                error: err.response?.data,
+                status: err.response?.status
+            });
+            alert(`Failed to delete ${err.response?.data?.message || 'Permission denied'}`)
         }
     }
 
@@ -402,6 +406,13 @@ export default function Chat() {
                                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                          </svg>
                                       </button>
+                                )}
+
+                                {selectedUser && msg.sender_name === myName && (
+                                    <button
+                                      onClick={() => handleDeletePrivateMessage(msg.id)}
+                                      title='Delete private message'
+                                      ></button>
                                 )}
                               </div>
                             </div>
