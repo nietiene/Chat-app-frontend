@@ -18,6 +18,9 @@ export default function Chat() {
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
+    const handleDeletePrivateMessage = (m_id) => {
+        const confirmDelete = 
+    }
     const handleDeleteGroupMessage = async (id) => {
         
         if (!id) {
