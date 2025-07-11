@@ -189,6 +189,7 @@ useEffect(() => {
     }, [myName]);
 
     useEffect(() => {
+        setMessages([]);
         if (!selectedUser || !myName) return;
 
         const fetchMessages = async () => {
