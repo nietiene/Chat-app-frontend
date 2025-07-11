@@ -41,29 +41,14 @@ export default function Chat() {
         
     }
 
-
-    const handleDeletePrivateMessage = async (m_id) => {
-        if (!m_id) {
-            console.error('Invalid private message ID');
-            return;
-        }
-
-        const confirmDelete = window.confirm('Are you sure ?');
-
-        if (!confirmDelete) return;
-
-        try {
-            await api.delete(`/api/messages/${m_id}`);
-            setMessages(prev => prev.filter(msg => msg.m_id !== m_id));
-        } catch (err) {
-            console.error('Failed to delete private message', {
-                error: err.response?.data,
-                status: err.response?.status
-            });
-            alert(`Failed to delete ${err.response?.data?.message || 'Permission denied'}`)
-        }
+useEffect(() => {
+    const handleDeleted = ({ m_id }) => {
+        setMessages(prev => prev.filter(msg => msg.m_id !== m_id ));
     }
 
+    socket.on('privateMessageDeleted', handleDeleted);
+    return () => socket.off('privateMessageDeleted', handleDeleted);
+})
     useEffect(() => {
         if (!selectedGroup) return;
 
