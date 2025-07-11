@@ -349,6 +349,14 @@ export default function Chat() {
                                    }`}>
                                      {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                 </p>
+                                
+                                {/* Add delete icon */}
+                                {selectedGroup && msg.sender_name === myName && (
+                                    <button
+                                      onClick={() => handleNewGroupMessage(msg.id)}
+                                      title='Delete message'
+                                      className='absolute -top-2 -right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 transition'></button>
+                                )}
                               </div>
                             </div>
                             </>
