@@ -37,7 +37,7 @@ export default function Chat() {
       const handleGroupDeleted = ({ id }) => {
         setGroupMessages(prev =>
              prev.map(msg =>
-                msg.id === id ? {...message, is_deleted: true } : msg
+                msg.id === id ? {...msg, is_deleted: true } : msg
              )
         )
       }
