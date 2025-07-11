@@ -48,7 +48,8 @@ useEffect(() => {
 
     socket.on('privateMessageDeleted', handleDeleted);
     return () => socket.off('privateMessageDeleted', handleDeleted);
-})
+}, []);
+
     useEffect(() => {
         if (!selectedGroup) return;
 
@@ -394,7 +395,7 @@ useEffect(() => {
                                 )}
                                {selectedUser && msg.sender_name === myName && (
                                     <button
-                                      onClick={() => handleDeletePrivateMessage(msg.m_id)}
+                                      onClick={() => handleDeleted(msg.m_id)}
                                       title='Delete private message'
                                       className='absolute -top-2 -right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 transition'
                                     >
