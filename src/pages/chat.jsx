@@ -48,43 +48,40 @@ export default function Chat() {
         socket.off('groupMessageDeleted', handleGroupDeleted);
       }
     }, []);
-
-    const handleDeleteGroupMessage = async (id) => {
-        
-        if (!id) {
-            console.error('Invalid message ID');
-            return;
-        }
-        const confirmDelete = window.confirm('Are you sure you want to delte this message ?');
-
-        if (!confirmDelete) return;
-
-        try {
-            await api.delete(`/api/groups/group-messages/${id}`);
-           setGroupMessages(prev =>
-             prev.map(msg =>
-                msg.id === id ? {...id, is_deleted: true} : msg
-             )
-           );
-        } catch (err)  {
-            console.error('Failed to delete message',{
-             error: err.response?.data,
-             status: err.response?.status
-            });
-            alert(`Failed to delete ${err.response?.data?.message || 'Permission denied'} `)
-        }
-        
+const handleDeleteGroupMessage = async (id) => {
+    if (!id) {
+        console.error('Invalid message ID');
+        return;
     }
+
+    const confirmDelete = window.confirm('Are you sure you want to delete this message?');
+    if (!confirmDelete) return;
+
+    try {
+        await api.delete(`/api/groups/group-messages/${id}`);
+
+        setGroupMessages(prev =>
+            prev.map(msg =>
+                msg.id === id ? { ...msg, is_deleted: true } : msg
+            )
+        );
+    } catch (err) {
+        console.error('Failed to delete message', {
+            error: err.response?.data,
+            status: err.response?.status
+        });
+        alert(`Failed to delete: ${err.response?.data?.message || 'Permission denied'}`);
+    }
+};
 
 useEffect(() => {
     const handleDeleted = ({ m_id }) => {
-        setMessages(prev => prev.filter(msg => msg.m_id !== m_id ));
+        setMessages(prev => prev.filter(msg => msg.m_id !== m_id));
     }
 
     socket.on('privateMessageDeleted', handleDeleted);
     return () => socket.off('privateMessageDeleted', handleDeleted);
 }, []);
-
     useEffect(() => {
         if (!selectedGroup) return;
 
