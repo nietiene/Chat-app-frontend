@@ -407,8 +407,7 @@ export default function Chat() {
                                          </svg>
                                       </button>
                                 )}
-
-                                {selectedUser && msg.sender_name === myName && (
+                               {selectedUser && msg.sender_name === myName && (
                                     <button
                                       onClick={() => handleDeletePrivateMessage(msg.id)}
                                       title='Delete private message'
@@ -421,6 +420,7 @@ export default function Chat() {
                                 )}
                               </div>
                             </div>
+                            
                             </>
                                 ))}
                                 <div ref={messagesEndRef} />
