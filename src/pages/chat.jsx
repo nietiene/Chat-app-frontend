@@ -28,7 +28,8 @@ export default function Chat() {
                 msg.m_id === m_id ? {...msg, is_deleted: true } : msg
             )));
         } catch (error) {
-           console.error('Delete failed')
+           console.error('Delete failed', error);
+           alert('Delete failed');
         }
     }
     const handleDeleteGroupMessage = async (id) => {
