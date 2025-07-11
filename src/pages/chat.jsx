@@ -33,8 +33,11 @@ export default function Chat() {
             await api.delete(`/api/groups/group-messages/${id}`);
             setGroupMessages(prev => prev.filter(msg => msg.id !== id));
         } catch (err)  {
-            console.error('Failed to delete message', err);
-            alert('Failed to deleted message')
+            console.error('Failed to delete message',{
+             error: err.response?.data,
+             status: err.response?.status
+            });
+            alert(`Failed to delete ${err.response?.data?.message || 'Permission denied'} `)
         }
         
     }
