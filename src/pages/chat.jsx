@@ -417,7 +417,7 @@ useEffect(() => {
                                 </p>
                                 
                                 {/* Add delete icon */}
-                                {selectedGroup && msg.sender_name === myName  && !msg.is_deleted && (
+                                {selectedGroup && msg.sender_name === myName && (
                                     <button
                                       onClick={() => handleDeleteGroupMessage(msg.id)}
                                       title='Delete message'
@@ -428,7 +428,7 @@ useEffect(() => {
                                          </svg>
                                       </button>
                                 )}
-                               {selectedUser && msg.sender_name === myName && msg.is_deleted && (
+                               {selectedUser && msg.sender_name === myName  && (
                                     <button
                                       onClick={() => handleDeletePrivateMessage(msg.m_id)}
                                       title='Delete private message'
