@@ -213,6 +213,12 @@ useEffect(() => {
                 msg.created_at === timestamp
             );
             if (exists) return prev;
+
+            return [...prev, {
+                sender_name: from,
+                content: message,
+                created_at: timestamp
+            }]
           })
         };
 
