@@ -36,7 +36,7 @@ export default function Chat() {
     useEffect(() => {
       const handleGroupDeleted = ({ id }) => {
         setGroupMessages(prev =>
-             prev.map(prev =>
+             prev.map(msg =>
                 msg.id === id ? {...message, is_deleted: true } : msg
              )
         )
@@ -61,9 +61,11 @@ export default function Chat() {
 
         try {
             await api.delete(`/api/groups/group-messages/${id}`);
-           setGroupMessages(prev
-            
-           )
+           setGroupMessages(prev =>
+             prev.map(msg =>
+                msg.id === id ? {...id, is_deleted: true} : msg
+             )
+           );
         } catch (err)  {
             console.error('Failed to delete message',{
              error: err.response?.data,
