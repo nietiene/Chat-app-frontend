@@ -391,7 +391,8 @@ useEffect(() => {
                             <div className="space-y-3">
                                 {(selectedGroup ? groupMessages : messages).map((msg, i) => (
                                   <>
-                                  {console.log("Group message object:", msg)}                                  <div
+                                  {console.log("Group message object:", msg)}   
+                                   <div
                                     key={i}
                                     className={`flex ${msg.sender_name === myName ? 'justify-end' : 'justify-start'}`}
                                  >
