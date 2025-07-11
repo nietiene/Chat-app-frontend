@@ -19,7 +19,13 @@ export default function Chat() {
     const navigate = useNavigate();
 
     const handleDeletePrivateMessage = (m_id) => {
-        const confirmDelete = 
+        const confirmDelete = window.confirm('Are you sure');
+        if (!confirmDelete) return;
+
+        try {
+            await api.delete(`/api/messages/${m_id}`);
+            
+        }
     }
     const handleDeleteGroupMessage = async (id) => {
         
