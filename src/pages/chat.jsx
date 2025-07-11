@@ -336,10 +336,12 @@ export default function Chat() {
                         <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 bg-gray-50">
                             <div className="space-y-3">
                                 {(selectedGroup ? groupMessages : messages).map((msg, i) => (
-                                  <div
+                                  <>
+                                  {console.log("Group message object:", msg)}                                  <div
                                     key={i}
                                     className={`flex ${msg.sender_name === myName ? 'justify-end' : 'justify-start'}`}
                                  >
+                                    
                            <div
                              className={`group relative max-w-xs lg:max-w-md px-4 py-2 rounded-2xl shadow-sm ${
                              msg.sender_name === myName
@@ -348,7 +350,9 @@ export default function Chat() {
     }`}
   >
     {/* message content */}
+    
     {msg.sender_name !== myName && (
+        
       <p className="text-xs font-semibold text-blue-600 mb-1">{msg.sender_name}</p>
     )}
     <p className="text-sm">{msg.content}</p>
@@ -358,20 +362,21 @@ export default function Chat() {
       {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
     </p>
 
-    {/* Delete button, visible on hover */}
-    {msg.sender_name === myName && (
-      <button
-        onClick={() => handleDeleteGroupMessage(msg.g_m_id)}
-        className="hidden group-hover:flex absolute top-2 right-2 ring-2 text-red-500 hover:text-red-700 bg-white p-1 rounded-full shadow"
-        aria-label="Delete message"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-    )}
-  </div>
-</div>
+                               {/* Delete button, visible on hover */}
+                                 {msg.sender_name === myName && (
+                                   <button
+                                     onClick={() => handleDeleteGroupMessage(msg.g_m_id)}
+                                     className="hidden group-hover:flex absolute top-2 right-2 ring-2 text-red-500 hover:text-red-700 bg-white p-1 rounded-full shadow"
+                                     aria-label="Delete message"
+                                   >
+                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                     </svg>
+                                   </button>
+                                 )}
+                              </div>
+                            </div>
+                            </>
                                 ))}
                                 <div ref={messagesEndRef} />
                             </div>
