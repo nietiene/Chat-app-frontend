@@ -18,7 +18,7 @@ export default function Chat() {
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
-    const handleDeleteMessage = async (id) => {
+    const handleDeleteGroupMessage = async (id) => {
         
         if (!id) {
             console.error('Invalid message ID');
@@ -39,6 +39,25 @@ export default function Chat() {
             alert(`Failed to delete ${err.response?.data?.message || 'Permission denied'} `)
         }
         
+    }
+
+
+    const handleDeletePrivateMessage = async (id) => {
+        if (!id) {
+            console.error('Invalid private message ID');
+            return;
+        }
+
+        const confirmDelete = window.confirm('Are you sure ?');
+
+        if (!confirmDelete) return;
+
+        try {
+            await api.delete(`/api/messages/${id}`);
+            setMessages(prev => prev.filter(msg => msg.id !== id));
+        } catch (err) {
+            console.error('Failed to delete private message');
+        }
     }
 
     useEffect(() => {
@@ -375,7 +394,7 @@ export default function Chat() {
                                 {/* Add delete icon */}
                                 {selectedGroup && msg.sender_name === myName && (
                                     <button
-                                      onClick={() => handleDeleteMessage(msg.id)}
+                                      onClick={() => handleDeleteGroupMessage(msg.id)}
                                       title='Delete message'
                                       className='absolute -top-2 -right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 transition'
                                     >
