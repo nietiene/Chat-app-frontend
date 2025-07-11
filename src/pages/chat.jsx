@@ -48,7 +48,7 @@ export default function Chat() {
         socket.off('groupMessageDeleted', handleGroupDeleted);
       }
     }, []);
-    
+
     const handleDeleteGroupMessage = async (id) => {
         
         if (!id) {
@@ -61,7 +61,9 @@ export default function Chat() {
 
         try {
             await api.delete(`/api/groups/group-messages/${id}`);
-            setGroupMessages(prev => prev.filter(msg => msg.id !== id));
+           setGroupMessages(prev
+            
+           )
         } catch (err)  {
             console.error('Failed to delete message',{
              error: err.response?.data,
@@ -413,7 +415,7 @@ useEffect(() => {
                                 </p>
                                 
                                 {/* Add delete icon */}
-                                {selectedGroup && msg.sender_name === myName && (
+                                {selectedGroup && msg.sender_name === myName  && !msg.is_deleted && (
                                     <button
                                       onClick={() => handleDeleteGroupMessage(msg.id)}
                                       title='Delete message'
@@ -424,7 +426,7 @@ useEffect(() => {
                                          </svg>
                                       </button>
                                 )}
-                               {selectedUser && msg.sender_name === myName && (
+                               {selectedUser && msg.sender_name === myName && msg.is_deleted && (
                                     <button
                                       onClick={() => handleDeletePrivateMessage(msg.m_id)}
                                       title='Delete private message'
