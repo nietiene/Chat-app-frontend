@@ -41,7 +41,14 @@ export default function Chat() {
              )
         )
       }
-    })
+
+      socket.on('groupMessageDeleted', handleGroupDeleted);
+
+      return () => {
+        socket.off('groupMessageDeleted', handleGroupDeleted);
+      }
+    }, []);
+    
     const handleDeleteGroupMessage = async (id) => {
         
         if (!id) {
