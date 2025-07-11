@@ -204,17 +204,13 @@ useEffect(() => {
 
     useEffect(() => {
         const handlePrivateMessage = ({ from, message, timestamp }) => {
-            setMessages(prev => {
-                if (from === selectedUser) {
-                    return [...prev, {
-                        sender_name: from,
-                        content: message,
-                        created_at: timestamp
-                    }];
-                } else {
-                    return prev;
-                }
-            })
+          setMessages(prev => {
+            if (from !== selectedUser) return;
+
+            const exists = prev.some(msg =>
+                
+            )
+          })
         };
 
         socket.on('privateMessage', handlePrivateMessage);
