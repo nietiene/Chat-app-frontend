@@ -19,13 +19,12 @@ export default function Chat() {
     const navigate = useNavigate();
 
     const handleDeleteMessage = async (id) => {
-        console.log('Attempting to delete message ID:', id);
-        const confirmDelete = window.confirm('Are you sure you want to delte this message ?');
-
+        
         if (!id) {
-            console.error('Invalid message ID passed to delete function');
+            console.error('Invalid message ID');
             return;
         }
+        const confirmDelete = window.confirm('Are you sure you want to delte this message ?');
 
         if (!confirmDelete) return;
 
