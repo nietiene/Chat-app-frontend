@@ -32,6 +32,14 @@ export default function Chat() {
            alert('Delete failed');
         }
     }
+
+    useEffect(() => {
+        setGroupMessages(prev =>
+             prev.map(msg => 
+                msg.id === id ? {...msg, is_deleted: true } : msg
+             )
+        )
+    })
     const handleDeleteGroupMessage = async (id) => {
         
         if (!id) {
