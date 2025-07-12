@@ -24,6 +24,7 @@ export default function Chat() {
 
         try {
             await api.delete(`/api/messages/${m_id}`);
+            socket.emit('deletePrivateMessage', { m_id });
             setMessages(prev => prev.filter(msg => msg.m_id !== m_id));
 
         } catch (error) {
@@ -54,6 +55,7 @@ const handleDeleteGroupMessage = async (id) => {
     try {
         await api.delete(`/api/groups/group-messages/${id}`);
 
+        socket.emit('deleteGroupMessage', { id });
         setGroupMessages(prev =>
             prev.map(msg =>
                 msg.id === id ? { ...msg, is_deleted: true } : msg
