@@ -208,12 +208,9 @@ useEffect(() => {
             if (!selectedUser) return;
 
             setMessages(prev => {
-                if (from === selectedUser || from === 'You') {
-                    return [...prev, {
-                        sender_name: from === 'You' ? myName : from,
-                        content: message,
-                        created_at: timestamp
-                    }];
+                const last = prev[prev.length -1];
+                if (last?.isOwn && last.content === message) {
+                   return
                 } 
 
                  return prev;
@@ -242,6 +239,13 @@ useEffect(() => {
     const sendMessage = async () => {
         if (!selectedUser || !message.trim()) return;
 
+        const newMessage = {
+            sender_name: myName,
+            content: message,
+            created_at: new Date().toISOString(),
+            isOwn: true
+        }
+        
         try {
             await api.post('/api/messages', {
                 sender: myName,
@@ -255,6 +259,7 @@ useEffect(() => {
                 message
             });
 
+            setMessages(prev => [...prev, newMessage]);
             setMessage('');
         } catch (error) {
             console.error('Failed to send message:', error);
