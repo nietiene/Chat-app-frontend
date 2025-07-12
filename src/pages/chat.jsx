@@ -210,8 +210,21 @@ useEffect(() => {
             setMessages(prev => {
                 const last = prev[prev.length -1];
                 if (last?.isOwn && last.content === message) {
-                   return
+                   return prev.map((msg, i) => i === prev.length - 1 ? {
+                    ...msg,
+                    created_at: timestamp,
+                    isOwn: false
+                   } : msg)
                 } 
+                
+             if (from === selectedUser || from === 'You') {
+                return [...prev, {
+                    sender_name: from === 'You' ? myName : from,
+                    content: message,
+                    created_at: timestamp
+                }];
+            }
+
 
                  return prev;
                 
