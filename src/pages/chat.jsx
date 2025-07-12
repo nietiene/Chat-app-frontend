@@ -397,7 +397,7 @@ useEffect(() => {
                                 <div className="relative">
                                     <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-bold shadow"
                                     onClick={() => {
-                                        if (selectedGroup?.created_by = myName) {
+                                        if (selectedGroup?.created_by === myName) {
                                             setShowDeleteMenu(prev => !prev);
                                         }
                                     }}
@@ -408,7 +408,10 @@ useEffect(() => {
                                             >
                                               <button
                                                className='text-red-600 text-sm hover:underline'
-                                               onClick={handleDeleteGroup}>Delete Group</button>
+                                               onClick={handleDeleteGroup}
+                                            >
+                                                Delete Group
+                                            </button>
                                             </div>
                                          )
                                     </div>
