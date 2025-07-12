@@ -204,6 +204,7 @@ useEffect(() => {
 
     useEffect(() => {
         const handlePrivateMessage = ({ from, message, timestamp }) => {
+          
             setMessages(prev => {
                 if (from === selectedUser) {
                     return [...prev, {
@@ -211,9 +212,10 @@ useEffect(() => {
                         content: message,
                         created_at: timestamp
                     }];
-                } else {
-                    return prev;
-                }
+                } 
+                
+                 return prev;
+                
             })
         };
 
