@@ -341,7 +341,10 @@ useEffect(() => {
                                     await api.delete(`/api/groups/leave/${group.g_id}`);
                                     setGroup((prev) => prev.filter((g) => g.g_id !== group.g_id));
                                     setShowDeleteMenuForGroup(null);
-                                    if (selectedGroup?.g_id === group.g_id)setSelectedGroup(null);
+                                    if (selectedGroup?.g_id === group.g_id) {
+                                        setSelectedGroup(null);
+                                        setGroupMessages([]);
+                                    }
                                     alert('You left the group');
                                 } catch (error) {
                                     console.error('Failed to leave group', err);
