@@ -24,9 +24,8 @@ export default function Chat() {
 
         try {
             await api.delete(`/api/messages/${m_id}`);
-            setMessages(prev => prev.map(msg => (
-                msg.m_id === m_id ? {...msg, is_deleted: true } : msg
-            )));
+            setMessages(prev => prev.filter(msg => msg.m_id !== m_id));
+
         } catch (error) {
            console.error('Delete failed', error);
            alert('Delete failed');
@@ -35,11 +34,7 @@ export default function Chat() {
 
     useEffect(() => {
       const handleGroupDeleted = ({ id }) => {
-        setGroupMessages(prev =>
-             prev.map(msg =>
-                msg.id === id ? {...msg, is_deleted: true } : msg
-             )
-        )
+        setGroupMessages(prev => prev.filter(msg => msg.id !== id));
       }
       socket.on('groupMessageDeleted', handleGroupDeleted);
 
@@ -216,7 +211,7 @@ useEffect(() => {
                     isOwn: false
                    } : msg)
                 } 
-                
+
              if (from === selectedUser || from === 'You') {
                 return [...prev, {
                     sender_name: from === 'You' ? myName : from,
