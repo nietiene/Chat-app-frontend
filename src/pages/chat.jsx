@@ -15,7 +15,8 @@ export default function Chat() {
     const [group, setGroup] = useState([]);
     const [selectedGroup, setSelectedGroup] = useState(null);
     const [groupMessages, setGroupMessages] = useState([]);
-    const [showDeleteMenuForGroup, setShowDeleteMenuForGroup] = useState(null);
+    const [showDeleteMenuForGroup, setShowDeleteMenuForGroup] = useState(null); // for leaving in the group for group member
+    const [showDeleteMenu, setShowDeleteMenu] = useState(false) // for deleting group for only group creator
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
