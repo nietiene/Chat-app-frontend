@@ -18,110 +18,154 @@ export default function Chat() {
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
-    // Message deletion handlers
     const handleDeletePrivateMessage = async (m_id) => {
-        const confirmDelete = window.confirm('Are you sure?');
+        const confirmDelete = window.confirm('Are you sure');
         if (!confirmDelete) return;
 
         try {
             await api.delete(`/api/messages/${m_id}`);
             socket.emit('deletePrivateMessage', { m_id });
             setMessages(prev => prev.filter(msg => msg.m_id !== m_id));
+
         } catch (error) {
-            console.error('Delete failed', error);
-            alert('Delete failed');
+           console.error('Delete failed', error);
+           alert('Delete failed');
         }
-    };
+    }
 
-    const handleDeleteGroupMessage = async (id) => {
-        if (!id) {
-            console.error('Invalid message ID');
-            return;
-        }
-
-        const confirmDelete = window.confirm('Are you sure you want to delete this message?');
-        if (!confirmDelete) return;
-
-        try {
-            await api.delete(`/api/groups/group-messages/${id}`);
-            socket.emit('deleteGroupMessage', { id });
-            setGroupMessages(prev =>
-                prev.map(msg =>
-                    msg.id === id ? { ...msg, is_deleted: true } : msg
-                )
-            );
-        } catch (err) {
-            console.error('Failed to delete message', err);
-            alert(`Failed to delete: ${err.response?.data?.message || 'Permission denied'}`);
-        }
-    };
-
-    // Socket event handlers
     useEffect(() => {
-        const handleGroupDeleted = ({ id }) => {
-            setGroupMessages(prev => prev.filter(msg => msg.id !== id));
-        };
+      const handleGroupDeleted = ({ id }) => {
+        setGroupMessages(prev => prev.filter(msg => msg.id !== id));
+      }
+      socket.on('groupMessageDeleted', handleGroupDeleted);
 
-        const handleDeleted = ({ m_id }) => {
-            setMessages(prev => prev.filter(msg => msg.m_id !== m_id));
-        };
+      return () => {
+        socket.off('groupMessageDeleted', handleGroupDeleted);
+      }
+    }, []);
+const handleDeleteGroupMessage = async (id) => {
+    if (!id) {
+        console.error('Invalid message ID');
+        return;
+    }
 
-    const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
-            // Only process messages from the selected user
-            if (from === selectedUser) {
-                setMessages(prev => {
-                    // Check if we already have this message (from optimistic update)
-                    const existingIndex = prev.findIndex(msg => msg.m_id === m_id);
-                    
-                    if (existingIndex >= 0) {
-                        // Update existing message
-                        return prev.map(msg => 
-                            msg.m_id === m_id ? { 
-                                ...msg, 
-                                created_at: timestamp,
-                                isOwn: false 
-                            } : msg
-                        );
-                    } else {
-                        // Add new message
-                        return [...prev, {
-                            sender_name: from,
-                            content: message,
-                            created_at: timestamp,
-                            m_id,
-                            isOwn: false
-                        }];
-                    }
-                });
+    const confirmDelete = window.confirm('Are you sure you want to delete this message?');
+    if (!confirmDelete) return;
+
+    try {
+        await api.delete(`/api/groups/group-messages/${id}`);
+
+        socket.emit('deleteGroupMessage', { id });
+        setGroupMessages(prev =>
+            prev.map(msg =>
+                msg.id === id ? { ...msg, is_deleted: true } : msg
+            )
+        );
+    } catch (err) {
+        console.error('Failed to delete message', {
+            error: err.response?.data,
+            status: err.response?.status
+        });
+        alert(`Failed to delete: ${err.response?.data?.message || 'Permission denied'}`);
+    }
+};
+
+useEffect(() => {
+    const handleDeleted = ({ m_id }) => {
+        setMessages(prev => prev.filter(msg => msg.m_id !== m_id));
+    }
+
+    socket.on('privateMessageDeleted', handleDeleted);
+    return () => socket.off('privateMessageDeleted', handleDeleted);
+}, []);
+    useEffect(() => {
+        if (!selectedGroup) return;
+
+        const fetchGroupMessages = async () => {
+            try {
+                const res = await api.get(`/api/groups/group-messages/${selectedGroup.g_id}`);
+                setGroupMessages(res.data);
+            } catch (err) {
+                console.error('Failed to fetch group messages:', err);
             }
-        };
+        }
 
-        socket.on('groupMessageDeleted', handleGroupDeleted);
-        socket.on('privateMessageDeleted', handleDeleted);
-        socket.on('privateMessage', handlePrivateMessage);
-        socket.on('userList', setOnlineUsers);
+        fetchGroupMessages();
+    }, [selectedGroup]);
+
+    useEffect(() => {
+        const handleNewGroupMessage = (msg) => {
+            if (selectedGroup && msg.g_id === selectedGroup.g_id) {
+                setGroupMessages(prev => [...prev, msg]);
+            }
+        }
+
+        socket.on('newGroupMessage', handleNewGroupMessage);
 
         return () => {
-            socket.off('groupMessageDeleted', handleGroupDeleted);
-            socket.off('privateMessageDeleted', handleDeleted);
-            socket.off('privateMessage', handlePrivateMessage);
-            socket.off('userList');
-        };
-    }, [selectedUser]);
+            socket.off('newGroupMessage', handleNewGroupMessage);
+        }
+    }, [selectedGroup]);
 
-    // Data fetching effects
+    const sendGroupChatMessage = async () => {
+        if (!selectedGroup || !message.trim() || !myName) return;
+
+        try {
+            const res = await api.post(`/api/groups/${selectedGroup.g_id}/messages`,  {
+                content: message,
+                type: 'text',
+            });
+
+            const savedGroupMessage = res.data;
+
+            socket.emit('groupMessage', {
+                 ...savedGroupMessage
+            });
+
+            setGroupMessages(prev => [...prev, {
+                ...savedGroupMessage,
+                user_id: 'me',
+                sender_name: myName
+            }]);
+
+            setMessage('');
+        } catch (err) {
+            console.error('Failed to send group message:', err);
+        }
+    }
+
+    useEffect(() => {
+        if (!myName) return;
+
+        const fetchGroups = async () => {
+            try {
+                const res = await api.get('/api/groups/my');
+                setGroup(res.data);
+            } catch (err) {
+                console.error("Failed to fetch groups:", err);
+            }
+        }
+        fetchGroups();
+
+    }, [myName]);
+
     useEffect(() => {
         const fetchProfile = async () => {
             try {
                 const res = await api.get('/api/auth/profile');
                 setMyName(res.data.name);
-                socket.emit("login", res.data.name);
             } catch (error) {
                 navigate('/');
             }
         };
         fetchProfile();
     }, [navigate]);
+
+    useEffect(() => {
+        if (myName) {
+            socket.emit("login", myName);
+        }
+    }, [myName]);
 
     useEffect(() => {
         if (!myName) return;
@@ -134,18 +178,7 @@ export default function Chat() {
                 console.error('Failed to fetch users:', error);
             }
         };
-
-        const fetchGroups = async () => {
-            try {
-                const res = await api.get('/api/groups/my');
-                setGroup(res.data);
-            } catch (err) {
-                console.error("Failed to fetch groups:", err);
-            }
-        };
-
         fetchUsers();
-        fetchGroups();
     }, [myName]);
 
     useEffect(() => {
@@ -164,36 +197,65 @@ export default function Chat() {
     }, [selectedUser, myName]);
 
     useEffect(() => {
-        if (!selectedGroup) return;
+        const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
+          
+            setMessages(prev => {
 
-        const fetchGroupMessages = async () => {
-            try {
-                const res = await api.get(`/api/groups/group-messages/${selectedGroup.g_id}`);
-                setGroupMessages(res.data);
-            } catch (err) {
-                console.error('Failed to fetch group messages:', err);
+                const last = prev[prev.length -1];
+
+                if (last?.isOwn && last.content === message) {
+                   return prev.map((msg, i) => i === prev.length - 1 ? {
+                    ...msg,
+                    created_at: timestamp,
+                    isOwn: false,
+                    m_id
+                   } : msg)
+                } 
+
+             if (from === selectedUser || from === myName) {
+                return [...prev, {
+                    sender_name: from,
+                    content: message,
+                    created_at: timestamp,
+                    m_id,
+                    isOwn: from === myName
+                }];
             }
+
+                 return prev;
+                
+            })
         };
-        fetchGroupMessages();
-    }, [selectedGroup]);
+
+        socket.on('privateMessage', handlePrivateMessage);
+        socket.on('userList', setOnlineUsers);
+
+        return () => {
+            socket.off('privateMessage', handlePrivateMessage);
+            socket.off('userList');
+        };
+    }, [selectedUser]);
+
+    const messagesContainerRef = useRef(null);
+    useEffect(() => {
+
+        const container = messagesContainerRef.current;
+        if (container) {
+            container.scrollTop = container.scrollHeight;
+        }
+    }, [messages, groupMessages]);
 
     const sendMessage = async () => {
         if (!selectedUser || !message.trim() || !myName) return;
 
-        // Create temporary message with proper date format
-        const tempMessage = {
-            sender_name: myName,
-            content: message,
-            created_at: new Date().toISOString(),
-            m_id: `temp-${Date.now()}`,
-            isOwn: true
-        };
-
-        // Add to state immediately
-        setMessages(prev => [...prev, tempMessage]);
-        setMessage('');
-
         try {
+            const tempMessage = {
+                sender_name: myName,
+                content: message,
+                created_at: new Date().toISOString(),
+                m_id: Date.now().toString(), // add temporary ID
+                isOwn: true 
+            }
             const res = await api.post('/api/messages', {
                 sender: myName,
                 receiver: selectedUser,
@@ -202,74 +264,30 @@ export default function Chat() {
 
             const savedMessage = res.data;
 
-            // Update the temporary message with server data
-            setMessages(prev => prev.map(msg => 
-                msg.m_id === tempMessage.m_id ? {
-                    ...savedMessage,
-                    isOwn: true,
-                    created_at: savedMessage.created_at // Use server timestamp
-                } : msg
-            ));
-
-            // Emit the message with proper formatting
             socket.emit('privateMessage', {
                 to: selectedUser,
                 from: myName,
                 message: savedMessage.content,
                 m_id: savedMessage.m_id,
-                timestamp: savedMessage.created_at // Ensure this is ISO string
+                timestamp: savedMessage.created_at
             });
 
-        } catch (error) {
-            setMessages(prev => prev.filter(msg => msg.m_id !== tempMessage.m_id));
-            console.error('Failed to send message:', error);
-            alert('Failed to send message');
-        }
-    };
+            setMessages(prev => prev.map(msg => 
+                msg.m_id === tempMessage.m_id ? {
+                    ...savedMessage,
+                    isOwn: true
+                } : msg
+            ))
 
-        const formatMessageTime = (timestamp) => {
-        try {
-            return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        } catch (e) {
-            console.error('Invalid date format:', timestamp);
-            return 'Just now';
-        }
-    };
-
-    const sendGroupChatMessage = async () => {
-        if (!selectedGroup || !message.trim() || !myName) return;
-
-        try {
-            const res = await api.post(`/api/groups/${selectedGroup.g_id}/messages`, {
-                content: message,
-                type: 'text',
-            });
-
-            const savedGroupMessage = res.data;
-            socket.emit('groupMessage', savedGroupMessage);
-            setGroupMessages(prev => [...prev, {
-                ...savedGroupMessage,
-                user_id: 'me',
-                sender_name: myName
-            }]);
             setMessage('');
-        } catch (err) {
-            console.error('Failed to send group message:', err);
+        } catch (error) {
+             setMessages(prev => prev.filter(msg => msg.m_id !== tempMessage.m_id));
+            console.error('Failed to send message:', error);
         }
     };
-
-    // Auto-scroll to bottom
-    const messagesContainerRef = useRef(null);
-    useEffect(() => {
-        const container = messagesContainerRef.current;
-        if (container) {
-            container.scrollTop = container.scrollHeight;
-        }
-    }, [messages, groupMessages]);
 
     return (
         <div className="flex h-screen bg-gray-100 overflow-hidden">
-            {/* Left sidebar */}
             <div className="w-1/4 bg-white border-r border-gray-200 flex flex-col">
                 <div className="p-4 border-b border-gray-200 bg-blue-50">
                     <div className="flex items-center space-x-3">
@@ -299,9 +317,8 @@ export default function Chat() {
                         <p className="text-xs text-gray-400 px-4 py-2">No groups yet</p>
                     )}
                     {group.map(group => (
-                        <div 
-                            className={`p-3 flex items-center space-x-3 hover:bg-gray-100 cursor-pointer ${selectedGroup?.g_id === group.g_id ? 'bg-blue-100' : ''}`} 
-                            key={group.g_id}
+                        <div className={`p-3 flex items-center space-x-3 hover:bg-gray-100 cursor-pointer
+                                        ${selectedGroup?.g_id === group.g_id ? 'bg-blue-100' : ''}`} key={group.g_id}
                             onClick={() => {
                                 setSelectedUser(null);
                                 setSelectedGroup(group);
@@ -317,7 +334,6 @@ export default function Chat() {
                         </div>
                     ))}
                 </div>
-
                 <div className="flex-1 overflow-y-auto">
                     <h3 className="px-4 py-3 text-sm font-semibold text-gray-500 bg-gray-50 sticky top-0 z-10">
                         CONTACTS
@@ -327,7 +343,9 @@ export default function Chat() {
                             <div 
                                 key={user.name}
                                 className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200 ${
-                                    selectedUser === user.name ? 'bg-blue-100' : 'hover:bg-gray-50'
+                                    selectedUser === user.name 
+                                        ? 'bg-blue-100' 
+                                        : 'hover:bg-gray-50'
                                 }`}
                                 onClick={() => {
                                     setSelectedGroup(null);
@@ -356,7 +374,6 @@ export default function Chat() {
                 </div>
             </div>
 
-            {/* Main chat area */}
             <div className="flex-1 flex flex-col bg-white">
                 {selectedUser || selectedGroup ? (
                     <>
@@ -370,15 +387,17 @@ export default function Chat() {
                                 </h3>
                                 {selectedGroup && (
                                     <button 
-                                        className='text-xs text-blue-600 border border-blue-600 px-2 py-0.5 rounded hover:bg-blue-50'
-                                        onClick={() => navigate(`/group-members/${selectedGroup.g_id}`)}
+                                       className='text-xs text-blue-600 border border-blue-600 px-2 py-0.5 rounded hover:bg-blue-50'
+                                       onClick={() => navigate(`/group-members/${selectedGroup.g_id}`)}
                                     >
                                         View Members
                                     </button>
                                 )}
                                 {selectedUser ? (
                                     <p className={`text-xs ${
-                                        onlineUsers.includes(selectedUser) ? 'text-green-600' : 'text-gray-500'
+                                        onlineUsers.includes(selectedUser) 
+                                            ? 'text-green-600' 
+                                            : 'text-gray-500'
                                     }`}>
                                         {onlineUsers.includes(selectedUser) ? 'Online' : 'Offline'}
                                     </p>
@@ -391,51 +410,61 @@ export default function Chat() {
                         <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 bg-gray-50">
                             <div className="space-y-3">
                                 {(selectedGroup ? groupMessages : messages).map((msg, i) => (
-                                    <div
-                                        key={selectedGroup ? msg.id || i : msg.m_id || i}
-                                        className={`flex ${msg.sender_name === myName ? 'justify-end' : 'justify-start'}`}
+                                  <>
+                                  {console.log("Group message object:", msg)}   
+                                   <div
+                                    key={i}
+                                    className={`flex ${msg.sender_name === myName ? 'justify-end' : 'justify-start'}`}
+                                 >
+                                    
+                               <div
+                                 className={`group relative max-w-xs lg:max-w-md px-4 py-2 rounded-2xl shadow-sm ${
+                                 msg.sender_name === myName
+                                 ? 'bg-blue-600 text-white rounded-br-none'
+                                 : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none'
+                                   }`}
+                                 >
+                                   {/* message content */}
+    
+                                   {msg.sender_name !== myName && (
+                                       
+                                     <p className="text-xs font-semibold text-blue-600 mb-1">{msg.sender_name}</p>
+                                   )}
+                                   <p className="text-sm">{msg.content}</p>
+                                   <p className={`text-xs mt-1 ${
+                                     msg.sender_name === myName ? 'text-blue-100' : 'text-gray-500'
+                                   }`}>
+                                     {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </p>
+                                
+                                {/* Add delete icon */}
+                                {selectedGroup && msg.sender_name === myName && (
+                                    <button
+                                      onClick={() => handleDeleteGroupMessage(msg.id)}
+                                      title='Delete message'
+                                      className='absolute -top-2 -right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 transition'
                                     >
-                                        <div
-                                            className={`group relative max-w-xs lg:max-w-md px-4 py-2 rounded-2xl shadow-sm ${
-                                                msg.sender_name === myName
-                                                ? 'bg-blue-600 text-white rounded-br-none'
-                                                : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none'
-                                            }`}
-                                        >
-                                            {msg.sender_name !== myName && (
-                                                <p className="text-xs font-semibold text-blue-600 mb-1">{msg.sender_name}</p>
-                                            )}
-                                            <p className="text-sm">{msg.content}</p>
-                                            <p className={`text-xs mt-1 ${
-                                                msg.sender_name === myName ? 'text-blue-100' : 'text-gray-500'
-                                            }`}>
-                                                {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                            </p>
-                                            
-                                            {selectedGroup && msg.sender_name === myName && (
-                                                <button
-                                                    onClick={() => handleDeleteGroupMessage(msg.id)}
-                                                    title='Delete message'
-                                                    className='absolute -top-2 -right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 transition'
-                                                >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                                    </svg>
-                                                </button>
-                                            )}
-                                            {selectedUser && msg.sender_name === myName && msg.m_id && (
-                                                <button
-                                                    onClick={() => handleDeletePrivateMessage(msg.m_id)}
-                                                    title='Delete private message'
-                                                    className='absolute -top-2 -right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 transition'
-                                                >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                                    </svg>
-                                                </button>
-                                            )}
-                                        </div>
-                                    </div>
+                                         <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                         </svg>
+                                      </button>
+                                )}
+                               {selectedUser && msg.sender_name === myName && msg.m_id && (
+                                    <button
+                                      onClick={() => handleDeletePrivateMessage(msg.m_id)}
+                                      title='Delete private message'
+                                      className='absolute -top-2 -right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 transition'
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                       </svg>
+                                    </button>
+                                )}
+
+                              </div>
+                            </div>
+                            
+                            </>
                                 ))}
                                 <div ref={messagesEndRef} />
                             </div>
@@ -445,7 +474,11 @@ export default function Chat() {
                             <form 
                                 onSubmit={(e) => {
                                     e.preventDefault();
-                                    selectedGroup ? sendGroupChatMessage() : sendMessage();
+                                    if (selectedGroup) {
+                                        sendGroupChatMessage();
+                                    } else {
+                                        sendMessage();
+                                    }
                                 }}
                                 className="flex space-x-2"
                             >
@@ -486,3 +519,4 @@ export default function Chat() {
         </div>
     );
 }
+
