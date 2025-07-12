@@ -334,7 +334,15 @@ useEffect(() => {
                                 <p className="text-xs text-gray-500 truncate">Created by {group.created_by}</p>
                             </div>
                            {showDeleteMenuForGroup === group.g_id && (
-                            <button></button>
+                            <button
+                             className='text-xs text-red-600 border border-red-600 px-2 py-0.5 rounded hover:bg-red-50'
+                             onClick={async () => {
+                                try {
+                                    await api.delete(`/api/groups/leave/${group.g_id}`);
+                                    setGroup((prev) => prev.filter((g) => g.g_id !== group.g_id));
+                                    setShowDeleteMenuForGroup(null);
+                                }
+                             }}></button>
                            )}
 
                         </div>
