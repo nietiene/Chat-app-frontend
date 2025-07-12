@@ -212,13 +212,13 @@ useEffect(() => {
                    } : msg)
                 } 
 
-             if (from === selectedUser || from === myName) {
+             if (from === selectedUser) {
                 return [...prev, {
                     sender_name: from,
                     content: message,
                     created_at: timestamp,
                     m_id,
-                    isOwn: from === myName
+                    isOwn: false
                 }];
             }
 
