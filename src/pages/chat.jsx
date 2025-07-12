@@ -391,7 +391,9 @@ useEffect(() => {
                                          {showDeleteMenu && selectedGroup?.created_by === myName} (
                                             <div className="absolute top-full mt-2 right-0 bg-white border rounded shadow p-2 z-10"
                                             >
-
+                                              <button
+                                               className='text-red-600 text-sm hover:underline'
+                                               onClick={handleDeleteGroup}>Delete Group</button>
                                             </div>
                                          )
                                     </div>
