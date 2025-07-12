@@ -294,8 +294,14 @@ useEffect(() => {
         if (!confirmDelete) return;
 
         try {
-            await api.patch(`/groups/${selectedGroup.g_id}/soft-delete`);
+            await api.patch(`/api/groups/${selectedGroup.g_id}/soft-delete`);
             alert('Group deleted successfully 😂');
+
+            setGroup(prevGroup => prevGroup.filter(g => g.g_id !== selectedGroup));
+
+            // clear selected group and its messages
+            setSelectedGroup(null);
+            setGroupMessages([]);
             setShowDeleteMenu(false);
         } catch (err) {
             console.error('Failed to delete group', err);
