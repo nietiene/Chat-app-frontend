@@ -188,6 +188,7 @@ useEffect(() => {
     }, [myName]);
 
     useEffect(() => {
+        setMessages([]);
         if (!selectedUser || !myName) return;
 
         const fetchMessages = async () => {
@@ -204,10 +205,12 @@ useEffect(() => {
     useEffect(() => {
         const handlePrivateMessage = ({ from, message, timestamp }) => {
           
+            if (!selectedUser) return;
+
             setMessages(prev => {
-                if (from === selectedUser) {
+                if (from === selectedUser || from === 'You') {
                     return [...prev, {
-                        sender_name: from,
+                        sender_name: from === 'You' ? myName : from,
                         content: message,
                         created_at: timestamp
                     }];
