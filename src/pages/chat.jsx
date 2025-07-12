@@ -253,7 +253,8 @@ useEffect(() => {
                 sender_name: myName,
                 content: message,
                 created_at: new Date().toISOString(),
-                
+                m_id: Date.now().toString(), // add temporary ID
+                isOwn: true 
             }
             const res = await api.post('/api/messages', {
                 sender: myName,
@@ -271,13 +272,16 @@ useEffect(() => {
                 timestamp: savedMessage.created_at
             });
 
-            setMessages(prev => [...prev, {
-                ...savedMessage,
-                isOwn: true
-            }]);
+            setMessages(prev => prev.map(msg => 
+                msg.m_id === tempMessage.m_id ? {
+                    ...savedMessage,
+                    isOwn: true
+                } : msg
+            ))
 
             setMessage('');
         } catch (error) {
+             setMessages(prev => prev.filter(msg => msg.m_id !== tempMessage.m_id));
             console.error('Failed to send message:', error);
         }
     };
