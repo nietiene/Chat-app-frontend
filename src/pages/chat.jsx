@@ -339,7 +339,8 @@ useEffect(() => {
                              onClick={async () => {
                                 try {
                                     await api.delete(`/api/groups/leave/${group.g_id}`);
-                                    setGroup((prev) => prev.filter((g) => g.g_id !== group.g_id));
+                                    const res = await api.get('/api/groups/my');
+                                    setGroup(res.data);
                                     setShowDeleteMenuForGroup(null);
                                     if (selectedGroup?.g_id === group.g_id) {
                                         setSelectedGroup(null);
