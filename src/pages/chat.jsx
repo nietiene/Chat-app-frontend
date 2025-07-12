@@ -111,23 +111,21 @@ useEffect(() => {
         if (!selectedGroup || !message.trim() || !myName) return;
 
         try {
-            await api.post(`/api/groups/${selectedGroup.g_id}/messages`,  {
+            const res = await api.post(`/api/groups/${selectedGroup.g_id}/messages`,  {
                 content: message,
                 type: 'text',
             });
 
+            const savedGroupMessage = res.data;
+
             socket.emit('groupMessage', {
-                g_id: selectedGroup.g_id,
-                content: message,
-                type: 'text',
+                 ...savedGroupMessage
             });
 
             setGroupMessages(prev => [...prev, {
+                ...savedGroupMessage,
                 user_id: 'me',
-                sender_name: myName,
-                content: message,
-                created_at: new Date().toISOString(),
-                type: 'text'
+                sender_name: myName
             }]);
 
             setMessage('');
@@ -270,6 +268,7 @@ useEffect(() => {
                 ...savedMessage,
                 isOwn: true
             }]);
+
             setMessage('');
         } catch (error) {
             console.error('Failed to send message:', error);
