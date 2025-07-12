@@ -296,6 +296,10 @@ useEffect(() => {
         try {
             await api.patch(`/groups/${selectedGroup.g_id}/soft-delete`);
             alert('Group deleted successfully 😂');
+            setShowDeleteMenu(false);
+        } catch (err) {
+            console.error('Failed to delete group', err);
+            alert('Failed to delete group');
         }
     }
 
