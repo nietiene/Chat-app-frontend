@@ -288,6 +288,16 @@ useEffect(() => {
         }
     };
 
+    const handleDeleteGroup = async () => {
+        if (!selectedGroup) return;
+        const confirmDelete = window.confirm('Are you sure ?');
+        if (!confirmDelete) return;
+
+        try {
+            await api.patch(``)
+        }
+    }
+
     return (
         <div className="flex h-screen bg-gray-100 overflow-hidden">
             <div className="w-1/4 bg-white border-r border-gray-200 flex flex-col">
