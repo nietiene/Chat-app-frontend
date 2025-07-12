@@ -200,16 +200,18 @@ useEffect(() => {
         const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
           
             setMessages(prev => {
+               const alreadyExists = prev.some(msg => msg.m_id === m_id);
+                if (alreadyExists) return prev;
 
-                const last = prev[prev.length -1];
+                return [...prev, {
+                     sender_name: from,
+                     content: message,
+                     created_at: timestamp,
+                     m_id,
+                     isOwn: from === myName
+                }];
+});
 
-                if (last?.isOwn && last.content === message) {
-                   return prev.map((msg, i) => i === prev.length - 1 ? {
-                    ...msg,
-                    created_at: timestamp,
-                    isOwn: false,
-                    m_id
-                   } : msg)
                 } 
 
              if (from === selectedUser || from === myName) {
