@@ -242,6 +242,12 @@ useEffect(() => {
     const sendMessage = async () => {
         if (!selectedUser || !message.trim()) return;
 
+        const newMessage = {
+            sender_name: myName,
+            content: message,
+            created_at: new Date().toISOString()
+        }
+        
         try {
             await api.post('/api/messages', {
                 sender: myName,
@@ -255,6 +261,7 @@ useEffect(() => {
                 message
             });
 
+            setMessages(prev => [...prev, newMessage]);
             setMessage('');
         } catch (error) {
             console.error('Failed to send message:', error);
