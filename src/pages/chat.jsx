@@ -140,7 +140,6 @@ useEffect(() => {
         const fetchGroups = async () => {
             try {
                 const res = await api.get('/api/groups/my');
-                console.log('Fetched groups:', res.data);
                 setGroup(res.data);
             } catch (err) {
                 console.error("Failed to fetch groups:", err);
@@ -204,6 +203,7 @@ useEffect(() => {
 
             setMessages(prev => {
                 const last = prev[prev.length -1];
+
                 if (last?.isOwn && last.content === message) {
                    return prev.map((msg, i) => i === prev.length - 1 ? {
                     ...msg,
@@ -213,11 +213,13 @@ useEffect(() => {
                    } : msg)
                 } 
 
-             if (from === selectedUser || from === 'You') {
+             if (from === selectedUser || from === myName) {
                 return [...prev, {
-                    sender_name: from === 'You' ? myName : from,
+                    sender_name: from,
                     content: message,
-                    created_at: timestamp
+                    created_at: timestamp,
+                    m_id,
+                    isOwn: from === myName
                 }];
             }
 
