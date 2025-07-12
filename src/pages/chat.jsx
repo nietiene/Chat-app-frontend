@@ -66,15 +66,33 @@ export default function Chat() {
             setMessages(prev => prev.filter(msg => msg.m_id !== m_id));
         };
 
-        const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
+    const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
+            // Only process messages from the selected user
             if (from === selectedUser) {
-                setMessages(prev => [...prev, {
-                    sender_name: from,
-                    content: message,
-                    created_at: timestamp,
-                    m_id,
-                    isOwn: false
-                }]);
+                setMessages(prev => {
+                    // Check if we already have this message (from optimistic update)
+                    const existingIndex = prev.findIndex(msg => msg.m_id === m_id);
+                    
+                    if (existingIndex >= 0) {
+                        // Update existing message
+                        return prev.map(msg => 
+                            msg.m_id === m_id ? { 
+                                ...msg, 
+                                created_at: timestamp,
+                                isOwn: false 
+                            } : msg
+                        );
+                    } else {
+                        // Add new message
+                        return [...prev, {
+                            sender_name: from,
+                            content: message,
+                            created_at: timestamp,
+                            m_id,
+                            isOwn: false
+                        }];
+                    }
+                });
             }
         };
 
@@ -159,10 +177,10 @@ export default function Chat() {
         fetchGroupMessages();
     }, [selectedGroup]);
 
-    // Message sending functions
     const sendMessage = async () => {
         if (!selectedUser || !message.trim() || !myName) return;
 
+        // Create temporary message with proper date format
         const tempMessage = {
             sender_name: myName,
             content: message,
@@ -170,6 +188,8 @@ export default function Chat() {
             m_id: `temp-${Date.now()}`,
             isOwn: true
         };
+
+        // Add to state immediately
         setMessages(prev => [...prev, tempMessage]);
         setMessage('');
 
@@ -181,24 +201,38 @@ export default function Chat() {
             });
 
             const savedMessage = res.data;
+
+            // Update the temporary message with server data
             setMessages(prev => prev.map(msg => 
                 msg.m_id === tempMessage.m_id ? {
                     ...savedMessage,
-                    isOwn: true
+                    isOwn: true,
+                    created_at: savedMessage.created_at // Use server timestamp
                 } : msg
             ));
 
+            // Emit the message with proper formatting
             socket.emit('privateMessage', {
                 to: selectedUser,
                 from: myName,
                 message: savedMessage.content,
                 m_id: savedMessage.m_id,
-                timestamp: savedMessage.created_at
+                timestamp: savedMessage.created_at // Ensure this is ISO string
             });
+
         } catch (error) {
             setMessages(prev => prev.filter(msg => msg.m_id !== tempMessage.m_id));
             console.error('Failed to send message:', error);
             alert('Failed to send message');
+        }
+    };
+
+        const formatMessageTime = (timestamp) => {
+        try {
+            return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        } catch (e) {
+            console.error('Invalid date format:', timestamp);
+            return 'Just now';
         }
     };
 
