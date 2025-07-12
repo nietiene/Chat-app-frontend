@@ -41,7 +41,6 @@ export default function Chat() {
              )
         )
       }
-
       socket.on('groupMessageDeleted', handleGroupDeleted);
 
       return () => {
@@ -213,7 +212,7 @@ useEffect(() => {
                         created_at: timestamp
                     }];
                 } 
-                
+
                  return prev;
                 
             })
