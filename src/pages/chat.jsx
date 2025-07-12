@@ -199,9 +199,8 @@ useEffect(() => {
     useEffect(() => {
         const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
           
-            if (!selectedUser) return;
-
             setMessages(prev => {
+
                 const last = prev[prev.length -1];
 
                 if (last?.isOwn && last.content === message) {
