@@ -108,7 +108,7 @@ useEffect(() => {
     }, [selectedGroup]);
 
     const sendGroupChatMessage = async () => {
-        if (!selectedGroup || !message.trim()) return;
+        if (!selectedGroup || !message.trim() || !myName) return;
 
         try {
             await api.post(`/api/groups/${selectedGroup.g_id}/messages`,  {
@@ -247,7 +247,7 @@ useEffect(() => {
     }, [messages, groupMessages]);
 
     const sendMessage = async () => {
-        if (!selectedUser || !message.trim()) return;
+        if (!selectedUser || !message.trim() || !myName) return;
 
         const newMessage = {
             sender_name: myName,
