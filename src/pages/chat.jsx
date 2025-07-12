@@ -249,6 +249,12 @@ useEffect(() => {
         if (!selectedUser || !message.trim() || !myName) return;
 
         try {
+            const tempMessage = {
+                sender_name: myName,
+                content: message,
+                created_at: new Date().toISOString(),
+                
+            }
             const res = await api.post('/api/messages', {
                 sender: myName,
                 receiver: selectedUser,
