@@ -294,7 +294,8 @@ useEffect(() => {
         if (!confirmDelete) return;
 
         try {
-            await api.patch(``)
+            await api.patch(`/groups/${selectedGroup.g_id}/soft-delete`);
+            alert('Group deleted successfully 😂');
         }
     }
 
