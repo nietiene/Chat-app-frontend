@@ -255,12 +255,6 @@ useEffect(() => {
                 message
             });
 
-            setMessages(prev => [...prev, { 
-                sender_name: myName,
-                content: message,
-                created_at: new Date().toISOString()
-            }]);
-            
             setMessage('');
         } catch (error) {
             console.error('Failed to send message:', error);
