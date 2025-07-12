@@ -249,27 +249,27 @@ useEffect(() => {
     const sendMessage = async () => {
         if (!selectedUser || !message.trim() || !myName) return;
 
-        const newMessage = {
-            sender_name: myName,
-            content: message,
-            created_at: new Date().toISOString(),
-            isOwn: true
-        }
-        
         try {
-            await api.post('/api/messages', {
+            const res = await api.post('/api/messages', {
                 sender: myName,
                 receiver: selectedUser,
                 content: message
             });
 
+            const savedMessage = res.data;
+
             socket.emit('privateMessage', {
                 to: selectedUser,
                 from: myName,
-                message
+                message: savedMessage.content,
+                m_id: savedMessage.m_id,
+                timestamp: savedMessage.created_at
             });
 
-            setMessages(prev => [...prev, newMessage]);
+            setMessages(prev => [...prev, {
+                ...savedMessage,
+                isOwn: true
+            }]);
             setMessage('');
         } catch (error) {
             console.error('Failed to send message:', error);
