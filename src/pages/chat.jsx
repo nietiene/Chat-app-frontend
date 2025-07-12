@@ -387,7 +387,13 @@ useEffect(() => {
                                         }
                                     }}
                                     >
-                                         
+                                         {(selectedUser || selectedGroup?.group_name).charAt(0).toUpperCase()}
+                                         {showDeleteMenu && selectedGroup?.created_by === myName} (
+                                            <div className="absolute top-full mt-2 right-0 bg-white border rounded shadow p-2 z-10"
+                                            >
+
+                                            </div>
+                                         )
                                     </div>
                                     {onlineUsers.includes(user.name) && (
                                         <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
