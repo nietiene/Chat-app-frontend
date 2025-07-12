@@ -198,7 +198,7 @@ useEffect(() => {
     }, [selectedUser, myName]);
 
     useEffect(() => {
-        const handlePrivateMessage = ({ from, message, timestamp }) => {
+        const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
           
             if (!selectedUser) return;
 
@@ -208,7 +208,8 @@ useEffect(() => {
                    return prev.map((msg, i) => i === prev.length - 1 ? {
                     ...msg,
                     created_at: timestamp,
-                    isOwn: false
+                    isOwn: false,
+                    m_id
                    } : msg)
                 } 
 
@@ -219,7 +220,6 @@ useEffect(() => {
                     created_at: timestamp
                 }];
             }
-
 
                  return prev;
                 
@@ -438,7 +438,7 @@ useEffect(() => {
                                          </svg>
                                       </button>
                                 )}
-                               {selectedUser && msg.sender_name === myName  && (
+                               {selectedUser && msg.sender_name === myName && msg.m_id && (
                                     <button
                                       onClick={() => handleDeletePrivateMessage(msg.m_id)}
                                       title='Delete private message'
