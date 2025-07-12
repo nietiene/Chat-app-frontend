@@ -448,9 +448,7 @@ useEffect(() => {
                                        </svg>
                                     </button>
                                 )}
-                                <p className='text-sm'>
-                                    {msg.is_deleted ? <i className='text-gray-400'>Message deleted</i> : ''}
-                                </p>
+
                               </div>
                             </div>
                             
