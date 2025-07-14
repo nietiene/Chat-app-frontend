@@ -34,9 +34,12 @@ export default function ChangeGroupPhoto() {
             setLoading(false);
         }
 
+    }
+    
      return (
        <div className="max-w-md mx-auto">
 
        </div>
         )
+
 }
