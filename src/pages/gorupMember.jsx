@@ -96,6 +96,12 @@ export default function GroupMember() {
     if (selectedUserIds.length === 0) return;
 
     try {
+
+      // check if selected user is already a member
+      const currentMemberPhones = members.map(m => m.phone);
+      const duplicates = selectedUserIds.filter(phone =>
+         currentMemberPhones.includes(phone)
+      );
       for (const phone of selectedUserIds) {
          await api.post(`/api/groups/group_members/${g_id}`, { phone });
       }
