@@ -149,8 +149,7 @@ export default function Chat() {
             try {
                 const res = await api.get('/api/auth/profile');
                 setMyName(res.data.name);
-                setUserId(res.data.user_id);
-                console.log('data',res.data.user_id);
+                setUserId(res.data.id);
             } catch (error) {
                 navigate('/');
             }
