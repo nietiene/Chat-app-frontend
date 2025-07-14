@@ -28,7 +28,7 @@ export default function ChangeGroupName() {
     }
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+        <div className="max-w-md mx-auto mt-10 p-6 bg-gray-50 rounded-lg shadow-inner">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Change Group Name</h2>
 
             <form onSubmit={handleChangeName}>
@@ -49,15 +49,20 @@ export default function ChangeGroupName() {
                     <button 
                       type="submit"
                       disabled={loading}
-                      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:opacity-50 text-gray-700">
+                      className="px-4 py-2 bg-blue-600 text-white rounded-md 
+                                  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500
+                                  disabled:bg-blue-400 disabled:cursor-not-allowed shadow-inner"
+                      >
                         {loading ? 'Updating...' : 'Update'}
                       </button>
 
                       <button 
                         type="submit"
                         onClick={() => navigate('/chat')}
-                        className="border px-4 py-2 rounded text-gray-600 hover:bg-gray-100">
-                            Cancel
+                        className="px-4 py-2 border border-gray-300 rounded-md 
+                                  text-gray-700 hover:bg-gray-50 disabled:opacity-50 shadow-inner"
+                      >
+                                Cancel
                         </button>
                 </div>
             </form>
