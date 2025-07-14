@@ -283,7 +283,7 @@ export default function Chat() {
         try {
             const res = await api.patch(`/api/groups/${selectedGroup.g_id}/soft-delete`);
             alert('Group deleted successfully');
-           console.log('Delete response:', response.data);
+           console.log('Delete response:', res.data);
 
             setGroup(prevGroup => prevGroup.filter(g => g.g_id !== selectedGroup.g_id));
 
