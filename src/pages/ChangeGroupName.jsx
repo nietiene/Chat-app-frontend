@@ -13,6 +13,15 @@ export default function changeGroupName() {
         e.preventDefault();
         if (!newName.trim()) return;
 
-        
+        setLoading(true);
+
+        try {
+            await api.patch(`/api/groups/${g_id}`, { group_name: newName });
+            alert('Group name updated!');
+            navigate('/chat');
+            
+        } catch (err) {
+
+        }
     }
 }
