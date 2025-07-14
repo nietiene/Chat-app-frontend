@@ -17,6 +17,7 @@ export default function Chat() {
     const [groupMessages, setGroupMessages] = useState([]);
     const [showDeleteMenuForGroup, setShowDeleteMenuForGroup] = useState(null);
     const [showDeleteMenu, setShowDeleteMenu] = useState(false);
+    const [userId, setUserId] = useState(null);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
@@ -148,6 +149,7 @@ export default function Chat() {
             try {
                 const res = await api.get('/api/auth/profile');
                 setMyName(res.data.name);
+                setUserId(res.data.user_id);
             } catch (error) {
                 navigate('/');
             }
@@ -425,14 +427,15 @@ export default function Chat() {
                                     className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow cursor-pointer"
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        if (selectedGroup?.created_by === myName) {
+                                        if (selectedGroup?.created_by === userId) {
                                             setShowDeleteMenu(prev => !prev);
                                         }
                                     }}
                                 >
                                     {(selectedUser || selectedGroup?.group_name || '').charAt(0).toUpperCase()}
                                 </div>
-                                {showDeleteMenu && selectedGroup?.created_by === myName && (
+                                {showDeleteMenu && selectedGroup?.created_by === userId
+                                 && (
                                     <div className="absolute top-full mt-2 right-0 bg-white border rounded shadow p-2 z-10">
                                         <button
                                             className='text-red-600 text-sm hover:underline'
