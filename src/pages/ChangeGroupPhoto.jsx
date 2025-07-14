@@ -22,7 +22,8 @@ export default function ChangeGroupPhoto() {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-            })
+            });
+            alert('Group photo update 😉')
         }
     }
 }
