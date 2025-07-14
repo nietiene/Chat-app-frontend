@@ -16,7 +16,7 @@ export default function ChangeGroupName() {
         setLoading(true);
 
         try {
-            await api.patch(`/api/groups/${g_id}`, { group_name: newName });
+            await api.patch(`/api/groups/rename/${g_id}`, { group_name: newName });
             alert('Group name updated!');
             navigate('/chat');
 
