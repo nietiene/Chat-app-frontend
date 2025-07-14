@@ -400,7 +400,8 @@ useEffect(() => {
                                     setSelectedUser(user.name);
                                 }}
                             >
-                                <div className="relative">
+                                <div className='className="shrink-0 p-3 border-b border-gray-200 bg-white flex items-center space-x-3 shadow-sm"'>
+                                 <div className="relative">
                                     <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-bold shadow"
                                     onClick={() => {
                                         if (selectedGroup?.created_by === myName) {
@@ -408,8 +409,10 @@ useEffect(() => {
                                         }
                                     }}
                                     >
-                                        {user.name.charAt(0).toUpperCase()}
-                                         {showDeleteMenu && selectedGroup?.created_by === myName && (
+                               </div>
+
+
+                                          {showDeleteMenu && selectedGroup?.created_by === myName && (
                                             <div className="absolute top-full mt-2 right-0 bg-white border rounded shadow p-2 z-10"
                                             >
                                               <button
@@ -421,6 +424,7 @@ useEffect(() => {
                                             </div>
                                         )}
                                     </div>
+                               
                                     {onlineUsers.includes(user.name) && (
                                         <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                                     )}
