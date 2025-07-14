@@ -400,30 +400,7 @@ useEffect(() => {
                                     setSelectedUser(user.name);
                                 }}
                             >
-                                <div className='className="shrink-0 p-3 border-b border-gray-200 bg-white flex items-center space-x-3 shadow-sm"'>
-                                 <div className="relative">
-                                    <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-bold shadow"
-                                    onClick={() => {
-                                        if (selectedGroup?.created_by === myName) {
-                                            setShowDeleteMenu(prev => !prev);
-                                        }
-                                    }}
-                                    >
-                               </div>
-
-
-                                          {showDeleteMenu && selectedGroup?.created_by === myName && (
-                                            <div className="absolute top-full mt-2 right-0 bg-white border rounded shadow p-2 z-10"
-                                            >
-                                              <button
-                                               className='text-red-600 text-sm hover:underline'
-                                               onClick={handleDeleteGroup}
-                                            >
-                                                Delete Group
-                                            </button>
-                                            </div>
-                                        )}
-                                    </div>
+                               
                                
                                     {onlineUsers.includes(user.name) && (
                                         <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
@@ -437,12 +414,33 @@ useEffect(() => {
                                         {messages.find(m => m.sender_name === user.name)?.content || 'No messages yet'}
                                     </p>
                                 </div>
-                            </div>
                         ))}
                     </div>
-                </div>
             </div>
 
+ <div className='shrink-0 p-3 border-b border-gray-200 bg-white flex items-center space-x-3 shadow-sm'>
+                                 <div className="relative">
+                                    <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-bold shadow"
+                                    onClick={() => {
+                                        if (selectedGroup?.created_by === myName) {
+                                            setShowDeleteMenu(prev => !prev);
+                                        }
+                                    }}
+                                    >
+                                        {(selectedUser || selectedGroup?.group_name || '').charAt(0).toUpperCase()}
+                               </div>
+                                          {showDeleteMenu && selectedGroup?.created_by === myName && (
+                                            <div className="absolute top-full mt-2 right-0 bg-white border rounded shadow p-2 z-10"
+                                            >
+                                              <button
+                                               className='text-red-600 text-sm hover:underline'
+                                               onClick={handleDeleteGroup}
+                                            >
+                                                Delete Group
+                                            </button>
+                                            </div>
+                                        )}
+                                    </div>
             <div className="flex-1 flex flex-col bg-white">
                 {selectedUser || selectedGroup ? (
                     <>
