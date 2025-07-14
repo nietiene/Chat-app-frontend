@@ -27,4 +27,11 @@ export default function changeGroupName() {
             setLoading(false);
         }
     }
+
+    return (
+        <div className="max-w-md mx-auto mt-10 bg-white rounded-lg shadow-md">
+            
+
+        </div>
+    )
 }
