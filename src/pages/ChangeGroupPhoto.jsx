@@ -18,7 +18,7 @@ export default function ChangeGroupPhoto() {
         setLoading(true);
 
         try {
-            await api.patch(`/api/groups/${g_id}/photo`, formData, {
+            await api.patch(`/api/groups/change-group-photo/${g_id}/photo`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

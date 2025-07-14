@@ -7,7 +7,6 @@ import Layout from "./pages/layout"
 import CreateGroup from "./pages/CreateGroup"
 import GroupMember from "./pages/gorupMember"
 import ChangeGroupName from "./pages/ChangeGroupName"
-import ChangeGroupName from "./pages/ChangeGroupName"
 import ChangeGroupPhoto from "./pages/ChangeGroupPhoto"
 
 function App() {
