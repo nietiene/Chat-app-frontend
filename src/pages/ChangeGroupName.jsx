@@ -32,21 +32,24 @@ export default function ChangeGroupName() {
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Change Group Name</h2>
 
             <form onSubmit={handleChangeName}>
-                <label className="block mb-2 text-sm font-semibold text-gray-700">
-                    New Group Name
-                </label>
-                <input type="text" value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
-                  placeholder="Enter new name"
-                  className="w-full  px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:outline-none"
-                  required
+                <div className="mt-4">
+                    <label className="block mb-2 text-sm font-semibold text-gray-700">
+                       New Group Name
+                   </label>
+                  <input type="text" value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                    placeholder="Enter new name"
+                    className="w-full  px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:outline-none"
+                    required
                 />
 
-                <div className="mt-4 flex justify-between">
+                </div>
+
+                <div className="mt-4 flex justify-end space-x-3">
                     <button 
                       type="submit"
                       disabled={loading}
-                      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400">
+                      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:opacity-50 text-gray-700">
                         {loading ? 'Updating...' : 'Update'}
                       </button>
 
