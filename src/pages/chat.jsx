@@ -408,7 +408,7 @@ useEffect(() => {
                                         }
                                     }}
                                     >
-                                         {(selectedUser || selectedGroup?.group_name).charAt(0).toUpperCase()}
+                                        {user.name.charAt(0).toUpperCase()}
                                          {showDeleteMenu && selectedGroup?.created_by === myName && (
                                             <div className="absolute top-full mt-2 right-0 bg-white border rounded shadow p-2 z-10"
                                             >
