@@ -129,7 +129,6 @@ export default function GroupMember() {
 
 
   useEffect(() => {
-    console.log('Current user name:', currentUserId);
     console.log('Group created by', groupInfo?.created_by);
   }, [currentUserId, groupInfo]);
 
