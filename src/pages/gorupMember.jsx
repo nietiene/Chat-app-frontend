@@ -102,6 +102,13 @@ export default function GroupMember() {
       const duplicates = selectedUserIds.filter(phone =>
          currentMemberPhones.includes(phone)
       );
+
+      if (duplicates.length > 0) {
+        alert(`These users are already members: ${duplicates.join(', ')}`);
+        return;
+      }
+
+      // adding new user 
       for (const phone of selectedUserIds) {
          await api.post(`/api/groups/group_members/${g_id}`, { phone });
       }
@@ -110,6 +117,13 @@ export default function GroupMember() {
       setSelectedUserIds([]);
     } catch (err) {
       console.error("Failed to add member.", err);
+      
+      if (err.response?.data?.error === 'User is already a member of this group') {
+           alert('One or more selected users are already a members');
+      
+    } else {
+        alert('Failed to ad members');
+      }
     }
   };
 
