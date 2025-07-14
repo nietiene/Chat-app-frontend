@@ -49,7 +49,14 @@ export default function ChangeGroupPhoto() {
             />
 
             <div className="flex justify-between">
-                
+                <button 
+                 className="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700 disabled:bg-gray-400"
+                >
+                    {loading ? 'Uploading...' : 'Upload'}
+                </button>
+
+                <button 
+                   className="border px-4 py-2 rounded text-gray-600"></button>
             </div>
           </form>
        </div>
