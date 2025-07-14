@@ -436,9 +436,24 @@ export default function Chat() {
                                 </div>
                                 {showDeleteMenu && selectedGroup?.created_by === userId
                                  && (
-                                    <div className="absolute top-full mt-2 right-0 bg-white border rounded shadow p-2 z-10">
+                                    <div className="absolute top-full mt-2 bg-white border rounded shadow p-2 z-10">
+                
                                         <button
-                                            className='text-red-600 text-sm hover:underline'
+                                            className='w-32 text-red-600 text-sm hover:underline'
+                                            onClick={handleDeleteGroup}
+                                        >
+                                            Change group name
+                                        </button>
+                                        
+                                        <button
+                                            className='w-32 text-red-600 text-sm hover:underline'
+                                            onClick={handleDeleteGroup}
+                                        >
+                                            Change group photo
+                                        </button>
+                            
+                                       <button
+                                            className='w-32 text-red-600 text-sm hover:underline'
                                             onClick={handleDeleteGroup}
                                         >
                                             Delete Group
