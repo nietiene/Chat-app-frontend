@@ -30,7 +30,11 @@ export default function changeGroupName() {
 
     return (
         <div className="max-w-md mx-auto mt-10 bg-white rounded-lg shadow-md">
-            
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Change Group Name</h2>
+
+            <form onSubmit={handleChangeName}>
+                <label className=""></label>
+            </form>
 
         </div>
     )
