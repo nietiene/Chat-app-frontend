@@ -439,7 +439,7 @@ export default function Chat() {
                                     <div className="absolute top-full mt-2 bg-white border rounded shadow-lg p-3 z-20 w-48 space-y-3">
                 
                                         <button
-                                            className='w-full px-4 py-2 text-sm text-left text-gray-700 bg-gray-50 rounded-lg hover:text-blue-50 hover:bg-blue-50 transition-colors'
+                                            className='w-full px-4 py-2 text-sm text-left text-gray-700 bg-gray-50 rounded-lg hover:text-blue-600 hover:bg-blue-50 transition-colors'
                                             onClick={handleDeleteGroup}
                                         >
                                           Change group name
