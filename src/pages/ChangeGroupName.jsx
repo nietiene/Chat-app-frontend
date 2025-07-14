@@ -50,6 +50,13 @@ export default function changeGroupName() {
                       className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400">
                         {loading ? 'Updating...' : 'Update'}
                       </button>
+
+                      <button 
+                        type="submit"
+                        onClick={() => navigate('/chat')}
+                        className="border px-4 py-2 rounded text-gray-600 hover:bg-gray-100">
+                            Cancel
+                        </button>
                 </div>
             </form>
 
