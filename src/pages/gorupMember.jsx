@@ -14,7 +14,6 @@ export default function GroupMember() {
   const [availableUsers, setAvailableUsers] = useState([]);
   const [selectedUserIds, setSelectedUserIds] = useState([]); 
   const [groupInfo, setGroupInfo] = useState(null);
-  const [currentUserName, setCurrentUserName] = useState("");
   const [currentUserId, setCurrentUserId] = useState(null);
 
   useEffect(() => {
@@ -35,7 +34,6 @@ export default function GroupMember() {
   const fetchCurrentUser = async () => {
     try {
         const res = await api.get("/api/groups/me");
-        setCurrentUserName(res.data.name);
         setCurrentUserId(res.data.id);
     } catch (error) {
         console.error('Failed to fetch user', error);
@@ -131,9 +129,9 @@ export default function GroupMember() {
 
 
   useEffect(() => {
-    console.log('Current user name:', currentUserName);
+    console.log('Current user name:', currentUserId);
     console.log('Group created by', groupInfo?.created_by);
-  }, [currentUserName, groupInfo]);
+  }, [currentUserId, groupInfo]);
 
   return (<div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg mt-6">
 
@@ -242,7 +240,7 @@ export default function GroupMember() {
     <span className="font-medium text-gray-800">{member.name}</span>
   </div>
 
-  {groupInfo?.created_by?.toLowerCase() === currentUserName?.toLowerCase() && member.name !== currentUserName && (
+  {groupInfo?.created_by === currentUserId && member.user_id !== currentUserId && (
     <button 
       onClick={() => handleRemoveMember(member.user_id)}
       className="text-sm text-red-600 hover:text-red-800"
