@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import api from "../api";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function changeGroupName() {
+export default function ChangeGroupName() {
     const navigate = useNavigate();
     const { g_id } = useParams();
     const [newName, setNewName] = useState('');

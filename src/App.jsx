@@ -6,6 +6,7 @@ import Chat from "./pages/chat"
 import Layout from "./pages/layout"
 import CreateGroup from "./pages/CreateGroup"
 import GroupMember from "./pages/gorupMember"
+import ChangeGroupName from "./pages/ChangeGroupName"
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
                <Route path="/chat" element={<Chat />}/>
                <Route path="/create-group" element={<CreateGroup />}/>
                <Route path="/group-members/:g_id" element={<GroupMember />}/>
+               <Route path="/changeGroupName/:g_id" element={<ChangeGroupName />}/>
            </Route>
          </Routes>
 
