@@ -16,5 +16,13 @@ export default function ChangeGroupPhoto() {
         formData.append('photo', photo);
 
         setLoading(true);
+
+        try {
+            await api.patch(`/api/groups/${g_id}/photo`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+        }
     }
 }
