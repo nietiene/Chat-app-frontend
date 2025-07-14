@@ -15,71 +15,70 @@ export default function Chat() {
     const [group, setGroup] = useState([]);
     const [selectedGroup, setSelectedGroup] = useState(null);
     const [groupMessages, setGroupMessages] = useState([]);
-    const [showDeleteMenuForGroup, setShowDeleteMenuForGroup] = useState(null); // for leaving in the group for group member
-    const [showDeleteMenu, setShowDeleteMenu] = useState(false) // for deleting group for only group creator
+    const [showDeleteMenuForGroup, setShowDeleteMenuForGroup] = useState(null);
+    const [showDeleteMenu, setShowDeleteMenu] = useState(false);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
     const handleDeletePrivateMessage = async (m_id) => {
-        const confirmDelete = window.confirm('Are you sure');
+        const confirmDelete = window.confirm('Are you sure?');
         if (!confirmDelete) return;
 
         try {
             await api.delete(`/api/messages/${m_id}`);
             socket.emit('deletePrivateMessage', { m_id });
             setMessages(prev => prev.filter(msg => msg.m_id !== m_id));
-
         } catch (error) {
-           console.error('Delete failed', error);
-           alert('Delete failed');
+            console.error('Delete failed', error);
+            alert('Delete failed');
         }
-    }
+    };
 
     useEffect(() => {
-      const handleGroupDeleted = ({ id }) => {
-        setGroupMessages(prev => prev.filter(msg => msg.id !== id));
-      }
-      socket.on('groupMessageDeleted', handleGroupDeleted);
+        const handleGroupDeleted = ({ id }) => {
+            setGroupMessages(prev => prev.filter(msg => msg.id !== id));
+        };
+        socket.on('groupMessageDeleted', handleGroupDeleted);
 
-      return () => {
-        socket.off('groupMessageDeleted', handleGroupDeleted);
-      }
+        return () => {
+            socket.off('groupMessageDeleted', handleGroupDeleted);
+        };
     }, []);
-const handleDeleteGroupMessage = async (id) => {
-    if (!id) {
-        console.error('Invalid message ID');
-        return;
-    }
 
-    const confirmDelete = window.confirm('Are you sure you want to delete this message?');
-    if (!confirmDelete) return;
+    const handleDeleteGroupMessage = async (id) => {
+        if (!id) {
+            console.error('Invalid message ID');
+            return;
+        }
 
-    try {
-        await api.delete(`/api/groups/group-messages/${id}`);
+        const confirmDelete = window.confirm('Are you sure you want to delete this message?');
+        if (!confirmDelete) return;
 
-        socket.emit('deleteGroupMessage', { id });
-        setGroupMessages(prev =>
-            prev.map(msg =>
-                msg.id === id ? { ...msg, is_deleted: true } : msg
-            )
-        );
-    } catch (err) {
-        console.error('Failed to delete message', {
-            error: err.response?.data,
-            status: err.response?.status
-        });
-        alert(`Failed to delete: ${err.response?.data?.message || 'Permission denied'}`);
-    }
-};
+        try {
+            await api.delete(`/api/groups/group-messages/${id}`);
+            socket.emit('deleteGroupMessage', { id });
+            setGroupMessages(prev =>
+                prev.map(msg =>
+                    msg.id === id ? { ...msg, is_deleted: true } : msg
+                )
+            );
+        } catch (err) {
+            console.error('Failed to delete message', {
+                error: err.response?.data,
+                status: err.response?.status
+            });
+            alert(`Failed to delete: ${err.response?.data?.message || 'Permission denied'}`);
+        }
+    };
 
-useEffect(() => {
-    const handleDeleted = ({ m_id }) => {
-        setMessages(prev => prev.filter(msg => msg.m_id !== m_id));
-    }
+    useEffect(() => {
+        const handleDeleted = ({ m_id }) => {
+            setMessages(prev => prev.filter(msg => msg.m_id !== m_id));
+        };
+        socket.on('privateMessageDeleted', handleDeleted);
+        return () => socket.off('privateMessageDeleted', handleDeleted);
+    }, []);
 
-    socket.on('privateMessageDeleted', handleDeleted);
-    return () => socket.off('privateMessageDeleted', handleDeleted);
-}, []);
     useEffect(() => {
         if (!selectedGroup) return;
 
@@ -90,8 +89,7 @@ useEffect(() => {
             } catch (err) {
                 console.error('Failed to fetch group messages:', err);
             }
-        }
-
+        };
         fetchGroupMessages();
     }, [selectedGroup]);
 
@@ -100,29 +98,24 @@ useEffect(() => {
             if (selectedGroup && msg.g_id === selectedGroup.g_id) {
                 setGroupMessages(prev => [...prev, msg]);
             }
-        }
-
+        };
         socket.on('newGroupMessage', handleNewGroupMessage);
-
         return () => {
             socket.off('newGroupMessage', handleNewGroupMessage);
-        }
+        };
     }, [selectedGroup]);
 
     const sendGroupChatMessage = async () => {
         if (!selectedGroup || !message.trim() || !myName) return;
 
         try {
-            const res = await api.post(`/api/groups/${selectedGroup.g_id}/messages`,  {
+            const res = await api.post(`/api/groups/${selectedGroup.g_id}/messages`, {
                 content: message,
                 type: 'text',
             });
 
             const savedGroupMessage = res.data;
-
-            socket.emit('groupMessage', {
-                 ...savedGroupMessage
-            });
+            socket.emit('groupMessage', { ...savedGroupMessage });
 
             setGroupMessages(prev => [...prev, {
                 ...savedGroupMessage,
@@ -134,7 +127,7 @@ useEffect(() => {
         } catch (err) {
             console.error('Failed to send group message:', err);
         }
-    }
+    };
 
     useEffect(() => {
         if (!myName) return;
@@ -146,9 +139,8 @@ useEffect(() => {
             } catch (err) {
                 console.error("Failed to fetch groups:", err);
             }
-        }
+        };
         fetchGroups();
-
     }, [myName]);
 
     useEffect(() => {
@@ -200,33 +192,29 @@ useEffect(() => {
 
     useEffect(() => {
         const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
-          
             setMessages(prev => {
-
-                const last = prev[prev.length -1];
-
+                const last = prev[prev.length - 1];
                 if (last?.isOwn && last.content === message) {
-                   return prev.map((msg, i) => i === prev.length - 1 ? {
-                    ...msg,
-                    created_at: timestamp,
-                    isOwn: false,
-                    m_id
-                   } : msg)
-                } 
+                    return prev.map((msg, i) => i === prev.length - 1 ? {
+                        ...msg,
+                        created_at: timestamp,
+                        isOwn: false,
+                        m_id
+                    } : msg);
+                }
 
-             if (from === selectedUser || from === myName) {
-                return [...prev, {
-                    sender_name: from,
-                    content: message,
-                    created_at: timestamp,
-                    m_id,
-                    isOwn: from === myName
-                }];
-            }
+                if (from === selectedUser || from === myName) {
+                    return [...prev, {
+                        sender_name: from,
+                        content: message,
+                        created_at: timestamp,
+                        m_id,
+                        isOwn: from === myName
+                    }];
+                }
 
-                 return prev;
-                
-            })
+                return prev;
+            });
         };
 
         socket.on('privateMessage', handlePrivateMessage);
@@ -240,7 +228,6 @@ useEffect(() => {
 
     const messagesContainerRef = useRef(null);
     useEffect(() => {
-
         const container = messagesContainerRef.current;
         if (container) {
             container.scrollTop = container.scrollHeight;
@@ -255,9 +242,9 @@ useEffect(() => {
                 sender_name: myName,
                 content: message,
                 created_at: new Date().toISOString(),
-                m_id: Date.now().toString(), // add temporary ID
+                m_id: Date.now().toString(),
                 isOwn: true 
-            }
+            };
             const res = await api.post('/api/messages', {
                 sender: myName,
                 receiver: selectedUser,
@@ -265,7 +252,6 @@ useEffect(() => {
             });
 
             const savedMessage = res.data;
-
             socket.emit('privateMessage', {
                 to: selectedUser,
                 from: myName,
@@ -279,27 +265,25 @@ useEffect(() => {
                     ...savedMessage,
                     isOwn: true
                 } : msg
-            ))
+            ));
 
             setMessage('');
         } catch (error) {
-             setMessages(prev => prev.filter(msg => msg.m_id !== tempMessage.m_id));
+            setMessages(prev => prev.filter(msg => msg.m_id !== tempMessage.m_id));
             console.error('Failed to send message:', error);
         }
     };
 
     const handleDeleteGroup = async () => {
         if (!selectedGroup) return;
-        const confirmDelete = window.confirm('Are you sure ?');
+        const confirmDelete = window.confirm('Are you sure?');
         if (!confirmDelete) return;
 
         try {
             await api.patch(`/api/groups/${selectedGroup.g_id}/soft-delete`);
-            alert('Group deleted successfully 😂');
+            alert('Group deleted successfully');
 
-            setGroup(prevGroup => prevGroup.filter(g => g.g_id !== selectedGroup));
-
-            // clear selected group and its messages
+            setGroup(prevGroup => prevGroup.filter(g => g.g_id !== selectedGroup.g_id));
             setSelectedGroup(null);
             setGroupMessages([]);
             setShowDeleteMenu(false);
@@ -307,10 +291,11 @@ useEffect(() => {
             console.error('Failed to delete group', err);
             alert('Failed to delete group');
         }
-    }
+    };
 
     return (
         <div className="flex h-screen bg-gray-100 overflow-hidden">
+            {/* Left sidebar */}
             <div className="w-1/4 bg-white border-r border-gray-200 flex flex-col">
                 <div className="p-4 border-b border-gray-200 bg-blue-50">
                     <div className="flex items-center space-x-3">
@@ -340,48 +325,55 @@ useEffect(() => {
                         <p className="text-xs text-gray-400 px-4 py-2">No groups yet</p>
                     )}
                     {group.map(group => (
-                        <div className={`p-3 flex items-center space-x-3 hover:bg-gray-100 cursor-pointer
-                                        ${selectedGroup?.g_id === group.g_id ? 'bg-blue-100' : ''}`} key={group.g_id}
+                        <div 
+                            className={`p-3 flex items-center space-x-3 hover:bg-gray-100 cursor-pointer ${selectedGroup?.g_id === group.g_id ? 'bg-blue-100' : ''}`} 
+                            key={group.g_id}
                             onClick={() => {
                                 setSelectedUser(null);
                                 setSelectedGroup(group);
                             }}
                         >
-                            <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow"
-                              onClick={() => setShowDeleteMenuForGroup(showDeleteMenuForGroup === group.g_id ? null : group.g_id)}>
+                            <div 
+                                className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setShowDeleteMenuForGroup(showDeleteMenuForGroup === group.g_id ? null : group.g_id);
+                                }}
+                            >
                                 {group.group_name.charAt(0).toUpperCase()}
                             </div>
                             <div className='flex-1 min-w-0'>
                                 <p className="text-sm font-medium text-gray-900 truncate">{group.group_name}</p>
                                 <p className="text-xs text-gray-500 truncate">Created by {group.created_by}</p>
                             </div>
-                           {showDeleteMenuForGroup === group.g_id && (
-                            <button
-                             className='text-xs text-red-600 border border-red-600 px-2 py-0.5 rounded hover:bg-red-50'
-                             onClick={async () => {
-                                try {
-                                    await api.delete(`/api/groups/leave/${group.g_id}`);
-                                    const res = await api.get('/api/groups/my');
-                                    setGroup(res.data);
-                                    setShowDeleteMenuForGroup(null);
-                                    if (selectedGroup?.g_id === group.g_id) {
-                                        setSelectedGroup(null);
-                                        setGroupMessages([]);
-                                    }
-                                    alert('You left the group');
-                                } catch (error) {
-                                    console.error('Failed to leave group', err);
-                                    alert('failed to leave the group');
-                                }
-                             }}
-                            >
-                                Leave Group
-                            </button>
-                           )}
-
+                            {showDeleteMenuForGroup === group.g_id && (
+                                <button
+                                    className='text-xs text-red-600 border border-red-600 px-2 py-0.5 rounded hover:bg-red-50'
+                                    onClick={async (e) => {
+                                        e.stopPropagation();
+                                        try {
+                                            await api.delete(`/api/groups/leave/${group.g_id}`);
+                                            const res = await api.get('/api/groups/my');
+                                            setGroup(res.data);
+                                            setShowDeleteMenuForGroup(null);
+                                            if (selectedGroup?.g_id === group.g_id) {
+                                                setSelectedGroup(null);
+                                                setGroupMessages([]);
+                                            }
+                                            alert('You left the group');
+                                        } catch (error) {
+                                            console.error('Failed to leave group', error);
+                                            alert('Failed to leave the group');
+                                        }
+                                    }}
+                                >
+                                    Leave Group
+                                </button>
+                            )}
                         </div>
                     ))}
                 </div>
+
                 <div className="flex-1 overflow-y-auto">
                     <h3 className="px-4 py-3 text-sm font-semibold text-gray-500 bg-gray-50 sticky top-0 z-10">
                         CONTACTS
@@ -391,17 +383,17 @@ useEffect(() => {
                             <div 
                                 key={user.name}
                                 className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200 ${
-                                    selectedUser === user.name 
-                                        ? 'bg-blue-100' 
-                                        : 'hover:bg-gray-50'
+                                    selectedUser === user.name ? 'bg-blue-100' : 'hover:bg-gray-50'
                                 }`}
                                 onClick={() => {
                                     setSelectedGroup(null);
                                     setSelectedUser(user.name);
                                 }}
                             >
-                               
-                               
+                                <div className="relative">
+                                    <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-bold shadow">
+                                        {user.name.charAt(0).toUpperCase()}
+                                    </div>
                                     {onlineUsers.includes(user.name) && (
                                         <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                                     )}
@@ -414,39 +406,39 @@ useEffect(() => {
                                         {messages.find(m => m.sender_name === user.name)?.content || 'No messages yet'}
                                     </p>
                                 </div>
+                            </div>
                         ))}
                     </div>
+                </div>
             </div>
 
- <div className='shrink-0 p-3 border-b border-gray-200 bg-white flex items-center space-x-3 shadow-sm'>
-                                 <div className="relative">
-                                    <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-bold shadow"
-                                    onClick={() => {
-                                        if (selectedGroup?.created_by === myName) {
-                                            setShowDeleteMenu(prev => !prev);
-                                        }
-                                    }}
-                                    >
-                                        {(selectedUser || selectedGroup?.group_name || '').charAt(0).toUpperCase()}
-                               </div>
-                                          {showDeleteMenu && selectedGroup?.created_by === myName && (
-                                            <div className="absolute top-full mt-2 right-0 bg-white border rounded shadow p-2 z-10"
-                                            >
-                                              <button
-                                               className='text-red-600 text-sm hover:underline'
-                                               onClick={handleDeleteGroup}
-                                            >
-                                                Delete Group
-                                            </button>
-                                            </div>
-                                        )}
-                                    </div>
+            {/* Main chat area */}
             <div className="flex-1 flex flex-col bg-white">
                 {selectedUser || selectedGroup ? (
                     <>
                         <div className="shrink-0 p-3 border-b border-gray-200 bg-white flex items-center space-x-3 shadow-sm">
-                            <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow">
-                                {(selectedUser || selectedGroup?.group_name || '').charAt(0).toUpperCase()}
+                            <div className="relative">
+                                <div 
+                                    className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow cursor-pointer"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        if (selectedGroup?.created_by === myName) {
+                                            setShowDeleteMenu(prev => !prev);
+                                        }
+                                    }}
+                                >
+                                    {(selectedUser || selectedGroup?.group_name || '').charAt(0).toUpperCase()}
+                                </div>
+                                {showDeleteMenu && selectedGroup?.created_by === myName && (
+                                    <div className="absolute top-full mt-2 right-0 bg-white border rounded shadow p-2 z-10">
+                                        <button
+                                            className='text-red-600 text-sm hover:underline'
+                                            onClick={handleDeleteGroup}
+                                        >
+                                            Delete Group
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                             <div className="flex-1">
                                 <h3 className="font-semibold text-gray-900">
@@ -454,17 +446,15 @@ useEffect(() => {
                                 </h3>
                                 {selectedGroup && (
                                     <button 
-                                       className='text-xs text-blue-600 border border-blue-600 px-2 py-0.5 rounded hover:bg-blue-50'
-                                       onClick={() => navigate(`/group-members/${selectedGroup.g_id}`)}
+                                        className='text-xs text-blue-600 border border-blue-600 px-2 py-0.5 rounded hover:bg-blue-50'
+                                        onClick={() => navigate(`/group-members/${selectedGroup.g_id}`)}
                                     >
                                         View Members
                                     </button>
                                 )}
                                 {selectedUser ? (
                                     <p className={`text-xs ${
-                                        onlineUsers.includes(selectedUser) 
-                                            ? 'text-green-600' 
-                                            : 'text-gray-500'
+                                        onlineUsers.includes(selectedUser) ? 'text-green-600' : 'text-gray-500'
                                     }`}>
                                         {onlineUsers.includes(selectedUser) ? 'Online' : 'Offline'}
                                     </p>
@@ -477,60 +467,51 @@ useEffect(() => {
                         <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 bg-gray-50">
                             <div className="space-y-3">
                                 {(selectedGroup ? groupMessages : messages).map((msg, i) => (
-                                  <>
-                                   <div
-                                    key={i}
-                                    className={`flex ${msg.sender_name === myName ? 'justify-end' : 'justify-start'}`}
-                                 >
-                                    
-                               <div
-                                 className={`group relative max-w-xs lg:max-w-md px-4 py-2 rounded-2xl shadow-sm ${
-                                 msg.sender_name === myName
-                                 ? 'bg-blue-600 text-white rounded-br-none'
-                                 : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none'
-                                   }`}
-                                 >
-                                   {/* message content */}
-    
-                                   {msg.sender_name !== myName && (
-                                       
-                                     <p className="text-xs font-semibold text-blue-600 mb-1">{msg.sender_name}</p>
-                                   )}
-                                   <p className="text-sm">{msg.content}</p>
-                                   <p className={`text-xs mt-1 ${
-                                     msg.sender_name === myName ? 'text-blue-100' : 'text-gray-500'
-                                   }`}>
-                                     {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                </p>
-                                
-                                {/* Add delete icon */}
-                                {selectedGroup && msg.sender_name === myName && (
-                                    <button
-                                      onClick={() => handleDeleteGroupMessage(msg.id)}
-                                      title='Delete message'
-                                      className='absolute -top-2 -right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 transition'
+                                    <div
+                                        key={i}
+                                        className={`flex ${msg.sender_name === myName ? 'justify-end' : 'justify-start'}`}
                                     >
-                                         <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                         </svg>
-                                      </button>
-                                )}
-                               {selectedUser && msg.sender_name === myName && msg.m_id && (
-                                    <button
-                                      onClick={() => handleDeletePrivateMessage(msg.m_id)}
-                                      title='Delete private message'
-                                      className='absolute -top-2 -right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 transition'
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                       </svg>
-                                    </button>
-                                )}
-
-                              </div>
-                            </div>
-                            
-                            </>
+                                        <div
+                                            className={`group relative max-w-xs lg:max-w-md px-4 py-2 rounded-2xl shadow-sm ${
+                                                msg.sender_name === myName
+                                                    ? 'bg-blue-600 text-white rounded-br-none'
+                                                    : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none'
+                                            }`}
+                                        >
+                                            {msg.sender_name !== myName && (
+                                                <p className="text-xs font-semibold text-blue-600 mb-1">{msg.sender_name}</p>
+                                            )}
+                                            <p className="text-sm">{msg.content}</p>
+                                            <p className={`text-xs mt-1 ${
+                                                msg.sender_name === myName ? 'text-blue-100' : 'text-gray-500'
+                                            }`}>
+                                                {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                            </p>
+                                            
+                                            {selectedGroup && msg.sender_name === myName && (
+                                                <button
+                                                    onClick={() => handleDeleteGroupMessage(msg.id)}
+                                                    title='Delete message'
+                                                    className='absolute -top-2 -right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 transition'
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            )}
+                                            {selectedUser && msg.sender_name === myName && msg.m_id && (
+                                                <button
+                                                    onClick={() => handleDeletePrivateMessage(msg.m_id)}
+                                                    title='Delete private message'
+                                                    className='absolute -top-2 -right-2 text-red-500 opacity-0 group-hover:opacity-100 hover:text-red-700 transition'
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
                                 ))}
                                 <div ref={messagesEndRef} />
                             </div>
@@ -585,4 +566,3 @@ useEffect(() => {
         </div>
     );
 }
-
