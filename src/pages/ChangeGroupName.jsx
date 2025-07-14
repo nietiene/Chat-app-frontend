@@ -28,8 +28,8 @@ export default function ChangeGroupName() {
     }
 
     return (
-        <div className="max-w-md mx-auto mt-10 bg-white rounded-lg shadow-md">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Change Group Name</h2>
+        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Change Group Name</h2>
 
             <form onSubmit={handleChangeName}>
                 <label className="block mb-2 text-sm font-semibold text-gray-700">
