@@ -440,7 +440,7 @@ export default function Chat() {
                 
                                         <button
                                             className='w-full px-4 py-2 text-sm text-left text-gray-700 bg-gray-50 rounded-lg hover:text-blue-600 hover:bg-blue-50 transition-colors'
-                                            onClick={navigate('/changeGroupName')}
+                                            onClick={navigate(`/changeGroupName/${selectedGroup.g_id}`)}
                                         >
                                           Change group name
                                         </button>
