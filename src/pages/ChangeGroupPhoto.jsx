@@ -37,7 +37,7 @@ export default function ChangeGroupPhoto() {
     }
 
      return (
-       <div className="max-w-md mx-auto mt-20 bg-gray p-6 rounded shadow-inner">
+       <div className="max-w-md mx-auto mt-20 bg-gray-100 p-6 rounded shadow-inner">
           <h2 className="text-2xl font-semibold mb-4">Change Group Photo</h2>
 
           <form onSubmit={handleChangePhoto}>
