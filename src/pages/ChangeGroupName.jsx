@@ -39,8 +39,18 @@ export default function changeGroupName() {
                 <input type="text" value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   placeholder="Enter new name"
-                  className="w-full  px-4 py-2 border border-gray-300"
+                  className="w-full  px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:outline-none"
+                  required
                 />
+
+                <div className="mt-4 flex justify-between">
+                    <button 
+                      type="submit"
+                      disabled={loading}
+                      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400">
+                        {loading ? 'Updating...' : 'Update'}
+                      </button>
+                </div>
             </form>
 
         </div>
