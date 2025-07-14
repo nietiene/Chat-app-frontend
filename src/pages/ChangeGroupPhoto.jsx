@@ -23,7 +23,15 @@ export default function ChangeGroupPhoto() {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            alert('Group photo update 😉')
+            alert('Group photo update 😉');
+            navigate('/chat');
+        
+        } catch (error) {
+            console.error('Failed to upload photo:', error);
+            alert('Upload failed');
+        
+        } finally {
+            setLoading(false);
         }
     }
 }
