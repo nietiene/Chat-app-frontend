@@ -276,6 +276,7 @@ export default function Chat() {
 
     const handleDeleteGroup = async () => {
         if (!selectedGroup) return;
+
         const confirmDelete = window.confirm('Are you sure?');
         if (!confirmDelete) return;
 
@@ -284,6 +285,7 @@ export default function Chat() {
             alert('Group deleted successfully');
 
             setGroup(prevGroup => prevGroup.filter(g => g.g_id !== selectedGroup.g_id));
+            
             setSelectedGroup(null);
             setGroupMessages([]);
             setShowDeleteMenu(false);
