@@ -37,7 +37,6 @@ export default function GroupMember() {
         const res = await api.get("/api/groups/me");
         setCurrentUserName(res.data.name);
         setCurrentUserId(res.data.id);
-        console.log('datas', res.data.user.id);
     } catch (error) {
         console.error('Failed to fetch user', error);
     }
