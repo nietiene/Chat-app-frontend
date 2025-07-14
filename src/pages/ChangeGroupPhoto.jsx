@@ -35,10 +35,23 @@ export default function ChangeGroupPhoto() {
         }
 
     }
-    
-     return (
-       <div className="max-w-md mx-auto">
 
+     return (
+       <div className="max-w-md mx-auto mt-20 bg-gray p-6 rounded shadow-inner">
+          <h2 className="text-2xl font-semibold mb-4">Change Group Photo</h2>
+
+          <form onSubmit={handleChangePhoto}>
+            <input type="file"
+              accept="image/*"
+              onChange={(e) => setPhoto(e.target.files[0])}
+              className="mb-4 block w-full"
+              required
+            />
+
+            <div className="flex justify-between">
+                
+            </div>
+          </form>
        </div>
         )
 
