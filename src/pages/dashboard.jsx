@@ -107,7 +107,6 @@ export default function Dashboard() {
           <main className="flex-1 ml-64 overflow-y-auto p-6 bg-white h-screen">
               <h2 className="text-xl font-bold mb-4">Posts</h2>
               {post.map((post) => {
-                console.log("Created at:", post.created_at);
               return (
                 
                   <div key={post.post_id} className="p-4 border rounded shadow mb-4 bg-gray-50">
