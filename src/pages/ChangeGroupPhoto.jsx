@@ -61,14 +61,14 @@ export default function ChangeGroupPhoto() {
 
             <div className="flex justify-end space-x-3">
                 <button 
-                 className="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700 disabled:bg-gray-400"
+                 className="px-4 py-2 text-sm font-medium text-white bg-blue-600 roundend-md  shadow-sm hover:bg-blue-700 focus:outline-none
+                      focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                     {loading ? 'Uploading...' : 'Upload'}
                 </button>
 
                 <button 
-                   className="px-4 py-2 text-sm font-medium text-white bg-blue-600 roundend-md  shadow-sm hover:bg-blue-700 focus:outline-none
-                      focus:ring-2"
+                   className=""
                 >
                     Cancel
                 </button>
