@@ -507,6 +507,7 @@ export default function Chat() {
                                         View Members
                                     </button>
                                 )}
+                                
                                 {selectedUser ? (
                                     <p className={`text-xs ${
                                         onlineUsers.includes(selectedUser) ? 'text-green-600' : 'text-gray-500'
