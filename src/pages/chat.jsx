@@ -440,7 +440,6 @@ export default function Chat() {
                         <div className="shrink-0 p-3 border-b border-gray-200 bg-white flex items-center space-x-3 shadow-sm">
                             <div className="relative">
 
-
                                     {selectedGroup?.group_photo ? (
                                         
                                         <img src={`http://localhost:4000${selectedGroup.group_photo}`} alt="Group" 
