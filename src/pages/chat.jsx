@@ -338,15 +338,20 @@ export default function Chat() {
                                 setSelectedGroup(group);
                             }}
                         >
-                            <div 
-                                className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow"
+                        
+                        {group.group_photo ? (
+                            <img src={`http://localhost:4000/uploads/group/${group.group_photo}`} alt="Group" 
+                             className="w-10 h-10 rounded-full object-cover shadow"/>
+                        ) : (
+                            <div className='w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow'></div>
+                        )}
+
+                                {group.group_name.charAt(0).toUpperCase()}
+{/*                             
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     setShowDeleteMenuForGroup(showDeleteMenuForGroup === group.g_id ? null : group.g_id);
-                                }}
-                            >
-                                {group.group_name.charAt(0).toUpperCase()}
-                            </div>
+                                }} */}
                             <div className='flex-1 min-w-0'>
                                 <p className="text-sm font-medium text-gray-900 truncate">{group.group_name}</p>
                                 <p className="text-xs text-gray-500 truncate">Created by {group.created_by}</p>
