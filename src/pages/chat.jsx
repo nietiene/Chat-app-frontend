@@ -434,7 +434,7 @@ export default function Chat() {
                                             }
                                         }}/>
                                     ) : (
-                                        <div className='w-10 h-10 bg-purple-600 flex items-center justify-center text-white font-bold shadow cursor-pointer'
+                                        <div className='w-10 h-10 bg-purple-600 flex items-center justify-center text-white font-bold shadow cursor-pointer rounded-full'
                                           onClick={(e) => {
                                             e.stopPropagation();
                                             if (selectedGroup.created_by === userId) {
