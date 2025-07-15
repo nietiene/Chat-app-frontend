@@ -44,7 +44,7 @@ export default function GroupMember() {
     const confrimed = window.confirm('Are you sure you want to remove this member ?');
     if (!confrimed) return;
     try {
-        alert('Are you sure you want to remove member ?');
+
         await api.delete(`/api/groups/group_members/${g_id}/${user_id}`);
         await fetchMembers(); // for refreshing the new group members 
     } catch (err) {
@@ -132,6 +132,13 @@ export default function GroupMember() {
     console.log('Group created by', groupInfo?.created_by);
   }, [currentUserId, groupInfo]);
 
+  if (loading || !groupInfo) {
+    return (
+     <div className="flex justify-center py-8">
+          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
+    </div>
+    )
+  }
   return (<div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg mt-6">
 
   <div className="flex items-center justify-between mb-8">
@@ -239,6 +246,7 @@ export default function GroupMember() {
     <span className="font-medium text-gray-800">{member.name}</span>
   </div>
 
+  
  {console.log('type of created by', typeof groupInfo.created_by, 'type of user id',typeof currentUserId)}
   {groupInfo?.created_by === currentUserId && member.user_id !== currentUserId && (
     <button 
