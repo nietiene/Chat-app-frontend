@@ -340,7 +340,7 @@ export default function Chat() {
                             }}
                         >
                         
-                        
+    
                         {group.group_photo ? (
 
                             <img src={`http://localhost:4000/uploads/group/${group.group_photo}`} alt="Group" 
@@ -436,9 +436,7 @@ export default function Chat() {
             <div className="flex-1 flex flex-col bg-white">
                 
                 {selectedUser || selectedGroup ? (
-                    <>
-                    {console.log("Photo path:", selectedGroup?.group_photo)}
-                    
+                    <>                    
                         <div className="shrink-0 p-3 border-b border-gray-200 bg-white flex items-center space-x-3 shadow-sm">
                             <div className="relative">
 
