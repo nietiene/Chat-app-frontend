@@ -340,7 +340,7 @@ export default function Chat() {
                         >
                         
                         {group.group_photo ? (
-                            <img src={`http://localhost:4000/uploads/group/${group.group_photo}`} alt="Group" 
+                            <img src={`http://localhost:4000/uploads/group/${selectedGroup.group_photo}`} alt="Group" 
                              className="w-10 h-10 rounded-full object-cover shadow"
                              onClick={(e) => {
                                     e.stopPropagation();
@@ -437,14 +437,15 @@ export default function Chat() {
                             <div className="relative">
 
                                     {selectedGroup?.group_photo ? (
-                                        <img src={`localhost:4000/uploads/group/${selectedGroup.group_photo}`} alt="Group" 
+                                        <img src={`http://localhost:4000/uploads/group/${selectedGroup.group_photo}`} alt="Group" 
                                         className='w-10 h-10 rounded-full object-cover shadow cursor-pointer'
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             if (selectedGroup.created_by === userId) {
                                                setShowDeleteMenu(prev => !prev)
                                             }
-                                        }}/>
+                                        }}
+                                />
                                     ) : (
                                         <div className='w-10 h-10 bg-purple-600 flex items-center justify-center text-white font-bold shadow cursor-pointer rounded-full'
                                           onClick={(e) => {
