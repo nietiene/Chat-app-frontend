@@ -239,6 +239,7 @@ export default function GroupMember() {
     <span className="font-medium text-gray-800">{member.name}</span>
   </div>
 
+ {console.log('type of created by', typeof groupInfo.created_by, 'type of user id',typeof currentUserId)}
   {groupInfo?.created_by === currentUserId && member.user_id !== currentUserId && (
     <button 
       onClick={() => handleRemoveMember(member.user_id)}
