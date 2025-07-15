@@ -453,7 +453,7 @@ export default function Chat() {
                                         }
                                         return (
                                             <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow">
-                                                {selectedGroup.charAt(0).toUpperCase()}
+                                                {selectedUser.charAt(0).toUpperCase()}
                                             </div>
                                         );
                                     })()
@@ -467,11 +467,22 @@ export default function Chat() {
                                                       if (selectedGroup.created_by === userId) {
                                                           setShowDeleteMenu(prev => !prev);
                                                       }
-                                                      }}
-
-/>
-                                    )
-                                )}
+                                                    }}
+                                        />
+                                    ) : (
+                                        <div
+                                             className="w-10 h-10 bg-purple-600 flex items-center justify-center text-white font-bold shadow cursor-pointer rounded-full"
+                                             onClick={(e) => {
+                                                e.stopPropagation();
+                                                if (selectedGroup.created_by === userId) {
+                                                     setShowDeleteMenu(prev => !prev);
+                                                }
+                                             }}
+                                        >
+                                          {selectedGroup.group_name.charAt(0).toUpperCase()}
+                                        </div>
+                                    ) 
+                                ) : null}
                                 {showDeleteMenu && selectedGroup?.created_by === userId
                                  && (
                                     <div className="absolute top-full mt-2 bg-white border rounded shadow-lg p-3 z-20 w-48 space-y-3">
