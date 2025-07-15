@@ -170,6 +170,7 @@ export default function Chat() {
         const fetchUsers = async () => {
             try {
                 const res = await api.get('/api/users');
+                console.log('Users info:', res.data);
                 setAllUsers(res.data.filter(u => u.name !== myName));
             } catch (error) {
                 console.error('Failed to fetch users:', error);
@@ -444,9 +445,9 @@ export default function Chat() {
                                     (() => {
                                         const user = allUsers.find(u => u.name === selectedUser)
 
-                                        if (user?.profile_photo) {
+                                        if (user?.profile_image) {
                                             return (
-                                                <img src={`http://localhost/uploads/${user.profile_photo}`} alt={selectedUser} 
+                                                <img src={`http://localhost:4000/uploads/${user.profile_image}`} alt={selectedUser} 
                                                      className="w-10 h-10 rounded-full object-cover shadow"
                                                 />
                                             )
@@ -525,9 +526,6 @@ export default function Chat() {
 
                                 {selectedUser ? (
                                  <>
-                                   <div className='w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow'>
-                                      {selectedUser.charAt(0).toUpperCase()}
-                                   </div>
                                     <p className={`text-xs ${
                                         onlineUsers.includes(selectedUser) ? 'text-green-600' : 'text-gray-500'
                                     }`}>
