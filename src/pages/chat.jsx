@@ -432,7 +432,10 @@ export default function Chat() {
                                         }
                                     }}
                                 >
-                                    {(selectedUser || selectedGroup?.group_name || '').charAt(0).toUpperCase()}
+                                    {selectedGroup?.group_photo ? (
+                                        <img src={`localhost:4000/uploads/${selectedGroup.group_photo}`} alt="Group" 
+                                        className='w-10 h-10 rounded-full object-cover shadow cursor-pointer'/>
+                                    )}
                                 </div>
                                 {showDeleteMenu && selectedGroup?.created_by === userId
                                  && (
