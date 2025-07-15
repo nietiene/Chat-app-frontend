@@ -136,6 +136,7 @@ export default function Chat() {
         const fetchGroups = async () => {
             try {
                 const res = await api.get('/api/groups/my');
+                console.log("Fetched groups", res.data);
                 setGroup(res.data);
             } catch (err) {
                 console.error("Failed to fetch groups:", err);
