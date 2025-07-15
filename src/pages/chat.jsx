@@ -446,10 +446,31 @@ export default function Chat() {
 
                                         if (user?.profile_photo) {
                                             return (
-                                                <img src={`http://localhost`} alt="" />
+                                                <img src={`http://localhost/uploads/${user.profile_photo}`} alt={selectedUser} 
+                                                     className="w-10 h-10 rounded-full object-cover shadow"
+                                                />
                                             )
                                         }
-                                    })
+                                        return (
+                                            <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow">
+                                                {selectedGroup.charAt(0).toUpperCase()}
+                                            </div>
+                                        );
+                                    })()
+                                ) : selectedGroup ? (
+                                    selectedGroup.group_photo ? (
+                                        <img src={`http://localhost:4000${selectedGroup.group_photo}`}
+                                           alt={selectedGroup.group_name}
+                                           className="w-10 h-10 rounded-full object-cover shadow cursor-pointer"
+                                                   onClick={(e) => {
+                                                     e.stopPropagation();
+                                                      if (selectedGroup.created_by === userId) {
+                                                          setShowDeleteMenu(prev => !prev);
+                                                      }
+                                                      }}
+
+/>
+                                    )
                                 )}
                                 {showDeleteMenu && selectedGroup?.created_by === userId
                                  && (
