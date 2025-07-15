@@ -49,7 +49,10 @@ export default function ChangeGroupPhoto() {
               accept="image/*"
               onChange={(e) => setPhoto(e.target.files[0])}
               className="bock w-full text-sm text-gray-500
-                    file:mr-4 file:py-2 file:px-4"
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-md file:font-semibold
+                    file:bg-blue-50 file:text-blue-700
+                    hover:file:bg-blue-100"
               required
             />
             </div>
