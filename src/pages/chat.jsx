@@ -507,13 +507,18 @@ export default function Chat() {
                                         View Members
                                     </button>
                                 )}
-                                
+
                                 {selectedUser ? (
+                                 <>
+                                   <div className='w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold shadow'>
+                                      {selectedUser.charAt(0).toUpperCase()}
+                                   </div>
                                     <p className={`text-xs ${
                                         onlineUsers.includes(selectedUser) ? 'text-green-600' : 'text-gray-500'
                                     }`}>
                                         {onlineUsers.includes(selectedUser) ? 'Online' : 'Offline'}
                                     </p>
+                                </>
                                 ) : (
                                     <p className="text-xs text-gray-500">Group</p>
                                 )}
