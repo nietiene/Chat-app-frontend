@@ -63,55 +63,79 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen flex overflow-hidden">
 {/* Left side profile */}
-             <aside className="w-64 bg-gray-50 p-6 border-r bordshadow-sm overflow-y-auto fixed top-16 left-0 h-full z-10">
-                <h2 className="text-lg font-bold mb-4">Profile</h2>
-                {user.profile_image ? (
-                    <img src={`http://localhost:4000/uploads/${user.profile_image}`} alt={user.name}
-                        className="w-24 h-24 rounded-full object-cover mb-4 shadow-xl" 
-                    />
-                ) : (
-                    <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-white text-5xl font-bold mb-4 shadow-md">
-                        {user.name.charAt(0).toUpperCase()}
-                    </div>
-                )}
-                <div className="space-y-1 text-sm">
-                  <p><strong>Name:</strong> {user.name} </p>
-                  <p><strong>Phone:</strong> {user.phone} </p>
-                  <p><strong>Role:</strong> {user.role} </p>
+<aside className="w-64 bg-white p-6 border-r border-gray-200 shadow-sm overflow-y-auto fixed top-16 left-0 h-full z-10">
+    {/* Profile Header */}
+    <div className="mb-8">
+        <h2 className="text-xl font-semibold text-gray-800 mb-6">My Profile</h2>
+        
+        {/* Profile Picture */}
+        <div className="flex justify-start mb-5">
+            {user.profile_image ? (
+                <img 
+                    src={`http://localhost:4000/uploads/${user.profile_image}`} 
+                    alt={user.name}
+                    className="w-20 h-20 rounded-full object-cover border-2 border-gray-100 shadow"
+                />
+            ) : (
+                <div className="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-white text-4xl font-bold shadow">
+                    {user.name.charAt(0).toUpperCase()}
                 </div>
+            )}
+        </div>
 
-                {['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
-                    <form
-                      className="mt-4 p-4 flex flex-col gap-4 bg-white shadow-md border"
-                      onSubmit={handlePostSubmit}
-                      encType="multipart/form-data"
-                    >
+        {/* User Details - Left Aligned */}
+        <div className="space-y-3 text-sm text-gray-700">
+            <div className="flex flex-col items-start">
+                <span className="text-xs font-medium text-gray-500">Name</span>
+                <span className="font-medium">{user.name}</span>
+            </div>
+            
+            <div className="flex flex-col items-start">
+                <span className="text-xs font-medium text-gray-500">Phone</span>
+                <span className="font-medium">{user.phone}</span>
+            </div>
+            
+            <div className="flex flex-col items-start">
+                <span className="text-xs font-medium text-gray-500">Role</span>
+                <span className="font-medium capitalize">{user.role}</span>
+            </div>
+        </div>
+    </div>
 
-                   <label className="text-sm font-semibold text-gray-700">Write a post:</label>
-                   <textarea 
-                     value={content}
-                     onChange={(e) => setContent(e.target.value)}
-                     placeholder="Post something..."
-                     className="border border-gray-300 p-3 rounded-md resize-none min-h-[100px] focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    ></textarea>
+    {/* Post Form */}
+    {['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
+        <form
+            className="mt-6 flex flex-col gap-4"
+            onSubmit={handlePostSubmit}
+            encType="multipart/form-data"
+        >
+            <h3 className="text-sm font-semibold text-gray-700 text-left">Create Post</h3>
+            
+            <textarea 
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                placeholder="Share an update..."
+                className="w-full border border-gray-200 p-3 rounded text-sm resize-none min-h-[100px] focus:outline-none focus:ring-1 focus:ring-blue-300 text-left"
+            ></textarea>
 
-                    <label className="text-sm font-semibold text-gray-700 block mb-1">Upload image (optianal):</label>
-                    <input type="file" 
-                       onChange={(e) => setImage(e.target.files[0])}
-                       className="block w-full text-sm text-gray-600
-                                  file:mr-4 file:py-2 file::px-4
-                                  file:rounded file:border-0
-                                  file:text-sm file:semibold
-                                  file:bg-blue-200 file:text-blue-700
-                                  hover:file:bg-gray-200"/>
-                    <button
-                      className="mt-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 ">
-                         Post
-                      </button>
-                    </form>
-
-                )}
-             </aside>
+            <div className="flex flex-col items-start w-full">
+                <label className="text-xs font-medium text-gray-600 mb-1 text-left">Upload Image (Optional)</label>
+                <input 
+                    type="file" 
+                    onChange={(e) => setImage(e.target.files[0])}
+                    className="w-full text-xs text-gray-600 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                />
+            </div>
+            
+            <button
+                type="submit"
+                className="w-full bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 mt-2"
+            >
+                Publish Post
+            </button>
+        </form>
+    )}
+</aside>
 
           <main className="flex-1 ml-64 overflow-y-auto p-6 bg-white h-screen">
               <h2 className="text-xl font-bold mb-4">Posts</h2>
