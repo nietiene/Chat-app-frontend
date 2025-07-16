@@ -201,7 +201,18 @@ export default function Chat() {
 
                 const tempIndex = prev.findIndex(msg =>
                     msg.isOwn && msg.content && msg.sender_name === from && msg.m_id.startsWith('temp')
-                )
+                );
+
+                if (tempIndex !== -1) {
+                    const updated = [...prev];
+                    updated[tempIndex] = {
+                        sender_name: from,
+                        content: message,
+                        created_at: timestamp,
+                        m_id,
+                        isOwn: from === myName
+                    }
+                }
                 // only add message if from or to is current chat user
              if (from === selectedUser || from === myName) {
 
