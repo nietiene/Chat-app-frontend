@@ -163,22 +163,21 @@ export default function Dashboard() {
                   <div key={post.post_id} className="p-4 bg-white rounded-lg shadow border border-gray-200">
  
                       <div className="flex justify-between items-start mb-2">
-                        <div className="flex items-center gap-2 mb-2">
+                        <div className="flex items-center gap-2">
                            <FaUserCircle className="text-xl text-blue-500" />
                            <span className="font-semibold text-gray-900">{post.name} ({post.role})</span>
                         </div>
-                        <span className="text-xs text-gray-500 ml-auto bg-yellow-100  py-1 px-2">
+                        <span className="text-xs text-gray-500 bg-yellow-100  py-1 px-2">
                             {formatTimeStamp(post.created_at)}
                         </span>
                       </div>
 
-               {post.content && <p className="mb-2">{post.content}</p>}
+               {post.content && <p className="mt-2 text-gray-700 whitespace-pre-line">{post.content}</p>}
                {post.image && (
                <img
                  src={`http://localhost:4000/uploads/${post.image}`}
                  alt="Post"
-                 className="w-64 h-auto rounded shadow-md object-cover"
-            />
+                className="mt-3 w-full max-w-lg rounded-md border border-gray-200 object-contain"            />
          )}
         </div>
       );
