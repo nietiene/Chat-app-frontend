@@ -64,7 +64,9 @@ export default function Dashboard() {
       <div className="min-h-screen flex overflow-hidden">
 {/* Left side profile */}
              <aside className="w-64 bg-gray-50 p-6 border-r border-gray-200 shadow-sm overflow-y-auto fixed top-16 left-0 h-full z-10">
-                <h2 className="text-lg font-bold mb-4">Profile</h2>
+                <div className="flex flex-col items-center mb-6">
+                  <h2 className="text-xl font-semibold items-center mb-6">Profile</h2>
+                </div>
                 {user.profile_image ? (
                     <img src={`http://localhost:4000/uploads/${user.profile_image}`} alt={user.name}
                         className="w-24 h-24 rounded-full object-cover mb-4 shadow-xl" 
