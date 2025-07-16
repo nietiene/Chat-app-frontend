@@ -113,7 +113,7 @@ export default function Dashboard() {
         </div>
     </div>
 
-    {/* Post Form - Only for specific roles */}
+    {/* displayed for specific roles */}
     {['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
         <div className="pb-6">
             <form
