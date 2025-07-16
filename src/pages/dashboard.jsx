@@ -205,7 +205,7 @@ export default function Dashboard() {
                             >
                                 {u.profile_image ? (
                                     <img src={`http://localhost:4000/uploads/${u.profile_image}`} alt={u.name}
-                                      className="w-10 h-10 object-cover border shadow"
+                                      className="w-10 h-10 object-cover border shadow rounded-full"
                                     />
                                 ) : (
                                     <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg font-semibold shadow">
@@ -214,13 +214,11 @@ export default function Dashboard() {
                                 )}
                                 <div>
                                     <div className="flex flex-col items-start">
-                                       <strong className="">{u.name}</strong> <br />
-                                       <span className="text-xs text-gray-600">{u.role}</span>
+                                       <strong className="text-sm text-gray-900">{u.name}</strong>
+                                       <span className="text-xs text-gray-600 capitalize">{u.role}</span>
                                     </div>
 
                                 </div>
-                                 <FaUserCircle className="text-2xl text-blue-500"/>
-
                             </button>
                         </li>
                     ))}
