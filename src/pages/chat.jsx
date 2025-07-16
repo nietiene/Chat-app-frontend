@@ -596,7 +596,9 @@ function formatTimeStamp(timestamp) {
                                             <p className={`text-xs mt-1 ${
                                                 msg.sender_name === myName ? 'text-blue-100' : 'text-gray-500'
                                             }`}>
-                                                {formatTimeStamp(msg.created_at)}
+                                                <div className='text-[10px]  mt-1 text-right'>
+                                                        {formatTimeStamp(msg.created_at)}
+                                                </div>
                                             </p>
                                             
                                             {selectedGroup && msg.sender_name === myName && (
