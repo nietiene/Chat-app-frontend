@@ -199,37 +199,28 @@ export default function Chat() {
         const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
             setMessages(prev => {
 
-                const tempIndex = prev.findIndex(msg =>
-                    msg.isOwn && msg.content && msg.sender_name === from && msg.m_id.startsWith('temp')
-                );
-
-                if (tempIndex !== -1) {
-                    const updated = [...prev];
-                    updated[tempIndex] = {
-                        sender_name: from,
-                        content: message,
-                        created_at: timestamp,
-                        m_id,
-                        isOwn: from === myName
-                    }
-                    return updated;
-                }
                 // only add message if from or to is current chat user
              if (from === selectedUser || from === myName) {
-               const alreadyExists = prev.some(msg => msg.m_id === m_id);
 
-               if (!alreadyExists) {
+                const last = prev[prev.length - 1];
+                if (last?.isOwn && last.content === message) {
+                    return prev.map((msg, i) => i === prev.length - 1 ? {
+                        ...msg,
+                        created_at: timestamp,
+                        isOwn: true,
+                        m_id
+                    } : msg);
+                
+                }
+
                     return [...prev, {
                         sender_name: from,
                         content: message,
                         created_at: timestamp,
                         m_id,
-                       isOwn: from === myName
+                        isOwn: from === myName
                     }];
-               }
-                
                 }
-
                   return prev;
 
             }
