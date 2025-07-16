@@ -201,11 +201,23 @@ export default function Dashboard() {
                         <li key={u.phone}>
                             <button
                                onClick={() => navigate(`/chat?user=${u.name}`)}
-                               className="w-full  p-2 bg-white hover:bg-blue-100 rounded flex justify-between items-center text-left"
+                               className="w-full p-2 bg-white hover:bg-blue-100 rounded flex justify-between items-center text-left"
                             >
+                                {u.profile_image ? (
+                                    <img src={`http://localhost:4000/uploads/${u.profile_image}`} alt={u.name}
+                                      className="w-10 h-10 object-cover border shadow"
+                                    />
+                                ) : (
+                                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg font-semibold shadow">
+                                        {u.name.charAt(0).toUpperCase()}
+                                    </div>
+                                )}
                                 <div>
-                                    <strong>{u.name}</strong> <br />
-                                    <span className="text-xs text-gray-600">{u.role}</span>
+                                    <div className="flex flex-col items-start">
+                                       <strong className="">{u.name}</strong> <br />
+                                       <span className="text-xs text-gray-600">{u.role}</span>
+                                    </div>
+
                                 </div>
                                  <FaUserCircle className="text-2xl text-blue-500"/>
 
