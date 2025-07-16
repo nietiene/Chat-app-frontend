@@ -242,7 +242,6 @@ export default function Chat() {
     const sendMessage = async () => {
         if (!selectedUser || !message.trim() || !myName) return;
 
-        try {
             const tempMessage = {
                 sender_name: myName,
                 content: message,
@@ -250,6 +249,12 @@ export default function Chat() {
                 m_id: Date.now().toString(),
                 isOwn: true 
             };
+         // add temporary message immeditely
+            setMessages(prev => [...prev, tempMessage]);
+            setMessage(''); // clear input message for better UX
+
+
+        try {
             const res = await api.post('/api/messages', {
                 sender: myName,
                 receiver: selectedUser,
@@ -257,6 +262,7 @@ export default function Chat() {
             });
 
             const savedMessage = res.data;
+            
             socket.emit('privateMessage', {
                 to: selectedUser,
                 from: myName,
