@@ -157,18 +157,21 @@ export default function Dashboard() {
               <h2 className="text-xl font-bold text-gray-700">Posts</h2>
             </div>
 
+            <div className="max-w-4xl mx-auto mt-4 space-y-4"></div>
               {post.map((post) => {
               return (
-                  <div key={post.post_id} className="p-4 border rounded shadow mb-4 bg-gray-50">
+                  <div key={post.post_id} className="p-4 bg-white rounded-lg shadow border border-gray-200">
  
-                      <div className="flex items-center gap-2 mb-2">
-                         <FaUserCircle className="text-xl text-blue-500" />
-                         <span className="font-semibold text-gray-900">{post.name} ({post.role})</span>
-                         
-                 </div>
-                 <span className="text-xs text-gray-500 ml-auto bg-yellow-100  py-1 px-2">
-                    {formatTimeStamp(post.created_at)}
-                  </span>
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="flex items-center gap-2 mb-2">
+                           <FaUserCircle className="text-xl text-blue-500" />
+                           <span className="font-semibold text-gray-900">{post.name} ({post.role})</span>
+                        </div>
+                        <span className="text-xs text-gray-500 ml-auto bg-yellow-100  py-1 px-2">
+                            {formatTimeStamp(post.created_at)}
+                        </span>
+                      </div>
+
                {post.content && <p className="mb-2">{post.content}</p>}
                {post.image && (
                <img
