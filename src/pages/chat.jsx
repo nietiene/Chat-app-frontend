@@ -317,7 +317,12 @@ export default function Chat() {
 function formatTimeStamp(timestamp) {
     const data = new Date(timestamp);
     return data.toLocaleString('en-US', {
-        year: 'numeric'
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
     })
 } 
 
@@ -591,7 +596,7 @@ function formatTimeStamp(timestamp) {
                                             <p className={`text-xs mt-1 ${
                                                 msg.sender_name === myName ? 'text-blue-100' : 'text-gray-500'
                                             }`}>
-                                                {msg.created_at}
+                                                {formatTimeStamp(msg.created_at)}
                                             </p>
                                             
                                             {selectedGroup && msg.sender_name === myName && (
