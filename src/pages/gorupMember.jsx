@@ -237,17 +237,21 @@ export default function GroupMember() {
       </div>
     ) : (
       <ul className="divide-y divide-gray-200 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
-        {members.map((member) => (
+    {members.map((member) => (
 <li className="p-4 hover:bg-gray-50 transition-colors flex items-center justify-between">
   <div className="flex items-center">
     <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold mr-3">
       {member.name.charAt(0).toUpperCase()}
     </div>
-    <span className="font-medium text-gray-800">{member.name}</span>
+    <span className="font-medium text-gray-800">
+       {member.name}
+       {member.user_id === groupInfo?.created_by && (
+        <span className="ml-4 text-xs text-gray-500 font-normal">(Admin)</span>
+       )}
+    </span>
   </div>
 
   
- {console.log('type of created by', typeof groupInfo.created_by, 'type of user id',typeof currentUserId)}
   {groupInfo?.created_by === currentUserId && member.user_id !== currentUserId && (
     <button 
       onClick={() => handleRemoveMember(member.user_id)}
