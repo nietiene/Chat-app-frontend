@@ -262,7 +262,7 @@ export default function Chat() {
             });
 
             const savedMessage = res.data;
-            
+
             socket.emit('privateMessage', {
                 to: selectedUser,
                 from: myName,
@@ -278,8 +278,8 @@ export default function Chat() {
                 } : msg
             ));
 
-            setMessage('');
         } catch (error) {
+            //remove temporary messsage on failure
             setMessages(prev => prev.filter(msg => msg.m_id !== tempMessage.m_id));
             console.error('Failed to send message:', error);
         }
