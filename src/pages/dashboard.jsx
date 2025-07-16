@@ -2,7 +2,7 @@ import api from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import  { FaHome, FaEnvelope, FaBell, FaUserCircle } from "react-icons/fa";
+import  { FaCamera } from "react-icons/fa";
 
 export default function Dashboard() {
     const [user, setUser] = useState("");
@@ -72,15 +72,15 @@ export default function Dashboard() {
     if (!user) return <p className="text-center mt-10">Loading.....</p>
 
     return (
-      <div className="min-h-screen flex ">
+ <div className="min-h-screen flex ">
 {/* Left side profile */}
 <aside className="w-64 bg-white p-6 border-r border-gray-200 shadow-sm fixed top-16 left-0 bottom-0 z-10 overflow-y-auto">
     {/* Profile Header */}
-    <div className="mb-8">
-        <h2 className="text-xl font-semibold text-gray-800 mb-6">My Profile</h2>
-        
+    <h2 className="text-xl font-semibold text-gray-800 mb-6">My Profile</h2>
+
+    <div className="flex justify-start mb-5">
+        <div className="relative group w-20 h-20">
         {/* Profile Picture */}
-        <div className="flex justify-start mb-5">
             {user.profile_image ? (
                 <img 
                     src={`http://localhost:4000/uploads/${user.profile_image}`} 
