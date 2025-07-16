@@ -67,12 +67,15 @@ export default function Dashboard() {
                 <h2 className="text-lg font-bold mb-4">Profile</h2>
                 {user.profile_image ? (
                     <img src={`http://localhost:4000/uploads/${user.profile_image}`} alt={user.name}
-                        className="w-24 h-24 rounded-full object-cover mb-4 shadow-md" 
+                        className="w-24 h-24 rounded-full object-cover mb-4 shadow-xl" 
                     />
                 ) : (
-                    
+                    <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-white text-5xl font-bold mb-4 shadow-md">
+                        {user.name.charAt(0).toUpperCase()}
+                    </div>
                 )}
-                <div className="space-y-1 text-sm">
+                <div className="space-y-3 text-gray-700 text-sm">
+                    <div className="flex justify-between text-gray-800 mb-4 border-b pb-2"></div>
                   <p><strong>Name:</strong> {user.name} </p>
                   <p><strong>Phone:</strong> {user.phone} </p>
                   <p><strong>Role:</strong> {user.role} </p>
