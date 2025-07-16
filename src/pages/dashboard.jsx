@@ -61,9 +61,9 @@ export default function Dashboard() {
     if (!user) return <p className="text-center mt-10">Loading.....</p>
 
     return (
-      <div className="min-h-screen flex overflow-hidden">
+      <div className="min-h-screen flex ">
 {/* Left side profile */}
-<aside className="w-64 bg-white p-6 border-r border-gray-200 shadow-sm overflow-y-auto fixed top-16 left-0 h-full z-10">
+<aside className="w-64 bg-white p-6 border-r border-gray-200 shadow-sm fixed top-16 left-0 bottom-0 z-10 overflow-y-auto">
     {/* Profile Header */}
     <div className="mb-8">
         <h2 className="text-xl font-semibold text-gray-800 mb-6">My Profile</h2>
@@ -83,8 +83,8 @@ export default function Dashboard() {
             )}
         </div>
 
-        {/* User Details - Left Aligned */}
-        <div className="space-y-3 text-sm text-gray-700">
+        {/* User Details */}
+        <div className="space-y-3 text-sm text-gray-700 mb-8">
             <div className="flex flex-col items-start">
                 <span className="text-xs font-medium text-gray-500">Name</span>
                 <span className="font-medium">{user.name}</span>
@@ -102,38 +102,40 @@ export default function Dashboard() {
         </div>
     </div>
 
-    {/* Post Form */}
+    {/* Post Form - Only for specific roles */}
     {['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
-        <form
-            className="mt-6 flex flex-col gap-4"
-            onSubmit={handlePostSubmit}
-            encType="multipart/form-data"
-        >
-            <h3 className="text-sm font-semibold text-gray-700 text-left">Create Post</h3>
-            
-            <textarea 
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                placeholder="Share an update..."
-                className="w-full border border-gray-200 p-3 rounded text-sm resize-none min-h-[100px] focus:outline-none focus:ring-1 focus:ring-blue-300 text-left"
-            ></textarea>
-
-            <div className="flex flex-col items-start w-full">
-                <label className="text-xs font-medium text-gray-600 mb-1 text-left">Upload Image (Optional)</label>
-                <input 
-                    type="file" 
-                    onChange={(e) => setImage(e.target.files[0])}
-                    className="w-full text-xs text-gray-600 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                />
-            </div>
-            
-            <button
-                type="submit"
-                className="w-full bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 mt-2"
+        <div className="pb-6">
+            <form
+                className="flex flex-col gap-4"
+                onSubmit={handlePostSubmit}
+                encType="multipart/form-data"
             >
-                Publish Post
-            </button>
-        </form>
+                <h3 className="text-sm font-semibold text-gray-700">Create Post</h3>
+                
+                <textarea 
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    placeholder="Share an update..."
+                    className="w-full border border-gray-200 p-3 rounded text-sm resize-none min-h-[100px] focus:outline-none focus:ring-1 focus:ring-blue-300"
+                ></textarea>
+
+                <div className="flex flex-col items-start w-full">
+                    <label className="text-xs font-medium text-gray-600 mb-1">Upload Image (Optional)</label>
+                    <input 
+                        type="file" 
+                        onChange={(e) => setImage(e.target.files[0])}
+                        className="w-full text-xs text-gray-600 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                    />
+                </div>
+                
+                <button
+                    type="submit"
+                    className="w-full bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 mt-2"
+                >
+                    Publish Post
+                </button>
+            </form>
+        </div>
     )}
 </aside>
 
