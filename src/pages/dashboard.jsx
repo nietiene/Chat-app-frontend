@@ -152,13 +152,13 @@ export default function Dashboard() {
     )}
 </aside>
 
-          <main className="flex-1 ml-64 overflow-y-auto relative p-8 bg-gray-50">
-            <div className="sticky top-0 z-10 bg-gray-50 pt-8 pb-4 -mt-8 -mx-8 px-8 border-b border-gray-200">
+          <main className="flex-1 ml-64 overflow-y-auto p-8 bg-gray-50">
+            <div className="sticky top-0 z-10 bg-gray-50 pt-0 pb-4 -mt-8 -mx-8 px-8 border-b border-gray-200">
               <h2 className="text-xl font-bold text-gray-700">Posts</h2>
             </div>
+
               {post.map((post) => {
               return (
-                
                   <div key={post.post_id} className="p-4 border rounded shadow mb-4 bg-gray-50">
  
                       <div className="flex items-center gap-2 mb-2">
