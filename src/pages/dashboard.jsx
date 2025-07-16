@@ -153,19 +153,34 @@ export default function Dashboard() {
 </aside>
 
           <main className="flex-1 ml-64 overflow-y-auto p-6 bg-white h-screen">
+           <h2 className="text-xl font-semibold text-gray-700 border-b border-gray-200 pb-2 px-1">
+              Recent Posts
+           </h2>
+
               {post.map((post) => {
               return (
                 
+
                   <div key={post.post_id} className="p-4 border rounded shadow mb-4 bg-gray-50">
- 
-                      <div className="flex items-center gap-2 mb-2">
-                         <FaUserCircle className="text-xl text-blue-500" />
-                         <span className="font-semibold text-gray-900">{post.name} ({post.role})</span>
-                         
+                     <div className="flex items-center gap-2 mb-2">
+                        {post.profile_image ? (
+                            <img src={`http://localhost:4000/uploads/${post.profile_image}`} alt={post.name} 
+                              className="w-10 h-10 rounded-full object-cover border shadow"/>
+                        ) : (
+                            <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg font-semibold shadow">
+                                {post.name.charAt(0).toUpperCase()}
+                            </div>
+                        )}
+                        <div>
+                            <p className="font-semibold text-gray-900">
+                              {post.name} <span className="font-semibold text-gray-600 text-sm">({post.role})</span>
+                            </p>
+                           <span className="text-xs text-gray-500">
+                              {formatTimeStamp(post.created_at)}
+                          </span>
+                        </div> 
                  </div>
-                 <span className="text-xs text-gray-500 ml-auto bg-yellow-100  py-1 px-2">
-                    {formatTimeStamp(post.created_at)}
-                  </span>
+
                {post.content && <p className="mb-2">{post.content}</p>}
                {post.image && (
                <img
