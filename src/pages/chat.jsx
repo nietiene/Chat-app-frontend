@@ -198,6 +198,10 @@ export default function Chat() {
     useEffect(() => {
         const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
             setMessages(prev => {
+
+                // only add message if from or to is current chat user
+             if (from === selectedUser || from === myName) {
+
                 const last = prev[prev.length - 1];
                 if (last?.isOwn && last.content === message) {
                     return prev.map((msg, i) => i === prev.length - 1 ? {
@@ -206,9 +210,9 @@ export default function Chat() {
                         isOwn: false,
                         m_id
                     } : msg);
+                
                 }
 
-                if (from === selectedUser || from === myName) {
                     return [...prev, {
                         sender_name: from,
                         content: message,
@@ -217,10 +221,12 @@ export default function Chat() {
                         isOwn: from === myName
                     }];
                 }
+                  return prev;
 
-                return prev;
-            });
-        };
+            }
+        
+        )};
+        
 
         socket.on('privateMessage', handlePrivateMessage);
         socket.on('userList', setOnlineUsers);
@@ -229,7 +235,7 @@ export default function Chat() {
             socket.off('privateMessage', handlePrivateMessage);
             socket.off('userList');
         };
-    }, [selectedUser]);
+    }, [myName, selectedUser]);
 
     const messagesContainerRef = useRef(null);
     useEffect(() => {
