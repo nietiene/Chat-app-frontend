@@ -57,6 +57,17 @@ export default function Dashboard() {
             navigate('/');
         })
     }, []);
+    function formatTimeStamp(timestamp) {
+    const data = new Date(timestamp);
+    return data.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    })
+} 
 
     if (!user) return <p className="text-center mt-10">Loading.....</p>
 
@@ -142,7 +153,7 @@ export default function Dashboard() {
 </aside>
 
           <main className="flex-1 ml-64 overflow-y-auto p-6 bg-white h-screen">
-              <h2 className="text-xl font-bold mb-4">Posts</h2>
+              <h2 className="text-xl font-bold mb-4 text-gray-700">Posts</h2>
               {post.map((post) => {
               return (
                 
@@ -150,11 +161,11 @@ export default function Dashboard() {
  
                       <div className="flex items-center gap-2 mb-2">
                          <FaUserCircle className="text-xl text-blue-500" />
-                         <span className="font-semibold">{post.name} ({post.role})</span>
+                         <span className="font-semibold text-gray-900">{post.name} ({post.role})</span>
                          
                  </div>
                  <span className="text-xs text-gray-500 ml-auto bg-yellow-100  py-1 px-2">
-                        {new Date(post.created_at).toLocaleString()}
+                    {formatTimeStamp(post.created_at)}
                   </span>
                {post.content && <p className="mb-2">{post.content}</p>}
                {post.image && (
