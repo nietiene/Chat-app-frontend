@@ -313,6 +313,14 @@ export default function Chat() {
         }
     };
 
+
+function formatTimeStamp(timestamp) {
+    const data = new Date(timestamp);
+    return data.toLocaleString('en-US', {
+        year: 'numeric'
+    })
+} 
+
     return (
         <div className="flex h-screen bg-gray-100 overflow-hidden">
             {/* Left sidebar */}
