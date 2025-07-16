@@ -75,8 +75,10 @@ export default function Dashboard() {
                     </div>
                 )}
                 <div className="space-y-3 text-gray-700 text-sm">
-                    <div className="flex justify-between text-gray-800 mb-4 border-b pb-2"></div>
-                  <p><strong>Name:</strong> {user.name} </p>
+                    <div className="flex justify-between text-gray-800 mb-4 border-b pb-2">
+                         <span className="font-medium text-gray-500">Name:</span> 
+                         <span>{user.name}</span>
+                    </div>
                   <p><strong>Phone:</strong> {user.phone} </p>
                   <p><strong>Role:</strong> {user.role} </p>
                 </div>
