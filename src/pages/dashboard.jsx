@@ -130,7 +130,9 @@ export default function Dashboard() {
                 
                 <button
                     type="submit"
-                    className="w-full bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 mt-2"
+                    disabled={!content && !image}
+                    className={`w-full  text-white px-4 py-2 rounded text-sm font-medium  focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 mt-2
+                               ${!content && !image ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 text-white hover:bg-blue-700"}`}
                 >
                     Publish Post
                 </button>
