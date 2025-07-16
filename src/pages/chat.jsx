@@ -17,6 +17,7 @@ export default function Chat() {
     const [groupMessages, setGroupMessages] = useState([]);
     const [showDeleteMenuForGroup, setShowDeleteMenuForGroup] = useState(null);
     const [showDeleteMenu, setShowDeleteMenu] = useState(false);
+    const [myProfileImage, setMyProfileImage] = useState(null);
     const [userId, setUserId] = useState(null);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
@@ -150,6 +151,7 @@ export default function Chat() {
                 const res = await api.get('/api/auth/profile');
                 setMyName(res.data.name);
                 setUserId(res.data.id);
+                setMyProfileImage(res.data.profile_image);
             } catch (error) {
                 navigate('/');
             }
@@ -305,9 +307,15 @@ export default function Chat() {
             <div className="w-1/4 bg-white border-r border-gray-200 flex flex-col">
                 <div className="p-4 border-b border-gray-200 bg-blue-50">
                     <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white text-xl font-bold shadow-md">
-                            {myName.charAt(0).toUpperCase()}
-                        </div>
+                        {myProfileImage ? (
+                            <img src={`http://localhost:4000/uploads/${myProfileImage}`} alt="Profile" 
+                              className='w-12 h-12 rounded-full object-cover shadow-md'/>
+                        ) : (
+                            <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white text-xl font-bold shadow-md">
+                                {myName.charAt(0).toUpperCase()}
+                            </div>
+                        )}
+
                         <div>
                             <h2 className="font-bold text-lg text-gray-800">{myName}</h2>
                             <p className="text-xs text-blue-600">Online</p>
