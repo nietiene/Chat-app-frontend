@@ -63,23 +63,17 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen flex overflow-hidden">
 {/* Left side profile */}
-             <aside className="w-64 bg-gray-50 p-6 border-r border-gray-200 shadow-sm overflow-y-auto fixed top-16 left-0 h-full z-10">
-                <div className="flex flex-col items-center mb-6">
-                  <h2 className="text-xl font-semibold items-center mb-6">Profile</h2>
-                </div>
-
-                <div className="relative">
-                  {user.profile_image ? (
-                      <img src={`http://localhost:4000/uploads/${user.profile_image}`} alt={user.name}
-                          className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-lg" 
-                      />
-                  ) : (
-                      <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-white text-5xl font-bold mb-4 shadow-md">
-                          {user.name.charAt(0).toUpperCase()}
-                      </div>
-                  )}
-                </div>
-
+             <aside className="w-64 bg-gray-50 p-6 border-r bordshadow-sm overflow-y-auto fixed top-16 left-0 h-full z-10">
+                <h2 className="text-lg font-bold mb-4">Profile</h2>
+                {user.profile_image ? (
+                    <img src={`http://localhost:4000/uploads/${user.profile_image}`} alt={user.name}
+                        className="w-24 h-24 rounded-full object-cover mb-4 shadow-xl" 
+                    />
+                ) : (
+                    <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-white text-5xl font-bold mb-4 shadow-md">
+                        {user.name.charAt(0).toUpperCase()}
+                    </div>
+                )}
                 <div className="space-y-1 text-sm">
                   <p><strong>Name:</strong> {user.name} </p>
                   <p><strong>Phone:</strong> {user.phone} </p>
