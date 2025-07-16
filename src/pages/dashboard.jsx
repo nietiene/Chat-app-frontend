@@ -78,47 +78,56 @@ export default function Dashboard() {
     {/* Profile Header */}
     <h2 className="text-xl font-semibold text-gray-800 mb-6">My Profile</h2>
 
-    <div className="flex justify-start mb-5">
-        <div className="relative group w-20 h-20">
-        {/* Profile Picture */}
-            {user.profile_image ? (
-                <img 
-                    src={`http://localhost:4000/uploads/${user.profile_image}`} 
-                    alt={user.name}
-                    className="w-full h-full rounded-full object-cover border-2 border-gray-100 shadow"
-                />
-            ) : (
-                <div className="w-full h-full rounded-full bg-blue-600 flex items-center justify-center text-white text-4xl font-bold shadow">
-                    {user.name.charAt(0).toUpperCase()}
-                </div>
-            )}
-
-            <label htmlFor="profileUpload"
-               title="Change profile photo"
-               className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-full cursor-pointer transition-opacity duration-200">
-                 <FaCamera className="text-white text-xl " />
-               </label>
-        </div>
-
-        {/* User Details */}
-        <div className="space-y-3 text-sm text-gray-700 mb-8">
-            <div className="flex flex-col items-start">
-                <span className="text-xs font-medium text-gray-500">Name</span>
-                <span className="font-medium">{user.name}</span>
-            </div>
-            
-            <div className="flex flex-col items-start">
-                <span className="text-xs font-medium text-gray-500">Phone</span>
-                <span className="font-medium">{user.phone}</span>
-            </div>
-            
-            <div className="flex flex-col items-start">
-                <span className="text-xs font-medium text-gray-500">Role</span>
-                <span className="font-medium capitalize">{user.role}</span>
-            </div>
-        </div>
+<div className="mb-8">
+  {/* Profile Image Upload Area */}
+  <div className="relative group w-20 h-20 mb-4">
+    {user.profile_image ? (
+      <img
+        src={`http://localhost:4000/uploads/${user.profile_image}`}
+        alt={user.name}
+        className="w-full h-full rounded-full object-cover border-2 border-gray-100 shadow"
+      />
+    ) : (
+      <div className="w-full h-full rounded-full bg-blue-600 flex items-center justify-center text-white text-4xl font-bold shadow">
+        {user.name.charAt(0).toUpperCase()}
+      </div>
+    )}
+    <label
+      htmlFor="profileUpload"
+      title="Change profile photo"
+      className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-full cursor-pointer transition-opacity duration-200"
+    >
+      <FaCamera className="text-white text-xl" />
+    </label>
+    <input
+      id="profileUpload"
+      type="file"
+      accept="image/*"
+      className="hidden"
+      onChange={(e) => {
+        if (e.target.files[0]) {
+          // handle image update logic
+          console.log("Upload selected:", e.target.files[0]);
+        }
+      }}
+    />
+  </div>
+  {/* User Info */}
+  <div className="space-y-3 text-sm text-gray-700">
+    <div className="flex flex-col items-start">
+      <span className="text-xs font-medium text-gray-500">Name</span>
+      <span className="font-medium">{user.name}</span>
     </div>
-
+    <div className="flex flex-col items-start">
+      <span className="text-xs font-medium text-gray-500">Phone</span>
+      <span className="font-medium">{user.phone}</span>
+    </div>
+    <div className="flex flex-col items-start">
+      <span className="text-xs font-medium text-gray-500">Role</span>
+      <span className="font-medium capitalize">{user.role}</span>
+    </div>
+  </div>
+</div>
     {/* displayed for specific roles */}
     {['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
         <div className="pb-6">
