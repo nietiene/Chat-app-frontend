@@ -152,32 +152,27 @@ export default function Dashboard() {
     )}
 </aside>
 
-          <main className="flex-1 ml-64 overflow-y-auto p-8 bg-gray-50">
-            <div className="sticky top-0 z-10 bg-gray-50 pt-0 pb-4 -mt-8 -mx-8 px-8 border-b border-gray-200">
-              <h2 className="text-xl font-bold text-gray-700">Posts</h2>
-            </div>
-
-            <div className="max-w-4xl mx-auto mt-4 space-y-4"></div>
+          <main className="flex-1 ml-64 overflow-y-auto p-6 bg-white h-screen">
               {post.map((post) => {
               return (
-                  <div key={post.post_id} className="p-4 bg-white rounded-lg shadow border border-gray-200">
+                
+                  <div key={post.post_id} className="p-4 border rounded shadow mb-4 bg-gray-50">
  
-                      <div className="flex justify-between items-start mb-2">
-                        <div className="flex items-center gap-2">
-                           <FaUserCircle className="text-xl text-blue-500" />
-                           <span className="font-semibold text-gray-900">{post.name} ({post.role})</span>
-                        </div>
-                        <span className="text-xs text-gray-500 bg-yellow-100  py-1 px-2">
-                            {formatTimeStamp(post.created_at)}
-                        </span>
-                      </div>
-
-               {post.content && <p className="mt-2 text-gray-700 whitespace-pre-line">{post.content}</p>}
+                      <div className="flex items-center gap-2 mb-2">
+                         <FaUserCircle className="text-xl text-blue-500" />
+                         <span className="font-semibold text-gray-900">{post.name} ({post.role})</span>
+                         
+                 </div>
+                 <span className="text-xs text-gray-500 ml-auto bg-yellow-100  py-1 px-2">
+                    {formatTimeStamp(post.created_at)}
+                  </span>
+               {post.content && <p className="mb-2">{post.content}</p>}
                {post.image && (
                <img
                  src={`http://localhost:4000/uploads/${post.image}`}
                  alt="Post"
-                className="mt-3 w-full max-w-lg rounded-md border border-gray-200 object-contain"            />
+                 className="w-64 h-auto rounded shadow-md object-cover"
+            />
          )}
         </div>
       );
