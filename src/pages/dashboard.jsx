@@ -134,7 +134,8 @@ export default function Dashboard() {
         {user.name.charAt(0).toUpperCase()}
       </div>
     )}
-    <label
+    <form onSubmit={handleProfilePhotoChange}>
+       <label
       htmlFor="profileUpload"
       title="Change profile photo"
       className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-full cursor-pointer transition-opacity duration-200"
@@ -146,14 +147,12 @@ export default function Dashboard() {
       type="file"
       accept="image/*"
       className="hidden"
-      onChange={(e) => {
-        if (e.target.files[0]) {
-          // handle image update logic
-          console.log("Upload selected:", e.target.files[0]);
-        }
-      }}
+      onChange={handleFileChange}
     />
-  </div>
+    </form>
+  </div> 
+
+ 
   {/* User Info */}
   <div className="space-y-3 text-sm text-gray-700">
     <div className="flex flex-col items-start">
