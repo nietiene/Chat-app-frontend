@@ -203,7 +203,15 @@ export default function Dashboard() {
                                onClick={() => navigate(`/chat?user=${u.name}`)}
                                className="w-full p-2 bg-white hover:bg-blue-100 rounded flex justify-between items-center text-left"
                             >
-                                {u.profile_image ? (
+
+                                <div>
+                                    <div className="flex flex-col items-start">
+                                       <strong className="text-sm text-gray-900 capitalize">{u.name}</strong>
+                                       <span className="text-xs text-gray-600 capitalize">{u.role}</span>
+                                    </div>
+
+                                </div>
+                                                                {u.profile_image ? (
                                     <img src={`http://localhost:4000/uploads/${u.profile_image}`} alt={u.name}
                                       className="w-10 h-10 object-cover border shadow rounded-full"
                                     />
@@ -212,13 +220,6 @@ export default function Dashboard() {
                                         {u.name.charAt(0).toUpperCase()}
                                     </div>
                                 )}
-                                <div>
-                                    <div className="flex flex-col items-start">
-                                       <strong className="text-sm text-gray-900">{u.name}</strong>
-                                       <span className="text-xs text-gray-600 capitalize">{u.role}</span>
-                                    </div>
-
-                                </div>
                             </button>
                         </li>
                     ))}
