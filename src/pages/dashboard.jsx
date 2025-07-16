@@ -9,6 +9,10 @@ export default function Dashboard() {
     const [allUsers, setAllUsers] = useState([]);
     const [content, setContent] = useState("");
     const [image, setImage] = useState(null);
+    const [profileImage, setProfileImage] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+
+
     const [post, setPost] = useState([]);
 
     const navigate = useNavigate();
@@ -57,17 +61,55 @@ export default function Dashboard() {
             navigate('/');
         })
     }, []);
+
+
     function formatTimeStamp(timestamp) {
-    const data = new Date(timestamp);
-    return data.toLocaleString('en-US', {
+       const data = new Date(timestamp);
+       return data.toLocaleString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
         hour: 'numeric',
         minute: '2-digit',
         hour12: true
-    })
+      })
 } 
+
+        const handleFileChange = (e) => {
+            if (e.target.files && e.target.files[0]) {
+                setProfileImage(URL.createObjectURL(e.target.files[0]));
+                setSelectedFile(e.target.files[0]);
+            }
+        }
+
+        const handleProfilePhotoChange = async (e) => {
+            e.preventDefault();
+
+            if (!selectedFile) {
+                 alert("Please select an image");
+                 return;
+            };
+
+            const formData = new FormData();
+            formData.append("profile_image", selectedFile);
+
+            try {
+                 const response = await api.post("/api/users/change-profile-photo", formData,{
+                    headers: { 'Content-Type': 'multipart/form-data'}
+                 }, { withCredentials: true},
+                );
+
+                if (response.data.profile_image) {
+                    setProfileImage(`http://localhost:4000/uploads/${response.data.profile_image}`);
+                }
+                   setSelectedFile(null);
+                   setShowUserMenu(false);
+                  alert("Photo changed successfully");
+            } catch (error) {
+                console.error(error);
+                alert("Upload failed" + (error.response?.data?.error));
+            }
+        }
 
     if (!user) return <p className="text-center mt-10">Loading.....</p>
 
