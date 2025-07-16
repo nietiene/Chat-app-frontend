@@ -199,6 +199,9 @@ export default function Chat() {
         const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
             setMessages(prev => {
 
+                const tempIndex = prev.findIndex(msg =>
+                    msg.isOwn && msg.content && msg.sender_name
+                )
                 // only add message if from or to is current chat user
              if (from === selectedUser || from === myName) {
 
