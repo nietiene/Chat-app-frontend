@@ -207,7 +207,7 @@ export default function Chat() {
                     return prev.map((msg, i) => i === prev.length - 1 ? {
                         ...msg,
                         created_at: timestamp,
-                        isOwn: false,
+                        isOwn: true,
                         m_id
                     } : msg);
                 
