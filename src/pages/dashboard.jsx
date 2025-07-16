@@ -85,13 +85,19 @@ export default function Dashboard() {
                 <img 
                     src={`http://localhost:4000/uploads/${user.profile_image}`} 
                     alt={user.name}
-                    className="w-20 h-20 rounded-full object-cover border-2 border-gray-100 shadow"
+                    className="w-full h-full rounded-full object-cover border-2 border-gray-100 shadow"
                 />
             ) : (
-                <div className="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-white text-4xl font-bold shadow">
+                <div className="w-full h-full rounded-full bg-blue-600 flex items-center justify-center text-white text-4xl font-bold shadow">
                     {user.name.charAt(0).toUpperCase()}
                 </div>
             )}
+
+            <label htmlFor="profileUpload"
+               title="Change profile photo"
+               className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-full cursor-pointer transition-opacity duration-200">
+                 <FaCamera className="text-white text-xl " />
+               </label>
         </div>
 
         {/* User Details */}
