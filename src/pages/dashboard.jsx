@@ -195,7 +195,7 @@ export default function Dashboard() {
   </main>
 
              <aside className="w-64 bg-gray-50 p-4 border-1 shadow-sm overflow-y-auto fixed top-16 right-0 h-full z-10">
-                <h2 className="text-lg font-bold mb-4">All Users</h2>
+                <h2 className="text-lg font-bold mb-4 text-gray-700">All Users</h2>
                 <ul className="space-y-2">
                     {allUsers.map((u) => (
                         <li key={u.phone}>
@@ -211,7 +211,7 @@ export default function Dashboard() {
                                     </div>
 
                                 </div>
-                                                                {u.profile_image ? (
+                               {u.profile_image ? (
                                     <img src={`http://localhost:4000/uploads/${u.profile_image}`} alt={u.name}
                                       className="w-10 h-10 object-cover border shadow rounded-full"
                                     />
