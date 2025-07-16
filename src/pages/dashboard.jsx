@@ -68,7 +68,9 @@ export default function Dashboard() {
                 {user.profile_image ? (
                     <img src={`http://localhost:4000/uploads/${user.profile_image}`} alt={user.name}
                         className="w-24 h-24 rounded-full object-cover mb-4 shadow-md" 
-                      />
+                    />
+                ) : (
+                    
                 )}
                 <div className="space-y-1 text-sm">
                   <p><strong>Name:</strong> {user.name} </p>
