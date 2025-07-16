@@ -583,7 +583,7 @@ export default function Chat() {
                                             <p className={`text-xs mt-1 ${
                                                 msg.sender_name === myName ? 'text-blue-100' : 'text-gray-500'
                                             }`}>
-                                                {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                {msg.created_at}
                                             </p>
                                             
                                             {selectedGroup && msg.sender_name === myName && (
