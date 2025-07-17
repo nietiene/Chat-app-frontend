@@ -481,8 +481,12 @@ function formatTimeStamp(timestamp) {
                         {allUsers.map(user => {
                             const lastMessage = [...messages]
                             .reverse().find(m => 
-                              (m.sender_name === user.name)
-                            )
+                              (m.sender_name === user.name && selectedUser === user.name) ||
+                              (m.sender_name === myName && selectedUser === user.name)
+                            );
+
+                            const isUnread = lastMessage && lastMessage.sender_name === user.name && lastMessage.receiver_id === myName && lastMessage.is_read === 0;
+                            
                             return (<div 
                                 key={user.name}
                                 className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200 ${
