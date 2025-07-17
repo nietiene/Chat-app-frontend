@@ -18,37 +18,9 @@ export default function Chat() {
     const [showDeleteMenuForGroup, setShowDeleteMenuForGroup] = useState(null);
     const [showDeleteMenu, setShowDeleteMenu] = useState(false);
     const [myProfileImage, setMyProfileImage] = useState(null);
-    const [lastMessages, setLastMessages] = useState([]);
     const [userId, setUserId] = useState(null);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const fetchLastMessages = async () => {
-
-            if (!userId) return; // wait for user ID to be available
-            
-            try {
-
-                console.log("Fetching last messages for userId:", userId);
-
-                const res = await api.get(`/api/messages/fetch/last-by-id/${userId}`)
-                const messages = res.data;
-
-               const lastMessageArray = messages.map(msg => ({
-                ...msg,
-                otherUser: msg.sender_id === userId ? msg.receiver_name : msg.sender_name,
-                isOwn: msg.sender_id === userId
-               }))
-                setLastMessages(lastMessageArray);
-
-            } catch (error) {
-                console.error('Failed to fetch last messages', error);
-            };
-        };
-        fetchLastMessages(lastMessages)
-
-    }, [userId]);
 
     const handleDeletePrivateMessage = async (m_id) => {
         const confirmDelete = window.confirm('Are you sure?');
@@ -217,24 +189,6 @@ export default function Chat() {
             try {
                 const res = await api.get(`/api/messages/${myName}/${selectedUser}`);
                 setMessages(res.data);
-
-                // mark message as read 
-                const receiver = allUsers.find(u => u.name === selectedUser);
-                if (receiver) {
-                    await api.patch('/api/messages/mark-as-read', {
-                        sender_id: receiver.user_id,
-                        receiver_id: userId 
-                    });
-
-                    // update last messages
-                    setLastMessages(prev => ({
-                        ...prev,
-                        [selectedUser] : {
-                            ...prev[selectedUser],
-                            is_read: 1
-                        }
-                    }))
-                }
             } catch (error) {
                 console.error('Failed to fetch messages for last messages:', error);
             }
@@ -479,10 +433,6 @@ function formatTimeStamp(timestamp) {
                     <div className="divide-y divide-gray-100">
                         {allUsers.map(user => {
 
-                            const lastMessage = lastMessages.find(msg => 
-                               (msg.sender_name === user.name && msg.receiver_name === myName) &&
-                               (msg.sender_name === myName && msg.receiver_name === user.name)
-                            );
 
                             return (<div 
                                 key={user.name}
@@ -514,17 +464,7 @@ function formatTimeStamp(timestamp) {
                                     <p className={`text-sm font-medium text-gray-900 truncate`}>
                                        {user.name}
                                     </p>
-                                    {lastMessage ? (
-                                        <p 
-                                          className={`test-xs truncate ${
-                                            isUnread ? 'font-bold text-gray-700' : 'text-gray-500'
-                                          }`}
-                                        >
-                                            {lastMessage.content}
-                                          </p>
-                                    ) : (
-                                       <p className="text-xs text-gray-400 italic">No messages yet</p>
-                                    )}
+     
                                 </div>
                             </div>
                             
