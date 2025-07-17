@@ -98,7 +98,7 @@ export default function Dashboard() {
         {user.name.charAt(0).toUpperCase()}
       </div>
     )}
-    <form onSubmit={handleProfilePhotoChange}>
+
        <label
       htmlFor="profileUpload"
       title="Change profile photo"
@@ -143,7 +143,7 @@ export default function Dashboard() {
         }
       }}
     />
-    </form>
+    
   </div> 
 
  
