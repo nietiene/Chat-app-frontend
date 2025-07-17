@@ -484,11 +484,6 @@ function formatTimeStamp(timestamp) {
                                (msg.sender_name === myName && msg.receiver_name === user.name)
                             );
 
-                            const isUnread =lastMessage &&
-                                            lastMessage.sender_name === user.name &&
-                                            lastMessage.receiver_name === myName &&
-                                            lastMessage.is_read === 0;
-
                             return (<div 
                                 key={user.name}
                                 className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200 ${
