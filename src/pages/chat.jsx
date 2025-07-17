@@ -27,8 +27,9 @@ export default function Chat() {
     useEffect(() => {
         const fetchLastMessages = async () => {
             try {
-                
+
                 console.log("Fetching messages for:", myName); // Debug
+
                 const res = await api.get(`/api/messages/last/${encodeURIComponent(myName)}`);
                 const messages = res.data;
 
@@ -50,7 +51,7 @@ export default function Chat() {
         if (myName) {
             fetchLastMessages();
         }
-    }, []);
+    }, [myName]);
 
     const handleDeletePrivateMessage = async (m_id) => {
         const confirmDelete = window.confirm('Are you sure?');
