@@ -19,7 +19,7 @@ export default function Chat() {
     const [showDeleteMenuForGroup, setShowDeleteMenuForGroup] = useState(null);
     const [showDeleteMenu, setShowDeleteMenu] = useState(false);
     const [myProfileImage, setMyProfileImage] = useState(null);
-    const [lastMessage, setLastMessage] = useState({});
+    const [lastMessages, setLastMessages] = useState({});
     const [userId, setUserId] = useState(null);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
@@ -380,7 +380,7 @@ useEffect(() => {
     fetch(`/api/messages/last/${myName}`)
     .then (res => res.json())
     .then(data => {
-        setLastMessage(data);
+        setLastMessages(data);
     })
     .catch(err => console.error('Failed to fetch messages', err))
 }, [myName])
@@ -491,7 +491,7 @@ useEffect(() => {
                     <div className="divide-y divide-gray-100">
                         {allUsers.map(user => {
 
-                            const lastMessage = lastMessage.find(msg => 
+                            const lastMessage = lastMessages.find(msg => 
                                (msg.sender_name === user.name && msg.receiver_name === myName) ||
                                (msg.sender_name === myName && msg.receiver_name === user.name)
                             );
@@ -531,7 +531,7 @@ useEffect(() => {
                                     <p className={`text-sm font-medium text-gray-900 truncate`}>
                                        {user.name}
                                     </p>
-                                    {lastMessage && (
+                                    {lastMessage ? (
                                         <p 
                                           className={`test-xs truncate ${
                                             isUnread ? 'font-bold text-gray-700' : 'text-gray-500'
@@ -539,6 +539,8 @@ useEffect(() => {
                                         >
                                             {lastMessage.content}
                                           </p>
+                                    ) : (
+                                       <p className="text-xs text-gray-400 italic">No messages yet</p>
                                     )}
                                 </div>
                             </div>
