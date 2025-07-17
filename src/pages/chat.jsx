@@ -246,7 +246,7 @@ export default function Chat() {
             }
         };
         fetchMessages();
-
+        
     }, [selectedUser, myName, allUsers, userId]);
 
     useEffect(() => {
@@ -669,7 +669,15 @@ function formatTimeStamp(timestamp) {
                                             }`}
                                         >
                                             {msg.sender_name !== myName && (
-                                                <span className={`text-xs ml-2 `}></span>
+                                                <p className="text-xs font-semibold text-blue-600 mb-1">{msg.sender_name}</p>
+                                            )}
+
+                                          {msg.sender_name !== myName && (
+                                                <span className={`text-xs ml-2 ${
+                                                    msg.is_read ? 'text-blue-200' : 'text-gray-300'
+                                                }`}>
+                                                    {msg.is_read ? '✓✓' : '✓'}
+                                                </span>
                                             )}
                                             <p className="text-sm">{msg.content}</p>
                                             <p className={`text-xs mt-1 ${
