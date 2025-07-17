@@ -202,7 +202,7 @@ export default function Chat() {
             }
         };
         fetchMessages();
-    }, [selectedUser, myName]);
+    }, [selectedUser, myName, allUsers, userId]);
 
     useEffect(() => {
         const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
