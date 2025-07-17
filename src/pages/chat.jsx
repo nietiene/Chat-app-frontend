@@ -521,7 +521,10 @@ function formatTimeStamp(timestamp) {
                                         <p 
                                           className={`test-xs truncate ${
                                             isUnread ? 'font-bold text-gray-700' : 'text-gray-500'
-                                          }`}></p>
+                                          }`}
+                                        >
+                                            {lastMessage.content}
+                                          </p>
                                     )}
                                 </div>
                             </div>
