@@ -529,7 +529,7 @@ function formatTimeStamp(timestamp) {
                                     'font-semibold text-gray-800' : 'text-gray-500'
                                     }`}>
 
-                                        {  }
+                                        {lastMessage[user.name]?.content || 'No message yet.'}
                                     </p>
                                 </div>
                             </div>
