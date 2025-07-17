@@ -35,16 +35,11 @@ export default function Chat() {
                 const res = await api.get(`/api/messages/fetch/last-by-id/${userId}`)
                 const messages = res.data;
 
-                const lastMessageMap = {};
-                messages.forEach(msg => {
-
-                    const otherUser = msg.sender_id === userId ? msg.receiver_name : msg.sender_name;
-                    lastMessageMap[otherUser] = {
-                        ...msg,
-                        isOwn: msg.sender_id === userId
-                    };
-                });sh
-
+               const lastMessageArray = messages.map(msg => ({
+                ...msg,
+                otherUser: msg.sender_id === userId ? msg.receiver_name : msg.sender_name,
+                isOwn: msg.sender_id === userId
+               }))
                 setLastMessages(lastMessageMap);
             } catch (error) {
                 console.error('Failed to fetch last messages', error);
