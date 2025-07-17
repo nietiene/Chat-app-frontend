@@ -479,6 +479,10 @@ function formatTimeStamp(timestamp) {
                     </h3>
                     <div className="divide-y divide-gray-100">
                         {allUsers.map(user => {
+                            const lastMessage = [...messages]
+                            .reverse().find(m => 
+                              (m.sender_name === user.name)
+                            )
                             return (<div 
                                 key={user.name}
                                 className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200 ${
