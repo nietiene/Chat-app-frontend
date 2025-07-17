@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, use } from 'react';
 import io from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
@@ -374,6 +374,16 @@ function formatTimeStamp(timestamp) {
     })
 } 
 
+useEffect(() => {
+    if (!myName) return;
+
+    fetch(`/api/messages/last/${myName}`)
+    .then (res => res.json())
+    .then(data => {
+        setLastMessage(data);
+    })
+    .catch(err => console.error('Failed to fetch messages', err))
+})
     return (
         <div className="flex h-screen bg-gray-100 overflow-hidden">
             {/* Left sidebar */}
