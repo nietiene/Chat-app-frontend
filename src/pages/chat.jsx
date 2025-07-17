@@ -43,7 +43,7 @@ export default function Chat() {
                         ...msg,
                         isOwn: msg.sender_id === userId
                     };
-                });
+                });sh
 
                 setLastMessages(lastMessageMap);
             } catch (error) {
