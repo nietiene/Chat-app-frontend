@@ -8,6 +8,7 @@ import CreateGroup from "./pages/CreateGroup"
 import GroupMember from "./pages/gorupMember"
 import ChangeGroupName from "./pages/ChangeGroupName"
 import ChangeGroupPhoto from "./pages/ChangeGroupPhoto"
+import Notification from "./pages/notification"
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
                <Route path="/group-members/:g_id" element={<GroupMember />}/>
                <Route path="/changeGroupName/:g_id" element={<ChangeGroupName />}/>
                 <Route path="/changeGroupPhoto/:g_id" element={<ChangeGroupPhoto />}/>
+                <Route path="/notification" element={<Notification />}/>
            </Route>
          </Routes>
 
