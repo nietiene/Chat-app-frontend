@@ -206,11 +206,22 @@ export default function Chat() {
     }, [selectedUser, myName, allUsers, userId]);
 
     useEffect(() => {
+        const handleUnreadMessage = ({ from }) => {
+          setUnreadCounts(prev => ({
+              ...prev, 
+              [from] : (prev[from] || 0) + 1
+          }));
+        }
+
+        socket.on('unreadMessage', handleUnreadMessage)
+
+    });
+
+    useEffect(() => {
         const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
             setMessages(prev => {
                 // only add message if from or to is current chat user
              if (from === selectedUser || from === myName) {
-
                 const last = prev[prev.length - 1];
                 if (last?.isOwn && last.content === message) {
                     return prev.map((msg, i) => i === prev.length - 1 ? {
