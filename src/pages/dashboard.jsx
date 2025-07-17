@@ -120,7 +120,13 @@ export default function Dashboard() {
             formData.append('profile_image', e.target.files[0]);
 
             try {
-                
+                const response = await api.post(
+                    "/api/users/change-profile-photo",
+                    formData, 
+                    {
+                        headers: { 'Content-Type': 'multipart/form-data'}
+                    }
+                )
             }
         }
       }}
