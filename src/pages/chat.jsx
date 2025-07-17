@@ -499,9 +499,6 @@ function formatTimeStamp(timestamp) {
                                 }}
                             >
 
-                                <div className='flex-1 min-w-8'>
-                                    <p className={`text-sm font-medium ${unreadCounts[user.name] ? 0 'font-bold' : ''}`}></p>
-                                </div>
                                 <div className="relative">
                                     {user.profile_image ? (
                                         <img src={`http://localhost:4000/uploads/${user.profile_image}`} alt={user.name} 
@@ -518,13 +515,8 @@ function formatTimeStamp(timestamp) {
                                     )}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-medium text-gray-900 truncate">
-                                        {user.name}
-                                        {unreadCounts[user.name] > 0 && (
-                                            <span className='ml-2 bg-red-500 text-white text-xs font-bold py-0.5 rounded-full'>
-                                                {unreadCounts[user.name]}
-                                            </span>
-                                        )}
+                                    <p className={`text-sm font-medium text-gray-900 truncate`}>
+
                                     </p>
                                     <p className="text-xs text-gray-500 truncate">
                                         {
