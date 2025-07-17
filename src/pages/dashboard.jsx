@@ -111,7 +111,19 @@ export default function Dashboard() {
       type="file"
       accept="image/*"
       className="hidden"
-      onChange={handleFileChange}
+      onChange={ async (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setProfileImage(URL.createObjectURL(e.target.files[0]));
+            setSelectedFile(e.target.files[0]);
+
+            const formData = new FormData();
+            formData.append('profile_image', e.target.files[0]);
+
+            try {
+                
+            }
+        }
+      }}
     />
     </form>
   </div> 
