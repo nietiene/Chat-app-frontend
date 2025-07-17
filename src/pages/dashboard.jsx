@@ -124,9 +124,17 @@ export default function Dashboard() {
                     "/api/users/change-profile-photo",
                     formData, 
                     {
-                        headers: { 'Content-Type': 'multipart/form-data'}
+                        headers: { 'Content-Type': 'multipart/form-data' },
+                        withCredentials: true
                     }
-                )
+                );
+
+                if (response.data.profile_image) {
+                    setUser((prev) => ({
+                        ...prev,
+                        profile_image: response.data.profile_image
+                    }))
+                }
             }
         }
       }}
