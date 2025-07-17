@@ -27,7 +27,9 @@ export default function Chat() {
     useEffect(() => {
         const fetchLastMessages = async () => {
             try {
-                const res = await api.get(`/api/messages/last/${myName}`);
+                
+                console.log("Fetching messages for:", myName); // Debug
+                const res = await api.get(`/api/messages/last/${encodeURIComponent(myName)}`);
                 const messages = res.data;
 
                 const lastMessageMap = {};
@@ -39,7 +41,7 @@ export default function Chat() {
                     };
                 });
 
-                setLastMessage(lastMessageMap);
+                setLastMessages(lastMessageMap);
             } catch (error) {
                 console.error('Failed to fetch last messages', error);
             };
