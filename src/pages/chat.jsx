@@ -30,7 +30,7 @@ export default function Chat() {
 
                 console.log("Fetching messages for:", myName); // Debug
 
-                const res = await api.get(`/api/messages/last/${encodeURIComponent(myName)}`);
+                const res = await api.get(`/api/messages/last/${encodeURIComponent(myName.trim())}`);
                 const messages = res.data;
 
                 const lastMessageMap = {};
