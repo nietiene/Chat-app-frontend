@@ -26,19 +26,22 @@ export default function Chat() {
 
     useEffect(() => {
         const fetchLastMessages = async () => {
+
+            if (!userId) return; // wait for user ID to be available
             try {
 
-                console.log("Fetching messages for:", myName); // Debug
+                console.log("Fetching last messages for userId:", userId);
 
-                const res = await api.get(`/api/messages/last/${encodeURIComponent(myName.trim())}`);
+                const res = await api.get(`/api/messages/last-by-id/${userId}`)
                 const messages = res.data;
 
                 const lastMessageMap = {};
                 messages.forEach(msg => {
-                    const otherUser = msg.sender_name === myName ? msg.receiver_name : msg.sender_name;
+
+                    const otherUser = msg.sender_id === userId ? msg.receiver_name : msg.sender_name;
                     lastMessageMap[otherUser] = {
                         ...msg,
-                        isOwn: msg.sender_name === myName
+                        isOwn: msg.sender_id === userId
                     };
                 });
 
