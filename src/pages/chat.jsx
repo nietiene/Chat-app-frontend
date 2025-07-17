@@ -19,7 +19,7 @@ export default function Chat() {
     const [showDeleteMenuForGroup, setShowDeleteMenuForGroup] = useState(null);
     const [showDeleteMenu, setShowDeleteMenu] = useState(false);
     const [myProfileImage, setMyProfileImage] = useState(null);
-    const [lastMessages, setLastMessages] = useState({});
+    const [lastMessages, setLastMessages] = useState([]);
     const [userId, setUserId] = useState(null);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
