@@ -20,14 +20,37 @@ export default function Chat() {
     const [showDeleteMenu, setShowDeleteMenu] = useState(false);
     const [myProfileImage, setMyProfileImage] = useState(null);
     const [unreadCounts, setUnreadCounts] = useState({});
-    const [lastMessage, setLastMessage] = useState([]);
+    const [lastMessage, setLastMessage] = useState({});
     const [userId, setUserId] = useState(null);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        api.get(`/api/messages/last/${currentUserId}`)
-    })
+        const fetchLastMessages = async () => {
+            try {
+                const res = await api.get(`/api/messages/last/${myName}`);
+                const messages = res.data;
+
+                const lastMessageMap = {};
+                messages.forEach(msg => {
+                    const otherUser = msg.sender_name === myName ? msg.receiver_name : msg.sender_name;
+                    lastMessageMap[otherUser] = {
+                        ...msg,
+                        isOwn: msg.sender_name === myName
+                    };
+                });
+
+                setLastMessage(lastMessageMap);
+            } catch (error) {
+                console.error('Failed to fetch last messages', error);
+            };
+        };
+
+        if (myName) {
+            fetchLastMessages();
+        }
+    }, []);
+    
     const handleDeletePrivateMessage = async (m_id) => {
         const confirmDelete = window.confirm('Are you sure?');
         if (!confirmDelete) return;
@@ -517,7 +540,6 @@ function formatTimeStamp(timestamp) {
                 </div>
             </div>
    
-           {lastMessage}
             {/* Main chat area */}
             <div className="flex-1 flex flex-col bg-white">
                 
