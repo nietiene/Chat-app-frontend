@@ -486,7 +486,7 @@ function formatTimeStamp(timestamp) {
                             );
 
                             const isUnread = lastMessage && lastMessage.sender_name === user.name && lastMessage.receiver_id === myName && lastMessage.is_read === 0;
-                            
+
                             return (<div 
                                 key={user.name}
                                 className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200 ${
@@ -517,15 +517,12 @@ function formatTimeStamp(timestamp) {
                                     <p className={`text-sm font-medium text-gray-900 truncate`}>
                                        {user.name}
                                     </p>
-
-                                    <p className={`text-xs truncate ${
-                                    lastMessage[user.name]?.is_read === 0 &&
-                                    lastMessage[user.name]?.sender_name !== myName ?
-                                    'font-semibold text-gray-800' : 'text-gray-500'
-                                    }`}>
-
-                                        {lastMessage[user.name]?.content || 'No message yet.'}
-                                    </p>
+                                    {lastMessage && (
+                                        <p 
+                                          className={`test-xs truncate ${
+                                            isUnread ? 'font-bold text-gray-700' : 'text-gray-500'
+                                          }`}></p>
+                                    )}
                                 </div>
                             </div>
                             
