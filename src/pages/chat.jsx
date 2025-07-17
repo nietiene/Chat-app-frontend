@@ -518,18 +518,18 @@ function formatTimeStamp(timestamp) {
                                     <p className={`text-sm font-medium text-gray-900 truncate`}>
                                        {user.name}
                                        {unreadCounts[user.name] > 0 && (
-                                        <span className=''></span>
+                                        <span className='ml-2 bg-red-500 text-white text-xs font-bold py-0.5 rounded-full'>
+                                            {unreadCounts[user.name]}
+                                        </span>
                                        )}
                                     </p>
-                                    <p className="text-xs text-gray-500 truncate">
-                                        {
-                                          [...messages]
-                                          .reverse()
-                                          .find(m =>
-                                          (m.sender_name === user.name && selectedUser === user.name) ||
-                                          (m.sender_name === myName && selectedUser === user.name)
-                                          )?.content || 'No message yet.'
-                                        }
+                                    <p className={`text-xs truncate ${
+                                    lastMessage[user.name]?.is_read === 0 &&
+                                    lastMessage[user.name]?.sender_name !== myName ?
+                                    'font-semibold text-gray-800' : 'text-gray-500'
+                                    }`}>
+
+                                        {  }
                                     </p>
                                 </div>
                             </div>
