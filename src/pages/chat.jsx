@@ -377,7 +377,9 @@ function formatTimeStamp(timestamp) {
 useEffect(() => {
     if (!myName) return;
 
-    fetch(`/api/messages/last/${myName}`)
+    fetch(`/api/messages/last/${myName}`, {
+        credentials: 'include'
+    })
     .then (res => res.json())
     .then(data => {
         setLastMessages(data);
