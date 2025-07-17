@@ -40,7 +40,8 @@ export default function Chat() {
                 otherUser: msg.sender_id === userId ? msg.receiver_name : msg.sender_name,
                 isOwn: msg.sender_id === userId
                }))
-                setLastMessages(lastMessageMap);
+                setLastMessages(lastMessageArray);
+                
             } catch (error) {
                 console.error('Failed to fetch last messages', error);
             };
