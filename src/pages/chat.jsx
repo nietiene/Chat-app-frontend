@@ -188,6 +188,15 @@ export default function Chat() {
             try {
                 const res = await api.get(`/api/messages/${myName}/${selectedUser}`);
                 setMessages(res.data);
+
+                // mark message as read 
+                const receiver = allUsers.find(u => u.name === selectedUser);
+                if (receiver) {
+                    await api.patch('/api/messages/mark-as-read', {
+                        sender_id: receiver.user_id,
+                        receiver_id: userId 
+                    });
+                }
             } catch (error) {
                 console.error('Failed to fetch messages:', error);
             }
