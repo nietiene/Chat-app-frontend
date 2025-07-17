@@ -491,7 +491,6 @@ function formatTimeStamp(timestamp) {
                                (m.sender_name === myName && m.receiver_name === user.name)
                             ).at(-1); // get last message directly
                 
-                             console.log("Messages between", myName, "and", user.name);
 
                             const isUnread = lastMessage && lastMessage.sender_name === user.name && lastMessage.receiver_name === myName && lastMessage.is_read === 0;
 
