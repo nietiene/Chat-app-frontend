@@ -488,6 +488,9 @@ function formatTimeStamp(timestamp) {
                                 <div className="flex-1 min-w-0">
                                     <p className="text-sm font-medium text-gray-900 truncate">
                                         {user.name}
+                                        {unreadCounts[user.name] > 0 && (
+                                            <span className='ml-2 bg-red-500 text-white text-xs font-bold py-0.5 rounded-full'></span>
+                                        )}
                                     </p>
                                     <p className="text-xs text-gray-500 truncate">
                                         {
