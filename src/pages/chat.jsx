@@ -32,7 +32,7 @@ export default function Chat() {
 
                 console.log("Fetching last messages for userId:", userId);
 
-                const res = await api.get(`/api/messages/last-by-id/${userId}`)
+                const res = await api.get(`/api/messages/fetch/last-by-id/${userId}`)
                 const messages = res.data;
 
                 const lastMessageMap = {};
