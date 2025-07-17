@@ -207,7 +207,6 @@ export default function Chat() {
     useEffect(() => {
         const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
             setMessages(prev => {
-
                 // only add message if from or to is current chat user
              if (from === selectedUser || from === myName) {
 
