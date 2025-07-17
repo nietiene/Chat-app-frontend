@@ -463,7 +463,11 @@ function formatTimeStamp(timestamp) {
                                     <p className="text-xs text-gray-500 truncate">
                                         {
                                           [...messages]
-                                          
+                                          .reverse()
+                                          .find(m =>
+                                          (m.sender_name === user.name && selectedUser === user.name) ||
+                                          (m.sender_name === myName && selectedUser === user.name)
+                                          )?.content || 'No message yet.'
                                         }
                                     </p>
                                 </div>
