@@ -484,7 +484,7 @@ function formatTimeStamp(timestamp) {
                             .filter(m => 
                               (m.sender_name === user.name &&  m.receiver_name === myName) ||
                               (m.sender_name === myName && m.receiver_name === user.name)
-                            );
+                            ).at(-1); // get last message directly
 
                             const isUnread = lastMessage && lastMessage.sender_name === user.name && lastMessage.receiver_name === myName && lastMessage.is_read === 0;
 
