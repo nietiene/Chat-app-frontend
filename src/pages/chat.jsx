@@ -28,6 +28,7 @@ export default function Chat() {
         const fetchLastMessages = async () => {
 
             if (!userId) return; // wait for user ID to be available
+            
             try {
 
                 console.log("Fetching last messages for userId:", userId);
@@ -50,11 +51,9 @@ export default function Chat() {
                 console.error('Failed to fetch last messages', error);
             };
         };
+        fetchLastMessages(lastMessages)
 
-        if (myName) {
-            fetchLastMessages();
-        }
-    }, [myName]);
+    }, [userId]);
 
     const handleDeletePrivateMessage = async (m_id) => {
         const confirmDelete = window.confirm('Are you sure?');
@@ -379,19 +378,6 @@ function formatTimeStamp(timestamp) {
         hour12: true
     })
 } 
-
-useEffect(() => {
-    if (!myName) return;
-
-    api.get(`/api/messages/last/${myName}`, {
-        withCredentials: true
-    })
-    .then(response => {
-        setLastMessages(response.data);
-    })
-    .catch(err => console.error('Failed to fetch messages', err))
-}, [myName])
-
     return (
         <div className="flex h-screen bg-gray-100 overflow-hidden">
             {/* Left sidebar */}
