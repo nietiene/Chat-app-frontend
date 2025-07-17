@@ -19,7 +19,6 @@ export default function Chat() {
     const [showDeleteMenuForGroup, setShowDeleteMenuForGroup] = useState(null);
     const [showDeleteMenu, setShowDeleteMenu] = useState(false);
     const [myProfileImage, setMyProfileImage] = useState(null);
-    const [unreadCounts, setUnreadCounts] = useState({});
     const [lastMessage, setLastMessage] = useState({});
     const [userId, setUserId] = useState(null);
     const messagesEndRef = useRef(null);
@@ -213,12 +212,7 @@ export default function Chat() {
         setMessages([]);
         if (!selectedUser || !myName) return;
 
-        if (selectedUser) {
-            setUnreadCounts(prev => ({
-                ...prev,
-                [selectedUser] : 0
-            }));
-        }
+ 
         const fetchMessages = async () => {
             try {
                 const res = await api.get(`/api/messages/${myName}/${selectedUser}`);
@@ -249,20 +243,7 @@ export default function Chat() {
         
     }, [selectedUser, myName, allUsers, userId]);
 
-    useEffect(() => {
-        const handleUnreadMessage = ({ from }) => {
-          setUnreadCounts(prev => ({
-              ...prev, 
-              [from] : (prev[from] || 0) + 1
-          }));
-        }
-
-        socket.on('unreadMessage', handleUnreadMessage)
-
-        return () => {
-            socket.off('unreadMessage', handleUnreadMessage);
-        }
-    }, []);
+  
 
     useEffect(() => {
         const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
@@ -527,12 +508,8 @@ function formatTimeStamp(timestamp) {
                                 <div className="flex-1 min-w-0">
                                     <p className={`text-sm font-medium text-gray-900 truncate`}>
                                        {user.name}
-                                       {unreadCounts[user.name] > 0 && (
-                                        <span className='ml-2 bg-red-500 text-white text-xs font-bold py-0.5 rounded-full'>
-                                            {unreadCounts[user.name]}
-                                        </span>
-                                       )}
                                     </p>
+
                                     <p className={`text-xs truncate ${
                                     lastMessage[user.name]?.is_read === 0 &&
                                     lastMessage[user.name]?.sender_name !== myName ?
