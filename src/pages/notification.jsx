@@ -30,9 +30,13 @@ export default function Notification ({ myUserId }) {
             <ul>
                 {notifications.map((n, index) => (
                     <li key={index} className="text-sm border-b py-1">
-                        {n.content} <span className="text-gray-400 text-xs">{new Date()}</span>
+                        {n.content} <span className="text-gray-400 text-xs">{new Date(n.created_at).toLocaleTimeString()}</span>
                     </li>
                 ))}
+
+                {notifications.length === 0 && (
+                    <li className="text-gray-500 text-sm">No new notifications</li>
+                )}
             </ul>
         </div>
     )
