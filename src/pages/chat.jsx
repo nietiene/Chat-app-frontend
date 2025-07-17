@@ -231,6 +231,15 @@ export default function Chat() {
                         sender_id: receiver.user_id,
                         receiver_id: userId 
                     });
+
+                    // update last messages
+                    setLastMessage(prev => ({
+                        ...prev,
+                        [selectedUser] : {
+                            ...prev[selectedUser],
+                            is_read: 1
+                        }
+                    }))
                 }
             } catch (error) {
                 console.error('Failed to fetch messages:', error);
