@@ -383,7 +383,8 @@ useEffect(() => {
         setLastMessage(data);
     })
     .catch(err => console.error('Failed to fetch messages', err))
-})
+}, [myName])
+
     return (
         <div className="flex h-screen bg-gray-100 overflow-hidden">
             {/* Left sidebar */}
@@ -490,19 +491,15 @@ useEffect(() => {
                     <div className="divide-y divide-gray-100">
                         {allUsers.map(user => {
 
-                           {
-                            console.log("Messages:", messages);
-                            console.log("All Users:", allUsers);
+                            const lastMessage = lastMessage.find(msg => 
+                               (msg.sender_name === user.name && msg.receiver_name === myName) ||
+                               (msg.sender_name === myName && msg.receiver_name === user.name)
+                            );
 
-                           }
-                            const lastMessage = [...messages]
-                            .filter(m => 
-                               (m.sender_name === user.name && m.receiver_name === myName) ||
-                               (m.sender_name === myName && m.receiver_name === user.name)
-                            ).at(-1); // get last message directly
-                
-
-                            const isUnread = lastMessage && lastMessage.sender_name === user.name && lastMessage.receiver_name === myName && lastMessage.is_read === 0;
+                            const isUnread =lastMessage &&
+                                            lastMessage.sender_name === user.name &&
+                                            lastMessage.receiver_name === myName &&
+                                            lastMessage.is_read === 0;
 
                             return (<div 
                                 key={user.name}
