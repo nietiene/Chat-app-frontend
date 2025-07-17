@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
-import axios from 'axios';
 
 const socket = io('http://localhost:4000', { withCredentials: true });
 
