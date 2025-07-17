@@ -50,7 +50,7 @@ export default function Chat() {
             fetchLastMessages();
         }
     }, []);
-    
+
     const handleDeletePrivateMessage = async (m_id) => {
         const confirmDelete = window.confirm('Are you sure?');
         if (!confirmDelete) return;
@@ -498,6 +498,10 @@ function formatTimeStamp(timestamp) {
                                     setSelectedUser(user.name);
                                 }}
                             >
+
+                                <div className='flex-1 min-w-8'>
+                                    <p className={`text-sm font-medium ${unreadCounts[user.name] ? 0 'font-bold' : ''}`}></p>
+                                </div>
                                 <div className="relative">
                                     {user.profile_image ? (
                                         <img src={`http://localhost:4000/uploads/${user.profile_image}`} alt={user.name} 
