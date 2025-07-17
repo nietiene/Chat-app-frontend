@@ -377,7 +377,7 @@ function formatTimeStamp(timestamp) {
 useEffect(() => {
     if (!myName) return;
 
-    api.get(`/api/messages/last/${encodeURIComponent(myName)}`, {
+    api.get(`/api/messages/last/${myName}`, {
         withCredentials: true
     })
     .then(response => {
