@@ -461,7 +461,10 @@ function formatTimeStamp(timestamp) {
                                         {user.name}
                                     </p>
                                     <p className="text-xs text-gray-500 truncate">
-                                        {messages.find(m => m.sender_name === user.name)?.content || 'No messages yet'}
+                                        {
+                                          [...messages]
+                                          
+                                        }
                                     </p>
                                 </div>
                             </div>
