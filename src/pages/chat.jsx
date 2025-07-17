@@ -480,6 +480,11 @@ function formatTimeStamp(timestamp) {
                     <div className="divide-y divide-gray-100">
                         {allUsers.map(user => {
 
+                           {
+                            console.log("Messages:", messages);
+                            console.log("All Users:", allUsers);
+
+                           }
                             const lastMessage = [...messages]
                             .filter(m => 
                               (m.sender_name === user.name &&  m.receiver_name === myName) ||
