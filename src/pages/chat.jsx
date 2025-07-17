@@ -185,6 +185,12 @@ export default function Chat() {
         setMessages([]);
         if (!selectedUser || !myName) return;
 
+        if (selectedUser) {
+            setUnreadCounts(prev => ({
+                ...prev,
+                [selectedUser] : 0
+            }));
+        }
         const fetchMessages = async () => {
             try {
                 const res = await api.get(`/api/messages/${myName}/${selectedUser}`);
@@ -215,7 +221,10 @@ export default function Chat() {
 
         socket.on('unreadMessage', handleUnreadMessage)
 
-    });
+        return () => {
+            socket.off('unreadMessage', handleUnreadMessage);
+        }
+    }, []);
 
     useEffect(() => {
         const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
