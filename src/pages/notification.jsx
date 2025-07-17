@@ -2,4 +2,38 @@ import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import api from "../api";
 
-const socket = io('http://localhost:4000', { withCredentials: true })
+const socket = io('http://localhost:4000', { withCredentials: true });
+
+export default function Notification ({ myUserId }) {
+    const [notifications, setNotifications] = useState([]);
+
+    useEffect(() => {
+        api.get(`/api/notifications/${myUserId}`)
+        .then(res => setNotifications(res.data))
+        .then(err => console.error(err));
+    }, [myUserId]);
+
+    useEffect(() => {
+        socket.on('new_notification', notif => {
+            setNotifications(prev => [notif, ...prev]);
+        });
+
+        return () => {
+            socket.off('new_notification');
+        }
+    }, []);
+
+    return (
+        <div className="p-3 border rounded-lg bg-white w-50">
+            <h1 className="text-lg font-semibold mb-2">Notifications</h1>
+
+            <ul>
+                {notifications.map((n, index) => (
+                    <li key={index} className="text-sm border-b py-1">
+                        {n.content} <span className="text-gray-400 text-xs">{new Date()}</span>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )
+}
