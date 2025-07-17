@@ -133,8 +133,12 @@ export default function Dashboard() {
                     setUser((prev) => ({
                         ...prev,
                         profile_image: response.data.profile_image
-                    }))
+                    }));
+                    alert('Photo changed successfully');
                 }
+            } catch (error) {
+                console.error(error);
+                alert('Upload failed' + (error.response?.data?.error || ""));
             }
         }
       }}
