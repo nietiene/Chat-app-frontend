@@ -511,7 +511,8 @@ function formatTimeStamp(timestamp) {
                     </div>
                 </div>
             </div>
-
+   
+           {lastMessage}
             {/* Main chat area */}
             <div className="flex-1 flex flex-col bg-white">
                 
