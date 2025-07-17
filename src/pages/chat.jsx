@@ -479,6 +479,7 @@ function formatTimeStamp(timestamp) {
                     </h3>
                     <div className="divide-y divide-gray-100">
                         {allUsers.map(user => {
+
                             const lastMessage = [...messages]
                             .reverse().find(m => 
                               (m.sender_name === user.name && selectedUser === user.name) ||
@@ -490,7 +491,7 @@ function formatTimeStamp(timestamp) {
                             return (<div 
                                 key={user.name}
                                 className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200 ${
-                                    selectedUser === user.name ? 'bg-blue-100' : 'hover:bg-gray-50'
+                                    selectedUser === user.name ? 'bg-blue-100' : 'hover:bg-gray-100'
                                 }`}
                                 onClick={() => {
                                     setSelectedGroup(null);
