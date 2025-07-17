@@ -231,7 +231,7 @@ export default function Chat() {
                     });
 
                     // update last messages
-                    setLastMessage(prev => ({
+                    setLastMessages(prev => ({
                         ...prev,
                         [selectedUser] : {
                             ...prev[selectedUser],
@@ -240,7 +240,7 @@ export default function Chat() {
                     }))
                 }
             } catch (error) {
-                console.error('Failed to fetch messages:', error);
+                console.error('Failed to fetch messages for last messages:', error);
             }
         };
         fetchMessages();
