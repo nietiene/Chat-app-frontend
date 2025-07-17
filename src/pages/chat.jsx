@@ -246,6 +246,7 @@ export default function Chat() {
             }
         };
         fetchMessages();
+        
     }, [selectedUser, myName, allUsers, userId]);
 
     useEffect(() => {
