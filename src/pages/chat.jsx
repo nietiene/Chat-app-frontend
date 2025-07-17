@@ -478,8 +478,8 @@ function formatTimeStamp(timestamp) {
                         CONTACTS
                     </h3>
                     <div className="divide-y divide-gray-100">
-                        {allUsers.map(user => (
-                            <div 
+                        {allUsers.map(user => {
+                            return (<div 
                                 key={user.name}
                                 className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200 ${
                                     selectedUser === user.name ? 'bg-blue-100' : 'hover:bg-gray-50'
@@ -521,7 +521,7 @@ function formatTimeStamp(timestamp) {
                                 </div>
                             </div>
                             
-                        ))}
+                        )})}
                     </div>
                 </div>
             </div>
