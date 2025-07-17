@@ -41,7 +41,7 @@ export default function Chat() {
                 isOwn: msg.sender_id === userId
                }))
                 setLastMessages(lastMessageArray);
-                
+
             } catch (error) {
                 console.error('Failed to fetch last messages', error);
             };
@@ -480,7 +480,7 @@ function formatTimeStamp(timestamp) {
                         {allUsers.map(user => {
 
                             const lastMessage = lastMessages.find(msg => 
-                               (msg.sender_name === user.name && msg.receiver_name === myName) ||
+                               (msg.sender_name === user.name && msg.receiver_name === myName) &&
                                (msg.sender_name === myName && msg.receiver_name === user.name)
                             );
 
