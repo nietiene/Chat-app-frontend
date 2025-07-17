@@ -377,12 +377,11 @@ function formatTimeStamp(timestamp) {
 useEffect(() => {
     if (!myName) return;
 
-    fetch(`/api/messages/last/${myName}`, {
-        credentials: 'include'
+    api.get(`/api/messages/last/${myName}`, {
+        withCredentials: true
     })
-    .then (res => res.json())
-    .then(data => {
-        setLastMessages(data);
+    .then(response => {
+        setLastMessages(response.data);
     })
     .catch(err => console.error('Failed to fetch messages', err))
 }, [myName])
