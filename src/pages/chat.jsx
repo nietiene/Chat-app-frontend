@@ -246,7 +246,7 @@ export default function Chat() {
             }
         };
         fetchMessages();
-        
+
     }, [selectedUser, myName, allUsers, userId]);
 
     useEffect(() => {
@@ -669,7 +669,7 @@ function formatTimeStamp(timestamp) {
                                             }`}
                                         >
                                             {msg.sender_name !== myName && (
-                                                <p className="text-xs font-semibold text-blue-600 mb-1">{msg.sender_name}</p>
+                                                <span className={`text-xs ml-2 `}></span>
                                             )}
                                             <p className="text-sm">{msg.content}</p>
                                             <p className={`text-xs mt-1 ${
