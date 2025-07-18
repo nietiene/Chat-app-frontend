@@ -38,11 +38,14 @@ export default function Notification () {
                 {}, { withCredentials: true }
             )
 
-            // remove to local state or in notification list
-            // setNotifications(prev => prev.filter(n => n.id !== notification.id));
-
             // navigate to specified page base on type of notification
-            navigate(response.data.redirectTo);
+            navigate(response.data.redirectTo), {
+                state: response.data.state
+            };
+
+            setNotifications(prev => prev.map(n =>
+                n.id === notification.id ? {...n, is_read: 1} : n
+            ));
 
         } catch (error) {
            console.error('Error handling notification', error);
