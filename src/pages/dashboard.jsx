@@ -17,13 +17,10 @@ export default function Dashboard() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const queryParams = new URLSearchParams(location.search);
-    const highlightId = queryParams.get('highlight');
-
     // handle highlisting from notification
     useEffect(() => {
-        if (location.state?.postRef) {
-            setHighlightPost(location.state.postRef);
+        if (location.state?.highlightPost) {
+            setHighlightPost(location.state.highlightPost);
             // clear state to avoid re-highlighting or refresh
             navigate(location.pathname, { replace: true, state: {}})
         }
