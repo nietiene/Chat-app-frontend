@@ -24,7 +24,7 @@ export default function PostDetail() {
 }, [id]); 
  
 
-    if (!post) return <p>Loading post ...</p>
+    // if (!post) return <p>Loading post ...</p>
     if (error) return <p>{error}</p>
 
     return (
