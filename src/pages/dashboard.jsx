@@ -1,6 +1,6 @@
 import api from "../api";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useState, useRef } from "react";
 import { useEffect } from "react";
 import  { FaCamera } from "react-icons/fa";
 
@@ -11,12 +11,21 @@ export default function Dashboard() {
     const [image, setImage] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
-
-
     const [post, setPost] = useState([]);
-
+    const [highListedPost, setHighListedPost] = useState(null);
+    const highListedPostRef = useRef(null);
+    const location = useLocation();
     const navigate = useNavigate();
 
+
+    useEffect(() => {
+        if (location.state?.highListedPost) {
+            setHighListedPost(location.state.highListedPost);
+            // clear state to avoid re-highlighting or refresh
+            navigate(location.pathname, { replace: true, state: {}})
+        }
+    }, [location.state]);
+    
     const handlePostSubmit = async (e) => {
         e.preventDefault();
 
