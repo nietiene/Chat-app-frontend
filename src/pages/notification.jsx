@@ -39,7 +39,7 @@ export default function Notification () {
             )
 
             // remove to local state or in notification list
-            setNotifications(prev => prev.filter(n => n.id !== notification.id));
+            // setNotifications(prev => prev.filter(n => n.id !== notification.id));
 
             // navigate to specified page base on type of notification
             navigate(response.data.redirectTo);
@@ -54,11 +54,11 @@ export default function Notification () {
             <h1 className="text-lg font-semibold mb-2">Notifications</h1>
 
             <ul>
-                {notifications.map((n, index) => (
-                    <li key={index} className={`text-sm border-b py-1 cursor-pointer hover:bg-gray-50 ${
+                {notifications.map((n) => (
+                    <li key={n.id} className={`text-sm border-b py-1 cursor-pointer hover:bg-gray-100 ${
                         notifications.is_read ? 'opacity-70' : 'font-semibold'
                     }`}
-                    onClick={() => handleClick(notifications)}
+                    onClick={() => handleClick(n)}
                     >
                         {n.content} <span className="text-gray-400 text-xs">{new Date(n.created_at).toLocaleTimeString()}</span>
                     </li>
