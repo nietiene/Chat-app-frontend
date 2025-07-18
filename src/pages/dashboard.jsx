@@ -29,19 +29,25 @@ export default function Dashboard() {
 
     // scroll to highlighted post if it exists
     useEffect(() => {
-        if (highlightPost && postRef.current[highlightPost]) {
-            postRef.current[highlightPost].scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
 
-            // add temporary highlight effect
-            postRef.current[highlightPost].classList.add('ring-2', 'ring-blue-500');
-            setTimeout(() => {
-                if (postRef.current) {
-                    postRef.current[highlightPost].classList.remove('ring-2', 'ring-blue-500');
+        if (highlightPost && post.length > 0) {
+
+            // wait for the DOM refs to be set
+            const timer = setTimeout(() => {
+                const target = postRef.current[highlightPost];
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+
+                    target.classList.add('ring-2', 'ring-blue-500');
+                    setTimeout(() => {
+                        target.classList
+                    })
                 }
-            }, 3000);
+            })
+
         }
 
     }, [highlightPost, post]);
