@@ -12,48 +12,8 @@ export default function Dashboard() {
     const [profileImage, setProfileImage] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [post, setPost] = useState([]);
-    const [highlightPost, setHighlightPost] = useState(null);
-    const postRef = useRef({});
-    const location = useLocation();
     const navigate = useNavigate();
 
-    // handle highlisting from notification
-    useEffect(() => {
-        if (location.state?.highlightPost) {
-            setHighlightPost(location.state.highlightPost);
-            // clear state to avoid re-highlighting or refresh
-            navigate(location.pathname, { replace: true, state: {}})
-        }
-    }, [location.state]);
-
-
-    // scroll to highlighted post if it exists
-    useEffect(() => {
-
-        if (highlightPost && post.length > 0) {
-
-            // wait for the DOM refs to be set
-            const timer = setTimeout(() => {
-                const target = postRef.current[highlightPost];
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-
-                    target.classList.add('ring-2', 'ring-blue-500');
-                    setTimeout(() => {
-                        target.classList.remove('ring-2', 'ring-blue-500');
-                    }, 3000);
-                }
-            }, 100)
-
-            return () => clearTimeout(timer);
-
-        }
-
-    }, [highlightPost, post]);
-    
     const handlePostSubmit = async (e) => {
         e.preventDefault();
 
@@ -245,17 +205,10 @@ export default function Dashboard() {
            </h2>
 
               {post.map((post) => {
-                const isHighlited = highlightPost === post.post_id;
               return (
-                
-
                   <div key={post.post_id} 
-                     ref={(el) => {
-                        postRef.current[post.post_id] = el;
-                     }}
-                     className={`p-4 border rounded shadow mb-4 bg-gray-50 transition-all duration-300 ${
-                         isHighlited ? 'bg-blue-50' : ''
-                     }`}
+  
+                     className={`p-4 border rounded shadow mb-4 bg-gray-50 transition-all duration-300 `}
                   >
                      <div className="flex items-center gap-2 mb-2">
                         {post.profile_image ? (
