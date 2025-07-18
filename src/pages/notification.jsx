@@ -37,6 +37,8 @@ export default function Notification () {
                 `/api/notifications/${notification.id}/action`,
                 {}, { withCredentials: true }
             )
+     
+            console.log('Notification click response:', response.data);
 
             // navigate to specified page base on type of notification
             navigate(response.data.redirectTo, {
