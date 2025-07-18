@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../api";
 import { format } from "date-fns";
@@ -8,6 +8,7 @@ export default function PostDetail() {
     const [post, setPost] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
           
     useEffect(() => {
@@ -27,6 +28,10 @@ export default function PostDetail() {
     fetchPosts();
  
 }, [id]); 
+
+const handleClose = () => {
+    Navigate(-1);
+}
  
     if (loading) return <p className="fixed inset-0 flex items-center bg-white bg-opacity-80">Loading...</p>
     if (error) return <p className="fixed inset-0 flex items-center bg-white bg-opacity-80">{error}</p>
