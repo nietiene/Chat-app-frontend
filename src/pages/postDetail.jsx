@@ -29,8 +29,15 @@ export default function PostDetail() {
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold">{post.title}</h1>
-            <h1 className="text-2xl font-bold">{post.content}</h1>
+          <h1 className="text-2xl font-bold mb-2">Post Details</h1>
+          <p className="mb-2">{post.content}</p>
+         {post.image && (
+         <img
+             src={`http://localhost:4000/uploads/${post.image}`}
+             alt="Post"
+             className="w-full max-w-md rounded"
+        />
+       )}
         </div>
     )
 
