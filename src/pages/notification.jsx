@@ -38,8 +38,6 @@ export default function Notification () {
                 {}, { withCredentials: true }
             )
      
-            console.log('Notification click response:', response.data);
-
             // navigate to specified page base on type of notification
             navigate(response.data.redirectTo, {
                 state: response.data.state
@@ -65,6 +63,7 @@ export default function Notification () {
                     }`}
                     onClick={() => handleClick(n)}
                     >
+                        
                         {n.content} <span className="text-gray-400 text-xs">{new Date(n.created_at).toLocaleTimeString()}</span>
                     </li>
                 ))}
