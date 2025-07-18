@@ -12,8 +12,8 @@ export default function Dashboard() {
     const [profileImage, setProfileImage] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [post, setPost] = useState([]);
-    const [highListedPost, setHighListedPost] = useState(null);
-    const highListedPostRef = useRef(null);
+    const [highlightPost, setHighlightPost] = useState(null);
+    const postRef = useRef(null);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -22,8 +22,8 @@ export default function Dashboard() {
 
     // handle highlisting from notification
     useEffect(() => {
-        if (location.state?.highListedPost) {
-            setHighListedPost(location.state.highListedPost);
+        if (location.state?.postRef) {
+            setHighListedPost(location.state.postRef);
             // clear state to avoid re-highlighting or refresh
             navigate(location.pathname, { replace: true, state: {}})
         }
@@ -32,17 +32,17 @@ export default function Dashboard() {
 
     // scroll to highlighted post if it exists
     useEffect(() => {
-        if (highListedPost && highListedPostRef.current[highlightId]) {
-            highListedPostRef.current[highlightId].scrollIntoView({
+        if (highListedPost && postRef.current[highlightId]) {
+            postRef.current[highlightId].scrollIntoView({
                 behavior: 'smooth',
                 block: 'center'
             });
 
             // add temporary highlight effect
-            highListedPostRef.current.classList.add('ring-2', 'ring-blue-500');
+            postRef.current.classList.add('ring-2', 'ring-blue-500');
             setTimeout(() => {
-                if (highListedPostRef.current) {
-                    highListedPostRef.current.classList.remove('ring-2', 'ring-blue-500');
+                if (postRef.current) {
+                    postRef.current.classList.remove('ring-2', 'ring-blue-500');
                 }
             }, 3000);
         }
@@ -245,7 +245,9 @@ export default function Dashboard() {
                 
 
                   <div key={post.post_id} 
-                     ref={isHighlited ? highListedPostRef : null}
+                     ref={(el) => {
+                        postRef.current[post.post_id] = el;
+                     }}
                      className={`p-4 border rounded shadow mb-4 bg-gray-50 transition-all duration-300 ${
                          isHighlited ? 'bg-blue-50' : ''
                      }`}
