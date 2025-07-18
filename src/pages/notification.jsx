@@ -38,6 +38,11 @@ export default function Notification () {
                 {}, { withCredentials: true }
             )
      
+            if (notification.type === 'profile_update') {
+                navigate(`/user/${notification.sender_id}`);
+            } else {
+               const response = await api.post(`/`)
+            }
             // navigate to specified page base on type of notification
             navigate(response.data.redirectTo, {
                 state: response.data.state
