@@ -54,6 +54,14 @@ const handleClose = () => {
 
             <div className="p-4 border-b">
                 <div className="flex items-center space-x-3">
+                    {post.profile_image ? (
+                        <img src={`http://localhost:4000/uploads/${post.profile_image}`} alt={post.profile_image}
+                          className="w-10 h-10 rounded-full object-cover" />
+                    ) : (
+                        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                            {post.author_name.charAt(0).toUpperCase()}
+                        </div>
+                    )}
                     {post.author_name && (
                         <div className="font-semibold mr-2">
                             {post.author_name}
