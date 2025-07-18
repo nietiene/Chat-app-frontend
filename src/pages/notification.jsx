@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
+import { useNavigate } from "react-router-dom";
 import api from "../api";
 
 const socket = io('http://localhost:4000', { withCredentials: true });
 
 export default function Notification () {
     const [notifications, setNotifications] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -26,6 +28,16 @@ export default function Notification () {
             socket.off('notification');
         }
     }, []);
+
+    // hande notification click
+
+    const handleClick = async (notification) => {
+        try {
+            const response = await api.post(
+                `/api/notifications`
+            )
+        }
+    }
 
     return (
         <div className="p-3 border rounded-lg bg-white w-50">
