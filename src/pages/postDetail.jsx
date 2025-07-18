@@ -6,17 +6,22 @@ export default function PostDetail() {
     const { id } = useParams();
     const [post, setPost] = useState(null);
 
-    try {
-      useEffect(() => {
-        const res = api.get(`/api/posts/${id}`, { withCredentials: true })
-        setPost(res.data);
-     }, [id]);
+    const fetchPosts = async () => {
+      
+        try {
+          useEffect(() => {
+            const res = api.get(`/api/posts/${id}`, { withCredentials: true })
+            setPost(res.data);
+          }, [id]); 
 
-    } catch (error) {
-        console.error(error);
+        } catch (error) {
+           console.error(error);
+        }
     }
+ 
 
     if (!post) return <p>Loading post ...</p>
+    if (error) return <p>{error}</p>
 
     return (
         <div className="p-4">
