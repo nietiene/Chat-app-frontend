@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import api from "../api";
+import { useParams } from "react-router-dom";
 
 const socket = io('http://localhost:4000', { withCredentials: true });
 
-export default function Notification ({ myUserId }) {
+export default function Notification () {
+    const { myUserId } = useParams(); // fetch from URL
     const [notifications, setNotifications] = useState([]);
 
     useEffect(() => {
         console.log('Fetching notification for:', myUserId);
-        
+
          if (!myUserId) return;
 
         api.get(`/api/notifications/${myUserId}`, {
