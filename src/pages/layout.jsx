@@ -80,7 +80,7 @@ export default function Layout () {
                     <Link className="flex items-center gap-1 hover:underline" to="/chat">
                           <FaEnvelope/> Messages
                     </Link>
-                    <Link className="flex items-center gap-1 hover:underline" to="/notification">
+                    <Link className="flex items-center gap-1 hover:underline" to="/notifications">
                         <FaBell/> Notification
                     </Link>
                 </div>
