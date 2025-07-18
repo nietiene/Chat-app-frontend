@@ -9,6 +9,7 @@ import GroupMember from "./pages/gorupMember"
 import ChangeGroupName from "./pages/ChangeGroupName"
 import ChangeGroupPhoto from "./pages/ChangeGroupPhoto"
 import Notification from "./pages/notification"
+import PostDetail from "./pages/postDetail"
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
                <Route path="/changeGroupName/:g_id" element={<ChangeGroupName />}/>
                 <Route path="/changeGroupPhoto/:g_id" element={<ChangeGroupPhoto />}/>
                 <Route path="/notifications" element={<Notification />}/>
+                <Route path="/posts/:id" element={<PostDetail />}/>
            </Route>
          </Routes>
 
