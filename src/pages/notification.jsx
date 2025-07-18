@@ -10,7 +10,7 @@ export default function Notification ({ myUserId }) {
     useEffect(() => {
         api.get(`/api/notifications/${myUserId}`)
         .then(res => setNotifications(res.data))
-        .then(err => console.error(err));
+        .catch(err => console.error(err));
     }, [myUserId]);
 
     useEffect(() => {
@@ -19,7 +19,7 @@ export default function Notification ({ myUserId }) {
         });
 
         return () => {
-            socket.off('new_notification');
+            socket.off('notification');
         }
     }, []);
 
