@@ -64,7 +64,7 @@ export default function Notification () {
                     onClick={() => handleClick(n)}
                     >
                         {n.sender_profile_image ? (
-                            <img src={`http://localhost/uploads/${n.sender_profile_image}`} 
+                            <img src={`http://localhost:4000/uploads/${n.sender_profile_image}`} 
                               alt={n.sender_name}
                               className="inline-block w-6 h-6 rounded-full mr-2 object-cover"/>
                         ) : (
