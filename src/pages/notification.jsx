@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import api from "../api";
-import { useParams } from "react-router-dom";
 
 const socket = io('http://localhost:4000', { withCredentials: true });
 
