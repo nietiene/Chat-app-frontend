@@ -8,7 +8,13 @@ export default function Notification ({ myUserId }) {
     const [notifications, setNotifications] = useState([]);
 
     useEffect(() => {
-        api.get(`/api/notifications/${myUserId}`)
+        console.log('Fetching notification for:', myUserId);
+        
+         if (!myUserId) return;
+
+        api.get(`/api/notifications/${myUserId}`, {
+            withCredentials: true
+        })
         .then(res => setNotifications(res.data))
         .catch(err => console.error(err));
     }, [myUserId]);
