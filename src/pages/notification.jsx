@@ -61,7 +61,7 @@ export default function Notification () {
             <ul>
                 {notifications.map((n) => (
                     <li key={n.id} className={`text-sm border-b py-1 cursor-pointer hover:bg-gray-100 ${
-                        notifications.is_read ? 'opacity-70' : 'font-semibold'
+                        n.is_read ? 'opacity-70' : 'font-semibold'
                     }`}
                     onClick={() => handleClick(n)}
                     >
