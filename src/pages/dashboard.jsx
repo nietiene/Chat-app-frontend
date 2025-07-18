@@ -18,6 +18,7 @@ export default function Dashboard() {
     const navigate = useNavigate();
 
 
+    // handle highlisting from notification
     useEffect(() => {
         if (location.state?.highListedPost) {
             setHighListedPost(location.state.highListedPost);
@@ -25,6 +26,26 @@ export default function Dashboard() {
             navigate(location.pathname, { replace: true, state: {}})
         }
     }, [location.state]);
+
+
+    // scroll to highlighted post if it exists
+    useEffect(() => {
+        if (highListedPost && highListedPostRef.current) {
+            highListedPostRef.current.scrollView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            // add temporary highlight effect
+            highListedPostRef.current.classList.add('ring-2', 'ring-blue-500');
+            setTimeout(() => {
+                if (highListedPostRef.current) {
+                    highListedPostRef.current.classList.remove('ring-2', 'ring-blue-500');
+                }
+            }, 3000);
+        }
+
+    }, [highListedPost, post]);
     
     const handlePostSubmit = async (e) => {
         e.preventDefault();
