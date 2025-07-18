@@ -6,16 +6,19 @@ export default function PostDetail() {
     const { id } = useParams();
     const [post, setPost] = useState(null);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
           
     useEffect(() => {
       const fetchPosts = async () => {
     
         try {
-            const res = api.get(`/api/posts/${id}`, { withCredentials: true })
+            const res = await api.get(`/api/posts/${id}`, { withCredentials: true })
             setPost(res.data);
         } catch (error) {
            console.error(error);
            setError('FAiled to load post.');
+        } finally {
+            setLoading(false);
         }
 
     }
@@ -24,7 +27,8 @@ export default function PostDetail() {
 }, [id]); 
  
 
-    // if (!post) return <p>Loading post ...</p>
+    if (!post) return <p>Post not found</p>
+    if (!loading) return <p>Loading...</p>
     if (error) return <p>{error}</p>
 
     return (
