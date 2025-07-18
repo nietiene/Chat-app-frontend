@@ -238,10 +238,16 @@ export default function Dashboard() {
            </h2>
 
               {post.map((post) => {
+                const isHighlited = highListedPost === post.post_id;
               return (
                 
 
-                  <div key={post.post_id} className="p-4 border rounded shadow mb-4 bg-gray-50">
+                  <div key={post.post_id} 
+                     ref={isHighlited ? highListedPostRef : null}
+                     className={`p-4 border rounded shadow mb-4 bg-gray-50 transition-all duration-300 ${
+                         isHighlited ? 'bg-blue-50' : ''
+                     }`}
+                  >
                      <div className="flex items-center gap-2 mb-2">
                         {post.profile_image ? (
                             <img src={`http://localhost:4000/uploads/${post.profile_image}`} alt={post.name} 
