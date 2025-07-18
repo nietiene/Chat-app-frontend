@@ -26,10 +26,10 @@ export default function PostDetail() {
  
 }, [id]); 
  
-
-    if (!post) return <p>Post not found</p>
-    if (!loading) return <p>Loading...</p>
+    if (loading) return <p>Loading...</p>
     if (error) return <p>{error}</p>
+    if (!post) return <p>Post not found</p>
+
 
     return (
         <div className="p-4">
