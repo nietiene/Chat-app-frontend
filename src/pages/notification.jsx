@@ -14,7 +14,7 @@ export default function Notification () {
         })
         .then(res => setNotifications(res.data))
         .catch(err => console.error(err));
-        
+
     }, []);
 
     useEffect(() => {
