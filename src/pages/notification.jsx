@@ -33,20 +33,17 @@ export default function Notification () {
 
     const handleClick = async (notification) => {
         try {
-            const response = await api.post(
-                `/api/notifications/${notification.id}/action`,
-                {}, { withCredentials: true }
-            )
-     
+
             if (notification.type === 'profile_update') {
                 navigate(`/user/${notification.sender_id}`);
             } else {
-               const response = await api.post(`/`)
+               const response = await api.post(`/api/notification/${notification.id}/action`, {}, { withCredentials: true });
+                           // navigate to specified page base on type of notification
+               navigate(response.data.redirectTo, {
+                  state: response.data.state
+               });
             }
-            // navigate to specified page base on type of notification
-            navigate(response.data.redirectTo, {
-                state: response.data.state
-            });
+
 
             setNotifications(prev => prev.map(n =>
                 n.id === notification.id ? {...n, is_read: 1} : n
