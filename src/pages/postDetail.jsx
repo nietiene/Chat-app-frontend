@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../api";
+import { format } from "date-fns";
 
 export default function PostDetail() {
     const { id } = useParams();
@@ -43,7 +44,20 @@ export default function PostDetail() {
                 </button>
             </div>
 
-            <div className="p-4"></div>
+            <div className="p-4">
+                <div className="flex items-center mb-4">
+                    {post.author_name && (
+                        <div className="font-semibold mr-2">
+                            {post.author_name}
+                        </div>
+                    )}
+                    {post.created_at && (
+                     <div className="text-gray-500 text-sm">
+                            {format(new Date(post.created_at), 'MMM d, yyyy h:mm a')}
+                        </div>
+                    )}
+                </div>
+            </div>
           <p className="mb-2">{post.content}</p>
          {post.image && (
          <img
