@@ -48,10 +48,12 @@ const handleClose = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
+                <h1 className="text-xl font-bold">Post</h1>
+                <div className="w-6"></div>
             </div>
 
-            <div className="p-4">
-                <div className="flex items-center mb-4">
+            <div className="p-4 border-b">
+                <div className="flex items-center space-x-3">
                     {post.author_name && (
                         <div className="font-semibold mr-2">
                             {post.author_name}
