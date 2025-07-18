@@ -43,10 +43,12 @@ export default function Dashboard() {
 
                     target.classList.add('ring-2', 'ring-blue-500');
                     setTimeout(() => {
-                        target.classList
-                    })
+                        target.classList.remove('ring-2', 'ring-blue-500');
+                    }, 3000);
                 }
-            })
+            }, 100)
+
+            return () => clearTimeout(timer);
 
         }
 
