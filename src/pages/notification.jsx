@@ -34,8 +34,18 @@ export default function Notification () {
     const handleClick = async (notification) => {
         try {
             const response = await api.post(
-                `/api/notifications`
+                `/api/notifications/${notification.id}/action`,
+                {}, { withCredentials: true }
             )
+
+            // remove to local state or in notification list
+            setNotifications(prev => prev.filter(n => n.id !== notification.id));
+
+            // navigate to specified page base on type of notification
+            navigate(response.data.redirectTo);
+
+        } catch (error) {
+           console.error('Error handling notification', error);
         }
     }
 
@@ -45,7 +55,11 @@ export default function Notification () {
 
             <ul>
                 {notifications.map((n, index) => (
-                    <li key={index} className="text-sm border-b py-1">
+                    <li key={index} className={`text-sm border-b py-1 cursor-pointer hover:bg-gray-50 ${
+                        notifications.is_read ? 'opacity-70' : 'font-semibold'
+                    }`}
+                    onClick={() => handleClick(notifications)}
+                    >
                         {n.content} <span className="text-gray-400 text-xs">{new Date(n.created_at).toLocaleTimeString()}</span>
                     </li>
                 ))}
