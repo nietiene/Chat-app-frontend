@@ -6,15 +6,15 @@ import { useParams } from "react-router-dom";
 const socket = io('http://localhost:4000', { withCredentials: true });
 
 export default function Notification () {
-    const { myUserId } = useParams(); // fetch from URL
+    const { userId } = useParams(); // fetch from URL
     const [notifications, setNotifications] = useState([]);
 
     useEffect(() => {
-        console.log('Fetching notification for:', myUserId);
+        console.log('Fetching notification for:', userId);
 
-         if (!myUserId) return;
+         if (!userId) return;
 
-        api.get(`/api/notifications/${myUserId}`, {
+        api.get(`/api/notifications/${userId}`, {
             withCredentials: true
         })
         .then(res => setNotifications(res.data))

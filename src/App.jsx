@@ -25,7 +25,7 @@ function App() {
                <Route path="/group-members/:g_id" element={<GroupMember />}/>
                <Route path="/changeGroupName/:g_id" element={<ChangeGroupName />}/>
                 <Route path="/changeGroupPhoto/:g_id" element={<ChangeGroupPhoto />}/>
-                <Route path="/notification/:myUserId" element={<Notification />}/>
+                <Route path="/notification/:userId" element={<Notification />}/>
            </Route>
          </Routes>
 
