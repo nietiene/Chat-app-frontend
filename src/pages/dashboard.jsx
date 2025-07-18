@@ -32,7 +32,7 @@ export default function Dashboard() {
         if (highlightPost && postRef.current[highlightPost]) {
             postRef.current[highlightPost].scrollIntoView({
                 behavior: 'smooth',
-                block: 'center'
+                block: 'start'
             });
 
             // add temporary highlight effect
