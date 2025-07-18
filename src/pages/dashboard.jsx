@@ -13,7 +13,7 @@ export default function Dashboard() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [post, setPost] = useState([]);
     const [highlightPost, setHighlightPost] = useState(null);
-    const postRef = useRef(null);
+    const postRef = useRef({});
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ export default function Dashboard() {
     // handle highlisting from notification
     useEffect(() => {
         if (location.state?.postRef) {
-            setHighListedPost(location.state.postRef);
+            setHighlightPost(location.state.postRef);
             // clear state to avoid re-highlighting or refresh
             navigate(location.pathname, { replace: true, state: {}})
         }
@@ -32,7 +32,7 @@ export default function Dashboard() {
 
     // scroll to highlighted post if it exists
     useEffect(() => {
-        if (highListedPost && postRef.current[highlightId]) {
+        if (highlightPost && postRef.current[highlightId]) {
             postRef.current[highlightId].scrollIntoView({
                 behavior: 'smooth',
                 block: 'center'
@@ -240,7 +240,7 @@ export default function Dashboard() {
            </h2>
 
               {post.map((post) => {
-                const isHighlited = highListedPost === post.post_id;
+                const isHighlited = highlightPost === post.post_id;
               return (
                 
 
