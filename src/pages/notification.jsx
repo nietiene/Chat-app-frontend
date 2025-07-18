@@ -73,7 +73,7 @@ export default function Notification () {
                             </div>
                         )}
 
-                        {n.content} <span className="text-gray-400 text-xs">{new Date(n.created_at).toLocaleTimeString()}</span>
+                       <span className="font-semibold capitalize">{n.sender_name}:</span> {n.content} <span className="text-gray-400 text-xs">{new Date(n.created_at).toLocaleTimeString()}</span>
                     </li>
                 ))}
 
