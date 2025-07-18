@@ -17,6 +17,8 @@ export default function Dashboard() {
     const location = useLocation();
     const navigate = useNavigate();
 
+    const queryParams = new URLSearchParams(location.search);
+    const highlightId = queryParams.get('highlight');
 
     // handle highlisting from notification
     useEffect(() => {
@@ -30,8 +32,8 @@ export default function Dashboard() {
 
     // scroll to highlighted post if it exists
     useEffect(() => {
-        if (highListedPost && highListedPostRef.current) {
-            highListedPostRef.current.scrollIntoView({
+        if (highListedPost && highListedPostRef.current[highlightId]) {
+            highListedPostRef.current[highlightId].scrollIntoView({
                 behavior: 'smooth',
                 block: 'center'
             });
@@ -45,7 +47,7 @@ export default function Dashboard() {
             }, 3000);
         }
 
-    }, [highListedPost, post]);
+    }, [highlightId, post]);
     
     const handlePostSubmit = async (e) => {
         e.preventDefault();
