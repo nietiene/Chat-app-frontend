@@ -20,6 +20,7 @@ function App() {
             <Route element={<Layout/>}>
                <Route path="/register" element={<Register />} />
                <Route path="/dashboard" element={<Dashboard />} />
+               <Route path="/dashboard/postId" element={<Dashboard />} />
                <Route path="/chat" element={<Chat />}/>
                <Route path="/create-group" element={<CreateGroup />}/>
                <Route path="/group-members/:g_id" element={<GroupMember />}/>
