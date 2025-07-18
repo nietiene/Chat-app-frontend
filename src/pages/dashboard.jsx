@@ -32,22 +32,22 @@ export default function Dashboard() {
 
     // scroll to highlighted post if it exists
     useEffect(() => {
-        if (highlightPost && postRef.current[highlightId]) {
-            postRef.current[highlightId].scrollIntoView({
+        if (highlightPost && postRef.current[highlightPost]) {
+            postRef.current[highlightPost].scrollIntoView({
                 behavior: 'smooth',
                 block: 'center'
             });
 
             // add temporary highlight effect
-            postRef.current.classList.add('ring-2', 'ring-blue-500');
+            postRef.current[highlightPost].classList.add('ring-2', 'ring-blue-500');
             setTimeout(() => {
                 if (postRef.current) {
-                    postRef.current.classList.remove('ring-2', 'ring-blue-500');
+                    postRef.current[highlightPost].classList.remove('ring-2', 'ring-blue-500');
                 }
             }, 3000);
         }
 
-    }, [highlightId, post]);
+    }, [highlightPost, post]);
     
     const handlePostSubmit = async (e) => {
         e.preventDefault();
