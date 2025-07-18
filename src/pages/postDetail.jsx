@@ -7,6 +7,7 @@ export default function PostDetail() {
     const [post, setPost] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+
           
     useEffect(() => {
       const fetchPosts = async () => {
@@ -26,7 +27,7 @@ export default function PostDetail() {
  
 }, [id]); 
  
-    if (loading) return <p>Loading...</p>
+    if (loading) return <p className="fixed inset-0">Loading...</p>
     if (error) return <p>{error}</p>
     if (!post) return <p>Post not found</p>
 
