@@ -27,13 +27,14 @@ export default function PostDetail() {
  
 }, [id]); 
  
-    if (loading) return <p className="fixed inset-0">Loading...</p>
-    if (error) return <p>{error}</p>
-    if (!post) return <p>Post not found</p>
+    if (loading) return <p className="fixed inset-0 flex items-center bg-white bg-opacity-80">Loading...</p>
+    if (error) return <p className="fixed inset-0 flex items-center bg-white bg-opacity-80">{error}</p>
+    if (!post) return <p className="fixed inset-0 flex items-center bg-white bg-opacity-80">Post not found</p>
 
 
     return (
-        <div className="p-4">
+        <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
+            <div className="sticky top-0 bg-white z-10 p-4 border-b flex justify-between items-center"></div>
           <h1 className="text-2xl font-bold mb-2">Post Details</h1>
           <p className="mb-2">{post.content}</p>
          {post.image && (
