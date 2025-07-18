@@ -31,7 +31,7 @@ export default function Dashboard() {
     // scroll to highlighted post if it exists
     useEffect(() => {
         if (highListedPost && highListedPostRef.current) {
-            highListedPostRef.current.scrollView({
+            highListedPostRef.current.scrollIntoView({
                 behavior: 'smooth',
                 block: 'center'
             });
