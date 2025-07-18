@@ -14,7 +14,7 @@ export default function Notification ({ myUserId }) {
     }, [myUserId]);
 
     useEffect(() => {
-        socket.on('new_notification', notif => {
+        socket.on('notification', notif => {
             setNotifications(prev => [notif, ...prev]);
         });
 
