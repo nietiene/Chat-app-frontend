@@ -53,12 +53,13 @@ export default function PostDetail() {
                     )}
                     {post.created_at && (
                      <div className="text-gray-500 text-sm">
-                            {format(new Date(post.created_at), 'MMM d, yyyy h:mm a')}
+                            at {format(new Date(post.created_at), 'MMM d, yyyy h:mm a')}
                         </div>
                     )}
                 </div>
             </div>
-          <p className="mb-2">{post.content}</p>
+
+          <p className="mb-2 text-lg">{post.content}</p>
          {post.image && (
          <img
              src={`http://localhost:4000/uploads/${post.image}`}
