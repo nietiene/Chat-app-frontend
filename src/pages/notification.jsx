@@ -63,7 +63,16 @@ export default function Notification () {
                     }`}
                     onClick={() => handleClick(n)}
                     >
-                        
+                        {n.sender_profile_image ? (
+                            <img src={`http://localhost/uploads/${n.sender_profile_image}`} 
+                              alt={n.sender_name}
+                              className="inline-block w-6 h-6 rounded-full mr-2 object-cover"/>
+                        ) : (
+                            <div className="inline-block w-6 h-6 rounded-full bg-blue-600 text-white font-semibold text-xs flex items-center justify-center mr-2">
+                                {n.sender_name ? n.sender_name.charAt(0).toUpperCase() : "?"}
+                            </div>
+                        )}
+
                         {n.content} <span className="text-gray-400 text-xs">{new Date(n.created_at).toLocaleTimeString()}</span>
                     </li>
                 ))}
