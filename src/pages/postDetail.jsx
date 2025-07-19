@@ -31,19 +31,19 @@ export default function PostDetail() {
     };
 
     if (loading) return (
-        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-90 z-50">
+        <div className="flex items-center justify-center min-h-screen bg-white">
             <div className="animate-pulse flex flex-col items-center">
                 <div className="w-12 h-12 bg-gray-200 rounded-full mb-4"></div>
                 <p className="text-gray-600">Loading post...</p>
             </div>
         </div>
     );
-    
+
     if (error) return (
-        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-90 z-50">
+        <div className="flex items-center justify-center min-h-screen bg-white">
             <div className="bg-white p-6 rounded-lg shadow-md max-w-md text-center border border-gray-200">
                 <p className="text-red-500 font-medium">{error}</p>
-                <button 
+                <button
                     onClick={handleClose}
                     className="mt-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md text-gray-700 transition"
                 >
@@ -52,12 +52,12 @@ export default function PostDetail() {
             </div>
         </div>
     );
-    
+
     if (!post) return (
-        <div className="bg-white p-4 min-h-screen overflow-y-auto">
+        <div className="flex items-center justify-center min-h-screen bg-white">
             <div className="bg-white p-6 rounded-lg shadow-md max-w-md text-center border border-gray-200">
                 <p className="text-gray-700 font-medium">Post not found</p>
-                <button 
+                <button
                     onClick={handleClose}
                     className="mt-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md text-gray-700 transition"
                 >
@@ -68,14 +68,14 @@ export default function PostDetail() {
     );
 
     return (
-        <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
+        <div className="p-4 bg-white min-h-screen overflow-y-auto">
             {/* Header with close button */}
             <div className="sticky top-0 bg-white z-10 p-4 border-b border-gray-200 flex justify-between items-center">
-                <button 
+                <button
                     onClick={handleClose}
                     className="text-gray-500 hover:text-red-500 focus:outline-none transition border-blue-200 border-4"
                 >
-                     <X size={20}/>
+                    <X size={20} />
                 </button>
                 <h1 className="text-xl font-bold text-gray-800">Post Details</h1>
                 <div className="w-6"></div> {/* Spacer for balance */}
@@ -85,8 +85,8 @@ export default function PostDetail() {
             <div className="p-4 border-b border-gray-200">
                 <div className="flex items-center space-x-3">
                     {post.profile_image ? (
-                        <img 
-                            src={`http://localhost:4000/uploads/${post.profile_image}`} 
+                        <img
+                            src={`http://localhost:4000/uploads/${post.profile_image}`}
                             alt={post.author_name}
                             className="w-10 h-10 rounded-full object-cover"
                         />
@@ -109,7 +109,7 @@ export default function PostDetail() {
             {/* Post content */}
             <div className="p-4">
                 <p className="mb-4 text-gray-800 text-base leading-relaxed">{post.content}</p>
-                
+
                 {post.image && (
                     <div className="mt-4 overflow-hidden rounded-lg">
                         <img
@@ -120,6 +120,6 @@ export default function PostDetail() {
                     </div>
                 )}
             </div>
-           </div>
+        </div>
     );
 }
