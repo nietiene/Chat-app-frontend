@@ -180,7 +180,7 @@ export default function Dashboard() {
            </div>
 
 
-           <div className="sticky top-3 z-10 mb-4 bg-white py-2">
+           <div className="sticky top-12 z-10 mb-4 bg-white py-2">
               <h2 className="text-xl font-semibold text-gray-700 border-b border-gray-200 pb-2 px-1">
                 Recent Posts
              </h2>
