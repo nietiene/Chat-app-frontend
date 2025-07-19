@@ -22,7 +22,7 @@ export default function Dashboard() {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [oldPassword, setOldPassword] = useState("");
-    const [newPassword, setewPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
     const [message, setMessage] = useState("");
     
    useEffect(() => {
@@ -55,6 +55,11 @@ const handleSettingSubmit = async (e) => {
         );
 
         setMessage(res.data.message);
+        setNewPassword("");
+        setOldPassword("");
+
+    } catch (err) {
+        setMessage(err.response.data?.message || "Update failed");
     }
 }
 
