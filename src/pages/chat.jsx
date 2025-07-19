@@ -574,6 +574,10 @@ function formatTimeStamp(timestamp) {
 
                                 {selectedUser ? (
                                  <>
+                                   {(() => {
+                                    const user = allUsers.find(u => u.name === selectedUser);
+                                    const isOnline = user && user.user_id &&
+                                   })}
                                     <p className={`text-xs ${
                                         onlineUsers.includes(selectedUser) ? 'text-green-600' : 'text-gray-500'
                                     }`}>
