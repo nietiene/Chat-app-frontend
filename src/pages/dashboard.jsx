@@ -398,14 +398,14 @@ const handleSettingSubmit = async (e) => {
             />
 
             <label className="block mb-2 text-sm font-medium text-gray-500">Old Password:</label>
-            <input type="text"
+            <input type="password"
               placeholder="Type an old password"
               className="w-full px-4 py-2 mb-2 border rounded  border-blue-100 focus:outline-blue-500 text-gray-500 font-medium"
               onChange={(e) => setOldPassword(e.target.value)}
             />
 
             <label className="block mb-2 text-sm font-medium text-gray-500">New Password:</label>
-            <input type="text"
+            <input type="password"
               className="w-full px-4 py-2 mb-2 border rounded  border-blue-100 focus:outline-blue-500 text-gray-500 font-medium"
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="Type a new password"
@@ -413,7 +413,7 @@ const handleSettingSubmit = async (e) => {
 
             <button
              type="button"
-             className="bg-blue-400 text-white px-3 py-2 rounded hover:bg-blue-300 transition duration-200 disabled:bg-gray-400 cursor-not-allowed"
+             className="bg-blue-400 text-white px-3 py-2 rounded hover:bg-blue-300 transition duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
                disabled={(!name || !phone || !oldPassword || !newPassword)}
             >
                 Save
