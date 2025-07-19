@@ -63,7 +63,7 @@ export default function Notification () {
            console.error('Error handling notification', error);
          // Revert (Add) read status if error occurs
             setNotifications(prev => prev.map(n =>
-                n.id === notification.id ? {...n, is_read: 0} : n
+                n.id === notification.id ? { ...n, is_read: 0 } : n
             ));
         }
     }
