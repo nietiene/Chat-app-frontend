@@ -371,7 +371,7 @@ const handleSettingSubmit = async (e) => {
     )}
 {showSettingModal && (
  <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-     <div className="bg-white p-6 rounded shadow-md max-w-md w-full">
+     <div className="bg-white p-6 rounded shadow-2xl max-w-md w-full">
         <div className="flex justify-between">
              <h3 className="text-lg font-semibold mb-4 text-gray-600">Edit Settings</h3>
                <button 
