@@ -585,8 +585,8 @@ function formatTimeStamp(timestamp) {
                                     >
                                           {isOnline ? 'Online' : 'Offline'}
                                     </p>
-                                    )
-                                   })}
+                                    );
+                                   })()}
 
                                 </>
                                 ) : (
