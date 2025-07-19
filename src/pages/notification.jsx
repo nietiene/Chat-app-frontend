@@ -45,7 +45,7 @@ export default function Notification () {
                     navigate(`/user/${notification.sender_id}`);
                     break;
                  case 'New post':
-                    navigate(`/post/${notification.content.post_id}`) // 
+                    navigate(`/post/${notification.content}`) // 
                     break;
                  default:
                    const response = await api.post(`/api/notification/${notification.id}/action`, {}, { withCredentials: true });
