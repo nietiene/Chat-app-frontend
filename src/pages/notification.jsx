@@ -65,7 +65,6 @@ export default function Notification () {
                 n.id === notification.id ? {...n, is_read: 0} : n
             ));
         }
-        }
     }
 
     return (
@@ -74,6 +73,7 @@ export default function Notification () {
 
             <ul>
                 {notifications.map((n) => (
+
                     <li key={n.id} className={`text-sm border-b py-1 cursor-pointer hover:bg-gray-100 ${
                         n.is_read ? 'opacity-70' : 'font-semibold'
                     }`}
@@ -93,7 +93,8 @@ export default function Notification () {
                             {n.sender_name}
                         </span>
                         {' '} {/*Add space between elements */}
-                        {n.type === 'profile_update' ? 'Update their profile picture' : n.content}
+                        {n.type === 'profile_update' ? 'Update their profile picture' 
+                                                     : n.type === 'New post' ? 'shared a new post' : n.content}
                         
                         <span className="text-gray-400 text-xs">
                             {new Date(n.created_at).toLocaleTimeString()}
