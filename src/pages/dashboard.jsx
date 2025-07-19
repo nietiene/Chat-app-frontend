@@ -13,6 +13,7 @@ export default function Dashboard() {
     const [profileImage, setProfileImage] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [showPostForm, setShowPostForm] = useState(false);
+    const [profileMenu, setShowProfileMenu] = useState(false);
     const [post, setPost] = useState([]);
     const navigate = useNavigate();
 
