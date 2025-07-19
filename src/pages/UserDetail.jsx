@@ -7,6 +7,8 @@ export default function UserDetail() {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
+        console.log("Calling API with user_id:", user_id); // ✅ Debug log
+
         api.get(`/api/user/${user_id}`, { withCredentials: true })
         .then(res => setUser(res.data))
         .catch(err => console.error('Failed to fetch user:', err));
