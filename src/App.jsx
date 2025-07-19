@@ -18,19 +18,20 @@ function App() {
 
          <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+
          
             <Route element={<Layout/>}>
-               <Route path="/register" element={<Register />} />
                <Route path="/dashboard" element={<Dashboard />} />
                <Route path="/dashboard/postId" element={<Dashboard />} />
                <Route path="/chat" element={<Chat />}/>
                <Route path="/create-group" element={<CreateGroup />}/>
                <Route path="/group-members/:g_id" element={<GroupMember />}/>
                <Route path="/changeGroupName/:g_id" element={<ChangeGroupName />}/>
-                <Route path="/changeGroupPhoto/:g_id" element={<ChangeGroupPhoto />}/>
-                <Route path="/notifications" element={<Notification />}/>
-                <Route path="/post/:id" element={<PostDetail />}/>
-                <Route path="/user/:user_id" element={<UserDetail />}/>
+               <Route path="/changeGroupPhoto/:g_id" element={<ChangeGroupPhoto />}/>
+               <Route path="/notifications" element={<Notification />}/>
+               <Route path="/post/:id" element={<PostDetail />}/>
+               <Route path="/user/:user_id" element={<UserDetail />}/>
            </Route>
          </Routes>
 
