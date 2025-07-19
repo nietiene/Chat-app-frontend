@@ -78,7 +78,9 @@ export default function Notification () {
                         <span className="font-semibold capitalize">
                             {n.sender_name}
                         </span>
+                        {' '} {/*Add space between elements */}
                         {n.type === 'profile_update' ? 'Update their profile picture' : n.content}
+                        
                         <span className="text-gray-400 text-xs">
                             {new Date(n.created_at).toLocaleTimeString()}
                         </span>
