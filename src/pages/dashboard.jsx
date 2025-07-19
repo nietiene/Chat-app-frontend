@@ -331,7 +331,8 @@ export default function Dashboard() {
 
                <button 
                   onClick={() => setShowSettingModal(false)}
-                  className=" px-4 py-2 text-red-500 rounded hover:text-red-600"
+                  className=" px-4 py-2 text-red-500 rounded hover:text-red-600 font-bold text-xcls
+                  l"
                 >
                     <FaTimes />
             </button>
