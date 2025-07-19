@@ -168,6 +168,7 @@ export default function Dashboard() {
 
           <main className="flex-1 ml-64 overflow-y-auto p-6 bg-white h-screen">
 
+           <div className="sticky -top-6 z-2 mb-4 bg-white py-2">
             {['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
             <button 
               onClick={() => setShowPostForm(true)}
@@ -176,10 +177,14 @@ export default function Dashboard() {
                 Create Post
             </button>
           )} 
+           </div>
 
-           <h2 className="text-xl font-semibold text-gray-700 border-b border-gray-200 pb-2 px-1">
-              Recent Posts
-           </h2>
+
+           <div className="sticky top-3 z-10 mb-4 bg-white py-2">
+              <h2 className="text-xl font-semibold text-gray-700 border-b border-gray-200 pb-2 px-1">
+                Recent Posts
+             </h2>
+           </div>
 
               {post.map((post) => {
               return (
