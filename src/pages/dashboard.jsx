@@ -13,7 +13,7 @@ export default function Dashboard() {
     const [profileImage, setProfileImage] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [showPostForm, setShowPostForm] = useState(false);
-    const [profileMenu, setShowProfileMenu] = useState(false);
+    const [showprofileMenu, setShowProfileMenu] = useState(false);
     const [post, setPost] = useState([]);
     const navigate = useNavigate();
 
@@ -147,12 +147,18 @@ const handleSettingSubmit = async (e) => {
       </div>
     )}
 
-       <label
+    <div className="absolute bottom-0 right-0 bg-white rounded-full shadow p-1 cursor-pointer hover:bg-blue-100  group/edit">
+          <FaCamera className="text-blue-600 text-lg"
+            onClick={() => setShowProfileMenu(true)} 
+        />
+    </div>
+
+    {showprofileMenu}
+    <label
       htmlFor="profileUpload"
       title="Change profile photo"
       className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-full cursor-pointer transition-opacity duration-200"
     >
-      <FaCamera className="text-white text-xl" />
     </label>
     <input
       id="profileUpload"
