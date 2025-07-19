@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useEffect } from "react";
 import  { FaCamera } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 
 export default function Dashboard() {
     const [user, setUser] = useState("");
@@ -12,6 +13,7 @@ export default function Dashboard() {
     const [profileImage, setProfileImage] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [showPostForm, setShowPostForm] = useState(false);
+    
     const [post, setPost] = useState([]);
     const navigate = useNavigate();
 
@@ -254,7 +256,17 @@ export default function Dashboard() {
 
    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 shadow-lg">
             <div className="bg-white p-6 rounded shadow-lg w-full max-w-md mx-4">
-                
+             <div className="flex justify-end">
+                <button
+                 type="button"
+                 onClick={() => setShowPostForm(false)}
+                 className="text-red-500 hover:text-red-700 focus:outline-none"
+                 aria-label="Close Modal"
+                >
+                    {<FaTimes size={20}/>}
+                </button>
+            </div>   
+
             <form
                 className="flex flex-col gap-4"
                 onSubmit={(e) => {
