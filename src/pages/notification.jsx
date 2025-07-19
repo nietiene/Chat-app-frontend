@@ -40,7 +40,7 @@ export default function Notification () {
             ));
 
             await api.put(`/api/notifications/${notification.id}/read`, {}, { withCredentials: true });
-            
+
             //Handle different notification type
             switch (notification.type) {
                 case 'profile_update':
@@ -51,7 +51,6 @@ export default function Notification () {
                     break;
                  default:
                    const response = await api.post(`/api/notification/${notification.id}/action`, {}, { withCredentials: true });
-                  
                     // navigate to specified page base on type of notification
                    navigate(response.data.redirectTo, {
                       state: response.data.state
