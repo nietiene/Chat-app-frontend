@@ -153,7 +153,9 @@ const handleSettingSubmit = async (e) => {
         />
     </div>
 
-    {showprofileMenu}
+    {showprofileMenu && (
+        <div className="absolute z-10 bottom-10 ring-0 bg-white border"></div>
+    )}
     <label
       htmlFor="profileUpload"
       title="Change profile photo"
