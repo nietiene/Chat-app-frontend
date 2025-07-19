@@ -217,7 +217,24 @@ const handleSettingSubmit = async (e) => {
 
 {showFullProfile && (
     <div
-     className="fixed inset-0 bg-black bg-opacity-70 flex items-center"></div>
+     className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+        <div className="bg-white p-4 rounded-lg relative">
+            <button
+             className="absolute top-2 right-2 text-gray-400 hover:text-red-500"
+             onClick={() => setShowFullProfile(false)}
+            >
+                <FaTimes size={18}/>
+            </button>
+
+            {user.profile_image ? (
+                <img src={`http://localhost:4000/uploads/${user.profile_image}`} alt="Full Profile" 
+                  className="w-80 h-80 rounded-full object-cover border"
+               />
+            ) : (
+                <p>No profile image found</p>
+            )}
+        </div>
+     </div>
 )}
 
  
