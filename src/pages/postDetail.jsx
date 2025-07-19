@@ -54,7 +54,7 @@ export default function PostDetail() {
     );
     
     if (!post) return (
-        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-90 z-50">
+        <div className="bg-white p-4 min-h-screen overflow-y-auto">
             <div className="bg-white p-6 rounded-lg shadow-md max-w-md text-center border border-gray-200">
                 <p className="text-gray-700 font-medium">Post not found</p>
                 <button 
