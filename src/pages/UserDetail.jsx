@@ -1,20 +1,21 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../api";
+import { X } from "lucide-react ";
 
 export default function UserDetail() {
     const { user_id } = useParams();
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("Calling API with user_id:", user_id); // ✅ Debug log
 
         api.get(`/api/users/${user_id}`, { withCredentials: true })
         .then(res => setUser(res.data))
         .catch(err => console.error('Failed to fetch user:', err));
     }, [user_id]);
 
-    if (!user) return <p className="p-4">Loading user profie....</p>
+    if (!user) return <p className="p-4 text-center text-gray-500">Loading user profie....</p>
 
 
     return (
