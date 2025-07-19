@@ -23,7 +23,6 @@ export default function Chat() {
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
-    const selectedUserData = allUsers.find(u => u.id === selectedUser); // find user for selectedUser ID
     const handleDeletePrivateMessage = async (m_id) => {
         const confirmDelete = window.confirm('Are you sure?');
         if (!confirmDelete) return;
@@ -448,7 +447,7 @@ function formatTimeStamp(timestamp) {
                                 }`}
                                 onClick={() => {
                                     setSelectedGroup(null);
-                                    setSelectedUser(user.id);
+                                    setSelectedUser(user.name);
                                 }}
                             >
 
@@ -463,7 +462,7 @@ function formatTimeStamp(timestamp) {
                                     </div>
                                     )}
 
-                                    {onlineUsers.includes(user.id.toString()) && (
+                                    {onlineUsers.includes(user.id?.toString() || '') && (
                                         <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                                     )}
                                 </div>
