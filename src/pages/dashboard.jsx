@@ -400,18 +400,25 @@ const handleSettingSubmit = async (e) => {
 
             <label className="block mb-2 text-sm font-medium">Old Password:</label>
             <input type="text"
-              value={oldPassword} 
+              placeholder="Type an old password"
               className="w-full px-4 py-2 mb-2 border rounded"
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => setOldPassword(e.target.value)}
             />
 
-            <label className="block mb-2 text-sm font-medium">Phone:</label>
+            <label className="block mb-2 text-sm font-medium">New Password:</label>
             <input type="text"
-              value={phone} 
               className="w-full px-4 py-2 mb-2 border rounded"
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Type a new password"
             />
+
+            <button
+             type="button"
+             className="bg-blue-200 text-white px-3 py-2 rounded"></button>
         </form>
+        {message && (
+            <p className="mt-3 text-sm text-center text-blue-600">{message}</p>
+        )}
     </div>
   </div>
 )}
