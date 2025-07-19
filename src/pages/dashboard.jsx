@@ -386,27 +386,27 @@ const handleSettingSubmit = async (e) => {
             <label className="block mb-2 text-sm font-medium text-gray-500">Name:</label>
             <input type="text"
                value={name}
-               className="w-full px-4 py-2 mb-4 border border-blue-100 rounded focus:outline-blue-500 "
+               className="w-full px-4 py-2 mb-4 border border-blue-100 rounded focus:outline-blue-500 text-gray-500 font-medium"
                onChange={(e) => setName(e.target.value)}
             />
 
             <label className="block mb-2 text-sm font-medium text-gray-500">Phone:</label>
             <input type="text"
               value={phone} 
-              className="w-full px-4 py-2 mb-2 border rounded  border-blue-100  focus:outline-blue-500 "
+              className="w-full px-4 py-2 mb-2 border rounded  border-blue-100  focus:outline-blue-500 text-gray-500 font-medium"
               onChange={(e) => setPhone(e.target.value)}
             />
 
             <label className="block mb-2 text-sm font-medium text-gray-500">Old Password:</label>
             <input type="text"
               placeholder="Type an old password"
-              className="w-full px-4 py-2 mb-2 border rounded  border-blue-100 focus:outline-blue-500 "
+              className="w-full px-4 py-2 mb-2 border rounded  border-blue-100 focus:outline-blue-500 text-gray-500 font-medium"
               onChange={(e) => setOldPassword(e.target.value)}
             />
 
             <label className="block mb-2 text-sm font-medium text-gray-500">New Password:</label>
             <input type="text"
-              className="w-full px-4 py-2 mb-2 border rounded  border-blue-100 focus:outline-blue-500 "
+              className="w-full px-4 py-2 mb-2 border rounded  border-blue-100 focus:outline-blue-500 text-gray-500 font-medium"
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="Type a new password"
             />
