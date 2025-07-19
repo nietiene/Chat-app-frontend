@@ -161,14 +161,18 @@ export default function Dashboard() {
     </div>
   </div>
 </div>
-       {showPostForm && (         
-                       
+
+  {showPostForm && (                  
     {/* displayed for specific roles */}
-    {['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
-        <div className="pb-6">
+    ['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <form
                 className="flex flex-col gap-4"
-                onSubmit={handlePostSubmit}
+                onSubmit={(e) => {
+                    handlePostSubmit(e);
+                   setShowPostForm(false); // close modal after submit
+
+                }}
                 encType="multipart/form-data"
             >
          
@@ -200,8 +204,8 @@ export default function Dashboard() {
                 </button>
             </form>
         </div>
-    )}
-      )}
+    )
+  )}
    
 </aside>
 
