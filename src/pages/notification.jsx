@@ -45,16 +45,21 @@ export default function Notification () {
                     navigate(`/user/${notification.sender_id}`);
                     break;
                  case 'New post':
-                    navigate()   
+                    navigate(`/post/${notification.content.post_id}`) // 
+                    break;
+                 default:
+                   const response = await api.post(`/api/notification/${notification.id}/action`, {}, { withCredentials: true });
+                  
+                    // navigate to specified page base on type of notification
+                   navigate(response.data.redirectTo, {
+                      state: response.data.state
+                  });
+
             }
             if (notification.type === 'profile_update') {
                 navigate(`/user/${notification.sender_id}`);
             } else {
-               const response = await api.post(`/api/notification/${notification.id}/action`, {}, { withCredentials: true });
-                           // navigate to specified page base on type of notification
-               navigate(response.data.redirectTo, {
-                  state: response.data.state
-               });
+
             }
 
         } catch (error) {
