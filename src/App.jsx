@@ -30,7 +30,7 @@ function App() {
                 <Route path="/changeGroupPhoto/:g_id" element={<ChangeGroupPhoto />}/>
                 <Route path="/notifications" element={<Notification />}/>
                 <Route path="/post/:id" element={<PostDetail />}/>
-                <Route path="/user/:id" element={<UserDetail />}/>
+                <Route path="/user/:user_id" element={<UserDetail />}/>
            </Route>
          </Routes>
 
