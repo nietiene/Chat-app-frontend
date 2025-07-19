@@ -10,7 +10,7 @@ export default function UserDetail() {
         api.get(`/api/user/${user_id}`, { withCredentials: true })
         .then(res => setUser(res.data))
         .catch(err => console.error('Failed to fetch user:', err));
-    }, [id]);
+    }, [user_id]);
 
     if (!user) return <p className="p-4">Loading user profie....</p>
 
