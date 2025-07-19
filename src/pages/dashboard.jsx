@@ -30,7 +30,7 @@ export default function Dashboard() {
     const handleUpdateSettings = async () => {
 
         try {
-          const res = api.get('/api/settings/me', { withCredentials: true });
+          const res = await api.get('/api/settings/me', { withCredentials: true });
           setName(res.data.name || "");
           setPhone(res.data.phone || "");
 
@@ -421,6 +421,6 @@ const handleSettingSubmit = async (e) => {
     </div>
   </div>
 )}
-         </div>
+</div>
     )
 }
