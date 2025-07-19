@@ -212,12 +212,22 @@ const handleSettingSubmit = async (e) => {
     </div>
   </div>
   <div>
-    <button
-       onClick={() => setShowSettingModal(true)}
-        className="px-4 py-2 bg-blue-600 text-white rounded mt-4"
-       >
-        Settings
-       </button>
+<button
+  onClick={() => setShowSettingModal(true)}
+  className="flex items-center gap-2 rounded-2xl bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 text-sm font-medium shadow-md transition duration-200 mt-4"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-4 w-4"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.25 3c.41 0 .75.34.75.75v.82a7.5 7.5 0 012.49.77l.58-.58a.75.75 0 111.06 1.06l-.58.58c.4.74.7 1.54.86 2.39h.82a.75.75 0 010 1.5h-.82a7.53 7.53 0 01-.86 2.39l.58.58a.75.75 0 11-1.06 1.06l-.58-.58a7.5 7.5 0 01-2.49.77v.82a.75.75 0 01-1.5 0v-.82a7.5 7.5 0 01-2.49-.77l-.58.58a.75.75 0 11-1.06-1.06l.58-.58a7.53 7.53 0 01-.86-2.39h-.82a.75.75 0 010-1.5h.82a7.53 7.53 0 01.86-2.39l-.58-.58a.75.75 0 111.06-1.06l.58.58a7.5 7.5 0 012.49-.77v-.82c0-.41.34-.75.75-.75z" />
+  </svg>
+  Settings
+</button>
+
 </div>
 </div>
 
