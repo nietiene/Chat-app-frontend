@@ -373,7 +373,7 @@ const handleSettingSubmit = async (e) => {
  <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
      <div className="bg-white p-6 rounded shadow-md max-w-md w-full">
         <div className="flex justify-between">
-             <h3 className="text-lg font-semibold mb-4">Edit Settings</h3>
+             <h3 className="text-lg font-semibold mb-4 text-gray-600">Edit Settings</h3>
                <button 
                   onClick={() => setShowSettingModal(false)}
                   className=" px-4 py-2 text-red-500 rounded hover:text-red-600 font-bold text-xcls
@@ -384,30 +384,30 @@ const handleSettingSubmit = async (e) => {
         </div>
 
         <form onSubmit={handleSettingSubmit}>
-            <label className="block mb-2 text-sm font-medium">Name:</label>
+            <label className="block mb-2 text-sm font-medium text-gray-500">Name:</label>
             <input type="text"
                value={name}
                className="w-full px-4 py-2 mb-4 border border-blue-100 rounded focus:outline-blue-500 "
                onChange={(e) => setName(e.target.value)}
             />
 
-            <label className="block mb-2 text-sm font-medium">Phone:</label>
+            <label className="block mb-2 text-sm font-medium text-gray-500">Phone:</label>
             <input type="text"
               value={phone} 
-              className="w-full px-4 py-2 mb-2 border rounded"
+              className="w-full px-4 py-2 mb-2 border rounded  border-blue-100  focus:outline-blue-500 "
               onChange={(e) => setPhone(e.target.value)}
             />
 
-            <label className="block mb-2 text-sm font-medium">Old Password:</label>
+            <label className="block mb-2 text-sm font-medium text-gray-500">Old Password:</label>
             <input type="text"
               placeholder="Type an old password"
-              className="w-full px-4 py-2 mb-2 border rounded"
+              className="w-full px-4 py-2 mb-2 border rounded  border-blue-100 focus:outline-blue-500 "
               onChange={(e) => setOldPassword(e.target.value)}
             />
 
-            <label className="block mb-2 text-sm font-medium">New Password:</label>
+            <label className="block mb-2 text-sm font-medium text-gray-500">New Password:</label>
             <input type="text"
-              className="w-full px-4 py-2 mb-2 border rounded"
+              className="w-full px-4 py-2 mb-2 border rounded  border-blue-100 focus:outline-blue-500 "
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="Type a new password"
             />
