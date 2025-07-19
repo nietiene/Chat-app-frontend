@@ -165,6 +165,9 @@ const handleSettingSubmit = async (e) => {
             >
                 View Profile Pictute
             </button>
+
+            <label htmlFor="profileUpload"
+              className="w-full block px-4 py-2 hover:bg-gray-100 text-left cursor-pointer"></label>
         </div>
     )}
     <label
