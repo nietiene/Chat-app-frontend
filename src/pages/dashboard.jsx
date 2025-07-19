@@ -167,21 +167,20 @@ const handleSettingSubmit = async (e) => {
             </button>
 
             <label htmlFor="profileUpload"
-              className="w-full block px-4 py-2 hover:bg-gray-100 text-left cursor-pointer"></label>
+              className="w-full block px-4 py-2 hover:bg-gray-100 text-left cursor-pointer"
+            >
+                Change Profile Picture
+            </label>
         </div>
     )}
-    <label
-      htmlFor="profileUpload"
-      title="Change profile photo"
-      className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-full cursor-pointer transition-opacity duration-200"
-    >
-    </label>
+ 
     <input
       id="profileUpload"
       type="file"
       accept="image/*"
       className="hidden"
       onChange={ async (e) => {
+        setShowProfileMenu(false);
         if (e.target.files && e.target.files[0]) {
             setProfileImage(URL.createObjectURL(e.target.files[0]));
             setSelectedFile(e.target.files[0]);
@@ -216,6 +215,10 @@ const handleSettingSubmit = async (e) => {
     
   </div> 
 
+{showFullProfile && (
+    <div
+     className="fixed inset-0 bg-black bg-opacity-70 flex items-center"></div>
+)}
 
  
   {/* User Info */}
