@@ -11,6 +11,7 @@ export default function Dashboard() {
     const [image, setImage] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [showPostForm, setShowPostForm] = useState(false);
     const [post, setPost] = useState([]);
     const navigate = useNavigate();
 
@@ -160,6 +161,8 @@ export default function Dashboard() {
     </div>
   </div>
 </div>
+       {showPostForm && (         
+                       
     {/* displayed for specific roles */}
     {['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
         <div className="pb-6">
@@ -168,6 +171,7 @@ export default function Dashboard() {
                 onSubmit={handlePostSubmit}
                 encType="multipart/form-data"
             >
+         
                 <h3 className="text-sm font-semibold text-gray-700">Create Post</h3>
                 
                 <textarea 
@@ -197,9 +201,17 @@ export default function Dashboard() {
             </form>
         </div>
     )}
+      )}
+   
 </aside>
 
           <main className="flex-1 ml-64 overflow-y-auto p-6 bg-white h-screen">
+            <button 
+              onClick={() => setShowPostForm(true)}
+              className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+                Create Post
+            </button>
            <h2 className="text-xl font-semibold text-gray-700 border-b border-gray-200 pb-2 px-1">
               Recent Posts
            </h2>
