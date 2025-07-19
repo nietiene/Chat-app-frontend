@@ -439,6 +439,7 @@ function formatTimeStamp(timestamp) {
                     <div className="divide-y divide-gray-100">
                         {allUsers.map(user => {
 
+                        console.log('Checking online status for user:', user.name, 'id:', user.id, 'onlineUsers:', onlineUsers);
 
                             return (<div 
                                 key={user.name}
@@ -462,7 +463,7 @@ function formatTimeStamp(timestamp) {
                                     </div>
                                     )}
 
-                                    {onlineUsers.includes(user.id?.toString() || '') && (
+                                    {user.id && onlineUsers.includes(user.id.toString()) && (
                                         <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                                     )}
                                 </div>
