@@ -166,6 +166,8 @@ export default function Dashboard() {
     {/* displayed for specific roles */}
     ['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-6 rounded shadow-lg w-full max-w-md mx-4">
+                
             <form
                 className="flex flex-col gap-4"
                 onSubmit={(e) => {
@@ -204,6 +206,8 @@ export default function Dashboard() {
                 </button>
             </form>
         </div>
+   </div>
+
     )
   )}
    
