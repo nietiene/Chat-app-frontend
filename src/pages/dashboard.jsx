@@ -30,12 +30,12 @@ export default function Dashboard() {
     const handleUpdateSettings = async () => {
 
         try {
-          const res = api.get(api.get('/api/settings/me', { withCredentials: true }));
+          const res = api.get('/api/settings/me', { withCredentials: true });
           setName(res.data.name || "");
           setPhone(res.data.phone || "");
 
         } catch (error) {
-          console.error(err);
+          console.error(error);
        }
 
 }
@@ -127,13 +127,12 @@ const handleSettingSubmit = async (e) => {
 
     return (
  <div className="min-h-screen flex ">
-{/* Left side profile */}
 <aside className="w-64 bg-white p-6 border-r border-gray-200 shadow-sm fixed top-16 left-0 bottom-0 z-10 overflow-y-auto">
-    {/* Profile Header */}
+
     <h2 className="text-xl font-semibold text-gray-800 mb-6">My Profile</h2>
 
 <div className="mb-8">
-  {/* Profile Image Upload Area */}
+
   <div className="relative group w-20 h-20 mb-4">
     {user.profile_image ? (
       <img
