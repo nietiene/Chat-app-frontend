@@ -13,6 +13,7 @@ export default function Dashboard() {
     const [profileImage, setProfileImage] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [showPostForm, setShowPostForm] = useState(false);
+    const [showSettingModal, setShowSettingModal] = useState(false);
     
     const [post, setPost] = useState([]);
     const navigate = useNavigate();
@@ -146,6 +147,14 @@ export default function Dashboard() {
     
   </div> 
 
+<div>
+    <button
+       onClick={() => setShowSettingModal(true)}
+        className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+       >
+        Settings
+       </button>
+</div>
  
   {/* User Info */}
   <div className="space-y-3 text-sm text-gray-700">
@@ -310,6 +319,28 @@ export default function Dashboard() {
         </div>
    </div>
 
+    )}
+
+    {showSettingModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+
+            <div className="bg-white p-6 rounded shadow-md max-w-md w-full">
+                
+        <div className="flex justify-between">
+             <h3 className="text-lg font-semibold mb-4">Settings</h3>
+
+               <button 
+                  onClick={() => setShowSettingModal(false)}
+                  className=" px-4 py-2 text-red-500 rounded hover:text-red-600"
+                >
+                    <FaTimes />
+            </button>
+                </div>
+
+
+
+            </div>
+        </div>
     )}
          </div>
     )
