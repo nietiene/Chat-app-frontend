@@ -36,9 +36,11 @@ export default function Notification () {
 
             // Mark as read first
             setNotifications(prev => prev.map(n =>
-                n.id === notification.id ? {...n, is_read: 1} : n
+                n.id === notification.id ? { ...n, is_read: 1 } : n
             ));
 
+            await api.put(`/api/notifications/${notification.id}/read`, {}, { withCredentials: true });
+            
             //Handle different notification type
             switch (notification.type) {
                 case 'profile_update':
