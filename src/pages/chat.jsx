@@ -23,6 +23,7 @@ export default function Chat() {
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
+    const selectedUserData = allUsers.find(u => u.id === selectedUser); // find user for selectedUser ID
     const handleDeletePrivateMessage = async (m_id) => {
         const confirmDelete = window.confirm('Are you sure?');
         if (!confirmDelete) return;
