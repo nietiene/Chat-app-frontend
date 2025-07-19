@@ -394,7 +394,23 @@ const handleSettingSubmit = async (e) => {
             <label className="block mb-2 text-sm font-medium">Phone:</label>
             <input type="text"
               value={phone} 
-              />
+              className="w-full px-4 py-2 mb-2 border rounded"
+              onChange={(e) => setPhone(e.target.value)}
+            />
+
+            <label className="block mb-2 text-sm font-medium">Old Password:</label>
+            <input type="text"
+              value={oldPassword} 
+              className="w-full px-4 py-2 mb-2 border rounded"
+              onChange={(e) => setPhone(e.target.value)}
+            />
+
+            <label className="block mb-2 text-sm font-medium">Phone:</label>
+            <input type="text"
+              value={phone} 
+              className="w-full px-4 py-2 mb-2 border rounded"
+              onChange={(e) => setPhone(e.target.value)}
+            />
         </form>
     </div>
   </div>
