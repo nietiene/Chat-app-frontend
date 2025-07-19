@@ -13,7 +13,14 @@ export default function Dashboard() {
     const [profileImage, setProfileImage] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [showPostForm, setShowPostForm] = useState(false);
+
+    //for setting customization
     const [showSettingModal, setShowSettingModal] = useState(false);
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setewPassword] = useState("");
+    const [message, setMessage] = useState("");
     
     const [post, setPost] = useState([]);
     const navigate = useNavigate();
