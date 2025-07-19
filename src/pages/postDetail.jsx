@@ -69,8 +69,8 @@ export default function PostDetail() {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
-            {/* Header with close button */}
-            <div className="sticky top-0 bg-white z-10 p-4 border-b border-gray-200 flex justify-between items-center">
+
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 text-center max-w-md w-full">
                 <button 
                     onClick={handleClose}
                     className="text-gray-500 hover:text-red-500 focus:outline-none transition border-blue-200 border-4"
