@@ -45,9 +45,16 @@ export default function Dashboard() {
 
 const handleSettingSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
 
+        const res = await api.post(
+            "/api/settings/update", 
+            {name, phone, oldPassword, newPassword },
+            { withCredentials: true }
+        );
+
+        setMessage(res.data.message);
     }
 }
 
