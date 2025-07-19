@@ -13,6 +13,9 @@ export default function Dashboard() {
     const [profileImage, setProfileImage] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [showPostForm, setShowPostForm] = useState(false);
+    const [post, setPost] = useState([]);
+    const navigate = useNavigate();
+
 
     //for setting customization
     const [showSettingModal, setShowSettingModal] = useState(false);
@@ -22,9 +25,20 @@ export default function Dashboard() {
     const [newPassword, setewPassword] = useState("");
     const [message, setMessage] = useState("");
     
-    const [post, setPost] = useState([]);
-    const navigate = useNavigate();
+   useEffect(() => {
+    try {
+        const res = api.get(api.get('/api/settings/me', { withCredentials: true }));
+        setName(res.data.name || "");
+        setPhone(res.data.phone || "");
+        
+    } catch (error) {
 
+    }
+     
+   })
+
+
+    // new code
     const handlePostSubmit = async (e) => {
         e.preventDefault();
 
