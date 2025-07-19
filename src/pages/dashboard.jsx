@@ -26,16 +26,30 @@ export default function Dashboard() {
     const [message, setMessage] = useState("");
     
    useEffect(() => {
+
+    const handleUpdateSettings = async () => {
+
+        try {
+          const res = api.get(api.get('/api/settings/me', { withCredentials: true }));
+          setName(res.data.name || "");
+          setPhone(res.data.phone || "");
+
+        } catch (error) {
+          console.error(err);
+       }
+
+}
+  handleUpdateSettings();
+  
+}, []);
+
+const handleSettingSubmit = async (e) => {
+    e.preventDefault();
+    
     try {
-        const res = api.get(api.get('/api/settings/me', { withCredentials: true }));
-        setName(res.data.name || "");
-        setPhone(res.data.phone || "");
-        
-    } catch (error) {
 
     }
-     
-   })
+}
 
 
     // new code
