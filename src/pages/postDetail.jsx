@@ -68,7 +68,7 @@ export default function PostDetail() {
     );
 
     return (
-        <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
+        <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
             {/* Header with close button */}
             <div className="sticky top-0 bg-white z-10 p-4 border-b border-gray-200 flex justify-between items-center">
                 <button 
