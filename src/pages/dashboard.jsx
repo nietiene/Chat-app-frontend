@@ -147,17 +147,11 @@ export default function Dashboard() {
     
   </div> 
 
-<div>
-    <button
-       onClick={() => setShowSettingModal(true)}
-        className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
-       >
-        Settings
-       </button>
-</div>
+
  
   {/* User Info */}
   <div className="space-y-3 text-sm text-gray-700">
+
     <div className="flex flex-col items-start">
       <span className="text-xs font-medium text-gray-500">Name</span>
       <span className="font-medium">{user.name}</span>
@@ -171,6 +165,14 @@ export default function Dashboard() {
       <span className="font-medium capitalize">{user.role}</span>
     </div>
   </div>
+  <div>
+    <button
+       onClick={() => setShowSettingModal(true)}
+        className="px-4 py-2 bg-blue-600 text-white rounded mt-4"
+       >
+        Settings
+       </button>
+</div>
 </div>
 
 </aside>
