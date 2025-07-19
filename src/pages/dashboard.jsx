@@ -14,6 +14,7 @@ export default function Dashboard() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [showPostForm, setShowPostForm] = useState(false);
     const [showprofileMenu, setShowProfileMenu] = useState(false);
+    const [showFullProfile,  setShowFullProfile] = useState(false); // for showing profile image
     const [post, setPost] = useState([]);
     const navigate = useNavigate();
 
@@ -154,7 +155,17 @@ const handleSettingSubmit = async (e) => {
     </div>
 
     {showprofileMenu && (
-        <div className="absolute z-10 bottom-10 ring-0 bg-white border"></div>
+        <div className="absolute z-10 bottom-10 ring-0 bg-white border rounded shadow-md text-sm w-40">
+            <button
+            onClick={() => {
+                setShowProfileMenu(false);
+                setShowFullProfile(true);
+            }}
+             className="w-full px-4 py-2 hover:bg-gray-100 text-left"
+            >
+                View Profile Pictute
+            </button>
+        </div>
     )}
     <label
       htmlFor="profileUpload"
