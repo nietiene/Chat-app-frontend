@@ -387,7 +387,7 @@ const handleSettingSubmit = async (e) => {
             <label className="block mb-2 text-sm font-medium">Name:</label>
             <input type="text"
                value={name}
-               className="w-full px-4 py-2 mb-4 border rounded"
+               className="w-full px-4 py-2 mb-4 border border-blue-100 rounded focus:outline-blue-500 "
                onChange={(e) => setName(e.target.value)}
             />
 
