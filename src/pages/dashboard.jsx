@@ -414,7 +414,7 @@ const handleSettingSubmit = async (e) => {
             <button
              type="sumbit"
              className="bg-blue-400 text-white px-3 py-2 rounded hover:bg-blue-300 transition duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
-               disabled={(!name && !phone && !oldPassword && !newPassword)}
+               disabled={((!name && !phone && !newPassword))}
             >
                 Save
         </button>
