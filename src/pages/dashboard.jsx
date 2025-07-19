@@ -413,7 +413,11 @@ const handleSettingSubmit = async (e) => {
 
             <button
              type="button"
-             className="bg-blue-400 text-white px-3 py-2 rounded hover:bg-blue-300 transition duration-200">Save</button>
+             className="bg-blue-400 text-white px-3 py-2 rounded hover:bg-blue-300 transition duration-200 disabled:bg-gray-400 cursor-not-allowed"
+               disabled={(!name || !phone || !oldPassword || !newPassword)}
+            >
+                Save
+        </button>
         </form>
         {message && (
             <p className="mt-3 text-sm text-center text-blue-600">{message}</p>
