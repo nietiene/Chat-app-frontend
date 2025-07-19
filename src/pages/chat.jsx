@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
+import { List } from 'lucide-react';
 
 const socket = io('http://localhost:4000', { withCredentials: true });
 
@@ -228,14 +229,19 @@ export default function Chat() {
             }
         
         )};
-        
+    
 
+        const handleUserList = (list) => {
+            console.log('Online users from socket:', list);
+            setOnlineUsers(list);
+        }
+        
         socket.on('privateMessage', handlePrivateMessage);
-        socket.on('userList', setOnlineUsers);
+        socket.on('userList', handleUserList);
 
         return () => {
             socket.off('privateMessage', handlePrivateMessage);
-            socket.off('userList');
+            socket.off('userList', handleUserList);
         };
     }, [myName, selectedUser]);
 
@@ -441,7 +447,7 @@ function formatTimeStamp(timestamp) {
                                 }`}
                                 onClick={() => {
                                     setSelectedGroup(null);
-                                    setSelectedUser(user.name);
+                                    setSelectedUser(user.id);
                                 }}
                             >
 
@@ -456,7 +462,7 @@ function formatTimeStamp(timestamp) {
                                     </div>
                                     )}
 
-                                    {onlineUsers.includes(user.name) && (
+                                    {onlineUsers.includes(user.id.toString()) && (
                                         <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                                     )}
                                 </div>
