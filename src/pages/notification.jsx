@@ -34,6 +34,19 @@ export default function Notification () {
     const handleClick = async (notification) => {
         try {
 
+            // Mark as read first
+            setNotifications(prev => prev.map(n =>
+                n.id === notification.id ? {...n, is_read: 1} : n
+            ));
+
+            //Handle different notification type
+            switch (notification.type) {
+                case 'profile_update':
+                    navigate(`/user/${notification.sender_id}`);
+                    break;
+                 case 'New post':
+                    navigate()   
+            }
             if (notification.type === 'profile_update') {
                 navigate(`/user/${notification.sender_id}`);
             } else {
@@ -43,11 +56,6 @@ export default function Notification () {
                   state: response.data.state
                });
             }
-
-
-            setNotifications(prev => prev.map(n =>
-                n.id === notification.id ? {...n, is_read: 1} : n
-            ));
 
         } catch (error) {
            console.error('Error handling notification', error);
