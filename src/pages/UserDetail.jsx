@@ -9,7 +9,7 @@ export default function UserDetail() {
     useEffect(() => {
         console.log("Calling API with user_id:", user_id); // ✅ Debug log
 
-        api.get(`/api/user/${user_id}`, { withCredentials: true })
+        api.get(`/api/users/${user_id}`, { withCredentials: true })
         .then(res => setUser(res.data))
         .catch(err => console.error('Failed to fetch user:', err));
     }, [user_id]);
