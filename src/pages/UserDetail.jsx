@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import api from "../api";
 
 export default function UserDetail() {
-    const { user_id } = useParams();
+    const user_id = useParams();
     const [user, setUser] = useState(null);
 
     useEffect(() => {
