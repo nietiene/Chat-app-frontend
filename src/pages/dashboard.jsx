@@ -390,6 +390,11 @@ const handleSettingSubmit = async (e) => {
                className="w-full px-4 py-2 mb-4 border rounded"
                onChange={(e) => setName(e.target.value)}
             />
+
+            <label className="block mb-2 text-sm font-medium">Phone:</label>
+            <input type="text"
+              value={phone} 
+              />
         </form>
     </div>
   </div>
