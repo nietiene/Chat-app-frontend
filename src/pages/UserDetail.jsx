@@ -40,12 +40,14 @@ export default function UserDetail() {
                 </div>
             )}
 
-            <h1 className="text-2xl text-center mt-4 font-semibold">{user.name}</h1>
-            <p className="text-center text-gray-600">{user.phone}</p>
-            <p className="text-center text-gray-400 text-sm mt-2">Role: {user.role}</p>
-            <p className="text-center text-gray-400 text-sm mt-2">
-                Joined: {new Date(user.created_at).toLocaleDateString()}
-            </p>
+            <div className="text-center mt-6">
+               <h1 className="text-2xl text-center mt-4 font-semibold text-gray-800">{user.name}</h1>
+               <p className="text-center text-gray-500">{user.phone}</p>
+               <p className="text-center text-gray-400 text-sm mt-2">Role: {user.role}</p>
+               <p className="text-center text-gray-400 text-sm mt-2">
+                  Joined: {new Date(user.created_at).toLocaleDateString()}
+              </p>
+            </div>
         </div>
 
     )
