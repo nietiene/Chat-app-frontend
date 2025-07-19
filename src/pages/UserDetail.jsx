@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../api";
-import { X } from "lucide-react ";
 
 export default function UserDetail() {
     const { user_id } = useParams();
@@ -19,7 +18,7 @@ export default function UserDetail() {
 
 
     return (
-        <div className="p-6 max-w-md mx-auto bg-white shadow rounded-xl">
+        <div className="relative p-6 max-w-md mx-auto bg-white shadow rounded-xl mt-20 border-gray-200">
             {user.profile_image ? (
                 <img  src={`http://localhost:4000/uploads/${user.profile_image}`}
                   alt={user.name}
