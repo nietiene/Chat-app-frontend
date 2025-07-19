@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../api";
 import { format } from "date-fns";
+import { X } from "lucide-react";
 
 export default function PostDetail() {
     const { id } = useParams();
@@ -72,11 +73,9 @@ export default function PostDetail() {
             <div className="sticky top-0 bg-white z-10 p-4 border-b border-gray-200 flex justify-between items-center">
                 <button 
                     onClick={handleClose}
-                    className="text-gray-500 hover:text-gray-700 focus:outline-none transition"
+                    className="text-gray-500 hover:text-red-500 focus:outline-none transition border-blue-200 border-4"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                     <X size={20}/>
                 </button>
                 <h1 className="text-xl font-bold text-gray-800">Post Details</h1>
                 <div className="w-6"></div> {/* Spacer for balance */}
