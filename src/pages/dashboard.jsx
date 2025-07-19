@@ -369,29 +369,26 @@ const handleSettingSubmit = async (e) => {
    </div>
 
     )}
-
-    {showSettingModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-
-            <div className="bg-white p-6 rounded shadow-md max-w-md w-full">
-                
+{showSettingModal && (
+ <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+     <div className="bg-white p-6 rounded shadow-md max-w-md w-full">
         <div className="flex justify-between">
-             <h3 className="text-lg font-semibold mb-4">Settings</h3>
-
+             <h3 className="text-lg font-semibold mb-4">Edit Settings</h3>
                <button 
                   onClick={() => setShowSettingModal(false)}
                   className=" px-4 py-2 text-red-500 rounded hover:text-red-600 font-bold text-xcls
                   l"
                 >
                     <FaTimes />
-            </button>
-                </div>
-
-
-
-            </div>
+               </button>
         </div>
-    )}
+
+        <form onSubmit={handleSettingSubmit}>
+            <label className="block mb-2 text-sm font-medium">Name:</label>
+        </form>
+    </div>
+  </div>
+)}
          </div>
     )
 }
