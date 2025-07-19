@@ -21,11 +21,17 @@ export default function UserDetail() {
     return (
         <div className="relative p-6 max-w-md mx-auto bg-white shadow-lg rounded-xl mt-20 border-gray-200">
             {/* close buttone */}
-            <button className="absolute top-4 ring-4"></button>
+            <button className="absolute top-4 ring-4 text-gray-400 hover:text-red-500 transition"
+               title="Close"
+               onClick={() => navigate(-1)}
+            >
+                <X size={20} />
+            </button>
+
             {user.profile_image ? (
                 <img  src={`http://localhost:4000/uploads/${user.profile_image}`}
                   alt={user.name}
-                  className="w-32 h-32 rounded-full mx-auto object-cover"
+                  className="w-32 h-32 rounded-full mx-auto object-cover border-4 border-grayu-400 shadow"
 
             />
             ) : (
