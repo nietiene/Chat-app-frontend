@@ -162,64 +162,19 @@ export default function Dashboard() {
   </div>
 </div>
 
-  {showPostForm && (                  
-    {/* displayed for specific roles */}
-    ['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <div className="bg-white p-6 rounded shadow-lg w-full max-w-md mx-4">
-                
-            <form
-                className="flex flex-col gap-4"
-                onSubmit={(e) => {
-                    handlePostSubmit(e);
-                   setShowPostForm(false); // close modal after submit
-
-                }}
-                encType="multipart/form-data"
-            >
-         
-                <h3 className="text-sm font-semibold text-gray-700">Create Post</h3>
-                
-                <textarea 
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    placeholder="Share an update..."
-                    className="w-full border border-gray-200 p-3 rounded text-sm resize-none min-h-[100px] focus:outline-none focus:ring-1 focus:ring-blue-300"
-                ></textarea>
-
-                <div className="flex flex-col items-start w-full">
-                    <label className="text-xs font-medium text-gray-600 mb-1">Upload Image (Optional)</label>
-                    <input 
-                        type="file" 
-                        onChange={(e) => setImage(e.target.files[0])}
-                        className="w-full text-xs text-gray-600 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                    />
-                </div>
-                
-                <button
-                    type="submit"
-                    disabled={!content && !image}
-                    className={`w-full  text-white px-4 py-2 rounded text-sm font-medium  focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 mt-2
-                               ${!content && !image ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 text-white hover:bg-blue-700"}`}
-                >
-                    Publish Post
-                </button>
-            </form>
-        </div>
-   </div>
-
-    )
-  )}
-   
 </aside>
 
           <main className="flex-1 ml-64 overflow-y-auto p-6 bg-white h-screen">
+
+            {['director', 'dos', 'patron', 'matron', 'dod'].includes(user.role) && (
             <button 
               onClick={() => setShowPostForm(true)}
               className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
             >
                 Create Post
             </button>
+          )} 
+
            <h2 className="text-xl font-semibold text-gray-700 border-b border-gray-200 pb-2 px-1">
               Recent Posts
            </h2>
@@ -293,6 +248,54 @@ export default function Dashboard() {
                     ))}
                 </ul>
              </aside>
+
+             
+  {showPostForm && (                  
+
+   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 shadow-lg">
+            <div className="bg-white p-6 rounded shadow-lg w-full max-w-md mx-4">
+                
+            <form
+                className="flex flex-col gap-4"
+                onSubmit={(e) => {
+                    handlePostSubmit(e);
+                   setShowPostForm(false); // close modal after submit
+
+                }}
+                encType="multipart/form-data"
+            >
+         
+                <h3 className="text-sm font-semibold text-gray-700">Create Post</h3>
+                
+                <textarea 
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    placeholder="Share an update..."
+                    className="w-full border border-gray-200 p-3 rounded text-sm resize-none min-h-[100px] focus:outline-none focus:ring-1 focus:ring-blue-300"
+                ></textarea>
+
+                <div className="flex flex-col items-start w-full">
+                    <label className="text-xs font-medium text-gray-600 mb-1">Upload Image (Optional)</label>
+                    <input 
+                        type="file" 
+                        onChange={(e) => setImage(e.target.files[0])}
+                        className="w-full text-xs text-gray-600 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                    />
+                </div>
+                
+                <button
+                    type="submit"
+                    disabled={!content && !image}
+                    className={`w-full  text-white px-4 py-2 rounded text-sm font-medium  focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 mt-2
+                               ${!content && !image ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 text-white hover:bg-blue-700"}`}
+                >
+                    Publish Post
+                </button>
+            </form>
+        </div>
+   </div>
+
+    )}
          </div>
     )
 }
