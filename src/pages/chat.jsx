@@ -439,9 +439,6 @@ function formatTimeStamp(timestamp) {
                     <div className="divide-y divide-gray-100">
                         {allUsers.map(user => {
 
-                        console.log("Full user object:", user);
-                        console.log('Checking online status for user:', user.name, 'user_id:', user.user_id, 'onlineUsers:', onlineUsers);
-
                             return (<div 
                                 key={user.name}
                                 className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200 ${
