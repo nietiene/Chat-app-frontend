@@ -35,7 +35,7 @@ export default function UserDetail() {
 
             />
             ) : (
-                <div className="w-32 h-32 rounded-full mx-auto object-cover">
+                <div className="w-32 h-32 rounded-full mx-auto items-center justify-center bg-blue-500 text-4xl font-bold text-white shadow">
                     {user.name.charAt(0).toUpperCase()}
                 </div>
             )}
