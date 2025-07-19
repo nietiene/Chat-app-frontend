@@ -56,14 +56,15 @@ export default function Notification () {
                   });
 
             }
-            if (notification.type === 'profile_update') {
-                navigate(`/user/${notification.sender_id}`);
-            } else {
 
-            }
 
         } catch (error) {
            console.error('Error handling notification', error);
+         // Revert (Add) read status if error occurs
+            setNotifications(prev => prev.map(n =>
+                n.id === notification.id ? {...n, is_read: 0} : n
+            ));
+        }
         }
     }
 
