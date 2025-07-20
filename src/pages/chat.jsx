@@ -23,6 +23,35 @@ export default function Chat() {
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
+    const [unreadCount, setUnreadCount] = useState({});
+
+    //count unread messages
+      useEffect(() => {
+            if (!user || !user.id) return;
+
+            const fetchUnreadCountsForMessages = async () => {
+                try {
+                      //fetchUnreadMessages
+                    const unreadRes = await api.get(`/api/messages/unread`);
+                   console.log('Unread response data:', unreadRes.data);
+
+                    const totalUnreadMessages = unreadRes.data.reduce((sum, msg) => sum + msg.unread_count, 0);
+                    setUnreadMessages(totalUnreadMessages);
+                    
+                } catch (error) {
+                    console.error('Error fetching unread counts', error);
+                }
+            };
+
+              fetchUnreadCountsForMessages(); // fetch immediately
+
+             const interval = setInterval(() => {
+                fetchUnreadCountsForMessages(); // fetch unread counts every seconds
+             }, 1000);
+
+            return () => clearInterval(interval) // cleanup interval
+        }, [user]);
+        
 
     //mark message as readed one 
      useEffect(() => {
@@ -41,7 +70,7 @@ export default function Chat() {
             markMessageAsRead();
         }
     }, [selectedUser, myName]);
-    
+
     const handleDeletePrivateMessage = async (m_id) => {
         const confirmDelete = window.confirm('Are you sure?');
         if (!confirmDelete) return;

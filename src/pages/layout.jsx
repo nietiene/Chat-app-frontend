@@ -54,11 +54,11 @@ export default function Layout () {
 
               fetchUnreadCountsForMessages(); // fetch immediately
 
-            //  const interval = setInterval(() => {
-            //     fetchUnreadCountsForMessages(); // fetch unread counts every seconds
-            //  }, 1000);
+             const interval = setInterval(() => {
+                fetchUnreadCountsForMessages(); // fetch unread counts every seconds
+             }, 1000);
 
-            // return () => clearInterval(interval) // cleanup interval
+            return () => clearInterval(interval) // cleanup interval
         }, [user]);
         
 
