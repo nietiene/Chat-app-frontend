@@ -353,18 +353,11 @@ const handleSettingSubmit = async (e) => {
         >
 
         <div className="relative">
-         <button
-           className="absolute top-2 ring-2 text-white text-center text-xl"
-           onClick={(() => setSelectedImage(null))}
-         >
-            <FaTimes size={20}/>
-         </button>
-
-        <div className="bg-white p-4 rounded shadow-lg max-w-xl max-h-[90vh]"
+        <div className="p-4 rounded shadow-lg max-w-xl max-h-[90vh]"
              onClick={(e) => e.stopPropagation()} // prevent closing when user click on image
         >
          <img src={selectedImage} alt="Full user Image" 
-            className="max-w-full max-h-[90vh] rounded"
+            className="max-w-full max-h-[90vh] rounded h-auto"
          />
         </div>
 
