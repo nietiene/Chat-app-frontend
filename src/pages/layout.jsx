@@ -35,27 +35,25 @@ export default function Layout () {
 
        // fetch unread counts after user is set
         useEffect(() => {
-            if (!user?.user_id) return; // only proceed if user and user_id available
 
             const fetchUnreadCountsForMessages = async () => {
                 try {
                       const userRes = await api.get('/api/messages/me');
                       const currentUser = userRes.data;
-            
+                      setUserForBadge(currentUser);
 
-                    const res = await api.get(`/api/messages/unread/${user.user_id}`);
+                      //fetchUnreadMessages
+                    const unreadRes = await api.get(`/api/messages/unread/${currentUser.id}`);
 
-                    const totalUnreadMessages = res.data.reduce((sum, msg) => sum + msg.unread_count, 0);
+                    const totalUnreadMessages = unreadRes.data.reduce((sum, msg) => sum + msg.unread_count, 0);
                     setUnreadMessages(totalUnreadMessages);
                     
-                    console.log('Unread messages (new value):', totalUnreadMessages);
-
                 } catch (error) {
                     console.error('Error fetching unread counts', error);
                 }
             };
 
-            if (user && user.user_id) {
+            if (currentUser && currentUser.id) {
               fetchUnreadCountsForMessages(); // fetch immediately
 
             } else {
