@@ -48,7 +48,11 @@ export default function Layout () {
                 }
             };
 
-             fetchUnreadCountsForMessages(); // fetch immediatery
+             fetchUnreadCountsForMessages(); // fetch immediately
+
+             const interval = setInterval(() => {
+                fetchUnreadCountsForMessages(); // fetch unread counts every seconds
+             }, 1000);
 
             return () => clearInterval(interval) // cleanup interval
         }, [user]);
