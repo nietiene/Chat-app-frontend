@@ -15,7 +15,7 @@ export default function Dashboard() {
     const [showPostForm, setShowPostForm] = useState(false);
     const [showprofileMenu, setShowProfileMenu] = useState(false);
     const [showFullProfile,  setShowFullProfile] = useState(false); // for showing profile image
-    const [viewImage, setViewImage] = useState(false); // for showing full image of other users
+    const [selectedImage, setSelectedImage] = useState(null); // for showing full image of other users
     const [post, setPost] = useState([]);
     const navigate = useNavigate();
 
@@ -332,7 +332,7 @@ const handleSettingSubmit = async (e) => {
                                     <img src={`http://localhost:4000/uploads/${u.profile_image}`} alt={u.name}
                                     onClick={(e) => {
                                         e.stopPropagation(); // prevent button click or navigate to chat
-                                        setViewImage(true);
+                                        setSelectedImage(`http://localhost:4000/uploads/${u.profile_image}`);
                                     }}
                                       className="w-10 h-10 object-cover border shadow rounded-full"
                                     />
@@ -344,28 +344,30 @@ const handleSettingSubmit = async (e) => {
                             </button>
                         </li>
                     ))}
- 
-
                 </ul>
                                    
-     {viewImage && (
+     {selectedImage && (
        <div
           className="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center"
-          onClick={() => setViewImage(false)} // click outside to close
+          onClick={() => setSelectedImage(null)} // click outside to close
         >
 
         <div className="relative">
          <button
            className="absolute top-2 ring-2 text-white text-center text-xl"
-           onClick={(setViewImage(false))}
+           onClick={(setSelectedImage(null))}
          >
             <FaTimes size={20}/>
          </button>
 
-         <img src={`http://localhost:4000/uploads/${user.profile_image}`} alt="Full user Image" 
-            className="max-w-full max-h-[90vh] rounded shadow-lg"
-            onClick={(e) => e.stopPropagation()} // prevent closing when user click on image
+        <div className="bg-white p-4 rounded shadow-lg max-w-xl max-h-[90vh]"
+             onClick={(e) => e.stopPropagation()} // prevent closing when user click on image
+        >
+         <img src={selectedImage} alt="Full user Image" 
+            className="max-w-full max-h-[90vh] rounded"
          />
+        </div>
+
         </div>
       </div>
     )}
