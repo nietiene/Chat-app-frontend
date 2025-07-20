@@ -488,8 +488,21 @@ const handleSettingSubmit = async (e) => {
 {viewImage && (
     <div
      className="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center"
-      onClick={}>
+      onClick={() => setViewImage(null)} // click outside to close
+    >
 
+      <div className="relative">
+        <button
+         className="absolute top-2 ring-2 text-white text-center text-xl"
+         onClick={(setViewImage(null))}
+        >
+           <FaTimes size={20}/>
+        </button>
+
+        <img src={viewImage} alt="Full user Image" 
+           className="max-w-full max-h-[90vh] rounded shadow-lg"
+        />
+      </div>
      </div>
 )}
 
