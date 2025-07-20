@@ -13,6 +13,7 @@ export default function Layout () {
         const [unreadMessages, setUnreadMessages] = useState(0);
         const [unreadNotifications, setUnreadNotifications] = useState(0);
         const [user, setUser] = useState(null);
+        const [userForBadge, setUserForBadge] = useState(null);
         const navigate = useNavigate();
         const location = useLocation();
 
@@ -32,20 +33,16 @@ export default function Layout () {
         })
        }, []);
 
-
-       // debugging
-       useEffect(() => {
-           console.log('Unread messages:', unreadMessages);
-
-       }, [unreadMessages]);
        // fetch unread counts after user is set
         useEffect(() => {
-               console.log("Running useEffect...");
-
             if (!user?.user_id) return; // only proceed if user and user_id available
 
             const fetchUnreadCountsForMessages = async () => {
                 try {
+                      const userRes = await api.get('/api/messages/me');
+                      const currentUser = userRes.data;
+            
+
                     const res = await api.get(`/api/messages/unread/${user.user_id}`);
 
                     const totalUnreadMessages = res.data.reduce((sum, msg) => sum + msg.unread_count, 0);
@@ -60,7 +57,7 @@ export default function Layout () {
 
             if (user && user.user_id) {
               fetchUnreadCountsForMessages(); // fetch immediately
-              
+
             } else {
                 console.warn('User is not yet available');
             }
