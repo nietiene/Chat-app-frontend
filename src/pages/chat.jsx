@@ -23,6 +23,25 @@ export default function Chat() {
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
+
+    //mark message as readed one 
+     useEffect(() => {
+        const markMessageAsRead = async () => {
+            if (!selectedUser || !myName) return;
+
+            try {
+                await api.patch(`/api/messages/mark-read`, {
+                    sender: selectedUser,
+                    receiver: myName // current logged in user
+                });
+            } catch (err) {
+                console.error('Failed to mark message as read')
+            }
+
+            markMessageAsRead();
+        }
+    }, [selectedUser, myName]);
+    
     const handleDeletePrivateMessage = async (m_id) => {
         const confirmDelete = window.confirm('Are you sure?');
         if (!confirmDelete) return;
