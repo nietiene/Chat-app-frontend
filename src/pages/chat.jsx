@@ -34,15 +34,11 @@ export default function Chat() {
                 try {
                       //fetchUnreadMessages
                     const unreadRes = await api.get(`/api/messages/unread`);
-                    
-                    const unreadMap = {};
-                    let total = 0;
-
-                    unreadRes.foEach(msg => {
-                        unreadMap[msg.sender_id] = msg.unread_count;
-                        total += msg.unread_count;
-                    });
-
+  
+                    const countsMap = {};
+                    for (let item of unreadCount.data) {
+                        
+                    }
                     setUnreadCount(unreadCount);
                     setUnreadMessages(total);
 
@@ -53,11 +49,11 @@ export default function Chat() {
 
               fetchUnreadCountsForMessages(); // fetch immediately
 
-             const interval = setInterval(() => {
-                fetchUnreadCountsForMessages(); // fetch unread counts every seconds
-             }, 3000);
+            //  const interval = setInterval(() => {
+            //     fetchUnreadCountsForMessages(); // fetch unread counts every seconds
+            //  }, 3000);
 
-            return () => clearInterval(interval) // cleanup interval
+            // return () => clearInterval(interval) // cleanup interval
         }, [user]);
         
 
