@@ -155,7 +155,7 @@ const handleSettingSubmit = async (e) => {
     </div>
 
     {showprofileMenu && (
-        <div className="absolute z-10 bottom-10 ring-0 bg-white border rounded shadow-md text-sm w-40">
+        <div className="absolute z-10 top-full mt-2 left-20 -translate-x-1/2 bg-white border rounded shadow-md text-sm w-44">
             <button
             onClick={() => {
                 setShowProfileMenu(false);
@@ -344,7 +344,6 @@ const handleSettingSubmit = async (e) => {
 
              
   {showPostForm && (                  
-
    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 shadow-lg">
             <div className="bg-white p-6 rounded shadow-lg w-full max-w-md mx-4">
              <div className="flex justify-end">
