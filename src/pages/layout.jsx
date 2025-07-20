@@ -32,8 +32,16 @@ export default function Layout () {
         })
        }, []);
 
+
+       // debugging
+       useEffect(() => {
+           console.log('Unread messages:', unreadMessages);
+
+       }, [unreadMessages]);
        // fetch unread counts after user is set
         useEffect(() => {
+               console.log("Running useEffect...");
+
             if (!user?.user_id) return; // only proceed if user and user_id available
 
             const fetchUnreadCountsForMessages = async () => {
@@ -42,22 +50,27 @@ export default function Layout () {
 
                     const totalUnreadMessages = res.data.reduce((sum, msg) => sum + msg.unread_count, 0);
                     setUnreadMessages(totalUnreadMessages);
-                   
-                     console.log('Unread messages:', unreadMessages);
+                    
+                    console.log('Unread messages (new value):', totalUnreadMessages);
 
                 } catch (error) {
                     console.error('Error fetching unread counts', error);
                 }
             };
 
-             fetchUnreadCountsForMessages(); // fetch immediately
+            if (user && user.user_id) {
+              fetchUnreadCountsForMessages(); // fetch immediately
+              
+            } else {
+                console.warn('User is not yet available');
+            }
 
              const interval = setInterval(() => {
                 fetchUnreadCountsForMessages(); // fetch unread counts every seconds
              }, 1000);
 
             return () => clearInterval(interval) // cleanup interval
-        }, [user]);
+        }, [user?.user_id]);
         
 
         const handleFileChange = (e) => {
