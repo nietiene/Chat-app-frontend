@@ -40,12 +40,11 @@ export default function Chat() {
                         const user = allUsers(u => u.user_id === item.sender_id);
 
                         if (user) {
-                             countsMap[user.name]
+                             countsMap[user.name] = item.unread_count;
                         }
                     }
                     setUnreadCount(unreadCount);
-                    setUnreadMessages(total);
-
+                    
                 } catch (error) {
                     console.error('Error fetching unread counts', error);
                 }
