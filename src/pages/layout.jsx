@@ -53,19 +53,14 @@ export default function Layout () {
                 }
             };
 
-            if (currentUser && currentUser.id) {
               fetchUnreadCountsForMessages(); // fetch immediately
 
-            } else {
-                console.warn('User is not yet available');
-            }
-
-             const interval = setInterval(() => {
-                fetchUnreadCountsForMessages(); // fetch unread counts every seconds
-             }, 1000);
+            //  const interval = setInterval(() => {
+            //     fetchUnreadCountsForMessages(); // fetch unread counts every seconds
+            //  }, 1000);
 
             return () => clearInterval(interval) // cleanup interval
-        }, [user?.user_id]);
+        }, []);
         
 
         const handleFileChange = (e) => {
