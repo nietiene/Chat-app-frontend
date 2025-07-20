@@ -15,6 +15,7 @@ export default function Dashboard() {
     const [showPostForm, setShowPostForm] = useState(false);
     const [showprofileMenu, setShowProfileMenu] = useState(false);
     const [showFullProfile,  setShowFullProfile] = useState(false); // for showing profile image
+    const [viewImage, setViewImage] = useState(null); // for showing full image of other users
     const [post, setPost] = useState([]);
     const navigate = useNavigate();
 
@@ -329,6 +330,10 @@ const handleSettingSubmit = async (e) => {
                                 </div>
                                {u.profile_image ? (
                                     <img src={`http://localhost:4000/uploads/${u.profile_image}`} alt={u.name}
+                                    onClick={(e) => {
+                                        e.stopPropagation(); // prevent button click or navigate to chat
+                                        setViewImage(`http://localhost:4000/uploads/${u.profile_image}`);
+                                    }}
                                       className="w-10 h-10 object-cover border shadow rounded-full"
                                     />
                                 ) : (
@@ -476,6 +481,15 @@ const handleSettingSubmit = async (e) => {
                 <p>No profile image found</p>
             )}
         </div>
+     </div>
+)}
+
+
+{viewImage && (
+    <div
+     className="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center"
+      onClick={}>
+
      </div>
 )}
 
