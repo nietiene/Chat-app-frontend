@@ -282,6 +282,7 @@ const handleSettingSubmit = async (e) => {
                      <div className="flex items-center gap-2 mb-2">
                         {post.profile_image ? (
                             <img src={`http://localhost:4000/uploads/${post.profile_image}`} alt={post.name} 
+                              onClick={() => setSelectedImage(`http://localhost:4000/uploads/${post.profile_image}`)}
                               className="w-10 h-10 rounded-full object-cover border shadow"/>
                         ) : (
                             <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg font-semibold shadow">
