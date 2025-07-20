@@ -364,6 +364,7 @@ const handleSettingSubmit = async (e) => {
 
          <img src={viewImage} alt="Full user Image" 
             className="max-w-full max-h-[90vh] rounded shadow-lg"
+            onClick={(e) => e.stopPropagation()} // prevent closing when user click on image
          />
         </div>
       </div>
