@@ -17,6 +17,9 @@ export default function Layout () {
 
         useEffect(() => {
             if (!user) return;
+            
+            console.log("Fetching unread for user:", user.name); // 🔍 Check this
+
 
             const fetchUnreadCountsForMessages = async () => {
                 try {
