@@ -42,6 +42,8 @@ export default function Layout () {
 
                     const totalUnreadMessages = res.data.reduce((sum, msg) => sum + msg.unread_count, 0);
                     setUnreadMessages(totalUnreadMessages);
+                   
+                     console.log('Unread messages:', unreadMessages);
 
                 } catch (error) {
                     console.error('Error fetching unread counts', error);
