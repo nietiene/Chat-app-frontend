@@ -36,8 +36,12 @@ export default function Chat() {
                     const unreadRes = await api.get(`/api/messages/unread`);
   
                     const countsMap = {};
-                    for (let item of unreadCount.data) {
-                        
+                    for (let item of unreadRes.data) {
+                        const user = allUsers(u => u.user_id === item.sender_id);
+
+                        if (user) {
+                             countsMap[user.name]
+                        }
                     }
                     setUnreadCount(unreadCount);
                     setUnreadMessages(total);
