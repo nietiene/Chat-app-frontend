@@ -35,11 +35,12 @@ export default function Layout () {
        // fetch unread counts after user is set
         useEffect(() => {
 
+            if (!user || !user.id) return;
+
             const fetchUnreadCountsForMessages = async () => {
                 try {
-
                       //fetchUnreadMessages
-                    const unreadRes = await api.get(`/api/messages/unread/${currentUser.id}`);
+                    const unreadRes = await api.get(`/api/messages/unread/${user.id}`);
 
                     const totalUnreadMessages = unreadRes.data.reduce((sum, msg) => sum + msg.unread_count, 0);
                     setUnreadMessages(totalUnreadMessages);
@@ -55,8 +56,8 @@ export default function Layout () {
             //     fetchUnreadCountsForMessages(); // fetch unread counts every seconds
             //  }, 1000);
 
-            return () => clearInterval(interval) // cleanup interval
-        }, []);
+            // return () => clearInterval(interval) // cleanup interval
+        }, [user]);
         
 
         const handleFileChange = (e) => {
