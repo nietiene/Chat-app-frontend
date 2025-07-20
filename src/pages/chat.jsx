@@ -28,12 +28,13 @@ export default function Chat() {
 
     //count unread messages
       useEffect(() => {
-            if (!user || !user.id) return;
-
+        
             const fetchUnreadCountsForMessages = async () => {
+
+                if (!unreadCount) return;
                 try {
                       //fetchUnreadMessages
-                    const unreadRes = await api.get(`/api/messages/unread`);
+                    const unreadRes = await api.get(`/api/messages/unread/${userId}`);
   
                     const countsMap = {};
                     for (let item of unreadRes.data) {
@@ -44,7 +45,7 @@ export default function Chat() {
                         }
                     }
                     setUnreadCount(unreadCount);
-                    
+
                 } catch (error) {
                     console.error('Error fetching unread counts', error);
                 }
@@ -57,7 +58,7 @@ export default function Chat() {
             //  }, 3000);
 
             // return () => clearInterval(interval) // cleanup interval
-        }, [user]);
+        }, [userId. allUsers]);
         
 
     //mark message as readed one 
