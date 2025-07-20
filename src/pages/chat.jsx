@@ -44,7 +44,8 @@ export default function Chat() {
                     });
 
                     setUnreadCount(unreadCount);
-                    setUn
+                    setUnreadMessages(total);
+
                 } catch (error) {
                     console.error('Error fetching unread counts', error);
                 }
@@ -54,7 +55,7 @@ export default function Chat() {
 
              const interval = setInterval(() => {
                 fetchUnreadCountsForMessages(); // fetch unread counts every seconds
-             }, 1000);
+             }, 3000);
 
             return () => clearInterval(interval) // cleanup interval
         }, [user]);
@@ -86,6 +87,7 @@ export default function Chat() {
     }, [selectedUser, myName]);
 
     const handleDeletePrivateMessage = async (m_id) => {
+
         const confirmDelete = window.confirm('Are you sure?');
         if (!confirmDelete) return;
 
