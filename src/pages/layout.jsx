@@ -21,10 +21,17 @@ export default function Layout () {
             const fetchUnreadCountsForMessages = async () => {
                 try {
                     const res = api.get(`/api/messages/unread/${user.name}`);
-                    const totalUnreadMessages = res.data.reduce((sum, msg) => sum + )
+                    const totalUnreadMessages = res.data.reduce((sum, msg) => sum + msg.unread_count, 0);
+                    setUnreadMessages(totalUnreadMessages);
+
+                } catch (error) {
+                    console.error('Error fetching unread counts', error);
                 }
-            }
-        })
+            };
+
+            fetchUnreadCountsForMessages();
+        }, [user]);
+        
        useEffect(() => {
         api.get("/api/auth/profile")
         .then((res) => {
