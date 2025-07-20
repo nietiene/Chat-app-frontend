@@ -41,7 +41,7 @@ export default function Layout () {
             const fetchUnreadCountsForMessages = async () => {
                 try {
                       //fetchUnreadMessages
-                    const unreadRes = await api.get(`/api/messages/unread/${user.id}`);
+                    const unreadRes = await api.get(`/api/messages/unread`);
                    console.log('Unread response data:', unreadRes.data);
 
                     const totalUnreadMessages = unreadRes.data.reduce((sum, msg) => sum + msg.unread_count, 0);
@@ -124,14 +124,15 @@ export default function Layout () {
                     <Link className="flex items-center gap-1 hover:underline" to="/dashboard">
                          <FaHome/> Home
                     </Link>
-                    <Link className="flex items-center gap-1 hover:underline" to="/chat">
-                          <FaEnvelope/> Messages
-                          {unreadMessages > 0 && (
-                            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
-                                {unreadMessages}
-                            </span>
-                          )}
-                    </Link>
+                 <Link className="relative flex items-center gap-1 hover:underline" to="/chat">
+                    <FaEnvelope /> Messages
+                    {unreadMessages > 0 && (
+                          <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                                   {unreadMessages}
+                           </span>
+                     )}
+</Link>
+
                     <Link className="flex items-center gap-1 hover:underline" to="/notifications">
                         <FaBell/> Notification
                     </Link>
