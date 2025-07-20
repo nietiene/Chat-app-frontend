@@ -127,7 +127,7 @@ export default function Layout () {
                     <Link className="flex items-center gap-1 hover:underline" to="/chat">
                           <FaEnvelope/> Messages
                           {unreadMessages > 0 && (
-                            <span className="absolute -top-2 -right-2 bg-gred-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
                                 {unreadMessages}
                             </span>
                           )}
