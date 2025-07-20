@@ -24,6 +24,7 @@ export default function Chat() {
     const navigate = useNavigate();
 
     const [unreadCount, setUnreadCount] = useState({});
+    const [unreadMessages, setUnreadMessages] = useState(null);
 
     //count unread messages
       useEffect(() => {
@@ -33,11 +34,17 @@ export default function Chat() {
                 try {
                       //fetchUnreadMessages
                     const unreadRes = await api.get(`/api/messages/unread`);
-                   console.log('Unread response data:', unreadRes.data);
-
-                    const totalUnreadMessages = unreadRes.data.reduce((sum, msg) => sum + msg.unread_count, 0);
-                    setUnreadMessages(totalUnreadMessages);
                     
+                    const unreadMap = {};
+                    let total = 0;
+
+                    unreadRes.foEach(msg => {
+                        unreadMap[msg.sender_id] = msg.unread_count;
+                        total += msg.unread_count;
+                    });
+
+                    setUnreadCount(unreadCount);
+                    setUn
                 } catch (error) {
                     console.error('Error fetching unread counts', error);
                 }
@@ -63,6 +70,13 @@ export default function Chat() {
                     sender: selectedUser,
                     receiver: myName // current logged in user
                 });
+
+                setUnreadCount(prev => {
+                    const updated = {...prev };
+                    delete updated[selectedUser.user_id];
+                    return updated;
+                });
+
             } catch (err) {
                 console.error('Failed to mark message as read')
             }
