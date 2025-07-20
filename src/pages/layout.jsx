@@ -15,6 +15,16 @@ export default function Layout () {
         const [user, setUser] = useState(null);
         const navigate = useNavigate();
 
+        useEffect(() => {
+            if (!user) return;
+
+            const fetchUnreadCountsForMessages = async () => {
+                try {
+                    const res = api.get(`/api/messages/unread/${user.name}`);
+                    const totalUnreadMessages = res.data.reduce((sum, msg) => sum + )
+                }
+            }
+        })
        useEffect(() => {
         api.get("/api/auth/profile")
         .then((res) => {
