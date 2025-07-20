@@ -16,7 +16,7 @@ export default function Layout () {
         const navigate = useNavigate();
 
         useEffect(() => {
-            if (!user) return;
+            if (!user?.user_id) return; // only proceed if user and user_id available
 
             const fetchUnreadCountsForMessages = async () => {
                 try {
