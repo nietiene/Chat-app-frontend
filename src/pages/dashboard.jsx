@@ -15,7 +15,7 @@ export default function Dashboard() {
     const [showPostForm, setShowPostForm] = useState(false);
     const [showprofileMenu, setShowProfileMenu] = useState(false);
     const [showFullProfile,  setShowFullProfile] = useState(false); // for showing profile image
-    const [viewImage, setViewImage] = useState(null); // for showing full image of other users
+    const [viewImage, setViewImage] = useState(false); // for showing full image of other users
     const [post, setPost] = useState([]);
     const navigate = useNavigate();
 
@@ -332,7 +332,7 @@ const handleSettingSubmit = async (e) => {
                                     <img src={`http://localhost:4000/uploads/${u.profile_image}`} alt={u.name}
                                     onClick={(e) => {
                                         e.stopPropagation(); // prevent button click or navigate to chat
-                                        setViewImage(`http://localhost:4000/uploads/${u.profile_image}`);
+                                        setViewImage(true);
                                     }}
                                       className="w-10 h-10 object-cover border shadow rounded-full"
                                     />
@@ -351,18 +351,18 @@ const handleSettingSubmit = async (e) => {
      {viewImage && (
        <div
           className="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center"
-          onClick={() => setViewImage(null)} // click outside to close
+          onClick={() => setViewImage(false)} // click outside to close
         >
 
         <div className="relative">
          <button
            className="absolute top-2 ring-2 text-white text-center text-xl"
-           onClick={(setViewImage(null))}
+           onClick={(setViewImage(false))}
          >
             <FaTimes size={20}/>
          </button>
 
-         <img src={viewImage} alt="Full user Image" 
+         <img src={`http://localhost:4000/uploads/${user.profile_image}`} alt="Full user Image" 
             className="max-w-full max-h-[90vh] rounded shadow-lg"
             onClick={(e) => e.stopPropagation()} // prevent closing when user click on image
          />
