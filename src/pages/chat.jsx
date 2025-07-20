@@ -504,13 +504,13 @@ function formatTimeStamp(timestamp) {
                         {allUsers.map(user => {
 
                             return (<div 
-                                key={user.name}
+                                key={user.user_id}
                                 className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200 ${
-                                    selectedUser === user.name ? 'bg-blue-100' : 'hover:bg-gray-100'
+                                    selectedUser?.user_id === user.user_id ? 'bg-gray-200' : ''
                                 }`}
                                 onClick={() => {
                                     setSelectedGroup(null);
-                                    setSelectedUser(user.name);
+                                    setSelectedUser(user);
                                 }}
                             >
 
@@ -531,7 +531,9 @@ function formatTimeStamp(timestamp) {
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className={`text-sm font-medium text-gray-900 truncate`}>
-                                       {user.name}
+                                        <span className={`${unreadCount[user.user_id] ? 'font-bold' : 'font-normal'}`}>
+                                          {user.name}
+                                        </span>
                                     </p>
      
                                 </div>
