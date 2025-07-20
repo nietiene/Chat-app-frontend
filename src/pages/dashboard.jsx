@@ -355,7 +355,7 @@ const handleSettingSubmit = async (e) => {
         <div className="relative">
          <button
            className="absolute top-2 ring-2 text-white text-center text-xl"
-           onClick={(setSelectedImage(null))}
+           onClick={(() => setSelectedImage(null))}
          >
             <FaTimes size={20}/>
          </button>
