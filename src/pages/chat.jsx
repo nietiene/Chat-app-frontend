@@ -511,7 +511,7 @@ function formatTimeStamp(timestamp) {
                                 }`}
                                 onClick={() => {
                                     setSelectedGroup(null);
-                                    setSelectedUser(user);
+                                    setSelectedUser(user.name);
                                 }}
                             >
 
