@@ -17,13 +17,10 @@ export default function Layout () {
 
         useEffect(() => {
             if (!user) return;
-            
-            console.log("Fetching unread for user:", user.name); // 🔍 Check this
-
 
             const fetchUnreadCountsForMessages = async () => {
                 try {
-                    const res = await api.get(`/api/messages/unread/${user.name}`);
+                    const res = await api.get(`/api/messages/unread/${user.user_id}`);
                     const totalUnreadMessages = res.data.reduce((sum, msg) => sum + msg.unread_count, 0);
                     setUnreadMessages(totalUnreadMessages);
 
