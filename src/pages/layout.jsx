@@ -36,8 +36,6 @@ export default function Layout () {
         useEffect(() => {
             if (!user?.user_id) return; // only proceed if user and user_id available
 
-            const interval = setInterval(() => {
-
             const fetchUnreadCountsForMessages = async () => {
                 try {
                     const res = await api.get(`/api/messages/unread/${user.user_id}`);
@@ -49,10 +47,10 @@ export default function Layout () {
                     console.error('Error fetching unread counts', error);
                 }
             };
-            }, 1000);
+
+             fetchUnreadCountsForMessages(); // fetch immediatery
 
             return () => clearInterval(interval) // cleanup interval
-            fetchUnreadCountsForMessages();
         }, [user]);
         
 
