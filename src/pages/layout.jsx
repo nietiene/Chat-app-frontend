@@ -21,6 +21,7 @@ export default function Layout () {
             const fetchUnreadCountsForMessages = async () => {
                 try {
                     const res = await api.get(`/api/messages/unread/${user.user_id}`);
+
                     const totalUnreadMessages = res.data.reduce((sum, msg) => sum + msg.unread_count, 0);
                     setUnreadMessages(totalUnreadMessages);
 
@@ -40,6 +41,14 @@ export default function Layout () {
             if (res.data.profile_image) {
                 setProfileImage(`http://localhost:4000/uploads/${res.data.profile_image}`)
             }
+
+            // fetch unread count after user is set
+            return api.get(`/api/messages/unread/${res.data.user_id}`)
+            .then((res) => {
+              const totalUnreadMessages = res.data.reduce((sum, msg) => sum + msg.unread_count, 0);
+              setUnreadMessages(totalUnreadMessages);
+            });
+            
         }).catch(() => {
             navigate("/");
         })
