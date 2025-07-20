@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
-import { List } from 'lucide-react';
+// import { X } from 'lucide-react';
 
 const socket = io('http://localhost:4000', { withCredentials: true });
 
@@ -24,11 +24,11 @@ export default function Chat() {
     const navigate = useNavigate();
 
     const [unreadCount, setUnreadCount] = useState({});
-    const [unreadMessages, setUnreadMessages] = useState(null);
+    // const [unreadMessages, setUnreadMessages] = useState(null);
 
     //count unread messages
       useEffect(() => {
-        
+
             const fetchUnreadCountsForMessages = async () => {
 
                 if (!unreadCount) return;
@@ -38,7 +38,7 @@ export default function Chat() {
   
                     const countsMap = {};
                     for (let item of unreadRes.data) {
-                        const user = allUsers(u => u.user_id === item.sender_id);
+                        const user = allUsers.find(u => u.user_id === item.sender_id);
 
                         if (user) {
                              countsMap[user.name] = item.unread_count;
@@ -58,7 +58,7 @@ export default function Chat() {
             //  }, 3000);
 
             // return () => clearInterval(interval) // cleanup interval
-        }, [userId. allUsers]);
+        }, [userId, allUsers]);
         
 
     //mark message as readed one 
@@ -503,10 +503,11 @@ function formatTimeStamp(timestamp) {
                     <div className="divide-y divide-gray-100">
                         {allUsers.map(user => {
 
-                            return (<div 
-                                key={user.user_id}
+                            return (
+                            <div 
+                                key={user.name}
                                 className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200 ${
-                                    selectedUser?.user_id === user.user_id ? 'bg-gray-200' : ''
+                                    selectedUser?.name === user.name && unreadCount[user.name] ? 'bg-gray-200' : ''
                                 }`}
                                 onClick={() => {
                                     setSelectedGroup(null);
@@ -531,9 +532,7 @@ function formatTimeStamp(timestamp) {
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className={`text-sm font-medium text-gray-900 truncate`}>
-                                        <span className={`${unreadCount[user.user_id] ? 'font-bold' : 'font-normal'}`}>
                                           {user.name}
-                                        </span>
                                     </p>
      
                                 </div>
