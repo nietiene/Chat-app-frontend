@@ -1,4 +1,4 @@
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import  { FaHome, FaEnvelope, FaBell, FaUserCircle } from "react-icons/fa";
 import api from "../api";
 import { useEffect, useState } from "react";
@@ -10,10 +10,11 @@ export default function Layout () {
         const [selectedFile, setSelectedFile] = useState(null);
 
         //handling badges
-        const [unreadMesages, setUnreadMessages] = useState(0);
+        const [unreadMessages, setUnreadMessages] = useState(0);
         const [unreadNotifications, setUnreadNotifications] = useState(0);
         const [user, setUser] = useState(null);
         const navigate = useNavigate();
+        const location = useLocation();
 
         useEffect(() => {
             if (!user?.user_id) return; // only proceed if user and user_id available
