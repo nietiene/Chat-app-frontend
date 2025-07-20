@@ -42,13 +42,6 @@ export default function Layout () {
                 setProfileImage(`http://localhost:4000/uploads/${res.data.profile_image}`)
             }
 
-            // fetch unread count after user is set
-            return api.get(`/api/messages/unread/${res.data.user_id}`)
-            .then((res) => {
-              const totalUnreadMessages = res.data.reduce((sum, msg) => sum + msg.unread_count, 0);
-              setUnreadMessages(totalUnreadMessages);
-            });
-            
         }).catch(() => {
             navigate("/");
         })
