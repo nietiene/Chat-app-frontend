@@ -16,6 +16,21 @@ export default function Layout () {
         const navigate = useNavigate();
         const location = useLocation();
 
+     // fetch user profile first   
+    useEffect(() => {
+        api.get("/api/auth/profile")
+        .then((res) => {
+            console.log("Profile", res.data);
+            setUser(res.data);
+            if (res.data.profile_image) {
+                setProfileImage(`http://localhost:4000/uploads/${res.data.profile_image}`)
+            }
+
+        }).catch(() => {
+            navigate("/");
+        })
+       }, []);
+
         useEffect(() => {
             if (!user?.user_id) return; // only proceed if user and user_id available
 
@@ -34,19 +49,6 @@ export default function Layout () {
             fetchUnreadCountsForMessages();
         }, [user]);
         
-       useEffect(() => {
-        api.get("/api/auth/profile")
-        .then((res) => {
-            console.log("Profile", res.data);
-            setUser(res.data);
-            if (res.data.profile_image) {
-                setProfileImage(`http://localhost:4000/uploads/${res.data.profile_image}`)
-            }
-
-        }).catch(() => {
-            navigate("/");
-        })
-       }, []);
 
         const handleFileChange = (e) => {
             if (e.target.files && e.target.files[0]) {
