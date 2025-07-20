@@ -8,6 +8,10 @@ export default function Layout () {
         const [showUserMenu, setShowUserMenu] = useState(false);
         const [profileImage, setProfileImage] = useState(null);
         const [selectedFile, setSelectedFile] = useState(null);
+
+        //handling badges
+        const [unreadMesages, setUnreadMessages] = useState(0);
+        const [unreadNotifications, setUnreadNotifications] = useState(0);
         const [user, setUser] = useState(null);
         const navigate = useNavigate();
 
@@ -68,6 +72,15 @@ export default function Layout () {
                 alert("logout failed");
             }
         }
+
+
+        // reset badge count when user click on visit the page
+
+        useEffect(() => {
+            if (location.pathname === '/chat') setUnreadMessages(0);
+            if (location.pathname === '/notifications') setUnreadNotifications(0);
+        }, [location.pathname]);
+
 
         if (!user) return null;
     return (
