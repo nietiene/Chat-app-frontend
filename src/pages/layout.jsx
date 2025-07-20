@@ -13,7 +13,6 @@ export default function Layout () {
         const [unreadMessages, setUnreadMessages] = useState(0);
         const [unreadNotifications, setUnreadNotifications] = useState(0);
         const [user, setUser] = useState(null);
-        const [userForBadge, setUserForBadge] = useState(null);
         const navigate = useNavigate();
         const location = useLocation();
 
@@ -38,9 +37,6 @@ export default function Layout () {
 
             const fetchUnreadCountsForMessages = async () => {
                 try {
-                      const userRes = await api.get('/api/messages/me');
-                      const currentUser = userRes.data;
-                      setUserForBadge(currentUser);
 
                       //fetchUnreadMessages
                     const unreadRes = await api.get(`/api/messages/unread/${currentUser.id}`);
