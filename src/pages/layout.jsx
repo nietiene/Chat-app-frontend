@@ -22,6 +22,7 @@ export default function Layout () {
         .then((res) => {
             console.log("Profile", res.data);
             setUser(res.data);
+
             if (res.data.profile_image) {
                 setProfileImage(`http://localhost:4000/uploads/${res.data.profile_image}`)
             }
@@ -31,6 +32,7 @@ export default function Layout () {
         })
        }, []);
 
+       // fetch unread counts after user is set
         useEffect(() => {
             if (!user?.user_id) return; // only proceed if user and user_id available
 
@@ -114,7 +116,7 @@ export default function Layout () {
                     </Link>
                     <Link className="flex items-center gap-1 hover:underline" to="/chat">
                           <FaEnvelope/> Messages
-                          {unreadMesages > 0 && (
+                          {unreadMessages > 0 && (
                             <span className="absolute -top-2 -right-2 bg-gred-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full"></span>
                           )}
                     </Link>
