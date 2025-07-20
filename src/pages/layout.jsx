@@ -42,7 +42,6 @@ export default function Layout () {
                 try {
                       //fetchUnreadMessages
                     const unreadRes = await api.get(`/api/messages/unread`);
-                   console.log('Unread response data:', unreadRes.data);
 
                     const totalUnreadMessages = unreadRes.data.reduce((sum, msg) => sum + msg.unread_count, 0);
                     setUnreadMessages(totalUnreadMessages);
