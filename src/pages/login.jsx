@@ -32,8 +32,18 @@ export default function Login() {
                 }
             
             <form onSubmit={handleSubmit} className="space-y-4">
-                <input type="text" name="phone" placeholder="Phone" value={phone} required
-                onChange={(e) => setPhone(e.target.value)}/> <br />
+                <div>
+                   <input
+                      type="text" 
+                      name="phone"
+                      placeholder="Phone" 
+                      value={phone} 
+                      required
+                      onChange={(e) => setPhone(e.target.value)}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg "
+                    /> <br />
+                </div>
+
                 <input type="password" name="password" placeholder="Password" value={password} required
                 onChange={(e) => setPassword(e.target.value)}/> <br />
                 <button type="submit">Login</button>
