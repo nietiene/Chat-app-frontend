@@ -28,10 +28,11 @@ export default function Register() {
             <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
                <h2 className="text-xl font-bold text-center text-gray-800 mb-6">Create free account</h2>
               {error && (
-                  <div>{error}</div>
+                  <div className="mb-4 bg-red-100 text-red-600 rounded-md text-sm">
+                     {error}
+                  </div>
              )}
-            </div>
-
+             
             <form onSubmit={handleSubmit}>
                <input 
                 type="text" 
@@ -59,6 +60,8 @@ export default function Register() {
 
                 <button type="submit">Create Account</button>             
             </form>
+            </div>
+
         </div>
     )
 }
