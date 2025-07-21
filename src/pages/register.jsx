@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
 
 
@@ -37,18 +37,20 @@ export default function Register() {
                <input 
                 type="text" 
                 name="name" 
-                placeholder="Full name"
+                placeholder="Your full name"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus::outline-none focus:ring-2 focus:ring-blue-500"
                 onChange={handleChange}
                 required
                 />  <br />
 
                <input 
-                type="phone" 
-                name="phone" 
-                placeholder="Phone Number"
-                onChange={handleChange}
-                required
+                   type="phone" 
+                   name="phone" 
+                   placeholder="Phone Number"
+                   onChange={handleChange}
+                  required
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus::outline-none focus:ring-2 focus:ring-blue-500"
+                
                 /> <br />    
 
                <input 
@@ -57,9 +59,12 @@ export default function Register() {
                 placeholder="Password"
                 onChange={handleChange}
                 required
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus::outline-none focus:ring-2 focus:ring-blue-500"
+
                 /> <br />   
 
-                <button type="submit">Create Account</button>             
+                <button type="submit">Create Account</button>  <br />      
+                <Link to="/">Back to main login</Link>      
             </form>
             </div>
 
