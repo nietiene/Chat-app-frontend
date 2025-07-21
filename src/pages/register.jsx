@@ -24,7 +24,7 @@ export default function Register() {
     }
 
     return (
-        <div>
+        <div className="min-h-screen flex items-center justify-center">
             <h2>Create free account</h2>
             {error && <p>{error}</p>}
 
