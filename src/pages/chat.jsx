@@ -69,13 +69,13 @@ export default function Chat() {
 
             try {
                 await api.patch(`/api/messages/mark-read`, {
-                    sender: selectedUser.name,
+                    sender: selectedUser,
                     receiver: myName // current logged in user
                 });
 
                 setUnreadCount(prev => {
                     const updated = {...prev };
-                    delete updated[selectedUser.user_id];
+                    delete updated[selectedUser];
                     return updated;
                 });
 
@@ -83,9 +83,11 @@ export default function Chat() {
                 console.error('Failed to mark message as read')
             }
 
-            markMessageAsRead();
+            if (selectedUser) {
+                markMessageAsRead();
+            }
         }
-        console.log('Marking messages from', selectedUser, 'to', myName);
+        console.log(`Marking messages as read from ${selectedUser} to ${myName}`);
 
     }, [selectedUser, myName]);
 
@@ -507,7 +509,7 @@ function formatTimeStamp(timestamp) {
                         {allUsers.map(user => {
                             const isSelected = selectedUser === user.name;
                             const hasUnreadCount = unreadCount[user.name] > 0;
-                            
+
                             console.log("Unread Count Object:", unreadCount);
                             console.log(`User: ${user.name}, hasUnread: ${hasUnreadCount}`); // for debugging
 
