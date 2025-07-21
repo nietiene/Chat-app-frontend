@@ -46,35 +46,43 @@ export default function Chat() {
     if (userId && allUsers.length) fetchUnreadCountsForMessages();
 }, [userId, allUsers]);
 
-    //mark message as readed one 
-     useEffect(() => {
-        const markMessageAsRead = async () => {
-            if (!selectedUser || !myName) return;
+const markMessageAsRead = async () => {
+    if (!selectedUser || !myName) return;
 
-            try {
-                await api.patch(`/api/messages/mark-read`, {
-                    sender: selectedUser,
-                    receiver: myName // current logged in user
-                });
+    console.log("Marking messages as read:", { sender: selectedUser, receiver: myName });
 
-                setUnreadCount(prev => {
-                    const updated = {...prev };
-                    delete updated[selectedUser];
-                    return updated;
-                });
+    try {
+        // Optimistically update UI first
+        setUnreadCount(prev => {
+            const updated = { ...prev };
+            delete updated[selectedUser]; // Remove unread count for this user
+            return updated;
+        });
 
-            } catch (err) {
-                console.error('Failed to mark message as read')
-            }
+        // Call the API to update the database
+        const response = await api.patch('/api/messages/mark-read', {
+            sender: selectedUser,
+            receiver: myName,
+        });
 
-            if (selectedUser) {
-                markMessageAsRead();
-            }
-        }
-        console.log(`Marking messages as read from ${selectedUser} to ${myName}`);
+        console.log("API Response:", response.data); // Should log { success: true }
 
-    }, [selectedUser, myName]);
+    } catch (err) {
+        console.error("Failed to mark messages as read:", err);
 
+        // Revert UI if API fails
+        setUnreadCount(prev => ({
+            ...prev,
+            [selectedUser]: prev[selectedUser] || 1, // Restore unread count
+        }));
+    }
+};
+
+useEffect(() => {
+    if (selectedUser) {
+        markMessageAsRead();
+    }
+}, [selectedUser]); // Runs when selectedUser changes
     const handleDeletePrivateMessage = async (m_id) => {
 
         const confirmDelete = window.confirm('Are you sure?');
