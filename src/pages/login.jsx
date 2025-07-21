@@ -1,6 +1,6 @@
 import React from "react";
 import api from "../api.js";
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react";
 
 export default function Login() {
@@ -59,6 +59,9 @@ export default function Login() {
                 >
                    Login
               </button>
+              <p className="font-semibold text-gray-800 ">Dont you have account ?</p>
+
+              <Link to="/register">Create account</Link>
             </form>
 </div>
 
