@@ -507,6 +507,8 @@ function formatTimeStamp(timestamp) {
                         {allUsers.map(user => {
                             const isSelected = selectedUser === user.name;
                             const hasUnreadCount = unreadCount[user.name] > 0;
+                            
+                            console.log("Unread Count Object:", unreadCount);
                             console.log(`User: ${user.name}, hasUnread: ${hasUnreadCount}`); // for debugging
 
 
