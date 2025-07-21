@@ -63,9 +63,10 @@ export default function Login() {
               <div>
                 <Link to={"#"} className="font-normal text-blue-500 hover:underline">Forgot password</Link>
                 <hr className="border-gray-600"/>
-                 <p className="font-semibold text-gray-800 ">Dont you have account ?</p>
+
+                 <p className="font-semibold text-gray-800 mt-2">Dont you have account ?</p>
   
-                <Link to="/register">Create account</Link>
+                <Link to="/register" className="font-normal text-blue-500 hover:underline">Create account</Link>
               </div>
   
             </form>
