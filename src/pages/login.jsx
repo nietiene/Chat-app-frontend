@@ -44,8 +44,17 @@ export default function Login() {
                     /> <br />
                 </div>
 
-                <input type="password" name="password" placeholder="Password" value={password} required
-                onChange={(e) => setPassword(e.target.value)}/> <br />
+                <div>
+                   <input 
+                      type="password" 
+                      name="password" 
+                      placeholder="Password" 
+                      value={password} required
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+/> <br />
+                </div>
+
                 <button type="submit">Login</button>
             </form>
 </div>
