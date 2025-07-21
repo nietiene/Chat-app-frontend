@@ -58,10 +58,15 @@ export default function Login() {
                    className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
                 >
                    Login
-              </button>
-              <p className="font-semibold text-gray-800 ">Dont you have account ?</p>
+              </button> 
 
-              <Link to="/register">Create account</Link>
+              <div>
+                <Link to={"#"} className="font-normal text-blue-500 hover:underline">Forgot password</Link>
+                 <p className="font-semibold text-gray-800 ">Dont you have account ?</p>
+  
+                <Link to="/register">Create account</Link>
+              </div>
+  
             </form>
 </div>
 
