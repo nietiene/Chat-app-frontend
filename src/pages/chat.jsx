@@ -505,12 +505,14 @@ function formatTimeStamp(timestamp) {
                     </h3>
                     <div className="divide-y divide-gray-100">
                         {allUsers.map(user => {
+                            const isSelected = selectedUser === user.name;
+                            const hasUnreadCount = unreadCount[user.name] > 0;
 
                             return (
                             <div 
                                 key={user.user_id}
                                 className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200 ${
-                                    selectedUser?.name === user.name && unreadCount[user.name] ? 'bg-gray-200' : ''
+                                    isSelected ? 'bg-gray-200' : ''
                                 }`}
                                 onClick={() => {
                                     setSelectedGroup(null);
@@ -534,7 +536,8 @@ function formatTimeStamp(timestamp) {
                                     )}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className={`text-sm font-medium text-gray-900 truncate`}>
+                                    <p className={`text-sm font-medium text-gray-900 truncate
+                                           ${hasUnreadCount ? 'font-bold' : 'font-normal'}`}>
                                           {user.name}
                                     </p>
      
