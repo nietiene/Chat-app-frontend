@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
-import { time } from 'console';
 // import { X } from 'lucide-react';
 
 const socket = io('http://localhost:4000', { withCredentials: true });
@@ -160,12 +159,7 @@ useEffect(() => {
     }, [selectedGroup]);
 
     useEffect(() => {
-        messagesEndRef.current?.toScrollIntoView({ behavior: 'smooth' });
-    }, [messages, groupMessages]);
-
-    useEffect(() => {
         const handleNewGroupMessage = (msg) => {
-
             if (selectedGroup && msg.g_id === selectedGroup.g_id) {
                 setGroupMessages(prev => [...prev, msg]);
             }
@@ -269,30 +263,38 @@ useEffect(() => {
   
 
     useEffect(() => {
-        const handlePrivateMessage = ({ from, message: msgContent, timestamp, m_id }) => {
+        const handlePrivateMessage = ({ from, message, timestamp, m_id }) => {
             setMessages(prev => {
                 // only add message if from or to is current chat user
              if (from === selectedUser || from === myName) {
-                    
-                   setMessages(prev => [
-                    ...prev,
-                    {
-                        sender_name: from === myName ? 'You' : from,
-                        content: msgContent,
-                        created_at: time,
-                        m_id,
-                        isOwn: from == myName
-                    }
-
-                   ]);
+                const last = prev[prev.length - 1];
+                if (last?.isOwn && last.content === message) {
+                    return prev.map((msg, i) => i === prev.length - 1 ? {
+                        ...msg,
+                        created_at: timestamp,
+                        isOwn: true,
+                        m_id
+                    } : msg);
+                
                 }
+
+                    return [...prev, {
+                        sender_name: from,
+                        content: message,
+                        created_at: timestamp,
+                        m_id,
+                        isOwn: from === myName
+                    }];
+                }
+                  return prev;
+
             }
-        
         
         )};
     
 
         const handleUserList = (list) => {
+            console.log('Online users from socket:', list);
             setOnlineUsers(list);
         }
         
