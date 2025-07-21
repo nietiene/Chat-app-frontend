@@ -508,7 +508,7 @@ function formatTimeStamp(timestamp) {
 
                             return (
                             <div 
-                                key={user.name}
+                                key={user.user_id}
                                 className={`p-3 flex items-center space-x-3 cursor-pointer transition-colors duration-200 ${
                                     selectedUser?.name === user.name && unreadCount[user.name] ? 'bg-gray-200' : ''
                                 }`}
