@@ -19,6 +19,8 @@ export default function Layout () {
 
         //fetch unread notification count 
         useEffect(() => {
+            if (!user || user.id) return;
+
            const fetchUnreadNotification = async () => {
               try {
                   const notifRes = await api.get(`/api/notifications/unread-count`);
@@ -38,7 +40,7 @@ export default function Layout () {
             return () => clearInterval(interval);
 
 
-        })
+        }, []);
        
      // fetch user profile first   
     useEffect(() => {
