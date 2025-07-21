@@ -33,11 +33,12 @@ export default function Register() {
                   </div>
              )}
              
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}  className="space-y-4">
                <input 
                 type="text" 
                 name="name" 
                 placeholder="Full name"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus::outline-none focus:ring-2 focus:ring-blue-500"
                 onChange={handleChange}
                 required
                 />  <br />
