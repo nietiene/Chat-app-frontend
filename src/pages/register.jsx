@@ -28,7 +28,7 @@ export default function Register() {
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
             <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
                 <div className="flex justify-center mb-6">
-                    <img src="/logo/logo 1.jpg" alt="SchoolChat logo" className="h-16 w-auto"/>
+                    <img src="/gikonko-chat-frontend/src/assets/logo 1.JPG" alt="SchoolChat logo" className="h-16 w-auto"/>
                 </div>
                <h2 className="text-xl font-bold text-center text-gray-800 mb-6">Create free account</h2>
               {error && (
