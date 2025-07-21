@@ -395,6 +395,14 @@ function formatTimeStamp(timestamp) {
         hour12: true
     })
 } 
+
+useEffect(() => {
+    if (selectedGroup?.g_id) {
+        socket.emit('joinGroup', selectedGroup.g_id);
+        console.log(`Joined group room: group_${selectedGroup.g_id}`);
+    }
+}, [selectedGroup]);
+
     return (
         <div className="flex h-screen bg-gray-100 overflow-hidden">
             {/* Left sidebar */}
