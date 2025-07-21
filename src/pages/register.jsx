@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
-import logo from "../assets/logo 1.JPG"
+import logo from "../assets/logo 1.png"
 
 
 // I'll implement real phone authentication later by using twillio, firebase phone auth,  libraries..
@@ -28,7 +28,7 @@ export default function Register() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
             <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-                
+
                 <div className="flex justify-center mb-6">
                     <img src={logo} alt="SchoolChat logo" className="h-16 w-auto"/>
                 </div>
