@@ -12,8 +12,7 @@ export default function Login() {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            const res = await api.post('/api/auth/login', { phone, password });
-            alert(res.data.message);
+            await api.post('/api/auth/login', { phone, password });
             navigate('/dashboard');
         } catch(err) {
             setError(err.response?.data?.message || 'Login Failed');
