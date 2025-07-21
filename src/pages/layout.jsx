@@ -40,7 +40,7 @@ export default function Layout () {
             return () => clearInterval(interval);
 
 
-        }, []);
+        }, [user]);
        
      // fetch user profile first   
     useEffect(() => {
@@ -137,7 +137,7 @@ export default function Layout () {
 
         useEffect(() => {
             if (location.pathname === '/chat') setUnreadMessages(0);
-            if (location.pathname === '/notifications') setUnreadNotifications(0);
+            // if (location.pathname === '/notifications') setUnreadNotifications(0);
         }, [location.pathname]);
 
 
