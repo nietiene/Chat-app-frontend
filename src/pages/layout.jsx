@@ -13,9 +13,17 @@ export default function Layout () {
         const [unreadMessages, setUnreadMessages] = useState(0);
         const [unreadNotifications, setUnreadNotifications] = useState(0);
         const [user, setUser] = useState(null);
+
         const navigate = useNavigate();
         const location = useLocation();
 
+        //fetch unread notification count 
+        const fetchUnreadNotification = async () => {
+            try {
+                const notifRes = await api.get(`/api/notifications/unread-count`);
+                setUnreadNotifications(notifRes.data.unread_count);
+            }
+        }
      // fetch user profile first   
     useEffect(() => {
         api.get("/api/auth/profile")
