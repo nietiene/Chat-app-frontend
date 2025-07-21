@@ -22,8 +22,18 @@ export default function Layout () {
             try {
                 const notifRes = await api.get(`/api/notifications/unread-count`);
                 setUnreadNotifications(notifRes.data.unread_count);
+
+            } catch (error) {
+                console.error('Error fetching unread count');
             }
+
+            fetchUnreadNotification();
+
+            const interval = setInterval(() => {
+                fetchUnreadNotification();
+            }, 5000);
         }
+
      // fetch user profile first   
     useEffect(() => {
         api.get("/api/auth/profile")
