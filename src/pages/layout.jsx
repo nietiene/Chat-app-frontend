@@ -19,7 +19,7 @@ export default function Layout () {
 
         //fetch unread notification count 
         useEffect(() => {
-            if (!user || user.id) return;
+            if (!user || !user.id) return;
 
            const fetchUnreadNotification = async () => {
               try {
