@@ -535,8 +535,7 @@ function formatTimeStamp(timestamp) {
                                     )}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className={`text-sm font-medium text-gray-900 truncate
-                                           ${hasUnreadCount ? 'font-bold' : 'font-medum'}`}>
+                                    <p className={`text-sm text-gray-7800 truncate ${hasUnreadCount ? 'font-bold' : 'font-medum'}`}>
                                           {user.name}
                                     </p>
      
