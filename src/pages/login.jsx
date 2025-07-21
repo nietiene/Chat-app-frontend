@@ -26,7 +26,6 @@ export default function Login() {
             <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
                   <div className="flex justify-center mb-6">
                               <img src={logo} alt="SchoolChat logo" className="h-32 w-auto"/>
-                              <p>Gikonko chat app. create account to what with parents, leaders</p>
                     </div>
                 <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Login</h2>
                {error &&
