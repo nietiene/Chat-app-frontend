@@ -58,7 +58,6 @@ export default function Chat() {
             //  }, 3000);
 
             // return () => clearInterval(interval) // cleanup interval
-            console.log('Marking messages from', selectedUser, 'to', myName);
 
         }, [userId, allUsers]);
         
@@ -70,7 +69,7 @@ export default function Chat() {
 
             try {
                 await api.patch(`/api/messages/mark-read`, {
-                    sender: selectedUser,
+                    sender: selectedUser.name,
                     receiver: myName // current logged in user
                 });
 
@@ -86,6 +85,8 @@ export default function Chat() {
 
             markMessageAsRead();
         }
+        console.log('Marking messages from', selectedUser, 'to', myName);
+
     }, [selectedUser, myName]);
 
     const handleDeletePrivateMessage = async (m_id) => {
