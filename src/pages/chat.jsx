@@ -507,6 +507,8 @@ function formatTimeStamp(timestamp) {
                         {allUsers.map(user => {
                             const isSelected = selectedUser === user.name;
                             const hasUnreadCount = unreadCount[user.name] > 0;
+                            console.log(`User: ${user.name}, hasUnread: ${hasUnread}`);
+
 
                             return (
                             <div 
@@ -537,7 +539,7 @@ function formatTimeStamp(timestamp) {
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className={`text-sm font-medium text-gray-900 truncate
-                                           ${hasUnreadCount ? 'font-bold' : 'font-normal'}`}>
+                                           ${hasUnreadCount ? 'font-bold' : 'font-medum'}`}>
                                           {user.name}
                                     </p>
      
