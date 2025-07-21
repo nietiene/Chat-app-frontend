@@ -2,6 +2,7 @@ import React from "react";
 import api from "../api.js";
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react";
+import logo from "../assets/logo 1.png"
 
 export default function Login() {
     const [phone, setPhone] = useState('');
@@ -23,6 +24,9 @@ export default function Login() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
             <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+                  <div className="flex justify-center mb-6">
+                              <img src={logo} alt="SchoolChat logo" className="h-32 w-auto"/>
+                    </div>
                 <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Login</h2>
                {error &&
                    <div className="mb-4 p-3 bg-red-100 text-red-600 rounded-md text-sm">

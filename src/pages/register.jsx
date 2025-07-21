@@ -30,7 +30,7 @@ export default function Register() {
             <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
 
                 <div className="flex justify-center mb-6">
-                    <img src={logo} alt="SchoolChat logo" className="h-16 w-auto"/>
+                    <img src={logo} alt="SchoolChat logo" className="h-32 w-auto"/>
                 </div>
                <h2 className="text-xl font-bold text-center text-gray-800 mb-6">Create free account</h2>
               {error && (
