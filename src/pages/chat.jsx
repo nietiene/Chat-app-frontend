@@ -27,40 +27,24 @@ export default function Chat() {
     // const [unreadMessages, setUnreadMessages] = useState(null);
 
     //count unread messages
-      useEffect(() => {
+   useEffect(() => {
+    const fetchUnreadCountsForMessages = async () => {
+        try {
+            const unreadRes = await api.get(`/api/messages/unread`);
+            
+            const countsMap = {};
+            for (let item of unreadRes.data) {
+                const user = allUsers.find(u => u.user_id === item.sender_id);
+                if (user) countsMap[user.name] = item.unread_count;
+            }
+            setUnreadCount(countsMap);
+        } catch (error) {
+            console.error('Error fetching unread counts', error);
+        }
+    };
 
-            const fetchUnreadCountsForMessages = async () => {
-
-                try {
-                      //fetchUnreadMessages
-                    const unreadRes = await api.get(`/api/messages/unread`);
-                   console.log("Unread API Response:", unreadRes.data); // Debug log
-
-                    const countsMap = {};
-                    for (let item of unreadRes.data) {
-                        const user = allUsers.find(u => u.user_id === item.sender_id);
-
-                        if (user) {
-                             countsMap[user.name] = item.unread_count;
-                        }
-                    }
-                    setUnreadCount(unreadCount);
-
-                } catch (error) {
-                    console.error('Error fetching unread counts', error);
-                }
-            };
-
-              fetchUnreadCountsForMessages(); // fetch immediately
-
-            //  const interval = setInterval(() => {
-            //     fetchUnreadCountsForMessages(); // fetch unread counts every seconds
-            //  }, 3000);
-
-            // return () => clearInterval(interval) // cleanup interval
-
-        }, [userId, allUsers]);
-        
+    if (userId && allUsers.length) fetchUnreadCountsForMessages();
+}, [userId, allUsers]);
 
     //mark message as readed one 
      useEffect(() => {
