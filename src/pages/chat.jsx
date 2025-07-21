@@ -31,11 +31,11 @@ export default function Chat() {
 
             const fetchUnreadCountsForMessages = async () => {
 
-                if (!unreadCount) return;
                 try {
                       //fetchUnreadMessages
                     const unreadRes = await api.get(`/api/messages/unread`);
-  
+                   console.log("Unread API Response:", unreadRes.data); // Debug log
+
                     const countsMap = {};
                     for (let item of unreadRes.data) {
                         const user = allUsers.find(u => u.user_id === item.sender_id);
