@@ -145,18 +145,24 @@ export default function Layout () {
     return (
           <div className="min-h-screen flex flex-col">
                <nav className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center bg-blue-700 text-white px-6 py-3 shadow">
+        
                 <div className="flex gap-6 items-center">
+                    <Link to="/dashboard" className="flex items-center gap-2">
+                       <span className="text-lg font-bold tracking-wide text-white hidden sm:inline">School Chat</span>
+                    </Link>
+                    
+                    <div className="flex items-center gap-8">
                     <Link className="flex items-center gap-1 hover:underline" to="/dashboard">
                          <FaHome/> Home
                     </Link>
-                 <Link className="relative flex items-center gap-1 hover:underline" to="/chat">
+                   <Link className="relative flex items-center gap-1 hover:underline" to="/chat">
                     <FaEnvelope /> Messages
                     {unreadMessages > 0 && (
                           <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
                                    {unreadMessages}
                            </span>
-                    )}
-                </Link>
+                     )}
+                   </Link>
 
                     <Link className="relative flex items-center gap-1 hover:underline" to="/notifications">
                         <FaBell/> Notification
@@ -167,6 +173,8 @@ export default function Layout () {
                         )}
                     </Link>
                 </div>
+        </div>
+
                 
                 <button className="relative group bg-white text-blue-500 p-1 rounded-full
                                   font-semibold flex items-center justify-center hover:ring-2 hover:ring-blue-400 transition-all duration-200"
