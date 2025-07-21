@@ -58,6 +58,8 @@ export default function Chat() {
             //  }, 3000);
 
             // return () => clearInterval(interval) // cleanup interval
+            console.log('Marking messages from', selectedUser, 'to', myName);
+
         }, [userId, allUsers]);
         
 
