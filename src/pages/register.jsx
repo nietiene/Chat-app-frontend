@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
 
 
+// I'll implement real phone authentication later by using twillio, firebase phone auth,  libraries..
 export default function Register() {
     const [form, setForm] = useState({name: '', phone: '', password: ''});
     const [error, setError] = useState('');
@@ -63,8 +64,10 @@ export default function Register() {
 
                 /> <br />   
 
-                <button type="submit">Create Account</button>  <br />      
-                <Link to="/">Back to main login</Link>      
+                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300">
+                    Create Account
+                </button>  <br />      
+                <Link to="/" className="font-normal text-blue-500 hover:underline">Back to main login</Link>      
             </form>
             </div>
 
