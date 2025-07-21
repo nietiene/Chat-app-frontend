@@ -22,7 +22,7 @@ export default function Login() {
 
 
     return (
-        <div>
+        <div className="min-h-screen flex items-center justify-center">
             <h2>Login</h2>
             {error && <p>{error}</p>}
             
