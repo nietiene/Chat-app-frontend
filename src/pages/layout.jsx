@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function Layout () {
 
+    // .filter() creates new array that contains only element that pass through the test or meet with specified condition
         const [showUserMenu, setShowUserMenu] = useState(false);
         const [profileImage, setProfileImage] = useState(null);
         const [selectedFile, setSelectedFile] = useState(null);
@@ -69,6 +70,7 @@ export default function Layout () {
                       //fetchUnreadMessages
                     const unreadRes = await api.get(`/api/messages/unread`);
 
+                    // here loops through each message and sums up their unread_count values starting from 0
                     const totalUnreadMessages = unreadRes.data.reduce((sum, msg) => sum + msg.unread_count, 0);
                     setUnreadMessages(totalUnreadMessages);
                     
@@ -106,7 +108,9 @@ export default function Layout () {
                  return;
             };
 
+            // create formData to be used to send files and other data over http requests
             const formData = new FormData();
+            // adds selected file to the formData with their key profile_image
             formData.append("profile_image", selectedFile);
 
             try {
