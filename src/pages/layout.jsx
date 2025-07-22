@@ -8,7 +8,7 @@ export default function Layout () {
         const [showUserMenu, setShowUserMenu] = useState(false);
         const [profileImage, setProfileImage] = useState(null);
         const [selectedFile, setSelectedFile] = useState(null);
-    
+
         //handling badges
         const [unreadMessages, setUnreadMessages] = useState(0);
         const [unreadNotifications, setUnreadNotifications] = useState(0);
@@ -87,8 +87,12 @@ export default function Layout () {
         }, [user]);
         
 
+
+        // function that takes an event object like input
         const handleFileChange = (e) => {
+            // checks if event has file or if file is selected
             if (e.target.files && e.target.files[0]) {
+                //created a temporary local URL for selected file to preview image immediately
                 setProfileImage(URL.createObjectURL(e.target.files[0]));
                 setSelectedFile(e.target.files[0]);
             }

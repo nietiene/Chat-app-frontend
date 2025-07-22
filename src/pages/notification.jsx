@@ -20,9 +20,12 @@ export default function Notification () {
     }, []);
 
     useEffect(() => {
+        // when new notification arrives update notification by adding new notification
         socket.on('notification', (notif) => {
             setNotifications(prev => [notif, ...prev]);
         });
+
+        // clean up function to avoid memory leaks
 
         return () => {
             socket.off('notification');
@@ -35,6 +38,7 @@ export default function Notification () {
         try {
 
             // Mark as read first
+            // handle notification updated as readed when clicked
             setNotifications(prev => prev.map(n =>
                 n.id === notification.id ? { ...n, is_read: 1 } : n
             ));
