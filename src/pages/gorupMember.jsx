@@ -71,7 +71,10 @@ export default function GroupMember() {
          const userResponse = await api.get('/api/users');
          const allUsers = userResponse.data;
       
+         // here we want to select only non members of the group
          const nonMembers = allUsers.filter(
+          // .filter() creates a new object that meet with the spcecific condition
+          //.some() checks if element in array matches with condition if it finds one it return true
            user => !currentMembers.some(member =>
               member.user_id === user.user_id ||
               member.phone === user.phone)
@@ -85,8 +88,11 @@ export default function GroupMember() {
 
   const handleCheckBoxChange = (phone) => {
     setSelectedUserIds((prev) =>
+      // prev.includes() checks if phone is already selected
       prev.includes(phone)
+      // if it is selected remove it 
         ? prev.filter((p) => p !== phone)
+        // if not add it
         : [...prev, phone]
     );
   };
@@ -97,8 +103,12 @@ export default function GroupMember() {
     try {
 
       // check if selected user is already a member
+      //map of select phone numbers of current members
       const currentMemberPhones = members.map(m => m.phone);
+
+      // check if selected user already exist in the group
       const duplicates = selectedUserIds.filter(phone =>
+        // .includes() checks if item exists in array
          currentMemberPhones.includes(phone)
       );
 
