@@ -8,7 +8,7 @@ export default function Layout () {
         const [showUserMenu, setShowUserMenu] = useState(false);
         const [profileImage, setProfileImage] = useState(null);
         const [selectedFile, setSelectedFile] = useState(null);
-
+    
         //handling badges
         const [unreadMessages, setUnreadMessages] = useState(0);
         const [unreadNotifications, setUnreadNotifications] = useState(0);

@@ -76,8 +76,7 @@ export default function GroupMember() {
               member.user_id === user.user_id ||
               member.phone === user.phone)
         );
-    console.log("Available members:", currentMembers); // For debugging
-    console.log("Current non-member", nonMembers);
+
       setAvailableUsers(nonMembers);
     } catch (err) {
       console.error("Failed to load users:", err);
@@ -129,7 +128,6 @@ export default function GroupMember() {
 
 
   useEffect(() => {
-    console.log('Group created by', groupInfo?.created_by);
   }, [currentUserId, groupInfo]);
 
   if (loading || !groupInfo) {
