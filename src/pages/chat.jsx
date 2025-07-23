@@ -187,6 +187,7 @@ useEffect(() => {
             const savedGroupMessage = res.data;
             socket.emit('groupMessage', { ...savedGroupMessage });
 
+            // update frontend by adding new message to the chat
             setGroupMessages(prev => [...prev, {
                 ...savedGroupMessage,
                 user_id: 'me',
@@ -239,7 +240,6 @@ useEffect(() => {
         const fetchUsers = async () => {
             try {
                 const res = await api.get('/api/users');
-                console.log('Users info:', res.data);
                 setAllUsers(res.data.filter(u => u.name !== myName));
             } catch (error) {
                 console.error('Failed to fetch users:', error);
@@ -299,7 +299,6 @@ useEffect(() => {
     
 
         const handleUserList = (list) => {
-            console.log('Online users from socket:', list);
             setOnlineUsers(list);
         }
         
