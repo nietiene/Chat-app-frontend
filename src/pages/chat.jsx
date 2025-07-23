@@ -331,8 +331,8 @@ useEffect(() => {
             const tempMessage = {
                 sender_name: myName,
                 content: message,
-                created_at: new Date().toISOString(),
-                m_id: Date.now().toString(),
+                created_at: new Date().toISOString(), // conver the time  to detail
+                m_id: Date.now().toString(), //  convert numbers to the string
                 isOwn: true 
             };
          // add temporary message immeditely
