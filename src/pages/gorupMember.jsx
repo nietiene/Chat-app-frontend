@@ -86,6 +86,7 @@ export default function GroupMember() {
     }
   };
 
+  // this function it adds or remove phone nbr from list when checkbox is clicked
   const handleCheckBoxChange = (phone) => {
     setSelectedUserIds((prev) =>
       // prev.includes() checks if phone is already selected
@@ -138,6 +139,7 @@ export default function GroupMember() {
 
 
   useEffect(() => {
+    
   }, [currentUserId, groupInfo]);
 
   if (loading || !groupInfo) {
