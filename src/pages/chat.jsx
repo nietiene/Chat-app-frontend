@@ -357,8 +357,11 @@ useEffect(() => {
                 timestamp: savedMessage.created_at
             });
 
+            // this code update the message state
             setMessages(prev => prev.map(msg => 
+                // it find specific message by comparing their IDs
                 msg.m_id === tempMessage.m_id ? {
+                    //it replace that message with new one and adding isOwn: true
                     ...savedMessage,
                     isOwn: true
                 } : msg
