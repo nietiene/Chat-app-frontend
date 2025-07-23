@@ -70,6 +70,8 @@ export default function Layout () {
                     const unreadRes = await api.get(`/api/messages/unread`);
 
                     // here loops through each message and sums up their unread_count values starting from 0
+                    // is methood that loops through the array and sums up the values
+                    // it start from zero, msg is each item in the array(each message)
                     const totalUnreadMessages = unreadRes.data.reduce((sum, msg) => sum + msg.unread_count, 0);
                     setUnreadMessages(totalUnreadMessages);
                     
