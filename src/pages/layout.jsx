@@ -72,6 +72,7 @@ export default function Layout () {
                     // here loops through each message and sums up their unread_count values starting from 0
                     // is methood that loops through the array and sums up the values
                     // it start from zero, msg is each item in the array(each message object)
+                    // sum + unread_message it keeps adding unread message to the total like this sum = 0 + 3 + 4, ...
                     const totalUnreadMessages = unreadRes.data.reduce((sum, msg) => sum + msg.unread_count, 0);
                     setUnreadMessages(totalUnreadMessages);
                     
