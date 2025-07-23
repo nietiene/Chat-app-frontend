@@ -272,7 +272,9 @@ useEffect(() => {
             setMessages(prev => {
                 // only add message if from or to is current chat user
              if (from === selectedUser || from === myName) {
+                // get last message to check if you're not getting duplicates
                 const last = prev[prev.length - 1];
+                //
                 if (last?.isOwn && last.content === message) {
                     return prev.map((msg, i) => i === prev.length - 1 ? {
                         ...msg,
