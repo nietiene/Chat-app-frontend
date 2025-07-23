@@ -62,7 +62,6 @@ export default function Layout () {
        // fetch unread counts after user is set
         useEffect(() => {
    
-            console.log("Current user:", user); //  Check this in the browser dev console
             if (!user || !user.id) return;
 
             const fetchUnreadCountsForMessages = async () => {
