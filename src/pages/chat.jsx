@@ -79,6 +79,7 @@ const markMessageAsRead = async () => {
         // Revert UI if API fails
         setUnreadCount(prev => ({
             ...prev,
+            //  if API failed it used default value 1
             [selectedUser]: prev[selectedUser] || 1, // Restore unread count
         }));
     }
