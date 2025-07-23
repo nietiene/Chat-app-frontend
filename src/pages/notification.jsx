@@ -44,6 +44,7 @@ export default function Notification () {
                 n.id === notification.id ? { ...n, is_read: 1 } : n
             ));
 
+            //update in backend that notification was readed
             await api.put(`/api/notifications/${notification.id}/read`, {}, { withCredentials: true });
 
             //Handle different notification type
