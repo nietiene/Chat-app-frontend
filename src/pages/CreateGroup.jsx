@@ -46,6 +46,7 @@ export default function CreateGroup () {
         try {
             await api.post('/api/groups', {
                 name: groupName,
+                // selectedUsers is current members you selected, myName is your name also you're included in the group
                 members: [...selectedUsers, myName]
             });
             navigate('/chat');

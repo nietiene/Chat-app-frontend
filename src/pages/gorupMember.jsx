@@ -198,7 +198,7 @@ export default function GroupMember() {
                     // id is used to create inique ID like user-07888888888
                     id={`user-${user.phone}`}
                     // checked controls if the ckeckbox is checked true/ false
-                    // if 
+                    // if user's phone number is selected if it is truenthen it appear as selected in the screen
                     checked={selectedUserIds.includes(user.phone)}
                     // runs when user clicks on checkbox it call this function
                     onChange={() => handleCheckBoxChange(user.phone)}

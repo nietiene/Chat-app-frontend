@@ -194,11 +194,13 @@ const handleSettingSubmit = async (e) => {
                     "/api/users/change-profile-photo",
                     formData, 
                     {
+                      // this headers telling the server that it is sending files
                         headers: { 'Content-Type': 'multipart/form-data' },
                         withCredentials: true
                     }
                 );
 
+                // update profile image
                 if (response.data.profile_image) {
                     setUser((prev) => ({
                         ...prev,
