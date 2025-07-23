@@ -26,7 +26,6 @@ export default function Notification () {
         });
 
         // clean up function to avoid memory leaks
-
         return () => {
             socket.off('notification');
         }
