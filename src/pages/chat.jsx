@@ -32,6 +32,7 @@ export default function Chat() {
         try {
             const unreadRes = await api.get(`/api/messages/unread`);
             
+            // create empty object to hold key: user's name value: unread_count pair
             const countsMap = {};
             for (let item of unreadRes.data) {
                 const user = allUsers.find(u => u.user_id === item.sender_id);
