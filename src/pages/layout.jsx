@@ -109,7 +109,8 @@ export default function Layout () {
 
             // create formData to be used to send files and other data over http requests
             const formData = new FormData();
-            // adds selected file to the formData with their key profile_image
+            // adds selected file to the formData with their key profile_image(name server uses to identify file)
+            // selectedFile is actual file
             formData.append("profile_image", selectedFile);
 
             try {
