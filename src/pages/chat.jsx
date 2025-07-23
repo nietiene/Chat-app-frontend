@@ -118,10 +118,8 @@ useEffect(() => {
     }, []);
 
     const handleDeleteGroupMessage = async (id) => {
-        if (!id) {
-            console.error('Invalid message ID');
-            return;
-        }
+        if (!id) return;
+        
 
         const confirmDelete = window.confirm('Are you sure you want to delete this message?');
         if (!confirmDelete) return;
