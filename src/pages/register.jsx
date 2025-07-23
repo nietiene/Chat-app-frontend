@@ -6,10 +6,13 @@ import logo from "../assets/logo 1.png"
 
 // I'll implement real phone authentication later by using twillio, firebase phone auth,  libraries..
 export default function Register() {
-    const [form, setForm] = useState({name: '', phone: '', password: ''});
+    const [form, setForm] = useState({ name: '', phone: '', password: '' });
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
+    // e means event like input field 
+    // name: means attribute of input field like, email, text
+    //value: is value of input fieled and and make copy of that values by using spread opeator(...)
     const handleChange = (e) => {
       setForm({...form, [e.target.name]: e.target.value});
     }
