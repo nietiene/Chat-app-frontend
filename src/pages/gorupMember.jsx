@@ -139,7 +139,7 @@ export default function GroupMember() {
 
 
   useEffect(() => {
-    
+
   }, [currentUserId, groupInfo]);
 
   if (loading || !groupInfo) {
@@ -195,8 +195,12 @@ export default function GroupMember() {
                 >
                   <input
                     type="checkbox"
+                    // id is used to create inique ID like user-07888888888
                     id={`user-${user.phone}`}
+                    // checked controls if the ckeckbox is checked true/ false
+                    // if 
                     checked={selectedUserIds.includes(user.phone)}
+                    // runs when user clicks on checkbox it call this function
                     onChange={() => handleCheckBoxChange(user.phone)}
                     className="h-3 w-3 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
                   />
