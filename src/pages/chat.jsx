@@ -316,9 +316,10 @@ useEffect(() => {
         };
     }, [myName, selectedUser]);
 
-    const messagesContainerRef = useRef(null);
+    // ref is used to access the DOM element 
+    const messagesContainerRef = useRef(null); // start ass null until it assigned to JSX 
     useEffect(() => {
-        const container = messagesContainerRef.current;
+        const container = messagesContainerRef.current; // .current gives you direct access to that DOM element
         if (container) {
             container.scrollTop = container.scrollHeight;
         }
