@@ -34,9 +34,12 @@ export default function Chat() {
             
             // create empty object to hold key: user's name value: unread_count pair
             const countsMap = {};
-            
+
+            // loop throught each result in unRead res
             for (let item of unreadRes.data) {
+                // find user which has unread counts
                 const user = allUsers.find(u => u.user_id === item.sender_id);
+                // if exists add them in our object with their unread count
                 if (user) countsMap[user.name] = item.unread_count;
             }
             setUnreadCount(countsMap);
