@@ -383,7 +383,6 @@ useEffect(() => {
         try {
             const res = await api.patch(`/api/groups/${selectedGroup.g_id}/soft-delete`);
             alert('Group deleted successfully');
-           console.log('Delete response:', res.data);
 
             setGroup(prevGroup => prevGroup.filter(g => g.g_id !== selectedGroup.g_id));
 
@@ -412,7 +411,6 @@ function formatTimeStamp(timestamp) {
 useEffect(() => {
     if (selectedGroup?.g_id) {
         socket.emit('joinGroup', selectedGroup.g_id);
-        console.log(`Joined group room: group_${selectedGroup.g_id}`);
     }
 }, [selectedGroup]);
 
