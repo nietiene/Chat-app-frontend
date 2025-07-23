@@ -274,9 +274,12 @@ useEffect(() => {
              if (from === selectedUser || from === myName) {
                 // get last message to check if you're not getting duplicates
                 const last = prev[prev.length - 1];
-                //
+                //?. for avoiding error if last is undefined
+                // here if last message was sent by me and last content was the same 
                 if (last?.isOwn && last.content === message) {
+                    // then dont add a duplicate just update that last message 
                     return prev.map((msg, i) => i === prev.length - 1 ? {
+                        //only update the last message
                         ...msg,
                         created_at: timestamp,
                         isOwn: true,
