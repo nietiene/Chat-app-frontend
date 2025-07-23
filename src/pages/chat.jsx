@@ -67,12 +67,11 @@ const markMessageAsRead = async () => {
         });
 
         // Call the API to update the database
-        const response = await api.patch('/api/messages/mark-read', {
+         await api.patch('/api/messages/mark-read', {
             sender: selectedUser,
             receiver: myName,
         });
 
-        console.log("API Response:", response.data); // Should log { success: true }
 
     } catch (err) {
         console.error("Failed to mark messages as read:", err);
