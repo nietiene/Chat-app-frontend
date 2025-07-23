@@ -321,7 +321,7 @@ useEffect(() => {
     useEffect(() => {
         const container = messagesContainerRef.current; // .current gives you direct access to that DOM element
         if (container) {
-            container.scrollTop = container.scrollHeight;
+            container.scrollTop = container.scrollHeight; // here if container is not null or assigned to JSX elent it automatically scroll to the bottom
         }
     }, [messages, groupMessages]);
 
