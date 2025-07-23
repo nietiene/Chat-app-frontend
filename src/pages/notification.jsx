@@ -21,7 +21,9 @@ export default function Notification () {
 
     useEffect(() => {
         // when new notification arrives update notification by adding new notification
+        // notic callback gives notification data
         socket.on('notification', (notif) => {
+            // it takes notification data and adding to notification list
             setNotifications(prev => [notif, ...prev]);
         });
 
